@@ -2,7 +2,6 @@
 title: Home
 layout: home
 nav_order: 0
-nav_exclude: true
 ---
 
-<meta http-equiv="refresh" content="0; url=/inspiration/" />
+This page is currently empty. Navigate to another navigation entry to view the documentation.
