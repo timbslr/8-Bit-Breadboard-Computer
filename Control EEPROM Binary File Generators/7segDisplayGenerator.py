@@ -27,7 +27,7 @@ hex_digits = bytearray([
 # Address inputs for the EEPROM:
 # 10 9 8 7 6 5 4 3 2 1 0
 #  M D D b b b b b b b b 
-#       msb           lsb
+# msb                 lsb
 # M = Mode (0 = signed, 1 = hexadecimal)
 # D = Digit (00 = first, 01 = second, 10 = third, 11 = fourth)
 # b = Binary data from the bus (-128 to 127)
