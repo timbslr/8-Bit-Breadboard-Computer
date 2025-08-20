@@ -76,7 +76,7 @@ All ALU-operations are performed on the A-register (and the TMP-register if it's
 | ?      | jmp      | jmp \<addr>                   | Jumps to the 16-Bit address a.                                                   |
 | ?      | jal      | jal \<reg>, \<addr>           | Jumps to the 16-Bit address and stores the previous PC into the given register   |
 | ?      | beq      | beq \<reg1>, \<reg2>, \<addr> | Branches to the given address if the values in the given registers are equal     |
-| ?      | bne      | bne \<reg2>, \<reg2>, \<addr> | Branches to the given address if the values in the given registers not are equal |
+| ?      | bne      | bne \<reg1>, \<reg2>, \<addr> | Branches to the given address if the values in the given registers not are equal |
 | ?      | bcr      | bcr \<addr>                   | Branches to the given address if the carry flag is set                           |
 | ?      | bzr      | bzr \<addr>                   | Branches to the given address if the zero flag is set                            |
 
@@ -87,14 +87,14 @@ Here is a list of all pseudo-instructions that were mentioned in the tables abov
 
 | OpCode | mnemonic | Mapped Instruction                                                                            |
 | :----- | :------- | :-------------------------------------------------------------------------------------------- |
-| ?      | addi     | li TMP, \<imm> \<br> add \<reg>                                                               |
-| ?      | subi     | li TMP, \<imm> \<br> sub \<reg>                                                               |
-| ?      | rorn     | executes 'ror \<reg>' n times                                                                 |
-| ?      | rol      | executes 'ror \<reg>' (8-n) times                                                             |
-| ?      | roln     | executes 'rol \<reg>' n times                                                                 |
-| ?      | andi     | li TMP, \<imm> \<br> and \<reg>                                                               |
-| ?      | ori      | li TMP, \<imm> \<br> or \<reg>                                                                |
-| ?      | xori     | li TMP, \<imm> \<br> xor \<reg>                                                               |
+| ?      | addi     | li TMP, \<imm> <br> add \<reg>                                                                |
+| ?      | subi     | li TMP, \<imm> <br> sub \<reg>                                                                |
+| ?      | rorn     | executes "ror \<reg>" n times                                                                 |
+| ?      | rol      | executes "ror \<reg>" (8-n) times                                                             |
+| ?      | roln     | executes "rol \<reg>" n times                                                                 |
+| ?      | andi     | li TMP, \<imm> <br> and \<reg>                                                                |
+| ?      | ori      | li TMP, \<imm> <br> or \<reg>                                                                 |
+| ?      | xori     | li TMP, \<imm> <br> xor \<reg>                                                                |
 | ?      | clr      | li \<reg>, 0                                                                                  |
 | ?      | push     | TODO, 8-bit ALU has to make two steps in order to decrement the 16 bit stack-pointer register |
 | ?      | pop      | TODO, 8-bit ALU has to make two steps in order to increment the 16 bit stack-pointer register |
