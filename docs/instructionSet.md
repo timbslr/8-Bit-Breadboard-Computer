@@ -15,13 +15,29 @@ Mnemonics with an asterisk are pseudo-instructions, their mapped instructions ca
 
 ## ALU instructions
 
-| OpCode | mnemonic | Instruction         | Description                                                                                  |
-| :----- | :------- | :------------------ | :------------------------------------------------------------------------------------------- |
-| ?      | add      | add \<reg>          | Adds the value of the A-register and the TMP-register and stores it in another register      |
-| ?      | sub      | add \<reg>          | Subtracts the value of the A-register and the TMP-register and stores it in another register |
-| ?      | \*addi   | addi \<reg>, \<imm> | Adds the value in the A-register and the immediate and stores it in another register         |
-| ?      | \*subi   | subi \<reg>, \<imm> | Subtracts the immediate from the value in the A-register and stores it in another register   |
-| ?      | cmp      | cmp \<reg>, \<reg>  | Compares the two registers and sets the flag. It does not store the result.                  |
+All ALU-operations are performed on the A-register (and the TMP-register if it's a binary operation). In this section, \<reg> always refers to the register the result is stored in, and the TMP-register is abbreviated with 'T'
+
+| OpCode | mnemonic | Instruction         | Description                                                                |
+| :----- | :------- | :------------------ | :------------------------------------------------------------------------- |
+| ?      | add      | add \<reg>          | \<reg> = A + T                                                             |
+| ?      | sub      | sub \<reg>          | \<reg> = A - T                                                             |
+| ?      | \*addi   | addi \<reg>, \<imm> | \<reg> = A + \<imm>                                                        |
+| ?      | \*subi   | subi \<reg>, \<imm> | \<reg> = A - \<imm>                                                        |
+| ?      | cmp      | cmp \<reg>, \<reg>  | Sets the zero flag: 1 if register values are the same, false otherwise     |
+| ?      | and      | and \<reg>          | \<reg> = A & T                                                             |
+| ?      | or       | or \<reg>           | \<reg> = A \| T                                                            |
+| ?      | xor      | xor \<reg>          | \<reg> = A ^ T                                                             |
+| ?      | not      | not \<reg>          | \<reg> = ~A                                                                |
+| ?      | shl      | shl \<reg>          | Shifts the value of the A-register one bit to the left                     |
+| ?      | slr      | slr \<reg>          | Shifts the value of the A-register one bit to the right (logic shift)      |
+| ?      | sar      | sar \<reg>          | Shifts the value of the A-register one bit to the right (arithmetic shift) |
+| ?      | ror      | ror \<reg>          | Rotates the value of the A-register one bit to the right                   |
+| ?      | \*rorn   | rorn \<reg>, \<n>   | Rotates the value of the A-register \<n> bits to the right                 |
+| ?      | \*rol    | rol \<reg>          | Rotates the value of the A-register one bit to the left                    |
+| ?      | \*roln   | roln \<reg>, \<n>   | Rotates the value of the A-register \<n> bits to the left                  |
+| ?      | \*andi   | andi \<reg>, \<imm> | \<reg> = A & \<imm>                                                        |
+| ?      | \*ori    | ori \<reg>, \<imm>  | \<reg> = A \| \<imm>                                                       |
+| ?      | \*xori   | xor \<reg>, \<imm>  | \<reg> = A ^ \<imm>                                                        |
 
 ## Register, load & store Instructions
 
@@ -71,8 +87,16 @@ Here is a list of all pseudo-instructions that were mentioned in the tables abov
 
 | OpCode | mnemonic | Mapped Instruction                                                                            |
 | :----- | :------- | :-------------------------------------------------------------------------------------------- |
-| ?      | clr      | li \<reg>, 0                                                                                  |
 | ?      | addi     | li TMP, \<imm> \<br> add \<reg>                                                               |
-| ?      | subi     | li TMP \<br>, \<imm> sub \<reg>                                                               |
+| ?      | subi     | li TMP, \<imm> \<br> sub \<reg>                                                               |
+| ?      | rorn     | executes 'ror \<reg>' n times                                                                 |
+| ?      | rol      | executes 'ror \<reg>' (8-n) times                                                             |
+| ?      | roln     | executes 'rol \<reg>' n times                                                                 |
+| ?      | andi     | li TMP, \<imm> \<br> and \<reg>                                                               |
+| ?      | ori      | li TMP, \<imm> \<br> or \<reg>                                                                |
+| ?      | xori     | li TMP, \<imm> \<br> xor \<reg>                                                               |
+| ?      | clr      | li \<reg>, 0                                                                                  |
 | ?      | push     | TODO, 8-bit ALU has to make two steps in order to decrement the 16 bit stack-pointer register |
 | ?      | pop      | TODO, 8-bit ALU has to make two steps in order to increment the 16 bit stack-pointer register |
+| ?      | inc      | addi \<reg>, 1                                                                                |
+| ?      | dec      | subi \<reg>, 1                                                                                |
