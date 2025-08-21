@@ -61,6 +61,8 @@ def compute_value(mode, digit, num):
 
   else:   #hex
     index = [0, 0, num >> 4, num & 0x0F][digit]
+    if index == 0 and digit != 0b11:
+      return 0b00000000
     return hex_digits[index]
 
 if __name__ == "__main__":
