@@ -68,6 +68,7 @@ All ALU-operations are performed on the A-register (and the TMP-register if it's
 | ?      | hlt      | hlt          | Halts the entire computer. This instruction is called in the end of a program. |
 | ?      | rst      | rst          | Resets the computer by enabling the reset bit                                  |
 | ?      | call     | call \<addr> | Calls the function placed on the given address                                 |
+| ?      | ret      | ret          | Returns from a function call                                                   |
 
 ## Branch- and Jump Instructions
 
