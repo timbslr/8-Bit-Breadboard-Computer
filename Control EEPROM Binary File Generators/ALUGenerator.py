@@ -18,13 +18,13 @@ def main():
 
       match ALU_BW_op:
         case 0b000:  # AND
-            result = high_nibble & low_nibble
+            result = (high_nibble & low_nibble) << 4
         case 0b001:  # OR
-            result = high_nibble | low_nibble
+            result = (high_nibble | low_nibble) << 4
         case 0b010:  # XOR
-            result = high_nibble ^ low_nibble
+            result = (high_nibble ^ low_nibble) << 4
         case 0b011:  # NOT
-            result = ~twos_complement
+            result = (~high_nibble) << 4
         case 0b100:  # SHL
             result = twos_complement << 1
         case 0b101:  # SLR
@@ -36,7 +36,11 @@ def main():
             lsb = twos_complement & 0b00000001
             result = (twos_complement >> 1) | (lsb << 7)
 
+      result &= 0xFF
       bin_data[address] = result
 
   with open("../bin/ALUControllerEEPROM.bin", "wb") as f:
     f.write(bin_data)
+
+if __name__ == "__main__":
+    main()
