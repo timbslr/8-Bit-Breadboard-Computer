@@ -61,6 +61,7 @@ All ALU-operations are performed on the A-register (and the TMP-register as a se
 | :----- | :------- | :------------------- | :---------------------------- |
 | ?      | \*clr    | clr \<reg>           | \<reg> = 0                    |
 | ?      | mov      | mov \<regd>, \<regs> | \<regd> = \<regs>             |
+| ?      | movf     | movf \<reg>          | \<reg> = Flag Register        |
 | ?      | ld       | ld \<reg>, \<addr>   | \<reg> = mem[\<addr>]         |
 | ?      | st       | st \<reg>, \<addr>   | mem[\<addr>] = \<reg>         |
 | ?      | ldsp     | ldsp \<reg>          | \<reg> = mem[SP]              |
