@@ -75,7 +75,6 @@ All ALU-operations are performed on the A-register (and the TMP-register if it's
 | OpCode | mnemonic | Instruction                   | Description                                                                      |
 | :----- | :------- | :---------------------------- | :------------------------------------------------------------------------------- |
 | ?      | jmp      | jmp \<addr>                   | Jumps to the 16-Bit address a.                                                   |
-| ?      | jal      | jal \<reg>, \<addr>           | Jumps to the 16-Bit address and stores the previous PC into the given register   |
 | ?      | beq      | beq \<reg1>, \<reg2>, \<addr> | Branches to the given address if the values in the given registers are equal     |
 | ?      | bne      | bne \<reg1>, \<reg2>, \<addr> | Branches to the given address if the values in the given registers not are equal |
 | ?      | bcr      | bcr \<addr>                   | Branches to the given address if the carry flag is set                           |
