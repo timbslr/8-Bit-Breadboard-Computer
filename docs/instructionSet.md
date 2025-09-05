@@ -17,41 +17,41 @@ Mnemonics with an asterisk are pseudo-instructions, their mapped instructions ca
 
 All ALU-operations are performed on the A-register (and the TMP-register if it's a binary operation). In this section, \<reg> always refers to the register the result is stored in, and the TMP-register is abbreviated with 'T'
 
-| OpCode | mnemonic | Instruction         | Description                                                                |
-| :----- | :------- | :------------------ | :------------------------------------------------------------------------- |
-| ?      | add      | add \<reg>          | \<reg> = A + T                                                             |
-| ?      | sub      | sub \<reg>          | \<reg> = A - T                                                             |
-| ?      | \*addi   | addi \<reg>, \<imm> | \<reg> = A + \<imm>                                                        |
-| ?      | \*subi   | subi \<reg>, \<imm> | \<reg> = A - \<imm>                                                        |
-| ?      | cmp      | cmp \<reg>, \<reg>  | Sets the zero flag: 1 if register values are the same, false otherwise     |
-| ?      | and      | and \<reg>          | \<reg> = A & T                                                             |
-| ?      | or       | or \<reg>           | \<reg> = A \| T                                                            |
-| ?      | xor      | xor \<reg>          | \<reg> = A ^ T                                                             |
-| ?      | not      | not \<reg>          | \<reg> = ~A                                                                |
-| ?      | shl      | shl \<reg>          | Shifts the value of the A-register one bit to the left                     |
-| ?      | slr      | slr \<reg>          | Shifts the value of the A-register one bit to the right (logic shift)      |
-| ?      | sar      | sar \<reg>          | Shifts the value of the A-register one bit to the right (arithmetic shift) |
-| ?      | ror      | ror \<reg>          | Rotates the value of the A-register one bit to the right                   |
-| ?      | \*rorn   | rorn \<reg>, \<n>   | Rotates the value of the A-register \<n> bits to the right                 |
-| ?      | \*rol    | rol \<reg>          | Rotates the value of the A-register one bit to the left                    |
-| ?      | \*roln   | roln \<reg>, \<n>   | Rotates the value of the A-register \<n> bits to the left                  |
-| ?      | \*andi   | andi \<reg>, \<imm> | \<reg> = A & \<imm>                                                        |
-| ?      | \*ori    | ori \<reg>, \<imm>  | \<reg> = A \| \<imm>                                                       |
-| ?      | \*xori   | xor \<reg>, \<imm>  | \<reg> = A ^ \<imm>                                                        |
+| OpCode | mnemonic | Instruction          | Description                              |
+| :----- | :------- | :------------------- | :--------------------------------------- |
+| ?      | add      | add \<reg>           | \<reg> = A + T                           |
+| ?      | sub      | sub \<reg>           | \<reg> = A - T                           |
+| ?      | \*addi   | addi \<reg>, \<imm>  | \<reg> = A + \<imm>                      |
+| ?      | \*subi   | subi \<reg>, \<imm>  | \<reg> = A - \<imm>                      |
+| ?      | cmp      | cmp \<reg1>, \<reg2> | Zero Flag = (\<reg1> == \<reg2>) ? 1 : 0 |
+| ?      | and      | and \<reg>           | \<reg> = A & T                           |
+| ?      | or       | or \<reg>            | \<reg> = A \| T                          |
+| ?      | xor      | xor \<reg>           | \<reg> = A ^ T                           |
+| ?      | not      | not \<reg>           | \<reg> = ~A                              |
+| ?      | shl      | shl \<reg>           | \<reg> = A \<< 1                         |
+| ?      | slr      | slr \<reg>           | \<reg> = A \>> 1                         |
+| ?      | sar      | sar \<reg>           | \<reg> = A \>> 1 (sign-extended)         |
+| ?      | ror      | ror \<reg>           | Rotate right by one bit                  |
+| ?      | \*rorn   | rorn \<reg>, \<n>    | Rotate right by \<n> bits                |
+| ?      | \*rol    | rol \<reg>           | Rotate left by one bit                   |
+| ?      | \*roln   | roln \<reg>, \<n>    | Rotate left by \<n> bits                 |
+| ?      | \*andi   | andi \<reg>, \<imm>  | \<reg> = A & \<imm>                      |
+| ?      | \*ori    | ori \<reg>, \<imm>   | \<reg> = A \| \<imm>                     |
+| ?      | \*xori   | xor \<reg>, \<imm>   | \<reg> = A ^ \<imm>                      |
 
 ## Register, load & store Instructions
 
-| OpCode | mnemonic | Instruction          | Description                                                                       |
-| :----- | :------- | :------------------- | :-------------------------------------------------------------------------------- |
-| ?      | \*clr    | clr \<reg>           | Clears a given register by setting its value to zero                              |
-| ?      | mov      | mov \<regd>, \<regs> | Moves a value from register regs to register regd                                 |
-| ?      | ld       | ld \<reg>, \<addr>   | Loads the value from the given memory-address and stores it in the given register |
-| ?      | st       | st \<reg>, \<addr>   | Stores the value from the given register into memory at the given memory-address  |
-| ?      | li       | li \<reg>, \<imm>    | Stores the given immediate in the given register                                  |
-| ?      | \*push   | push \<reg>          | Pushes the value in a given register onto the stack                               |
-| ?      | \*pop    | pop \<reg>           | Pops a value from the stack and stores it in the given register                   |
-| ?      | \*inc    | inc \<reg>           | Increments the value in the given register by one                                 |
-| ?      | \*dec    | dec \<reg>           | Decrements the value in the given register by one                                 |
+| OpCode | mnemonic | Instruction          | Description                   |
+| :----- | :------- | :------------------- | :---------------------------- |
+| ?      | \*clr    | clr \<reg>           | \<reg> = 0                    |
+| ?      | mov      | mov \<regd>, \<regs> | \<regd> = \<regs>             |
+| ?      | ld       | ld \<reg>, \<addr>   | \<reg> = mem[\<addr>]         |
+| ?      | st       | st \<reg>, \<addr>   | mem[\<addr>] = \<reg>         |
+| ?      | li       | li \<reg>, \<imm>    | \<reg> = \<imm>               |
+| ?      | \*push   | push \<reg>          | SP = SP - 1, mem[SP] = \<reg> |
+| ?      | \*pop    | pop \<reg>           | \<reg> = mem[SP], SP = SP + 1 |
+| ?      | \*inc    | inc \<reg>           | \<reg> = \<reg> + 1           |
+| ?      | \*dec    | dec \<reg>           | \<reg> = \<reg> - 1           |
 
 ## I/O Instructions
 
@@ -74,7 +74,7 @@ All ALU-operations are performed on the A-register (and the TMP-register if it's
 
 | OpCode | mnemonic | Instruction                   | Description                                                                      |
 | :----- | :------- | :---------------------------- | :------------------------------------------------------------------------------- |
-| ?      | jmp      | jmp \<addr>                   | Jumps to the 16-Bit address a.                                                   |
+| ?      | jmp      | jmp \<addr>                   | PC = \<addr>                                                                     |
 | ?      | beq      | beq \<reg1>, \<reg2>, \<addr> | Branches to the given address if the values in the given registers are equal     |
 | ?      | bne      | bne \<reg1>, \<reg2>, \<addr> | Branches to the given address if the values in the given registers not are equal |
 | ?      | bcr      | bcr \<addr>                   | Branches to the given address if the carry flag is set                           |
