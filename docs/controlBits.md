@@ -33,13 +33,13 @@ Each module (registers, ALU, memory, ...) has multiple input bits that control t
 | <span style="text-decoration: overline;"> OE_B </span> | Output Enable B | a          | Enables outputting data from the B-register to the bus |
 | RST_B                                                  | Reset B         | a          | Resets the B-register to zero                          |
 
-## C-Register
+## X-Register
 
 | Abbreviation                                           | Name            | Sync/Async | Description                                            |
 | :----------------------------------------------------- | :-------------- | :--------- | :----------------------------------------------------- |
-| <span style="text-decoration: overline;"> IE_C </span> | Input Enable C  | s          | Enables loading data from the bus to the C-register    |
-| <span style="text-decoration: overline;"> OE_C </span> | Output Enable C | a          | Enables outputting data from the C-register to the bus |
-| RST_C                                                  | Reset C         | a          | Resets the C-register to zero                          |
+| <span style="text-decoration: overline;"> IE_X </span> | Input Enable X  | s          | Enables loading data from the bus to the X-register    |
+| <span style="text-decoration: overline;"> OE_X </span> | Output Enable X | a          | Enables outputting data from the X-register to the bus |
+| RST_X                                                  | Reset X         | a          | Resets the X-register to zero                          |
 
 ## TMP-Register
 

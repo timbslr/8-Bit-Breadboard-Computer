@@ -13,7 +13,7 @@ The opcodes are not set yet and will be added later.
 {: .note }
 A = A-Register<br>
 B = B-Register<br>
-C = C-Register<br>
+X = X-Register<br>
 TMP = TMP-Register<br>
 SP = Stack-Pointer<br>
 SP_L = SP_L-Register<br>
@@ -25,7 +25,7 @@ VF = Overflow flag<br>
 
 {: .note }
 Mnemonics with an asterisk are pseudo-instructions, their mapped instructions can be seen [here](#pseudo-instructions). <br>
-A \<reg> argument means that you can input the A-, B-, C- or TMP-register there. Other registers are not allowed in this case and may have separate instructions.
+A \<reg> argument means that you can input the A-, B-, X- or TMP-register there. Other registers are not allowed in this case and may have separate instructions.
 
 ## ALU instructions
 
@@ -65,9 +65,9 @@ All ALU-operations are performed on the A-register (and the TMP-register as a se
 | ?      | mov      | mov \<regd>, \<regs> | \<regd> = \<regs>               |
 | ?      | movf     | movf \<reg>          | \<reg> = Flag Register          |
 | ?      | ld       | ld \<reg>, \<addr>   | \<reg> = mem[\<addr>]           |
-| ?      | ldo      | ldo \<reg>, \<addr>  | \<reg> = mem[\<addr> + C]       |
+| ?      | ldo      | ldo \<reg>, \<addr>  | \<reg> = mem[\<addr> + X]       |
 | ?      | st       | st \<reg>, \<addr>   | mem[\<addr>] = \<reg>           |
-| ?      | sto      | sto \<regs>, \<addr> | mem[\<addr> + C] = \<reg>       |
+| ?      | sto      | sto \<regs>, \<addr> | mem[\<addr> + X] = \<reg>       |
 | ?      | ldsp     | ldsp \<reg>          | \<reg> = mem[SP]                |
 | ?      | stsp     | stsp \<reg>          | mem[SP] = \<reg>                |
 | ?      | li       | li \<reg>, \<imm>    | \<reg> = \<imm>                 |
