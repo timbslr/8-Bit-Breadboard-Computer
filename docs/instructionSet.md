@@ -59,27 +59,29 @@ All ALU-operations are performed on the A-register (and the TMP-register as a se
 
 ## Register, load & store Instructions
 
-| OpCode | mnemonic | Instruction          | Description                     |
-| :----- | :------- | :------------------- | :------------------------------ |
-| ?      | \*clr    | clr \<reg>           | \<reg> = 0                      |
-| ?      | mov      | mov \<regd>, \<regs> | \<regd> = \<regs>               |
-| ?      | movf     | movf \<reg>          | \<reg> = Flag Register          |
-| ?      | ld       | ld \<reg>, \<addr>   | \<reg> = mem[\<addr>]           |
-| ?      | ldo      | ldo \<reg>, \<addr>  | \<reg> = mem[\<addr> + X]       |
-| ?      | st       | st \<reg>, \<addr>   | mem[\<addr>] = \<reg>           |
-| ?      | sto      | sto \<regs>, \<addr> | mem[\<addr> + X] = \<reg>       |
-| ?      | ldsp     | ldsp \<reg>          | \<reg> = mem[SP]                |
-| ?      | stsp     | stsp \<reg>          | mem[SP] = \<reg>                |
-| ?      | li       | li \<reg>, \<imm>    | \<reg> = \<imm>                 |
-| ?      | \*push   | push \<reg>          | SP = SP - 1, mem[SP] = \<reg>   |
-| ?      | \*pop    | pop \<reg>           | \<reg> = mem[SP], SP = SP + 1   |
-| ?      | \*peek   | peek \<reg>          | \<reg> = mem[SP]                |
-| ?      | inc      | inc \<reg>           | \<reg> = \<reg> + 1             |
-| ?      | \*incsp  | incsp                | SP = SP + 1                     |
-| ?      | incm     | incm \<addr>         | mem[\<addr>] = mem[\<addr>] + 1 |
-| ?      | dec      | dec \<reg>           | \<reg> = \<reg> - 1             |
-| ?      | \*decsp  | decsp                | SP = SP - 1                     |
-| ?      | decm     | decm \<addr>         | mem[\<addr>] = mem[\<addr>] - 1 |
+| OpCode | mnemonic | Instruction          | Description                             |
+| :----- | :------- | :------------------- | :-------------------------------------- |
+| ?      | \*clr    | clr \<reg>           | \<reg> = 0                              |
+| ?      | mov      | mov \<regd>, \<regs> | \<regd> = \<regs>                       |
+| ?      | movf     | movf \<reg>          | \<reg> = Flag Register                  |
+| ?      | ld       | ld \<reg>, \<addr>   | \<reg> = mem[\<addr>]                   |
+| ?      | ldo      | ldo \<reg>, \<addr>  | \<reg> = mem[\<addr> + X]               |
+| ?      | st       | st \<reg>, \<addr>   | mem[\<addr>] = \<reg>                   |
+| ?      | sto      | sto \<regs>, \<addr> | mem[\<addr> + X] = \<reg>               |
+| ?      | ldsp     | ldsp \<reg>          | \<reg> = mem[SP]                        |
+| ?      | stsp     | stsp \<reg>          | mem[SP] = \<reg>                        |
+| ?      | li       | li \<reg>, \<imm>    | \<reg> = \<imm>                         |
+| ?      | \*push   | push \<reg>          | SP = SP - 1, mem[SP] = \<reg>           |
+| ?      | \*pop    | pop \<reg>           | \<reg> = mem[SP], SP = SP + 1           |
+| ?      | \*peek   | peek \<reg>          | \<reg> = mem[SP]                        |
+| ?      | incx     | incx                 | X= X + 1                                |
+| ?      | \*incsp  | incsp                | SP = SP + 1                             |
+| ?      | incm     | incm \<addr>         | mem[\<addr>] = mem[\<addr>] + 1         |
+| ?      | incmo    | incmo \<addr>        | mem[\<addr> + X] = mem[\<addr> + X] + 1 |
+| ?      | decx     | decx                 | X = X - 1                               |
+| ?      | \*decsp  | decsp                | SP = SP - 1                             |
+| ?      | decm     | decm \<addr>         | mem[\<addr>] = mem[\<addr>] - 1         |
+| ?      | decmo    | decmo \<addr>        | mem[\<addr> + X] = mem[\<addr> + X] - 1 |
 
 ## I/O Instructions
 
@@ -102,23 +104,23 @@ All ALU-operations are performed on the A-register (and the TMP-register as a se
 
 The given \<addr> is the absolute address to which the computer jumps or branches to.
 
-| OpCode | mnemonic | Instruction          | Description             |
-| :----- | :------- | :------------------- | :---------------------- |
-| ?      | jmp      | jmp \<addr>          | PC = \<addr>            |
-| ?      | beq      | beq \<addr>          | branch if A == TMP      |
-| ?      | beqi     | beqi \<addr>         | branch if A == \<imm>   |
-| ?      | bne      | bne \<addr>          | branch if A != TMP      |
-| ?      | bnei     | bnei \<imm>, \<addr> | branch if A != \<imm>   |
-| ?      | blt      | blt \<addr>          | branch if A \< TMP      |
-| ?      | blti     | blti \<imm>, \<addr> | branch if A \< \<imm>   |
-| ?      | bge      | bge \<addr>          | branch if A \>= TMP     |
-| ?      | bgei     | bgei \<imm>, \<addr> | branch if A \>= \<imm>  |
-| ?      | bns      | bns \<addr>          | branch if NF is set     |
-| ?      | bnc      | bnc \<addr>          | branch if NF is not set |
-| ?      | bcs      | bcs \<addr>          | branch if CF is set     |
-| ?      | bcc      | bcc \<addr>          | branch if CF is not set |
-| ?      | bvs      | bvs \<addr>          | branch if VF is set     |
-| ?      | bvc      | bvc \<addr>          | branch if VF is not set |
+| OpCode | mnemonic | Instruction           | Description                       |
+| :----- | :------- | :-------------------- | :-------------------------------- |
+| ?      | jmp      | jmp \<addr>           | PC = \<addr>                      |
+| ?      | beq      | beq \<addr>           | branch if A == TMP                |
+| ?      | beqi     | beqi \<addr>          | branch if A == \<imm>             |
+| ?      | bne      | bne \<addr>           | branch if A != TMP                |
+| ?      | bnei     | bnei \<imm>, \<addr>  | branch if A != \<imm>             |
+| ?      | bltu     | bltu \<imm>, \<addr>  | branch if A \< \<imm> (unsigned)  |
+| ?      | bltui    | bltui \<imm>, \<addr> | branch if A \< \<imm> (unsigned)  |
+| ?      | bgeu     | bgeu \<addr>          | branch if A \>= TMP (unsigned)    |
+| ?      | bgeui    | bgeui \<imm>, \<addr> | branch if A \>= \<imm> (unsigned) |
+| ?      | bns      | bns \<addr>           | branch if NF is set               |
+| ?      | bnc      | bnc \<addr>           | branch if NF is not set           |
+| ?      | bcs      | bcs \<addr>           | branch if CF is set               |
+| ?      | bcc      | bcc \<addr>           | branch if CF is not set           |
+| ?      | bvs      | bvs \<addr>           | branch if VF is set               |
+| ?      | bvc      | bvc \<addr>           | branch if VF is not set           |
 
 ## Pseudo-Instructions
 
