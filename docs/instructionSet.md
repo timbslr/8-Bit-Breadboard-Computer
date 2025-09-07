@@ -24,7 +24,8 @@ CF = Carry flag<br>
 VF = Overflow flag<br>
 
 {: .note }
-Mnemonics with an asterisk are pseudo-instructions, their mapped instructions can be seen [here](#pseudo-instructions). <br>
+Mnemonics with an asterisk are pseudo-instructions, their mapped instructions can be seen [here](#pseudo-instructions). <br> <br>
+Angle brackets indicate an argument (\<arg>). These are not written out in Assembly, but are replaced with their actual values. <br> <br>
 A \<reg> argument means that you can input the A-, B-, X- or TMP-register there. Other registers are not allowed in this case and may have separate instructions.
 
 ## ALU instructions
@@ -67,7 +68,7 @@ All ALU-operations are performed on the A-register (and the TMP-register as a se
 | ?      | ld       | ld \<reg>, \<addr>   | \<reg> = mem[\<addr>]                   |
 | ?      | ldo      | ldo \<reg>, \<addr>  | \<reg> = mem[\<addr> + X]               |
 | ?      | st       | st \<reg>, \<addr>   | mem[\<addr>] = \<reg>                   |
-| ?      | sto      | sto \<regs>, \<addr> | mem[\<addr> + X] = \<reg>               |
+| ?      | sto      | sto \<reg>, \<addr>  | mem[\<addr> + X] = \<reg>               |
 | ?      | ldsp     | ldsp \<reg>          | \<reg> = mem[SP]                        |
 | ?      | stsp     | stsp \<reg>          | mem[SP] = \<reg>                        |
 | ?      | li       | li \<reg>, \<imm>    | \<reg> = \<imm>                         |
@@ -124,7 +125,7 @@ The given \<addr> is the absolute address to which the computer jumps or branche
 
 ## Pseudo-Instructions
 
-Some of the instructions/mnemonics in the upper tables have an asterisk, which means that they are pseudo-instructions. Pseudo-instructions are aren't hardcoded into the controller, instead they use other instructions of the system. Their purpose is to make programming for convenient by having to write less or more understandable code/mnemonics.
+Some of the instructions/mnemonics in the upper tables have an asterisk, which means that they are pseudo-instructions. Pseudo-instructions are aren't hardcoded into the controller and have no dedicated opcode, instead, they use other instructions of the ISA. Their purpose is to make programming more convenient by having to write less or more understandable instructions/code.
 Here is a list of all pseudo-instructions that were mentioned in the tables above, with their mapped instructions.
 
 | OpCode | mnemonic | Mapped Instruction                                                                             |
