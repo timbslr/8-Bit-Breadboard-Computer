@@ -112,10 +112,22 @@ The given \<addr> is the absolute address to which the computer jumps or branche
 | ?      | beqi     | beqi \<addr>          | branch if A == \<imm>             |
 | ?      | bne      | bne \<addr>           | branch if A != TMP                |
 | ?      | bnei     | bnei \<imm>, \<addr>  | branch if A != \<imm>             |
-| ?      | bltu     | bltu \<imm>, \<addr>  | branch if A \< \<imm> (unsigned)  |
-| ?      | bltui    | bltui \<imm>, \<addr> | branch if A \< \<imm> (unsigned)  |
+| ?      | blt      | blt \<addr>           | branch if A \< TMP                |
+| ?      | blti     | blti \<imm>, \<addr>  | branch if A \< \<imm>             |
+| ?      | bltu     | bltu \<addr>          | branch if A \< TMP (unsigned)     |
+| ?      | bltiu    | bltiu \<imm>, \<addr> | branch if A \< \<imm> (unsigned)  |
+| ?      | ble      | ble \<addr>           | branch if A \<= TMP               |
+| ?      | blei     | blei \<imm>, \<addr>  | branch if A \<= \<imm>            |
+| ?      | bleu     | bleu \<addr>          | branch if A \<= TMP (unsigned)    |
+| ?      | bleiu    | bleiu \<imm>, \<addr> | branch if A \<= \<imm> (unsigned) |
+| ?      | bge      | bge \<addr>           | branch if A \>= TMP               |
+| ?      | bgei     | bgei \<imm>, \<addr>  | branch if A \>= \<imm>            |
 | ?      | bgeu     | bgeu \<addr>          | branch if A \>= TMP (unsigned)    |
-| ?      | bgeui    | bgeui \<imm>, \<addr> | branch if A \>= \<imm> (unsigned) |
+| ?      | bgeiu    | bgeiu \<imm>, \<addr> | branch if A \>= \<imm> (unsigned) |
+| ?      | bgt      | bgt \<addr>           | branch if A \> TMP                |
+| ?      | bgti     | bgti \<imm>, \<addr>  | branch if A \> \<imm>             |
+| ?      | bgtu     | bgtu \<addr>          | branch if A \> TMP (unsigned)     |
+| ?      | bgtiu    | bgtiu \<imm>, \<addr> | branch if A \> \<imm> (unsigned)  |
 | ?      | bns      | bns \<addr>           | branch if NF is set               |
 | ?      | bnc      | bnc \<addr>           | branch if NF is not set           |
 | ?      | bcs      | bcs \<addr>           | branch if CF is set               |
