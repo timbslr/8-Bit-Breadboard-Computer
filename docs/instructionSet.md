@@ -57,6 +57,7 @@ All ALU-operations are performed on the A-register (and the TMP-register as a se
 | ?      | \*rorn   | rorn \<reg>, \<n>    | Rotate A right by \<n> bits      |
 | ?      | \*rol    | rol \<reg>           | Rotate A left by one bit         |
 | ?      | \*roln   | roln \<reg>, \<n>    | Rotate A left by \<n> bits       |
+| ?      | bit      | bit \<imm>           | A & \<imm>, only updates flags   |
 
 ## Register, load & store Instructions
 
