@@ -20,18 +20,18 @@ There is one exception: With 8 bits, you wouldn't be able to write bigger progra
 
 The project uses different colors for wires and LEDs. This makes determining the functionality of a cable or the affiliation of an LED to a module much easier, especially during debugging the circuits.
 
-|                      LED/Wire Color                       | Functionality                                      |
-| :-------------------------------------------------------: | :------------------------------------------------- |
-|  ![Yellow LED Icon](resources/Icons/LEDs/yellowLED.svg)   | 4-Bit value                                        |
-|    ![Blue LED Icon](resources/Icons/LEDs/blueLED.svg)     | 8-Bit value, only for the bus                      |
-|     ![Red LED Icon](resources/Icons/LEDs/redLED.svg)      | 8-Bit value, everything except the bus             |
-|   ![Green LED Icon](resources/Icons/LEDs/greenLED.svg)    | 16-Bit value                                       |
-|   ![Red Wire Icon](resources/Icons/Wires//redWire.svg)    | +5V                                                |
-|  ![Black Wire Icon](resources/Icons/Wires/blackWire.svg)  | GND                                                |
-|  ![Green Wire Icon](resources/Icons/Wires/greenWire.svg)  | Internal module connections                        |
-| ![Yellow Wire Icon](resources/Icons/Wires/yellowWire.svg) | CLK and internal module connections\*              |
-|   ![Blue Wire Icon](resources/Icons/Wires/blueWire.svg)   | Direct connection to the bus                       |
-|  ![White Wire Icon](resources/Icons/Wires/whiteWire.svg)  | Control line, connected directly to the controller |
-|  ![Brown Wire Icon](resources/Icons/Wires/brownWire.svg)  | Reset line                                         |
+|                             LED/Wire Color                              | Functionality                                      |
+| :---------------------------------------------------------------------: | :------------------------------------------------- |
+| ![Yellow LED Icon](resources/Icons/LEDs/yellowLED.svg) <br> 220 &Omega; | 4-Bit value                                        |
+|   ![Blue LED Icon](resources/Icons/LEDs/blueLED.svg) <br> 680 &Omega;   | 8-Bit value, only for the bus                      |
+|    ![Red LED Icon](resources/Icons/LEDs/redLED.svg) <br> 470 &Omega;    | 8-Bit value, everything except the bus             |
+| ![Green LED Icon](resources/Icons/LEDs/greenLED.svg) <br> 2200 &Omega;  | 16-Bit value                                       |
+|          ![Red Wire Icon](resources/Icons/Wires//redWire.svg)           | +5V                                                |
+|         ![Black Wire Icon](resources/Icons/Wires/blackWire.svg)         | GND                                                |
+|         ![Green Wire Icon](resources/Icons/Wires/greenWire.svg)         | Internal module connections                        |
+|        ![Yellow Wire Icon](resources/Icons/Wires/yellowWire.svg)        | CLK and internal module connections\*              |
+|          ![Blue Wire Icon](resources/Icons/Wires/blueWire.svg)          | Direct connection to the bus                       |
+|         ![White Wire Icon](resources/Icons/Wires/whiteWire.svg)         | Control line, connected directly to the controller |
+|         ![Brown Wire Icon](resources/Icons/Wires/brownWire.svg)         | Reset line                                         |
 
 \*At some point, I ran out of green wire, so I also used yellow wire for internal module connections.
