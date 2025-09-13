@@ -14,18 +14,18 @@ The 8-Bit ALU supports computing the following arithmetic and logic operations:
 - Shift Arithmetic Right (SAR)
 - Rotate Right (ROR)
 
-This makes a total of 10 different operations, which I consider to be rather many for a small breadboard-computer like this one. <br>
+This makes a total of 10 different operations, which I consider to be quite a lot for a small breadboard-computer like this one. <br>
 This brings me to the question: How do you implement all of these in hardware? Basically, there are two extremes:
 1. Use dedicated gates for every operation and use a big multiplexer to select the result
 2. Use a pre-made ALU-chip (like the 74181), which includes all the necessary operations you could ever dream of, except shifts (if you want to see a build with this approach, I highly recommend to check out [this project by rolf-electronics](https://github.com/rolf-electronics/The-8-bit-SAP-3))
 
-But as always, there's something in between: I didn't want to go with option 1 because it would use an extremely large amount of space relative to the rest of the computer. The IC-count would also increase by using this approach. <br>
+But as always, there's something in between: I didn't want to go with option 1 because it would use a very large amount of space relative to the rest of the computer. The IC-count would also increase by using this approach. <br>
 But I didn't want to use a single chip for the ALU either, as this is primarily a learning project for me. I want to have fun building and explore different options for the same solution. In the end, I settled on the following approach with this structure:
 <br>
 ![ALU overview diagram](../resources/ALU-Overview.svg)
 As you can see, my ALU-design has two sections: An adder for addition and subtraction, and two EEPROM's, which handle all the logic operations. <br>
 ### Adding/Subtracting
-The eight input bits from the A-Register are directly connected to the A-input of the adder (which is build from two 74283 chips). In contrast, each of the TMP-Register bits first goes through an XOR-gate, which allows the ALU to switch between addition (ALU_AOP = 0) and subtraction (ALU_AOP = 1). If you want to learn more about how you can perform a subtraction with an adder, the carry in of the adder and XOR-gates, you can check out [this article](https://graphicmaths.com/computer-science/logic/subtractor/), which explains the topic with helpful images.
+The eight input bits from the A-Register are directly connected to the A-input of the adder (which is built from two 74283 chips). In contrast, each of the TMP-Register bits first goes through an XOR-gate, which allows the ALU to switch between addition (ALU_AOP = 0) and subtraction (ALU_AOP = 1). If you want to learn more about how you can perform a subtraction with an adder, the carry in of the adder and XOR-gates, you can check out [this article](https://graphicmaths.com/computer-science/logic/subtractor/), which explains the topic with helpful images.
 <br>
 Take a look at the [schematics](https://github.com/CodingFactoryT/8-Bit-Breadboard-Computer/blob/main/Schematics/ALU.pdf): you may recognize that the ALU_AOP and the ALU_CIN are two independent control/input bits. If you only needed to compute simple 8-Bit addition and subtraction, you could connect them together, but with my approach, you can also add instructions like "Add with Carry" or "Subtract with Carry". This comes in handy when you want to add numbers that are represented by 16-bits or more, as you can just send the carry from the previous byte to the addition for the next byte. An example for this is incrementing or decrementing the Stack-Pointer, which is 16-bits long.
 
