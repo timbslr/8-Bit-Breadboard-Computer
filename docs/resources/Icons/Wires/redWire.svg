@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 80 80"
+     width="60" height="60"
+     role="img" aria-label="Colored wire">
+  <title>Colored wire</title>
+  <desc>Simple horizontal wire with colored insulation</desc>
+
+  <!-- Wire insulation -->
+  <rect x="10" y="35" width="60" height="10"
+        fill="red"
+        stroke="black" stroke-width="2" rx="2" ry="2"/>
+
+  <!-- Wire ends (metal tips) -->
+  <rect x="5" y="37" width="5" height="6" fill="silver" stroke="black" stroke-width="1"/>
+  <rect x="70" y="37" width="5" height="6" fill="silver" stroke="black" stroke-width="1"/>
+</svg>
