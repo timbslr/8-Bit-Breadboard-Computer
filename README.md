@@ -1,1 +1,1 @@
-For further information and documentation about the project, visit this project's [GitHub Page](https://codingfactoryt.github.io/8-Bit-Breadboard-Computer/)
+All the information and documentation about this project is currently provided via [GitHub Pages](https://codingfactoryt.github.io/8-Bit-Breadboard-Computer/). A Readme file will be created when the project is finished.
