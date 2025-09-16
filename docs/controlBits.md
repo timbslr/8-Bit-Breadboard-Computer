@@ -56,10 +56,10 @@ s/a stands for synchronous/asynchronous
 
 ## Memory
 
-| Abbreviation                                                   | Name                  | s/a | Description                                                                                                              |
-| :------------------------------------------------------------- | :-------------------- | :-- | :----------------------------------------------------------------------------------------------------------------------- |
-| <span style="text-decoration: overline;"> MEM_WE </span>       | Memory Write Enable   | s   | Enables writing to RAM                                                                                                   |
-| <span style="text-decoration: overline;"> MEM_DATA_DIR </span> | Memory Data Direction | a   | Enables data flow between memory and bus (direction depends on <span style="text-decoration: overline;"> MEM_WE </span>) |
+| Abbreviation                                                | Name                       | s/a | Description                                                                                                              |
+| :---------------------------------------------------------- | :------------------------- | :-- | :----------------------------------------------------------------------------------------------------------------------- |
+| <span style="text-decoration: overline;"> MEM_WE </span>    | Memory Write Enable        | s   | Enables writing to RAM                                                                                                   |
+| <span style="text-decoration: overline;"> MEM_EN_IO </span> | Memory Enable Input/Output | a   | Enables data flow between memory and bus (direction depends on <span style="text-decoration: overline;"> MEM_WE </span>) |
 
 ## Temporary-Register (TMP)
 
