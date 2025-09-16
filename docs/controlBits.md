@@ -28,6 +28,14 @@ s/a stands for synchronous/asynchronous
 | <span style="text-decoration: overline;"> OE_A </span> | Output Enable A | a   | Enables outputting data from the A-Register to the bus |
 | RST_A                                                  | Reset A         | a   | Resets the A-Register to zero                          |
 
+## Memory-Address-Register (MAR)
+
+| Abbreviation                                               | Name                  | s/a | Description                                                   |
+| :--------------------------------------------------------- | :-------------------- | :-- | :------------------------------------------------------------ |
+| <span style="text-decoration: overline;"> IE_MAR_L </span> | Input Enable MAR Low  | s   | Enables loading data from the bus to the low byte of the MAR  |
+| <span style="text-decoration: overline;"> IE_MAR_H </span> | Input Enable MAR High | s   | Enables loading data from the bus to the high byte of the MAR |
+| RST_MAR                                                    | Reset MAR             | a   | Resets the MAR to zero                                        |
+
 ## Arithmetic Logic Unit (ALU)
 
 | Abbreviation                                           | Name                     | s/a | Description                                                                                                                                                   |
@@ -46,6 +54,13 @@ s/a stands for synchronous/asynchronous
 | <span style="text-decoration: overline;"> OE_F </span> | Output Enable Flags | a   | Enables outputting data from the Flags-Register to the bus |
 | RST_F                                                  | Reset Flags         | a   | Resets the Flags-Register to zero                          |
 
+## Memory
+
+| Abbreviation                                                   | Name                  | s/a | Description                                                                                                              |
+| :------------------------------------------------------------- | :-------------------- | :-- | :----------------------------------------------------------------------------------------------------------------------- |
+| <span style="text-decoration: overline;"> MEM_WE </span>       | Memory Write Enable   | s   | Enables writing to RAM                                                                                                   |
+| <span style="text-decoration: overline;"> MEM_DATA_DIR </span> | Memory Data Direction | a   | Enables data flow between memory and bus (direction depends on <span style="text-decoration: overline;"> MEM_WE </span>) |
+
 ## Temporary-Register (TMP)
 
 | Abbreviation                                           | Name              | s/a | Description                                              |
@@ -53,14 +68,6 @@ s/a stands for synchronous/asynchronous
 | <span style="text-decoration: overline;"> IE_T </span> | Input Enable TMP  | s   | Enables loading data from the bus to the TMP-Register    |
 | <span style="text-decoration: overline;"> OE_T </span> | Output Enable TMP | a   | Enables outputting data from the TMP-Register to the bus |
 | RST_T                                                  | Reset TMP         | a   | Resets the TMP-Register to zero                          |
-
-## Instruction-Register (IR)
-
-| Abbreviation                                            | Name                               | s/a | Description                                                      |
-| :------------------------------------------------------ | :--------------------------------- | :-- | :--------------------------------------------------------------- |
-| <span style="text-decoration: overline;"> IE_IR </span> | Input Enable Instruction Register  | s   | Enables loading data from the bus to the Instruction-Register    |
-| <span style="text-decoration: overline;"> OE_IR </span> | Output Enable Instruction Register | a   | Enables outputting data from the Instruction-Register to the bus |
-| RST_IR                                                  | Reset Instruction Register         | a   | Resets the Instruction-Register to zero                          |
 
 ## B-Register
 
@@ -70,13 +77,13 @@ s/a stands for synchronous/asynchronous
 | <span style="text-decoration: overline;"> OE_B </span> | Output Enable B | a   | Enables outputting data from the B-Register to the bus |
 | RST_B                                                  | Reset B         | a   | Resets the B-Register to zero                          |
 
-## Page-Register-Buffer-Register (PRB)
+## Instruction-Register (IR)
 
-| Abbreviation                                             | Name              | s/a | Description                                              |
-| :------------------------------------------------------- | :---------------- | :-- | :------------------------------------------------------- |
-| <span style="text-decoration: overline;"> IE_PRB </span> | Input Enable PRB  | s   | Enables loading data from the bus to the PRB-Register    |
-| <span style="text-decoration: overline;"> OE_PRB </span> | Output Enable PRB | a   | Enables outputting data from the PRB-Register to the bus |
-| RST_PRB                                                  | Reset PRB         | a   | Resets the PRB-Register to zero                          |
+| Abbreviation                                            | Name                               | s/a | Description                                                      |
+| :------------------------------------------------------ | :--------------------------------- | :-- | :--------------------------------------------------------------- |
+| <span style="text-decoration: overline;"> IE_IR </span> | Input Enable Instruction Register  | s   | Enables loading data from the bus to the Instruction-Register    |
+| <span style="text-decoration: overline;"> OE_IR </span> | Output Enable Instruction Register | a   | Enables outputting data from the Instruction-Register to the bus |
+| RST_IR                                                  | Reset Instruction Register         | a   | Resets the Instruction-Register to zero                          |
 
 ## X-Register
 
@@ -87,6 +94,21 @@ s/a stands for synchronous/asynchronous
 | RST_X                                                  | Reset X         | a   | Resets the X-Register to zero                          |
 | INC_X                                                  | Increment X     | s   | Increments the X-Register if DEC_X is low              |
 | DEC_X                                                  | Decrement X     | s   | Decrements the X-Register if INC_X is low              |
+
+## Page-Register-Buffer-Register (PRB)
+
+| Abbreviation                                             | Name              | s/a | Description                                              |
+| :------------------------------------------------------- | :---------------- | :-- | :------------------------------------------------------- |
+| <span style="text-decoration: overline;"> IE_PRB </span> | Input Enable PRB  | s   | Enables loading data from the bus to the PRB-Register    |
+| <span style="text-decoration: overline;"> OE_PRB </span> | Output Enable PRB | a   | Enables outputting data from the PRB-Register to the bus |
+| RST_PRB                                                  | Reset PRB         | a   | Resets the PRB-Register to zero                          |
+
+## 7-Segment Display
+
+| Abbreviation                                             | Name                           | s/a | Description                                                                                         |
+| :------------------------------------------------------- | :----------------------------- | :-- | :-------------------------------------------------------------------------------------------------- |
+| <span style="text-decoration: overline;"> IE_7SD </span> | Input Enable 7-Segment Display | s   | Enables loading data from the bus to the 7-Segment Display (the data will be displayed immediately) |
+| RST_7SD                                                  | Reset 7-Segment Display        | a   | Resets the 7-Segment Display to zero                                                                |
 
 ## Stack Pointer (SP)
 
