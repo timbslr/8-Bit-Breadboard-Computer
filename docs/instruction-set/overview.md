@@ -4,6 +4,14 @@ layout: default
 nav_order: 2
 ---
 
+:point_right: Click to switch representation:
+
+[Instruction Set Overview](./overview.html){: .btn .btn-green}
+[OpCode Matrix](./opcode-matrix.html){: .btn .btn-outline}
+[Instruction Details](./details.html){: .btn .btn-outline}
+
+---
+
 {: .highlight }
 This instruction set is work in progress and can change anytime.
 

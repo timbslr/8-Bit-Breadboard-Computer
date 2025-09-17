@@ -22,3 +22,6 @@ callouts:
   warning:
     title: Warning
     color: red
+
+plugins:
+  - jemoji
