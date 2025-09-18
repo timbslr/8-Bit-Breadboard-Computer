@@ -12,6 +12,8 @@ nav_exclude: true
 
 ---
 
+{: #table1}
+
 |     |                   -0                   |                   -1                   |                   -2                   |                   -3                   |                   -4                   |                   -5                   |                   -6                   |                   -7                   |                   -8                   |                   -9                   |                   -A                   |                   -B                   |                   -C                   |                   -D                   |                   -E                   |                   -F                   |
 | :-: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: |
 | 0-  | <a href="" title="0x00: TODO">TODO</a> | <a href="" title="0x01: TODO">TODO</a> | <a href="" title="0x02: TODO">TODO</a> | <a href="" title="0x03: TODO">TODO</a> | <a href="" title="0x04: TODO">TODO</a> | <a href="" title="0x05: TODO">TODO</a> | <a href="" title="0x06: TODO">TODO</a> | <a href="" title="0x07: TODO">TODO</a> | <a href="" title="0x08: TODO">TODO</a> | <a href="" title="0x09: TODO">TODO</a> | <a href="" title="0x0A: TODO">TODO</a> | <a href="" title="0x0B: TODO">TODO</a> | <a href="" title="0x0C: TODO">TODO</a> | <a href="" title="0x0D: TODO">TODO</a> | <a href="" title="0x0E: TODO">TODO</a> | <a href="" title="0x0F: TODO">TODO</a> |
@@ -31,8 +33,38 @@ nav_exclude: true
 | E-  | <a href="" title="0xE0: TODO">TODO</a> | <a href="" title="0xE1: TODO">TODO</a> | <a href="" title="0xE2: TODO">TODO</a> | <a href="" title="0xE3: TODO">TODO</a> | <a href="" title="0xE4: TODO">TODO</a> | <a href="" title="0xE5: TODO">TODO</a> | <a href="" title="0xE6: TODO">TODO</a> | <a href="" title="0xE7: TODO">TODO</a> | <a href="" title="0xE8: TODO">TODO</a> | <a href="" title="0xE9: TODO">TODO</a> | <a href="" title="0xEA: TODO">TODO</a> | <a href="" title="0xEB: TODO">TODO</a> | <a href="" title="0xEC: TODO">TODO</a> | <a href="" title="0xED: TODO">TODO</a> | <a href="" title="0xEE: TODO">TODO</a> | <a href="" title="0xEF: TODO">TODO</a> |
 | F-  | <a href="" title="0xF0: TODO">TODO</a> | <a href="" title="0xF1: TODO">TODO</a> | <a href="" title="0xF2: TODO">TODO</a> | <a href="" title="0xF3: TODO">TODO</a> | <a href="" title="0xF4: TODO">TODO</a> | <a href="" title="0xF5: TODO">TODO</a> | <a href="" title="0xF6: TODO">TODO</a> | <a href="" title="0xF7: TODO">TODO</a> | <a href="" title="0xF8: TODO">TODO</a> | <a href="" title="0xF9: TODO">TODO</a> | <a href="" title="0xFA: TODO">TODO</a> | <a href="" title="0xFB: TODO">TODO</a> | <a href="" title="0xFC: TODO">TODO</a> | <a href="" title="0xFD: TODO">TODO</a> | <a href="" title="0xFE: TODO">TODO</a> | <a href="" title="0xFF: TODO">TODO</a> |
 
+Each opcode has an associated color which represents the flag (combination) that is available to that opcode.
+Because of this, I only need to connect a single flag-bit to the controller, which saves address/input bits in order to be able to have a full 8-bit opcode input.
+The single flag-input-bit is selected with a 3-to-8 multiplexer from all the available flags. The control bits for the multiplexer are the three most significant bits of the opcode.
+
+{: #table2}
+
+| Color/Opcode range |                Available flag (combination)                |
+| :----------------: | :--------------------------------------------------------: |
+|      001xxxxx      |                             ZF                             |
+|      001xxxxx      |                             NF                             |
+|      010xxxxx      |                             CF                             |
+|      011xxxxx      |                             OF                             |
+|      100xxxxx      |                       NF &oplus; VF                        |
+|      101xxxxx      |                  (NF &oplus; VF) &or; ZF                   |
+|      110xxxxx      | <span style="text-decoration: overline;">CF</span> &or; ZF |
+|      111xxxxx      |                 <i> not assigned yet </i>                  |
+
 <style>
- th, td {
+ :root {
+   --color1: #ff000060;
+   --color2: #ffe60060;
+   --color3: #0055ff60;
+   --color4: #09ff0060;
+   --color5: #7a521b60;
+   --color6: #ff00ff60;
+   --color7: #00ddff60;
+   --color8: #ff910060;
+   --matrix-hover-color: #ffffff;
+ }
+
+ #table1 th,
+ #table1 td {
   min-width: 0rem;
   padding: 0rem;
   margin: 0rem; 
@@ -40,25 +72,80 @@ nav_exclude: true
   border-color: black;
  }
 
- a {
+ a:link {
   color: #5c5962;
+  text-decoration: none;
  }
 
- thead th {
+ #table1 thead th {
   border-width: 1px;
   border-color: black;
  }
 
- table {
+ #table1 {
   line-height: 1.5;
   border-spacing: 0px; 
  }
 
- td:hover {
-  background-color: #9fc94bff;
+ #table1 tr:nth-child(1),
+ #table1 tr:nth-child(2),
+ #table2 tr:nth-child(1) td:first-child {
+  background-color: var(--color1);
  }
 
- th:first-child, td:first-child {
+ #table1 tr:nth-child(3),
+ #table1 tr:nth-child(4),
+ #table2 tr:nth-child(2) td:first-child {
+  background-color: var(--color2);
+ }
+
+ #table1 tr:nth-child(5),
+ #table1 tr:nth-child(6),
+ #table2 tr:nth-child(3) td:first-child {
+  background-color: var(--color3);
+ }
+
+ #table1 tr:nth-child(7),
+ #table1 tr:nth-child(8),
+ #table2 tr:nth-child(4) td:first-child {
+  background-color: var(--color4);
+ }
+
+ #table1 tr:nth-child(9),
+ #table1 tr:nth-child(10),
+ #table2 tr:nth-child(5) td:first-child {
+  background-color: var(--color5);
+ }
+
+ #table1 tr:nth-child(11),
+ #table1 tr:nth-child(12),
+ #table2 tr:nth-child(6) td:first-child {
+  background-color: var(--color6);
+ }
+
+ #table1 tr:nth-child(13),
+ #table1 tr:nth-child(14),
+ #table2 tr:nth-child(7) td:first-child {
+  background-color: var(--color7);
+ }
+
+ #table1 tr:nth-child(15),
+ #table1 tr:nth-child(16),
+ #table2 tr:nth-child(8) td:first-child {
+  background-color: var(--color8);
+ }
+
+ #table1 td:hover {
+  background-color: var(--matrix-hover-color);
+ }
+
+ #table1 td {
+   background-color: inherit;
+ }
+
+
+ #table1 th:first-child,
+ #table1 td:first-child {
   position: sticky;
   left: 0;
   z-index: 2;
@@ -66,7 +153,7 @@ nav_exclude: true
   font-weight: bold;
  }
 
- th {
+ #table1 th {
     background: #D6D6FF;
  }
 </style>
