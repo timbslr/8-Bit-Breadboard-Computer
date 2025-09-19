@@ -3881,7 +3881,7 @@ g.shapeBox:not([c_partid]) &gt; ellipse[c_partid=&quot;ellipse&quot;][data-fill-
          xml:space="preserve"
          x="0"
          dy="5"
-         id="tspan3043">Lookup Table</tspan></text>
+         id="tspan3043">Flag Logic</tspan></text>
     <polyline
        id="e1040"
        c_partid="line"

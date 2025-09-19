@@ -75,10 +75,13 @@ ZF =
 <span style="text-decoration: overline;">(R6 + R7)</span>
  </div>
 
-So we can compute the Zero-Flag with four 2-Input NOR- and three 2-Input AND-gates.
+So we can compute the zero flag with four 2-Input NOR- and three 2-Input AND-gates.
 <br>
 <br>
-The overflow flag is always set if the sign of the A-Register and the TMP-Register\* is the same, but differs from the sign of the result.
-I realized that logic by using a 3-to-8 Multiplexer as a lookup table, this allowed me to implement the logic in a single gate.
+The overflow flag is always set if the sign of the A-Register and the TMP-Register\* is the same, but differs from the sign of the result. This logic is computed with the following formula: <br>
 
+<div style="text-align: center;">
+ VF = <span style="text-decoration: overline;">(A[7] &oplus; TMP[7]*)</span> &and; (A[7] &oplus; ALU_RESULT[7])
+</div>
+<br>
 \*We also want the overflow flag to be valid for subtraction, so the msb of the A-Register is actually compared with the output of the XOR between the msb of the TMP-Register and ALU_SRC.
