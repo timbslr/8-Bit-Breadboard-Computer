@@ -47,7 +47,6 @@ All ALU-operations are performed on the A-register (and the TMP-register as a se
 | ?      | addc     | addc \<reg>          | \<reg> = A + TMP + CF            |
 | ?      | addic    | addic \<reg>, \<imm> | \<reg> = A + \<imm> + CF         |
 | ?      | sub      | sub \<reg>           | \<reg> = A - TMP                 |
-| ?      | subi     | subi \<reg>, \<imm>  | \<reg> = A - \<imm>              |
 | ?      | subc     | subc \<reg>          | \<reg> = A - TMP - (1-CF)        |
 | ?      | subic    | subic \<reg>, \<imm> | \<reg> = A - \<imm> - (1-CF)     |
 | ?      | and      | and \<reg>           | \<reg> = A & TMP                 |
@@ -149,14 +148,14 @@ The given \<addr> is the absolute address to which the computer jumps or branche
 Some of the instructions/mnemonics in the upper tables have an asterisk, which means that they are pseudo-instructions. Pseudo-instructions are aren't hardcoded into the controller and have no dedicated opcode, instead, they use other instructions of the ISA. Their purpose is to make programming more convenient by having to write less or more understandable instructions/code.
 Here is a list of all pseudo-instructions that were mentioned in the tables above, with their mapped instructions.
 
-| OpCode | mnemonic | Mapped Instruction                                                                             |
-| :----- | :------- | :--------------------------------------------------------------------------------------------- |
-| ?      | rorn     | executes "ror \<reg>" n times                                                                  |
-| ?      | rol      | executes "ror \<reg>" (8-n) times                                                              |
-| ?      | roln     | executes "rol \<reg>" n times                                                                  |
-| ?      | clr      | li \<reg>, 0                                                                                   |
-| ?      | push     | decsp <br> stsp \<reg>                                                                         |
-| ?      | pop      | peek \<reg> <br> incsp                                                                         |
-| ?      | peek     | ldsp \<reg>                                                                                    |
-| ?      | incsp    | mov SP_L, A <br> addi SP_L, 1 <br> mov SP_H, A <br> addic SP_H, 0 <br> //TODO: Test if correct |
-| ?      | decsp    | mov SP_L, A <br> subi SP_L, 1 <br> mov SP_H, A <br> subic SP_H, 0 <br> //TODO: Test if correct |
+| OpCode | mnemonic | Mapped Instruction                                                                              |
+| :----- | :------- | :---------------------------------------------------------------------------------------------- |
+| ?      | rorn     | executes "ror \<reg>" n times                                                                   |
+| ?      | rol      | executes "ror \<reg>" (8-n) times                                                               |
+| ?      | roln     | executes "rol \<reg>" n times                                                                   |
+| ?      | clr      | li \<reg>, 0                                                                                    |
+| ?      | push     | decsp <br> stsp \<reg>                                                                          |
+| ?      | pop      | peek \<reg> <br> incsp                                                                          |
+| ?      | peek     | ldsp \<reg>                                                                                     |
+| ?      | incsp    | mov SP_L, A <br> addi SP_L, 1 <br> mov SP_H, A <br> addic SP_H, 0 <br> //TODO: Test if correct  |
+| ?      | decsp    | mov SP_L, A <br> addi SP_L, -1 <br> mov SP_H, A <br> subic SP_H, 0 <br> //TODO: Test if correct |
