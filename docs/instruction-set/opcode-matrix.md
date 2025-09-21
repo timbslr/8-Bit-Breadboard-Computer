@@ -42,9 +42,9 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
 | Color/Opcode range |                Available flag (combination)                |
 | :----------------: | :--------------------------------------------------------: |
 |      001xxxxx      |                             ZF                             |
-|      001xxxxx      |                             NF                             |
-|      010xxxxx      |                             CF                             |
-|      011xxxxx      |                             OF                             |
+|      001xxxxx      |                             CF                             |
+|      010xxxxx      |                             NF                             |
+|      011xxxxx      |                             VF                             |
 |      100xxxxx      |                       NF &oplus; VF                        |
 |      101xxxxx      |                  (NF &oplus; VF) &or; ZF                   |
 |      110xxxxx      | <span style="text-decoration: overline;">CF</span> &or; ZF |
