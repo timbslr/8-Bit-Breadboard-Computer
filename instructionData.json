@@ -1,0 +1,13 @@
+{
+  "$schema": "./instructionDataSchema.json",
+  "instructions": [
+    {
+      "name": "",
+      "opcode": "",
+      "microinstructions": [
+        ["", ""],
+        ["", ""]
+      ]
+    }
+  ]
+}
