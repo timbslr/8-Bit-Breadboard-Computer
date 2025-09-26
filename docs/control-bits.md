@@ -35,13 +35,13 @@ s/a stands for synchronous/asynchronous
 
 ## Arithmetic Logic Unit (ALU)
 
-| Abbreviation                                           | Name                     | s/a | Description                                                                                                                                                   |
-| :----------------------------------------------------- | :----------------------- | :-- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <span style="text-decoration: overline;"> OE_A </span> | Output Enable ALU        | a   | Enables outputting the ALU-result to the bus                                                                                                                  |
-| ALU_SRC                                                | ALU Source               | a   | Sets the source of the ALU: 0 = arithmetic operation, 1 = bitwise operation                                                                                   |
-| ALU_CIN                                                | ALU Carry In             | a   | Sets the Carry In for the adders of the ALU                                                                                                                   |
-| ALU_AOP                                                | ALU Arithmetic Operation | a   | Sets the aithmetic operation of the ALU: <br> 0 = ADD <br> 1 = SUB                                                                                            |
-| ALU_BOP[0:2]                                           | ALU Bitwise Operation    | a   | Sets the bitwise operation of the ALU: <br> 000 = AND <br> 001 = OR <br> 010 = XOR <br> 011 = NOT <br> 100 = SHL <br> 101 = SLR <br> 110 = SAR <br> 111 = ROR |
+| Abbreviation                                             | Name                     | s/a | Description                                                                                                                                                   |
+| :------------------------------------------------------- | :----------------------- | :-- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| <span style="text-decoration: overline;"> OE_ALU </span> | Output Enable ALU        | a   | Enables outputting the ALU-result to the bus                                                                                                                  |
+| ALU_SRC                                                  | ALU Source               | a   | Sets the source of the ALU: 0 = arithmetic operation, 1 = bitwise operation                                                                                   |
+| ALU_CIN                                                  | ALU Carry In             | a   | Sets the Carry In for the adders of the ALU                                                                                                                   |
+| ALU_AOP                                                  | ALU Arithmetic Operation | a   | Sets the aithmetic operation of the ALU: <br> 0 = ADD <br> 1 = SUB                                                                                            |
+| ALU_BOP[0:2]                                             | ALU Bitwise Operation    | a   | Sets the bitwise operation of the ALU: <br> 000 = AND <br> 001 = OR <br> 010 = XOR <br> 011 = NOT <br> 100 = SHL <br> 101 = SLR <br> 110 = SAR <br> 111 = ROR |
 
 ## Flags-Register
 
@@ -56,6 +56,12 @@ s/a stands for synchronous/asynchronous
 | :---------------------------------------------------------- | :------------------------- | :-- | :----------------------------------------------------------------------------------------------------------------------- |
 | <span style="text-decoration: overline;"> MEM_WE </span>    | Memory Write Enable        | s   | Enables writing to RAM                                                                                                   |
 | <span style="text-decoration: overline;"> MEM_EN_IO </span> | Memory Enable Input/Output | a   | Enables data flow between memory and bus (direction depends on <span style="text-decoration: overline;"> MEM_WE </span>) |
+
+## Controller
+
+| Abbreviation | Name               | s/a | Description                                                                                                             |
+| :----------- | :----------------- | :-- | :---------------------------------------------------------------------------------------------------------------------- |
+| RSC          | Reset Step Counter | a   | Resets the steps counter to zero. This is executed at the end of each instruction to reduce microsteps per instruction. |
 
 ## Temporary-Register (TMP)
 
@@ -108,3 +114,10 @@ s/a stands for synchronous/asynchronous
 | <span style="text-decoration: overline;"> IE_SP_H </span> | Input Enable Stack Pointer High  | s   | Enables loading data from the bus to the high byte of the Stack Pointer    |
 | <span style="text-decoration: overline;"> OE_SP_L </span> | Output Enable Stack Pointer Low  | a   | Enables outputting data from the low byte of the Stack Pointer to the bus  |
 | <span style="text-decoration: overline;"> OE_SP_H </span> | Output Enable Stack Pointer High | a   | Enables outputting data from the high byte of the Stack Pointer to the bus |
+
+## LCD-Display
+
+| Abbreviation | Name                | s/a | Description                                                                               |
+| :----------- | :------------------ | :-- | :---------------------------------------------------------------------------------------- |
+| LCD_RS       | LCD Register Select | a   | Chooses between the instruction register (0) and the data register (1) of the LCD-display |
+| LCD_E        | LCD Enable          | a   | Writes the data that is currently present at the data pins                                |
