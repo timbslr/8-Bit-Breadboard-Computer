@@ -4,10 +4,10 @@
     {
       "name": "",
       "opcode": "",
-      "microinstructions": [
-        ["", ""],
-        ["", ""]
-      ]
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "",
+      "indexInGroup": 0,
+      "description": ""
     }
   ]
 }

@@ -24,9 +24,21 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "pattern": "^(CE|IE_PC_L|IE_PC_H|OE_PC_L|OE_PC_H|IE_A|OE_A|IE_MAR_L|IE_MAR_H|OE_A|ALU_SRC|ALU_CIN|ALU_AOP|ALU_BOP_0|ALU_BOP_1|ALU_BOP_2|IE_F|OE_F|MEM_WE|MEM_EN_IO|IE_T|OE_T|IE_B|OE_B|IE_IR|OE_IR|IE_X|OE_X|INC_X|DEC_X|IE_PRB|OE_PRB|IE_7SD|IE_SP_L|IE_SP_H|OE_SP_L|OE_SP_H)$"
+                "pattern": "^(IE_MAR_H|IE_PC_H|IE_PC_L|RSC|IE_A|IE_SP_H|IE_SP_L|IE_PRB|IE_MAR_L|CE|IE_F|IE_B|IE_X|LCD_RS|LCD_E|IE_7SD|MEM_WE|ALU_BOP_AND|ALU_BOP_OR|ALU_BOP_XOR|ALU_BOP_NOT|ALU_BOP_SHL|ALU_BOP_SLR|ALU_BOP_SAR|ALU_BOP_ROR|ALU_SRC|ALU_CIN|ALU_AOP_ADD|ALU_AOP_SUB|IE_IR|OE_X|OE_ALU|OE_PC_L|OE_PC_H|OE_F|OE_A|OE_T|OE_B|OE_SP_L|OE_SP_H|OE_IR|OE_PRB|IE_T|MEM_EN_IO|INC_X|DEC_X)$"
               }
-            }
+            },
+            "maxItems": 16
+          },
+          "group": {
+            "type": "string",
+            "pattern": "^(ALU|RM|IO|SYS|BJ)$"
+          },
+          "indexInGroup": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 5
           }
         },
         "required": ["name", "opcode", "microinstructions"],
