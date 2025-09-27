@@ -40,7 +40,7 @@ s/a stands for synchronous/asynchronous
 | <span style="text-decoration: overline;"> OE_ALU </span> | Output Enable ALU        | a   | Enables outputting the ALU-result to the bus                                                                                                                  |
 | ALU_SRC                                                  | ALU Source               | a   | Sets the source of the ALU: 0 = arithmetic operation, 1 = bitwise operation                                                                                   |
 | ALU_CIN                                                  | ALU Carry In             | a   | Sets the Carry In for the adders of the ALU                                                                                                                   |
-| ALU_AOP                                                  | ALU Arithmetic Operation | a   | Sets the aithmetic operation of the ALU: <br> 0 = ADD <br> 1 = SUB                                                                                            |
+| ALU_AOP                                                  | ALU Arithmetic Operation | a   | Sets the arithmetic operation of the ALU: <br> 0 = ADD <br> 1 = SUB                                                                                           |
 | ALU_BOP[0:2]                                             | ALU Bitwise Operation    | a   | Sets the bitwise operation of the ALU: <br> 000 = AND <br> 001 = OR <br> 010 = XOR <br> 011 = NOT <br> 100 = SHL <br> 101 = SLR <br> 110 = SAR <br> 111 = ROR |
 
 ## Flags-Register
