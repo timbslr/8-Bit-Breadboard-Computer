@@ -1,0 +1,23 @@
+{
+  "$schema": "./instructionDataSchema.json",
+  "instructions": [
+    {
+      "name": "",
+      "type": "REAL",
+      "opcode": "",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "",
+      "indexInGroup": 0, //TODO
+      "description": ""
+    },
+    {
+      "name": "",
+      "type": "PSEUDO",
+      "opcode": "",
+      "mappedInstructions": [""], //TODO
+      "group": "",
+      "indexInGroup": 0,
+      "description": ""
+    }
+  ]
+}

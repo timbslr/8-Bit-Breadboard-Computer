@@ -12,6 +12,10 @@
             "type": "string",
             "minLength": 2
           },
+          "type": {
+            "type": "string",
+            "pattern": "^(REAL|PSEUDO)$"
+          },
           "opcode": {
             "type": "string",
             "minLength": 8,
@@ -29,6 +33,14 @@
             },
             "maxItems": 16
           },
+          "mappedInstructions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 5
+            },
+            "minItems": 1
+          },
           "group": {
             "type": "string",
             "pattern": "^(ALU|RM|IO|SYS|BJ)$"
@@ -41,8 +53,37 @@
             "minLength": 5
           }
         },
-        "required": ["name", "opcode", "microinstructions"],
-        "additionalProperties": false
+        "required": [
+          "name",
+          "type",
+          "opcode",
+          "group",
+          "indexInGroup",
+          "description"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": { "type": { "const": "REAL" } }
+            },
+            "then": {
+              "required": ["microinstructions"],
+              "not": { "required": ["mappedInstructions"] }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": { "const": "PSEUDO" }
+              }
+            },
+            "then": {
+              "required": ["mappedInstructions"],
+              "not": { "required": ["microinstructions"] }
+            }
+          }
+        ]
       }
     }
   },
