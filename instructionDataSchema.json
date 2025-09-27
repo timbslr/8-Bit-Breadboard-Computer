@@ -8,13 +8,24 @@
       "items": {
         "type": "object",
         "properties": {
-          "name": {
+          "mnemonic": {
             "type": "string",
             "minLength": 2
+          },
+          "name": {
+            "type": "string",
+            "minLength": 4
           },
           "type": {
             "type": "string",
             "pattern": "^(REAL|PSEUDO)$"
+          },
+          "operands": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(reg|imm|addr|n|regd|regs)$"
+            }
           },
           "opcode": {
             "type": "string",
@@ -37,29 +48,35 @@
             "type": "array",
             "items": {
               "type": "string",
-              "minLength": 5
+              "minLength": 4
             },
             "minItems": 1
           },
           "group": {
             "type": "string",
-            "pattern": "^(ALU|RM|IO|SYS|BJ)$"
+            "pattern": "^(ALU|REG/MEM|I/O|SYS|BR/JMP)$"
           },
           "indexInGroup": {
             "type": "number"
           },
-          "description": {
+          "shortDescription": {
             "type": "string",
             "minLength": 5
+          },
+          "longDescription": {
+            "type": "string",
+            "minLength": 20
           }
         },
         "required": [
+          "mnemonic",
           "name",
           "type",
-          "opcode",
+          "operands",
           "group",
           "indexInGroup",
-          "description"
+          "shortDescription",
+          "longDescription"
         ],
         "additionalProperties": false,
         "allOf": [
@@ -68,7 +85,7 @@
               "properties": { "type": { "const": "REAL" } }
             },
             "then": {
-              "required": ["microinstructions"],
+              "required": ["opcode", "microinstructions"],
               "not": { "required": ["mappedInstructions"] }
             }
           },
@@ -79,8 +96,10 @@
               }
             },
             "then": {
-              "required": ["mappedInstructions"],
-              "not": { "required": ["microinstructions"] }
+              "not": {
+                "required": ["opcode", "microinstructions"]
+              },
+              "required": ["mappedInstructions"]
             }
           }
         ]

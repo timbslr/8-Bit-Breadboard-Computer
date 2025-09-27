@@ -2,22 +2,921 @@
   "$schema": "./instructionDataSchema.json",
   "instructions": [
     {
-      "name": "",
+      "name": "add",
+      "mnemonic": "add",
       "type": "REAL",
-      "opcode": "",
+      "operands": ["reg"],
+      "opcode": "//TODO",
       "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "",
-      "indexInGroup": 0, //TODO
-      "description": ""
+      "group": "ALU",
+      "indexInGroup": 0,
+      "shortDescription": "<reg> = A + TMP",
+      "longDescription": ""
     },
     {
-      "name": "",
+      "name": "add with immediate",
+      "mnemonic": "addi",
+      "type": "REAL",
+      "operands": ["reg", "imm"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 1,
+      "shortDescription": "<reg> = A + <imm>",
+      "longDescription": ""
+    },
+    {
+      "name": "add with carry",
+      "mnemonic": "addc",
+      "type": "REAL",
+      "operands": ["reg"], //TODO
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 2,
+      "shortDescription": "<reg> = A + TMP + CF",
+      "longDescription": ""
+    },
+    {
+      "name": "subtract",
+      "mnemonic": "sub",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 3,
+      "shortDescription": "<reg> = A - TMP",
+      "longDescription": ""
+    },
+    {
+      "name": "subtract with carry",
+      "mnemonic": "subc",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 4,
+      "shortDescription": "<reg> = A - TMP - (1-CF)",
+      "longDescription": ""
+    },
+    {
+      "name": "logic \"and\"",
+      "mnemonic": "and",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 5,
+      "shortDescription": "<reg> = A & TMP",
+      "longDescription": ""
+    },
+    {
+      "name": "logic \"and\" with immediate",
+      "mnemonic": "andi",
+      "type": "REAL",
+      "operands": ["reg", "imm"], //TODO
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 6,
+      "shortDescription": "<reg> = A & <imm>",
+      "longDescription": ""
+    },
+    {
+      "name": "logic \"or\"",
+      "mnemonic": "or",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 7,
+      "shortDescription": "<reg> = A | TMP",
+      "longDescription": ""
+    },
+    {
+      "name": "logic \"or\" with immediate",
+      "mnemonic": "ori",
+      "type": "REAL",
+      "operands": ["reg", "imm"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 8,
+      "shortDescription": "<reg> = A | <imm>",
+      "longDescription": ""
+    },
+    {
+      "name": "logic \"exclusive or\"",
+      "mnemonic": "xor",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 9,
+      "shortDescription": "<reg> = A ^ TMP",
+      "longDescription": ""
+    },
+    {
+      "name": "logic \"exclusive or\" with immediate",
+      "mnemonic": "xori",
+      "type": "REAL",
+      "operands": ["reg", "imm"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 10,
+      "shortDescription": "<reg> = A ^ <imm>",
+      "longDescription": ""
+    },
+    {
+      "name": "logic \"not\"",
+      "mnemonic": "not",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 11,
+      "shortDescription": "<reg> = ~A",
+      "longDescription": ""
+    },
+    {
+      "name": "negate",
+      "mnemonic": "neg",
       "type": "PSEUDO",
-      "opcode": "",
-      "mappedInstructions": [""], //TODO
-      "group": "",
+      "operands": ["reg"],
+      "mappedInstructions": ["not A", "addi <reg>, 1"],
+      "group": "ALU",
+      "indexInGroup": 12,
+      "shortDescription": "<reg> = ~A + 1",
+      "longDescription": ""
+    },
+    {
+      "name": "shift left",
+      "mnemonic": "shl",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 13,
+      "shortDescription": "<reg> = A << 1 (zero-extended)",
+      "longDescription": ""
+    },
+    {
+      "name": "shift logic right",
+      "mnemonic": "slr",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 14,
+      "shortDescription": "<reg> = A >> 1 (zero-extended)",
+      "longDescription": ""
+    },
+    {
+      "name": "shift arithmetic right",
+      "mnemonic": "sar",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 15,
+      "shortDescription": "<reg> = A >> 1 (sign-extended)",
+      "longDescription": ""
+    },
+    {
+      "name": "rotate right",
+      "mnemonic": "ror",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 16,
+      "shortDescription": "<reg> = rotate A right by one bit",
+      "longDescription": ""
+    },
+    {
+      "name": "rotate right by n bits",
+      "mnemonic": "rorn",
+      "type": "PSEUDO",
+      "operands": ["reg", "n"],
+      "mappedInstructions": ["executes “ror <reg>” <n> times"],
+      "group": "ALU",
+      "indexInGroup": 17,
+      "shortDescription": "<reg> = rotate A right by <n> bits",
+      "longDescription": ""
+    },
+    {
+      "name": "rotate left",
+      "mnemonic": "rol",
+      "type": "PSEUDO",
+      "operands": ["reg"],
+      "mappedInstructions": ["executes “ror <reg>” (8-<n>) times"],
+      "group": "ALU",
+      "indexInGroup": 18,
+      "shortDescription": "<reg> = rotate A left by one bit",
+      "longDescription": ""
+    },
+    {
+      "name": "rotate left by n bits",
+      "mnemonic": "roln",
+      "type": "PSEUDO",
+      "operands": ["reg", "n"],
+      "mappedInstructions": ["executes “rol <reg>” <n> times"],
+      "group": "ALU",
+      "indexInGroup": 19,
+      "shortDescription": "<reg> = rotate A left by <n> bits",
+      "longDescription": ""
+    },
+    {
+      "name": "bit check",
+      "mnemonic": "bit",
+      "type": "REAL",
+      "operands": ["imm"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "ALU",
+      "indexInGroup": 20, //TODO
+      "shortDescription": "A & <imm>, only updates flags",
+      "longDescription": ""
+    },
+
+    //------------------------------------------------------------------------------
+    {
+      "name": "clear",
+      "mnemonic": "clr",
+      "type": "PSEUDO",
+      "operands": ["reg"],
+      "mappedInstructions": ["li <reg>, 0"],
+      "group": "REG/MEM",
       "indexInGroup": 0,
-      "description": ""
+      "shortDescription": "<reg> = 0",
+      "longDescription": ""
+    },
+    {
+      "name": "move",
+      "mnemonic": "mov",
+      "type": "REAL",
+      "operands": ["regd", "regs"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 1,
+      "shortDescription": "<regd> = <regs>",
+      "longDescription": ""
+    },
+    {
+      "name": "move from Flags-Register",
+      "mnemonic": "movf",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 2,
+      "shortDescription": "<reg> = Flag Register",
+      "longDescription": ""
+    },
+    {
+      "name": "load",
+      "mnemonic": "ld",
+      "type": "REAL",
+      "operands": ["reg", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 3,
+      "shortDescription": "<reg> = mem[<addr>]",
+      "longDescription": ""
+    },
+    {
+      "name": "load with offset",
+      "mnemonic": "ldo",
+      "type": "REAL",
+      "operands": ["reg", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 4,
+      "shortDescription": "<reg> = mem[<addr> + X]",
+      "longDescription": ""
+    },
+    {
+      "name": "store",
+      "mnemonic": "st",
+      "type": "REAL",
+      "operands": ["reg", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 5,
+      "shortDescription": "mem[<addr>] = <reg>",
+      "longDescription": ""
+    },
+    {
+      "name": "store with offset",
+      "mnemonic": "sto",
+      "type": "REAL",
+      "operands": ["reg", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 6,
+      "shortDescription": "mem[<addr> + X] = <reg>",
+      "longDescription": ""
+    },
+    {
+      "name": "load stack-pointer",
+      "mnemonic": "ldsp",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 7,
+      "shortDescription": "<reg> = mem[SP]",
+      "longDescription": ""
+    },
+    {
+      "name": "store stack-pointer",
+      "mnemonic": "stsp",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 8,
+      "shortDescription": "mem[SP] = <reg>",
+      "longDescription": ""
+    },
+    {
+      "name": "load immediate",
+      "mnemonic": "li",
+      "type": "REAL",
+      "operands": ["reg", "imm"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 9,
+      "shortDescription": "<reg> = <imm>",
+      "longDescription": ""
+    },
+    {
+      "name": "push to stack",
+      "mnemonic": "push",
+      "type": "PSEUDO",
+      "operands": ["reg"],
+      "mappedInstructions": ["decsp", "stsp <reg>"],
+      "group": "REG/MEM",
+      "indexInGroup": 10,
+      "shortDescription": "SP = SP - 1\nmem[SP] = <reg>",
+      "longDescription": ""
+    },
+    {
+      "name": "pop from stack",
+      "mnemonic": "pop",
+      "type": "PSEUDO",
+      "operands": ["reg"],
+      "mappedInstructions": ["peek <reg>", "incsp"],
+      "group": "REG/MEM",
+      "indexInGroup": 11,
+      "shortDescription": "<reg> = mem[SP]\nSP = SP + 1",
+      "longDescription": ""
+    },
+    {
+      "name": "peek at stack",
+      "mnemonic": "peek",
+      "type": "PSEUDO",
+      "operands": ["reg"],
+      "mappedInstructions": ["ldsp <reg>"],
+      "group": "REG/MEM",
+      "indexInGroup": 12,
+      "shortDescription": "<reg> = mem[SP]",
+      "longDescription": ""
+    },
+    {
+      "name": "increment X-Register",
+      "mnemonic": "incx",
+      "type": "REAL",
+      "operands": [],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 13,
+      "shortDescription": "X= X + 1",
+      "longDescription": ""
+    },
+    {
+      "name": "increment stack-pointer",
+      "mnemonic": "incsp",
+      "type": "PSEUDO",
+      "operands": [],
+      "mappedInstructions": [
+        "mov SP_L, A",
+        "addi SP_L, 1",
+        "mov SP_H, A",
+        "addc SP_H",
+        "//TODO: Test if correct"
+      ],
+      "group": "REG/MEM",
+      "indexInGroup": 14,
+      "shortDescription": "SP = SP + 1",
+      "longDescription": ""
+    },
+    {
+      "name": "increment value in memory",
+      "mnemonic": "incm",
+      "type": "PSEUDO",
+      "operands": ["addr"],
+      "mappedInstructions": ["ld X, <addr>", "incx", "st X, <addr>"],
+      "group": "REG/MEM",
+      "indexInGroup": 15,
+      "shortDescription": "mem[<addr>] = mem[<addr>] + 1",
+      "longDescription": ""
+    },
+    {
+      "name": "decrement X-Register",
+      "mnemonic": "decx",
+      "type": "REAL",
+      "operands": [],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "REG/MEM",
+      "indexInGroup": 16,
+      "shortDescription": "X = X - 1",
+      "longDescription": ""
+    },
+    {
+      "name": "decrement stack-pointer",
+      "mnemonic": "decsp",
+      "type": "PSEUDO",
+      "operands": [],
+      "mappedInstructions": [
+        "mov SP_L, A",
+        "addi SP_L, -1",
+        "mov SP_H, A",
+        "subc SP_H",
+        "//TODO: Test if correct"
+      ],
+      "group": "REG/MEM",
+      "indexInGroup": 17,
+      "shortDescription": "SP = SP - 1",
+      "longDescription": ""
+    },
+    {
+      "name": "decrement value in memory",
+      "mnemonic": "decm",
+      "type": "PSEUDO",
+      "operands": ["addr"],
+      "mappedInstructions": ["ld X, <addr>", "decx", "st X, <addr>"],
+      "group": "REG/MEM",
+      "indexInGroup": 18,
+      "shortDescription": "mem[<addr>] = mem[<addr>] - 1",
+      "longDescription": ""
+    },
+    //------------------------------------------------------------------------------
+    {
+      "name": "output to 7-segment display",
+      "mnemonic": "out7sd",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "I/O",
+      "indexInGroup": 0,
+      "shortDescription": "Outputs the value in the given register to the 7-segment display",
+      "longDescription": ""
+    },
+    {
+      "name": "output to lcd as control",
+      "mnemonic": "outlcdc",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "I/O",
+      "indexInGroup": 1,
+      "shortDescription": "Outputs the value in the given register to the LCD-display as control",
+      "longDescription": ""
+    },
+    {
+      "name": "output immediate to lcd as control",
+      "mnemonic": "outlcdic",
+      "type": "REAL",
+      "operands": ["imm"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "I/O",
+      "indexInGroup": 2,
+      "shortDescription": "Outputs the immediate value to the LCD-display as control",
+      "longDescription": ""
+    },
+    {
+      "name": "output to lcd as data",
+      "mnemonic": "outlcdd",
+      "type": "REAL",
+      "operands": ["reg"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "I/O",
+      "indexInGroup": 3,
+      "shortDescription": "Outputs the value in the given register to the LCD-display as data",
+      "longDescription": ""
+    },
+    {
+      "name": "output immediate to lcd as data",
+      "mnemonic": "outlcdid",
+      "type": "REAL",
+      "operands": ["imm"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "I/O",
+      "indexInGroup": 4,
+      "shortDescription": "Outputs the immediate value to the LCD-display as data",
+      "longDescription": ""
+    },
+    //------------------------------------------------------------------------------
+    {
+      "name": "no operation",
+      "mnemonic": "nop",
+      "type": "REAL",
+      "operands": [],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "SYS",
+      "indexInGroup": 0,
+      "shortDescription": "Does nothing for //TODO clock cycles",
+      "longDescription": ""
+    },
+    {
+      "name": "halt",
+      "mnemonic": "hlt",
+      "type": "REAL",
+      "operands": [],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "SYS",
+      "indexInGroup": 1,
+      "shortDescription": "Halts the entire computer. This instruction is called at the end of a program.",
+      "longDescription": ""
+    },
+    {
+      "name": "call",
+      "mnemonic": "call",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "SYS",
+      "indexInGroup": 2,
+      "shortDescription": "Calls the function placed at the given address",
+      "longDescription": ""
+    },
+    {
+      "name": "return",
+      "mnemonic": "ret",
+      "type": "REAL",
+      "operands": [],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "SYS",
+      "indexInGroup": 3,
+      "shortDescription": "Returns from a function call",
+      "longDescription": ""
+    },
+    //------------------------------------------------------------------------------
+    {
+      "name": "jump",
+      "mnemonic": "jmp",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 0,
+      "shortDescription": "PC = <addr>",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if equal",
+      "mnemonic": "beq",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 1,
+      "shortDescription": "branch if A == TMP",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if equal to immediate",
+      "mnemonic": "beqi",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 2,
+      "shortDescription": "branch if A == <imm>",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if not equal",
+      "mnemonic": "bne",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 3,
+      "shortDescription": "branch if A != TMP",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if not equal to immediate",
+      "mnemonic": "bnei",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 4,
+      "shortDescription": "branch if A != <imm>",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less than",
+      "mnemonic": "blt",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 5,
+      "shortDescription": "branch if A < TMP (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less than immediate",
+      "mnemonic": "blti",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 6,
+      "shortDescription": "branch if A < <imm> (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less than unsigned",
+      "mnemonic": "bltu",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 7,
+      "shortDescription": "branch if A < TMP (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less than immediate unsigned",
+      "mnemonic": "bltiu",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 8,
+      "shortDescription": "branch if A < <imm> (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less or equal",
+      "mnemonic": "ble",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 9,
+      "shortDescription": "branch if A <= TMP (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less or equal immediate",
+      "mnemonic": "blei",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 10,
+      "shortDescription": "branch if A <= <imm> (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less or equal unsigned",
+      "mnemonic": "bleu",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 11,
+      "shortDescription": "branch if A <= TMP (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if less or equal immediate unsigned",
+      "mnemonic": "bleiu",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 12,
+      "shortDescription": "branch if A <= <imm> (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater or equal",
+      "mnemonic": "bge",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 13,
+      "shortDescription": "branch if A >= TMP (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater or equal immediate",
+      "mnemonic": "bgei",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 14,
+      "shortDescription": "branch if A >= <imm> (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater or equal unsigned",
+      "mnemonic": "bgeu",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 15,
+      "shortDescription": "branch if A >= TMP (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater or equal immediate unsigned",
+      "mnemonic": "bgeiu",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 16,
+      "shortDescription": "branch if A >= <imm> (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater than",
+      "mnemonic": "bgt",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 17,
+      "shortDescription": "branch if A > TMP (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater than immediate",
+      "mnemonic": "bgti",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 18,
+      "shortDescription": "branch if A > <imm> (signed)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater than unsigned",
+      "mnemonic": "bgtu",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 19,
+      "shortDescription": "branch if A > TMP (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if greater than immediate unsigned",
+      "mnemonic": "bgtiu",
+      "type": "REAL",
+      "operands": ["imm", "addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 20,
+      "shortDescription": "branch if A > <imm> (unsigned)",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if negative set",
+      "mnemonic": "bns",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 21,
+      "shortDescription": "branch if NF is set",
+      "longDescription": ""
+    },
+    {
+      "name": "flag if negative clear",
+      "mnemonic": "bnc",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 22,
+      "shortDescription": "branch if NF is not set",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if carry set",
+      "mnemonic": "bcs",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 23,
+      "shortDescription": "branch if CF is set",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if carry clear",
+      "mnemonic": "bcc",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 24,
+      "shortDescription": "branch if CF is not set",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if overflow set",
+      "mnemonic": "bvs",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 25,
+      "shortDescription": "branch if VF is set",
+      "longDescription": ""
+    },
+    {
+      "name": "branch if overflow clear",
+      "mnemonic": "bvc",
+      "type": "REAL",
+      "operands": ["addr"],
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "group": "BR/JMP",
+      "indexInGroup": 26,
+      "shortDescription": "branch if VF is not set",
+      "longDescription": ""
     }
   ]
 }

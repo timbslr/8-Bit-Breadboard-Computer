@@ -115,7 +115,7 @@ s/a stands for synchronous/asynchronous
 | <span style="text-decoration: overline;"> OE_SP_L </span> | Output Enable Stack Pointer Low  | a   | Enables outputting data from the low byte of the Stack Pointer to the bus  |
 | <span style="text-decoration: overline;"> OE_SP_H </span> | Output Enable Stack Pointer High | a   | Enables outputting data from the high byte of the Stack Pointer to the bus |
 
-## LCD-Display
+## LCD
 
 | Abbreviation | Name                | s/a | Description                                                                               |
 | :----------- | :------------------ | :-- | :---------------------------------------------------------------------------------------- |
