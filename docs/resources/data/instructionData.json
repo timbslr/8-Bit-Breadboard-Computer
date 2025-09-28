@@ -7,7 +7,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 0,
       "shortDescription": "<reg> = A + TMP",
@@ -19,7 +19,7 @@
       "type": "REAL",
       "operands": ["reg", "imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 1,
       "shortDescription": "<reg> = A + <imm>",
@@ -29,9 +29,9 @@
       "name": "add with carry",
       "mnemonic": "addc",
       "type": "REAL",
-      "operands": ["reg"], //TODO
+      "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 2,
       "shortDescription": "<reg> = A + TMP + CF",
@@ -43,7 +43,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 3,
       "shortDescription": "<reg> = A - TMP",
@@ -55,7 +55,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 4,
       "shortDescription": "<reg> = A - TMP - (1-CF)",
@@ -67,7 +67,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 5,
       "shortDescription": "<reg> = A & TMP",
@@ -77,9 +77,9 @@
       "name": "logic \"and\" with immediate",
       "mnemonic": "andi",
       "type": "REAL",
-      "operands": ["reg", "imm"], //TODO
+      "operands": ["reg", "imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 6,
       "shortDescription": "<reg> = A & <imm>",
@@ -91,7 +91,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 7,
       "shortDescription": "<reg> = A | TMP",
@@ -103,7 +103,7 @@
       "type": "REAL",
       "operands": ["reg", "imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 8,
       "shortDescription": "<reg> = A | <imm>",
@@ -115,7 +115,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 9,
       "shortDescription": "<reg> = A ^ TMP",
@@ -127,7 +127,7 @@
       "type": "REAL",
       "operands": ["reg", "imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 10,
       "shortDescription": "<reg> = A ^ <imm>",
@@ -139,7 +139,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 11,
       "shortDescription": "<reg> = ~A",
@@ -162,7 +162,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 13,
       "shortDescription": "<reg> = A << 1 (zero-extended)",
@@ -174,7 +174,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 14,
       "shortDescription": "<reg> = A >> 1 (zero-extended)",
@@ -186,7 +186,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 15,
       "shortDescription": "<reg> = A >> 1 (sign-extended)",
@@ -198,7 +198,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 16,
       "shortDescription": "<reg> = rotate A right by one bit",
@@ -209,7 +209,9 @@
       "mnemonic": "rorn",
       "type": "PSEUDO",
       "operands": ["reg", "n"],
-      "mappedInstructions": ["executes “ror <reg>” <n> times"],
+      "mappedInstructions": [
+        "executes “ror <reg>” <n> times"
+      ],
       "group": "ALU",
       "indexInGroup": 17,
       "shortDescription": "<reg> = rotate A right by <n> bits",
@@ -220,7 +222,9 @@
       "mnemonic": "rol",
       "type": "PSEUDO",
       "operands": ["reg"],
-      "mappedInstructions": ["executes “ror <reg>” (8-<n>) times"],
+      "mappedInstructions": [
+        "executes “ror <reg>” (8-<n>) times"
+      ],
       "group": "ALU",
       "indexInGroup": 18,
       "shortDescription": "<reg> = rotate A left by one bit",
@@ -231,7 +235,9 @@
       "mnemonic": "roln",
       "type": "PSEUDO",
       "operands": ["reg", "n"],
-      "mappedInstructions": ["executes “rol <reg>” <n> times"],
+      "mappedInstructions": [
+        "executes “rol <reg>” <n> times"
+      ],
       "group": "ALU",
       "indexInGroup": 19,
       "shortDescription": "<reg> = rotate A left by <n> bits",
@@ -243,21 +249,19 @@
       "type": "REAL",
       "operands": ["imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
-      "indexInGroup": 20, //TODO
+      "indexInGroup": 20,
       "shortDescription": "A & <imm>, only updates flags",
       "longDescription": ""
     },
-
-    //------------------------------------------------------------------------------
     {
       "name": "clear",
       "mnemonic": "clr",
       "type": "PSEUDO",
       "operands": ["reg"],
       "mappedInstructions": ["li <reg>, 0"],
-      "group": "REG/MEM",
+      "group": "REG-MEM",
       "indexInGroup": 0,
       "shortDescription": "<reg> = 0",
       "longDescription": ""
@@ -268,8 +272,8 @@
       "type": "REAL",
       "operands": ["regd", "regs"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 1,
       "shortDescription": "<regd> = <regs>",
       "longDescription": ""
@@ -280,8 +284,8 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 2,
       "shortDescription": "<reg> = Flag Register",
       "longDescription": ""
@@ -292,8 +296,8 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 3,
       "shortDescription": "<reg> = mem[<addr>]",
       "longDescription": ""
@@ -304,8 +308,8 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 4,
       "shortDescription": "<reg> = mem[<addr> + X]",
       "longDescription": ""
@@ -316,8 +320,8 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 5,
       "shortDescription": "mem[<addr>] = <reg>",
       "longDescription": ""
@@ -328,8 +332,8 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 6,
       "shortDescription": "mem[<addr> + X] = <reg>",
       "longDescription": ""
@@ -340,8 +344,8 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 7,
       "shortDescription": "<reg> = mem[SP]",
       "longDescription": ""
@@ -352,8 +356,8 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 8,
       "shortDescription": "mem[SP] = <reg>",
       "longDescription": ""
@@ -364,8 +368,8 @@
       "type": "REAL",
       "operands": ["reg", "imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 9,
       "shortDescription": "<reg> = <imm>",
       "longDescription": ""
@@ -376,7 +380,7 @@
       "type": "PSEUDO",
       "operands": ["reg"],
       "mappedInstructions": ["decsp", "stsp <reg>"],
-      "group": "REG/MEM",
+      "group": "REG-MEM",
       "indexInGroup": 10,
       "shortDescription": "SP = SP - 1\nmem[SP] = <reg>",
       "longDescription": ""
@@ -387,7 +391,7 @@
       "type": "PSEUDO",
       "operands": ["reg"],
       "mappedInstructions": ["peek <reg>", "incsp"],
-      "group": "REG/MEM",
+      "group": "REG-MEM",
       "indexInGroup": 11,
       "shortDescription": "<reg> = mem[SP]\nSP = SP + 1",
       "longDescription": ""
@@ -398,7 +402,7 @@
       "type": "PSEUDO",
       "operands": ["reg"],
       "mappedInstructions": ["ldsp <reg>"],
-      "group": "REG/MEM",
+      "group": "REG-MEM",
       "indexInGroup": 12,
       "shortDescription": "<reg> = mem[SP]",
       "longDescription": ""
@@ -409,8 +413,8 @@
       "type": "REAL",
       "operands": [],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 13,
       "shortDescription": "X= X + 1",
       "longDescription": ""
@@ -427,7 +431,7 @@
         "addc SP_H",
         "//TODO: Test if correct"
       ],
-      "group": "REG/MEM",
+      "group": "REG-MEM",
       "indexInGroup": 14,
       "shortDescription": "SP = SP + 1",
       "longDescription": ""
@@ -437,8 +441,12 @@
       "mnemonic": "incm",
       "type": "PSEUDO",
       "operands": ["addr"],
-      "mappedInstructions": ["ld X, <addr>", "incx", "st X, <addr>"],
-      "group": "REG/MEM",
+      "mappedInstructions": [
+        "ld X, <addr>",
+        "incx",
+        "st X, <addr>"
+      ],
+      "group": "REG-MEM",
       "indexInGroup": 15,
       "shortDescription": "mem[<addr>] = mem[<addr>] + 1",
       "longDescription": ""
@@ -449,8 +457,8 @@
       "type": "REAL",
       "operands": [],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "REG/MEM",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "REG-MEM",
       "indexInGroup": 16,
       "shortDescription": "X = X - 1",
       "longDescription": ""
@@ -467,7 +475,7 @@
         "subc SP_H",
         "//TODO: Test if correct"
       ],
-      "group": "REG/MEM",
+      "group": "REG-MEM",
       "indexInGroup": 17,
       "shortDescription": "SP = SP - 1",
       "longDescription": ""
@@ -477,21 +485,24 @@
       "mnemonic": "decm",
       "type": "PSEUDO",
       "operands": ["addr"],
-      "mappedInstructions": ["ld X, <addr>", "decx", "st X, <addr>"],
-      "group": "REG/MEM",
+      "mappedInstructions": [
+        "ld X, <addr>",
+        "decx",
+        "st X, <addr>"
+      ],
+      "group": "REG-MEM",
       "indexInGroup": 18,
       "shortDescription": "mem[<addr>] = mem[<addr>] - 1",
       "longDescription": ""
     },
-    //------------------------------------------------------------------------------
     {
       "name": "output to 7-segment display",
       "mnemonic": "out7sd",
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "I/O",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "I-O",
       "indexInGroup": 0,
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
       "longDescription": ""
@@ -502,8 +513,8 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "I/O",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "I-O",
       "indexInGroup": 1,
       "shortDescription": "Outputs the value in the given register to the LCD-display as control",
       "longDescription": ""
@@ -514,8 +525,8 @@
       "type": "REAL",
       "operands": ["imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "I/O",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "I-O",
       "indexInGroup": 2,
       "shortDescription": "Outputs the immediate value to the LCD-display as control",
       "longDescription": ""
@@ -526,8 +537,8 @@
       "type": "REAL",
       "operands": ["reg"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "I/O",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "I-O",
       "indexInGroup": 3,
       "shortDescription": "Outputs the value in the given register to the LCD-display as data",
       "longDescription": ""
@@ -538,23 +549,22 @@
       "type": "REAL",
       "operands": ["imm"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "I/O",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "I-O",
       "indexInGroup": 4,
       "shortDescription": "Outputs the immediate value to the LCD-display as data",
       "longDescription": ""
     },
-    //------------------------------------------------------------------------------
     {
       "name": "no operation",
       "mnemonic": "nop",
       "type": "REAL",
       "operands": [],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "SYS",
       "indexInGroup": 0,
-      "shortDescription": "Does nothing for //TODO clock cycles",
+      "shortDescription": "Does nothing for clock cycles",
       "longDescription": ""
     },
     {
@@ -563,7 +573,7 @@
       "type": "REAL",
       "operands": [],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "SYS",
       "indexInGroup": 1,
       "shortDescription": "Halts the entire computer. This instruction is called at the end of a program.",
@@ -575,7 +585,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "SYS",
       "indexInGroup": 2,
       "shortDescription": "Calls the function placed at the given address",
@@ -587,21 +597,20 @@
       "type": "REAL",
       "operands": [],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "SYS",
       "indexInGroup": 3,
       "shortDescription": "Returns from a function call",
       "longDescription": ""
     },
-    //------------------------------------------------------------------------------
     {
       "name": "jump",
       "mnemonic": "jmp",
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 0,
       "shortDescription": "PC = <addr>",
       "longDescription": ""
@@ -612,8 +621,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 1,
       "shortDescription": "branch if A == TMP",
       "longDescription": ""
@@ -624,8 +633,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 2,
       "shortDescription": "branch if A == <imm>",
       "longDescription": ""
@@ -636,8 +645,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 3,
       "shortDescription": "branch if A != TMP",
       "longDescription": ""
@@ -648,8 +657,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 4,
       "shortDescription": "branch if A != <imm>",
       "longDescription": ""
@@ -660,8 +669,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 5,
       "shortDescription": "branch if A < TMP (signed)",
       "longDescription": ""
@@ -672,8 +681,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 6,
       "shortDescription": "branch if A < <imm> (signed)",
       "longDescription": ""
@@ -684,8 +693,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 7,
       "shortDescription": "branch if A < TMP (unsigned)",
       "longDescription": ""
@@ -696,8 +705,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 8,
       "shortDescription": "branch if A < <imm> (unsigned)",
       "longDescription": ""
@@ -708,8 +717,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 9,
       "shortDescription": "branch if A <= TMP (signed)",
       "longDescription": ""
@@ -720,8 +729,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 10,
       "shortDescription": "branch if A <= <imm> (signed)",
       "longDescription": ""
@@ -732,8 +741,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 11,
       "shortDescription": "branch if A <= TMP (unsigned)",
       "longDescription": ""
@@ -744,8 +753,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 12,
       "shortDescription": "branch if A <= <imm> (unsigned)",
       "longDescription": ""
@@ -756,8 +765,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 13,
       "shortDescription": "branch if A >= TMP (signed)",
       "longDescription": ""
@@ -768,8 +777,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 14,
       "shortDescription": "branch if A >= <imm> (signed)",
       "longDescription": ""
@@ -780,8 +789,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 15,
       "shortDescription": "branch if A >= TMP (unsigned)",
       "longDescription": ""
@@ -792,8 +801,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 16,
       "shortDescription": "branch if A >= <imm> (unsigned)",
       "longDescription": ""
@@ -804,8 +813,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 17,
       "shortDescription": "branch if A > TMP (signed)",
       "longDescription": ""
@@ -816,8 +825,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 18,
       "shortDescription": "branch if A > <imm> (signed)",
       "longDescription": ""
@@ -828,8 +837,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 19,
       "shortDescription": "branch if A > TMP (unsigned)",
       "longDescription": ""
@@ -840,8 +849,8 @@
       "type": "REAL",
       "operands": ["imm", "addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 20,
       "shortDescription": "branch if A > <imm> (unsigned)",
       "longDescription": ""
@@ -852,8 +861,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 21,
       "shortDescription": "branch if NF is set",
       "longDescription": ""
@@ -864,8 +873,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 22,
       "shortDescription": "branch if NF is not set",
       "longDescription": ""
@@ -876,8 +885,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 23,
       "shortDescription": "branch if CF is set",
       "longDescription": ""
@@ -888,8 +897,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 24,
       "shortDescription": "branch if CF is not set",
       "longDescription": ""
@@ -900,8 +909,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 25,
       "shortDescription": "branch if VF is set",
       "longDescription": ""
@@ -912,8 +921,8 @@
       "type": "REAL",
       "operands": ["addr"],
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]], //TODO
-      "group": "BR/JMP",
+      "microinstructions": [["", ""], ["RSC"]],
+      "group": "BR-JMP",
       "indexInGroup": 26,
       "shortDescription": "branch if VF is not set",
       "longDescription": ""
