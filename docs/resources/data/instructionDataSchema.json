@@ -27,23 +27,14 @@
               "pattern": "^(reg|imm|addr|n|regd|regs)$"
             }
           },
+          "requiresFlag": { "type": "boolean" },
           "opcode": {
             "type": "string",
             "minLength": 8,
             "maxLength": 8,
-            "pattern": "(0|1){8}"
+            "pattern": "(0|1|D|S){8}"
           },
-          "microinstructions": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "pattern": "^(IE_MAR_H|IE_PC_H|IE_PC_L|RSC|IE_A|IE_SP_H|IE_SP_L|IE_PRB|IE_MAR_L|CE|IE_F|IE_B|IE_X|LCD_RS|LCD_E|IE_7SD|MEM_WE|ALU_BOP_AND|ALU_BOP_OR|ALU_BOP_XOR|ALU_BOP_NOT|ALU_BOP_SHL|ALU_BOP_SLR|ALU_BOP_SAR|ALU_BOP_ROR|ALU_SRC|ALU_CIN|ALU_AOP_ADD|ALU_AOP_SUB|IE_IR|OE_X|OE_ALU|OE_PC_L|OE_PC_H|OE_F|OE_A|OE_T|OE_B|OE_SP_L|OE_SP_H|OE_IR|OE_PRB|IE_T|MEM_EN_IO|INC_X|DEC_X)$"
-              }
-            },
-            "maxItems": 16
-          },
+          "microinstructions": {},
           "mappedInstructions": {
             "type": "array",
             "items": {
@@ -85,7 +76,11 @@
               "properties": { "type": { "const": "REAL" } }
             },
             "then": {
-              "required": ["opcode", "microinstructions"],
+              "required": [
+                "requiresFlag",
+                "opcode",
+                "microinstructions"
+              ],
               "not": { "required": ["mappedInstructions"] }
             }
           },
@@ -97,9 +92,75 @@
             },
             "then": {
               "not": {
-                "required": ["opcode", "microinstructions"]
+                "required": [
+                  "requiresFlag",
+                  "opcode",
+                  "microinstructions"
+                ]
               },
               "required": ["mappedInstructions"]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "requiresFlag": { "const": false }
+              }
+            },
+            "then": {
+              "properties": {
+                "microinstructions": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^(IE_MAR_H|IE_PC_H|IE_PC_L|RSC|IE_A|IE_SP_H|IE_SP_L|IE_PRB|IE_MAR_L|CE|IE_F|IE_B|IE_X|LCD_RS|LCD_E|IE_7SD|MEM_WE|ALU_BOP_AND|ALU_BOP_OR|ALU_BOP_XOR|ALU_BOP_NOT|ALU_BOP_SHL|ALU_BOP_SLR|ALU_BOP_SAR|ALU_BOP_ROR|ALU_SRC|ALU_CIN|ALU_AOP_ADD|ALU_AOP_SUB|IE_IR|OE_X|OE_ALU|OE_PC_L|OE_PC_H|OE_F|OE_A|OE_T|OE_B|OE_SP_L|OE_SP_H|OE_IR|OE_PRB|IE_T|MEM_EN_IO|INC_X|DEC_X)$"
+                    }
+                  },
+                  "maxItems": 16
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "requiresFlag": { "const": true }
+              }
+            },
+            "then": {
+              "properties": {
+                "microinstructions": {
+                  "type": "object",
+                  "properties": {
+                    "0": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^(IE_MAR_H|IE_PC_H|IE_PC_L|RSC|IE_A|IE_SP_H|IE_SP_L|IE_PRB|IE_MAR_L|CE|IE_F|IE_B|IE_X|LCD_RS|LCD_E|IE_7SD|MEM_WE|ALU_BOP_AND|ALU_BOP_OR|ALU_BOP_XOR|ALU_BOP_NOT|ALU_BOP_SHL|ALU_BOP_SLR|ALU_BOP_SAR|ALU_BOP_ROR|ALU_SRC|ALU_CIN|ALU_AOP_ADD|ALU_AOP_SUB|IE_IR|OE_X|OE_ALU|OE_PC_L|OE_PC_H|OE_F|OE_A|OE_T|OE_B|OE_SP_L|OE_SP_H|OE_IR|OE_PRB|IE_T|MEM_EN_IO|INC_X|DEC_X)$"
+                        }
+                      },
+                      "maxItems": 16
+                    },
+                    "1": {
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "pattern": "^(IE_MAR_H|IE_PC_H|IE_PC_L|RSC|IE_A|IE_SP_H|IE_SP_L|IE_PRB|IE_MAR_L|CE|IE_F|IE_B|IE_X|LCD_RS|LCD_E|IE_7SD|MEM_WE|ALU_BOP_AND|ALU_BOP_OR|ALU_BOP_XOR|ALU_BOP_NOT|ALU_BOP_SHL|ALU_BOP_SLR|ALU_BOP_SAR|ALU_BOP_ROR|ALU_SRC|ALU_CIN|ALU_AOP_ADD|ALU_AOP_SUB|IE_IR|OE_X|OE_ALU|OE_PC_L|OE_PC_H|OE_F|OE_A|OE_T|OE_B|OE_SP_L|OE_SP_H|OE_IR|OE_PRB|IE_T|MEM_EN_IO|INC_X|DEC_X)$"
+                        }
+                      },
+                      "maxItems": 16
+                    }
+                  },
+                  "required": ["0", "1"],
+                  "additionalProperties": false
+                }
+              }
             }
           }
         ]
