@@ -32,6 +32,7 @@ async function fillOverviewTables() {
 
   addEntriesToTable("pseudo-instructions-table", pseudoInstructions, [
     "mnemonic",
+    "instruction",
     "mappedInstructions",
   ]);
   applyFirstRowStylesByColumn("pseudo-instructions-table");
@@ -62,7 +63,7 @@ function addEntriesToTable(tableId, entries, properties) {
           break;
         }
         case "mappedInstructions": {
-          innerHTML = entry.mappedInstructions.join("<br>");
+          innerHTML = entry.mappedInstructions.join("\n");
           break;
         }
       }
@@ -70,7 +71,8 @@ function addEntriesToTable(tableId, entries, properties) {
       const escapedInnerHTML = innerHTML
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
+        .replaceAll(">", "&gt;")
+        .replaceAll("\n", "<br>");
 
       newCell.innerHTML = escapedInnerHTML;
       newTableRow.appendChild(newCell);

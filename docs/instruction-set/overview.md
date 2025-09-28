@@ -87,8 +87,8 @@ Here is a list of all pseudo-instructions that were mentioned in the tables abov
 
 {: #pseudo-instructions-table}
 
-| mnemonic   | Mapped Instruction |
-| :--------- | :----------------- |
-| Loading... | Loading...         |
+| mnemonic   | Instruction | Mapped Instruction |
+| :--------- | :---------- | :----------------- |
+| Loading... | Loading...  | Loading...         |
 
 <script src="./loadData.js">
