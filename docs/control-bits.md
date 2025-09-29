@@ -41,7 +41,7 @@ s/a stands for synchronous/asynchronous
 | ALU_SRC                                                  | ALU Source               | a   | Sets the source of the ALU: 0 = arithmetic operation, 1 = bitwise operation                                                                                   |
 | ALU_CIN                                                  | ALU Carry In             | a   | Sets the Carry In for the adders of the ALU                                                                                                                   |
 | ALU_AOP                                                  | ALU Arithmetic Operation | a   | Sets the arithmetic operation of the ALU: <br> 0 = ADD <br> 1 = SUB                                                                                           |
-| ALU_BOP[0:2]                                             | ALU Bitwise Operation    | a   | Sets the bitwise operation of the ALU: <br> 000 = AND <br> 001 = OR <br> 010 = XOR <br> 011 = NOT <br> 100 = SHL <br> 101 = SLR <br> 110 = SAR <br> 111 = ROR |
+| ALU_BOP[0:2]                                             | ALU Bitwise Operation    | a   | Sets the bitwise operation of the ALU: <br> 000 = AND <br> 001 = OR <br> 010 = XOR <br> 011 = NOT <br> 100 = SLR <br> 101 = SAR <br> 110 = ROR <br> 111 = ROL |
 
 ## Flags-Register
 

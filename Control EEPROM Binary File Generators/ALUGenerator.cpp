@@ -15,13 +15,12 @@ const int EEPROM_SIZE = 2048; // Size of the EEPROM in bytes
 int main() {
   uint8_t binData[EEPROM_SIZE];
 
-  for (int ALU_BW_op = 0; ALU_BW_op <= 7; ALU_BW_op++) { // 000 = AND, 001 = OR, 010 = XOR, 011 = NOT | 100 = SHL, 101 = SLR, 110 = SAR, 111 = ROR
+  for (int ALU_BW_op = 0; ALU_BW_op <= 7; ALU_BW_op++) { // 000 = AND, 001 = OR, 010 = XOR, 011 = NOT | 100 = SLR, 101 = SAR, 110 = ROR, 111 = ROL
     for (int num = 0; num <= 255; num++) {
       int address = (ALU_BW_op << 8) | num;
 
       uint8_t lowNibble = (num & 0x0F);
       uint8_t highNibble = (num & 0xF0) >> 4;
-
 
       int result = 0;
       switch (ALU_BW_op) {
@@ -37,20 +36,22 @@ int main() {
       case 0b011:  // NOT
         result = (~highNibble) << 4;
         break;
-      case 0b100:  // SHL
-        result = num << 1;
-        break;
-      case 0b101:  // SLR
+      case 0b100:  // SLR
         result = num >> 1;
         break;
-      case 0b110: {// SAR
+      case 0b101: {  // SAR
         uint8_t sign = (num & 0b10000000);
         result = (num >> 1) | sign;
         break;
       }
-      case 0b111: { // ROR
+      case 0b110: { //ROR
         uint8_t lsb = num & 0b00000001;
         result = (num >> 1) | (lsb << 7);
+        break;
+      }
+      case 0b111: { // ROL
+        uint8_t msb = num & 0b10000000;
+        result = (num << 1) | (msb >> 7);
         break;
       }
       }

@@ -11,10 +11,10 @@ The 8-Bit ALU supports computing the following arithmetic and logic operations:
 
 - Add, Subtract
 - Logic AND, OR, XOR, NOT
-- Shift Left (SHL)
 - Shift Logic Right (SLR)
 - Shift Arithmetic Right (SAR)
 - Rotate Right (ROR)
+- Rotate Left (ROL)
 
 This makes a total of 10 different operations, which I consider to be quite a lot for a small breadboard-computer like this one. <br>
 This brings me to the question: How do you implement all of these in hardware? Basically, there are two extremes:

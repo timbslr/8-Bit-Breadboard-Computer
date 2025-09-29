@@ -224,7 +224,7 @@
       "type": "PSEUDO",
       "operands": ["reg", "n"],
       "mappedInstructions": [
-        "executes “ror <reg>” <n> times"
+        "executes “ror A” (<n>-1) times and then “ror <reg>” once"
       ],
       "group": "ALU",
       "indexInGroup": 17,
@@ -234,11 +234,11 @@
     {
       "name": "rotate left",
       "mnemonic": "rol",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": ["reg"],
-      "mappedInstructions": [
-        "executes “ror <reg>” (8-<n>) times"
-      ],
+      "requiresFlag": false,
+      "opcode": "//TODO",
+      "microinstructions": [["", ""], ["RSC"]],
       "group": "ALU",
       "indexInGroup": 18,
       "shortDescription": "<reg> = rotate A left by one bit",
@@ -250,7 +250,7 @@
       "type": "PSEUDO",
       "operands": ["reg", "n"],
       "mappedInstructions": [
-        "executes “rol <reg>” <n> times"
+        "executes “rol A” (<n>-1) times and then “rol <reg>” once"
       ],
       "group": "ALU",
       "indexInGroup": 19,
