@@ -7,7 +7,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -24,7 +24,10 @@
       "mnemonic": "addi",
       "type": "PSEUDO",
       "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "add <reg>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "add <reg>"
+      ],
       "group": "ALU",
       "indexInGroup": 1,
       "shortDescription": "<reg> = A + <imm>",
@@ -36,7 +39,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -62,7 +65,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -80,7 +83,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -106,7 +109,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -123,7 +126,10 @@
       "mnemonic": "andi",
       "type": "PSEUDO",
       "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "and <reg>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "and <reg>"
+      ],
       "group": "ALU",
       "indexInGroup": 6,
       "shortDescription": "<reg> = A & <imm>",
@@ -135,7 +141,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -152,7 +158,10 @@
       "mnemonic": "ori",
       "type": "PSEUDO",
       "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "or <reg>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "or <reg>"
+      ],
       "group": "ALU",
       "indexInGroup": 8,
       "shortDescription": "<reg> = A | <imm>",
@@ -164,7 +173,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -181,7 +190,10 @@
       "mnemonic": "xori",
       "type": "PSEUDO",
       "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "xor <reg>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "xor <reg>"
+      ],
       "group": "ALU",
       "indexInGroup": 10,
       "shortDescription": "<reg> = A ^ <imm>",
@@ -193,7 +205,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -210,7 +222,10 @@
       "mnemonic": "neg",
       "type": "PSEUDO",
       "operands": ["reg"],
-      "mappedInstructions": ["not A", "addi <reg>, 1"],
+      "mappedInstructions": [
+        "not A",
+        "addi <reg>, 1"
+      ],
       "group": "ALU",
       "indexInGroup": 12,
       "shortDescription": "<reg> = ~A + 1",
@@ -222,7 +237,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -240,7 +255,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -258,7 +273,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -276,7 +291,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -307,7 +322,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -338,7 +353,7 @@
       "type": "REAL",
       "operands": ["imm"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -355,7 +370,9 @@
       "mnemonic": "clr",
       "type": "PSEUDO",
       "operands": ["reg"],
-      "mappedInstructions": ["li <reg>, 0"],
+      "mappedInstructions": [
+        "li <reg>, 0"
+      ],
       "group": "REG-MEM",
       "indexInGroup": 0,
       "shortDescription": "<reg> = 0",
@@ -367,7 +384,7 @@
       "type": "REAL",
       "operands": ["regd", "regs"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -385,7 +402,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -403,7 +420,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -421,7 +438,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -439,7 +456,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -457,7 +474,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -475,7 +492,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -493,7 +510,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -511,7 +528,7 @@
       "type": "REAL",
       "operands": ["reg", "imm"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -528,7 +545,10 @@
       "mnemonic": "push",
       "type": "PSEUDO",
       "operands": ["reg"],
-      "mappedInstructions": ["decsp", "stsp <reg>"],
+      "mappedInstructions": [
+        "decsp",
+        "stsp <reg>"
+      ],
       "group": "REG-MEM",
       "indexInGroup": 10,
       "shortDescription": "SP = SP - 1\nmem[SP] = <reg>",
@@ -539,7 +559,10 @@
       "mnemonic": "pop",
       "type": "PSEUDO",
       "operands": ["reg"],
-      "mappedInstructions": ["peek <reg>", "incsp"],
+      "mappedInstructions": [
+        "peek <reg>",
+        "incsp"
+      ],
       "group": "REG-MEM",
       "indexInGroup": 11,
       "shortDescription": "<reg> = mem[SP]\nSP = SP + 1",
@@ -550,7 +573,9 @@
       "mnemonic": "peek",
       "type": "PSEUDO",
       "operands": ["reg"],
-      "mappedInstructions": ["ldsp <reg>"],
+      "mappedInstructions": [
+        "ldsp <reg>"
+      ],
       "group": "REG-MEM",
       "indexInGroup": 12,
       "shortDescription": "<reg> = mem[SP]",
@@ -562,7 +587,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -612,7 +637,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -662,7 +687,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -680,7 +705,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -698,7 +723,7 @@
       "type": "REAL",
       "operands": ["imm"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -716,7 +741,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -734,7 +759,7 @@
       "type": "REAL",
       "operands": ["imm"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -770,7 +795,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -788,7 +813,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -814,7 +839,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -832,7 +857,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": false,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -850,7 +875,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -875,7 +900,10 @@
       "mnemonic": "beqi",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": ["li TMP, <imm>", "beq <addr>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "beq <addr>"
+      ],
       "group": "BR-JMP",
       "indexInGroup": 2,
       "shortDescription": "branch if A == <imm>",
@@ -887,7 +915,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -912,7 +940,10 @@
       "mnemonic": "bnei",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": ["li TMP, <imm>", "bne <addr>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "bne <addr>"
+      ],
       "group": "BR-JMP",
       "indexInGroup": 4,
       "shortDescription": "branch if A != <imm>",
@@ -924,7 +955,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -949,7 +980,10 @@
       "mnemonic": "blti",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": ["li TMP, <imm>", "blt <addr>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "blt <addr>"
+      ],
       "group": "BR-JMP",
       "indexInGroup": 6,
       "shortDescription": "branch if A < <imm> (signed)",
@@ -961,7 +995,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1001,7 +1035,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1026,7 +1060,10 @@
       "mnemonic": "blei",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": ["li TMP, <imm>", "ble <addr>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "ble <addr>"
+      ],
       "group": "BR-JMP",
       "indexInGroup": 10,
       "shortDescription": "branch if A <= <imm> (signed)",
@@ -1038,7 +1075,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1078,7 +1115,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1103,7 +1140,10 @@
       "mnemonic": "bgei",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": ["li TMP, <imm>", "bge <addr>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "bge <addr>"
+      ],
       "group": "BR-JMP",
       "indexInGroup": 14,
       "shortDescription": "branch if A >= <imm> (signed)",
@@ -1115,7 +1155,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1155,7 +1195,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1180,7 +1220,10 @@
       "mnemonic": "bgti",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": ["li TMP, <imm>", "bgt <addr>"],
+      "mappedInstructions": [
+        "li TMP, <imm>",
+        "bgt <addr>"
+      ],
       "group": "BR-JMP",
       "indexInGroup": 18,
       "shortDescription": "branch if A > <imm> (signed)",
@@ -1192,7 +1235,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1232,7 +1275,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1258,7 +1301,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1284,7 +1327,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1310,7 +1353,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1336,7 +1379,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
@@ -1362,7 +1405,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "//TODO",
+      "opcode": "",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"],

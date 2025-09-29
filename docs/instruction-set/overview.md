@@ -91,4 +91,4 @@ Here is a list of all pseudo-instructions that were mentioned in the tables abov
 | :--------- | :---------- | :----------------- |
 | Loading... | Loading...  | Loading...         |
 
-<script src="./loadData.js">
+<script type="module" src="../scripts/loadOverviewData.js">

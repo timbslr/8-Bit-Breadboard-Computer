@@ -32,7 +32,7 @@
             "type": "string",
             "minLength": 8,
             "maxLength": 8,
-            "pattern": "(0|1|D|S){8}"
+            "pattern": "(0|1|R){8}"
           },
           "microinstructions": {},
           "mappedInstructions": {
