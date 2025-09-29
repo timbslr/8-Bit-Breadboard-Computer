@@ -8,7 +8,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 0,
       "shortDescription": "<reg> = A + TMP",
@@ -33,8 +38,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "ALU",
       "indexInGroup": 2,
@@ -48,7 +63,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 3,
       "shortDescription": "<reg> = A - TMP",
@@ -62,8 +82,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "ALU",
       "indexInGroup": 4,
@@ -77,7 +107,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 5,
       "shortDescription": "<reg> = A & TMP",
@@ -101,7 +136,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 7,
       "shortDescription": "<reg> = A | TMP",
@@ -125,7 +165,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 9,
       "shortDescription": "<reg> = A ^ TMP",
@@ -149,7 +194,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 11,
       "shortDescription": "<reg> = ~A",
@@ -173,7 +223,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 13,
       "shortDescription": "<reg> = A << 1 (zero-extended)",
@@ -186,7 +241,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 14,
       "shortDescription": "<reg> = A >> 1 (zero-extended)",
@@ -199,7 +259,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 15,
       "shortDescription": "<reg> = A >> 1 (sign-extended)",
@@ -212,7 +277,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 16,
       "shortDescription": "<reg> = rotate A right by one bit",
@@ -238,7 +308,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 18,
       "shortDescription": "<reg> = rotate A left by one bit",
@@ -264,7 +339,12 @@
       "operands": ["imm"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "ALU",
       "indexInGroup": 20,
       "shortDescription": "A & <imm>, only updates flags",
@@ -288,7 +368,12 @@
       "operands": ["regd", "regs"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 1,
       "shortDescription": "<regd> = <regs>",
@@ -301,7 +386,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 2,
       "shortDescription": "<reg> = Flag Register",
@@ -314,7 +404,12 @@
       "operands": ["reg", "addr"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 3,
       "shortDescription": "<reg> = mem[<addr>]",
@@ -327,7 +422,12 @@
       "operands": ["reg", "addr"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 4,
       "shortDescription": "<reg> = mem[<addr> + X]",
@@ -340,7 +440,12 @@
       "operands": ["reg", "addr"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 5,
       "shortDescription": "mem[<addr>] = <reg>",
@@ -353,7 +458,12 @@
       "operands": ["reg", "addr"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 6,
       "shortDescription": "mem[<addr> + X] = <reg>",
@@ -366,7 +476,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 7,
       "shortDescription": "<reg> = mem[SP]",
@@ -379,7 +494,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 8,
       "shortDescription": "mem[SP] = <reg>",
@@ -392,7 +512,12 @@
       "operands": ["reg", "imm"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 9,
       "shortDescription": "<reg> = <imm>",
@@ -438,7 +563,12 @@
       "operands": [],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 13,
       "shortDescription": "X= X + 1",
@@ -483,7 +613,12 @@
       "operands": [],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 16,
       "shortDescription": "X = X - 1",
@@ -528,7 +663,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "I-O",
       "indexInGroup": 0,
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
@@ -541,7 +681,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "I-O",
       "indexInGroup": 1,
       "shortDescription": "Outputs the value in the given register to the LCD-display as control",
@@ -554,7 +699,12 @@
       "operands": ["imm"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "I-O",
       "indexInGroup": 2,
       "shortDescription": "Outputs the immediate value to the LCD-display as control",
@@ -567,7 +717,12 @@
       "operands": ["reg"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "I-O",
       "indexInGroup": 3,
       "shortDescription": "Outputs the value in the given register to the LCD-display as data",
@@ -580,7 +735,12 @@
       "operands": ["imm"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "I-O",
       "indexInGroup": 4,
       "shortDescription": "Outputs the immediate value to the LCD-display as data",
@@ -593,7 +753,12 @@
       "operands": [],
       "requiresFlag": false,
       "opcode": "00000000",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "SYS",
       "indexInGroup": 0,
       "shortDescription": "Does nothing for clock cycles",
@@ -606,7 +771,12 @@
       "operands": [],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "SYS",
       "indexInGroup": 1,
       "shortDescription": "Halts the entire computer. This instruction is called at the end of a program.",
@@ -620,8 +790,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "SYS",
       "indexInGroup": 2,
@@ -635,7 +815,12 @@
       "operands": [],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "SYS",
       "indexInGroup": 3,
       "shortDescription": "Returns from a function call",
@@ -648,7 +833,12 @@
       "operands": ["addr"],
       "requiresFlag": false,
       "opcode": "//TODO",
-      "microinstructions": [["", ""], ["RSC"]],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["RSC"]
+      ],
       "group": "BR-JMP",
       "indexInGroup": 0,
       "shortDescription": "PC = <addr>",
@@ -662,8 +852,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 1,
@@ -689,8 +889,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 3,
@@ -716,8 +926,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 5,
@@ -743,8 +963,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 7,
@@ -773,8 +1003,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 9,
@@ -800,8 +1040,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 11,
@@ -830,8 +1080,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 13,
@@ -857,8 +1117,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 15,
@@ -887,8 +1157,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 17,
@@ -914,8 +1194,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 19,
@@ -944,8 +1234,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 21,
@@ -960,8 +1260,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 22,
@@ -976,8 +1286,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 23,
@@ -992,8 +1312,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 24,
@@ -1008,8 +1338,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 25,
@@ -1024,8 +1364,18 @@
       "requiresFlag": true,
       "opcode": "//TODO",
       "microinstructions": {
-        "0": [["", ""], ["RSC"]],
-        "1": [["", ""], ["RSC"]]
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["RSC"]
+        ]
       },
       "group": "BR-JMP",
       "indexInGroup": 26,
