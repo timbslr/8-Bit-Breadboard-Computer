@@ -11,13 +11,13 @@ s/a stands for synchronous/asynchronous
 
 ## Program Counter (PC)
 
-| Abbreviation                                              | Name                  | s/a | Description                                                     |
-| :-------------------------------------------------------- | :-------------------- | :-- | :-------------------------------------------------------------- |
-| CE                                                        | Count Enable          | s   | Enables incrementing the PC on the next positive clock edge     |
-| <span style="text-decoration: overline;"> IE_PC_L </span> | Input Enable PC Low   | s   | Enables loading data from the bus to the low byte of the PC     |
-| <span style="text-decoration: overline;"> IE_PC_H </span> | Input Enable PC High  | s   | Enables loading data from the bus to the high byte of the PC    |
-| <span style="text-decoration: overline;"> OE_PC_L </span> | Output Enable PC Low  | a   | Enables outputting data from the low byte of the PC to the bus  |
-| <span style="text-decoration: overline;"> OE_PC_H </span> | Output Enable PC High | a   | Enables outputting data from the high byte of the PC to the bus |
+| Abbreviation                                              | Name                      | s/a | Description                                                     |
+| :-------------------------------------------------------- | :------------------------ | :-- | :-------------------------------------------------------------- |
+| INC_PC                                                    | Increment Program Counter | s   | Increments the PC on the next rising clock edge                 |
+| <span style="text-decoration: overline;"> IE_PC_L </span> | Input Enable PC Low       | s   | Enables loading data from the bus to the low byte of the PC     |
+| <span style="text-decoration: overline;"> IE_PC_H </span> | Input Enable PC High      | s   | Enables loading data from the bus to the high byte of the PC    |
+| <span style="text-decoration: overline;"> OE_PC_L </span> | Output Enable PC Low      | a   | Enables outputting data from the low byte of the PC to the bus  |
+| <span style="text-decoration: overline;"> OE_PC_H </span> | Output Enable PC High     | a   | Enables outputting data from the high byte of the PC to the bus |
 
 ## A-Register
 

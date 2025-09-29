@@ -11,7 +11,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_ARI", "ALU_AOP_ADD"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -43,7 +43,7 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["ALU_SRC_ARI", "ALU_AOP_ADD"],
           ["OE_ALU", "IE_<reg>"],
           ["RSC"]
@@ -51,7 +51,7 @@
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN"],
           ["OE_ALU", "IE_<reg>"],
           ["RSC"]
@@ -72,7 +72,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -93,7 +93,7 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["ALU_SRC_ARI", "ALU_AOP_SUB"],
           ["OE_ALU", "IE_<reg>"],
           ["RSC"]
@@ -101,7 +101,7 @@
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN"],
           ["OE_ALU", "IE_<reg>"],
           ["RSC"]
@@ -122,7 +122,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_AND"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -153,7 +153,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_OR"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -184,7 +184,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_XOR"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -215,7 +215,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_NOT"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -246,7 +246,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_A", "IE_T"],
         ["ALU_SRC_ARI", "ALU_AOP_ADD"],
         ["OE_ALU", "IE_<reg>"],
@@ -267,7 +267,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_SLR"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -287,7 +287,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_SAR"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -307,7 +307,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_ROR"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -340,7 +340,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_ROL"],
         ["OE_ALU", "IE_<reg>"],
         ["RSC"]
@@ -373,7 +373,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_AND"],
         [],
         ["RSC"]
@@ -404,7 +404,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_<regs>", "IE_<regd>"],
         ["RSC"]
       ],
@@ -423,7 +423,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_F", "IE_<reg>"],
         ["RSC"]
       ],
@@ -442,13 +442,13 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_PRB", "CE"],
+        ["MEM_EN_IO", "IE_PRB", "INC_PC"],
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_MAR_L", "CE"],
+        ["MEM_EN_IO", "IE_MAR_L", "INC_PC"],
         ["OE_PRB", "IE_MAR_H"],
         ["MEM_EN_IO", "IE_<reg>"],
         ["RSC"]
@@ -468,7 +468,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -487,13 +487,13 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_PRB", "CE"],
+        ["MEM_EN_IO", "IE_PRB", "INC_PC"],
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_MAR_L", "CE"],
+        ["MEM_EN_IO", "IE_MAR_L", "INC_PC"],
         ["OE_PRB", "IE_MAR_H"],
         ["MEM_EN_IO", "MEM_WE", "OE_<reg>"],
         ["RSC"]
@@ -513,7 +513,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -532,7 +532,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -551,7 +551,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -570,10 +570,10 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_<reg>", "CE"],
+        ["MEM_EN_IO", "IE_<reg>", "INC_PC"],
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -624,7 +624,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["INC_X"],
         ["RSC"]
       ],
@@ -675,7 +675,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["DEC_X"],
         ["RSC"]
       ],
@@ -726,7 +726,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_<reg>", "IE_7SD"],
         ["RSC"]
       ],
@@ -745,7 +745,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -764,7 +764,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -783,7 +783,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -802,7 +802,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -821,7 +821,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["RSC"]
       ],
       "group": "SYS",
@@ -839,7 +839,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["HALT"],
         ["RSC"]
       ],
@@ -859,14 +859,14 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["//TODO"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -885,7 +885,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -904,7 +904,7 @@
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "CE"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["//TODO"],
         ["RSC"]
       ],
@@ -924,13 +924,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -961,13 +961,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -998,13 +998,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1035,13 +1035,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1075,13 +1075,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1112,13 +1112,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1152,13 +1152,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1189,13 +1189,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1229,13 +1229,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1266,13 +1266,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1306,13 +1306,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1332,13 +1332,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1358,13 +1358,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1384,13 +1384,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1410,13 +1410,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
@@ -1436,13 +1436,13 @@
         "0": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "CE"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
           ["RSC"]
         ]
       },
