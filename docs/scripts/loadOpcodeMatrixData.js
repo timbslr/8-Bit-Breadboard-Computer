@@ -82,7 +82,6 @@ function addEntriesToOpcodeMatrix(opcodeMap) {
   for (let i = 0; i < 256; i++) {
     const opcodeBinary = i.toString(2).padStart(8, "0");
     const opcodeHex = i.toString(16).padStart(2, "0").toUpperCase();
-    console.log(opcodeHex);
     const row = parseInt(opcodeHex[0], 16);
     const col = parseInt(opcodeHex[1], 16);
     const label = opcodeMap[opcodeBinary];
