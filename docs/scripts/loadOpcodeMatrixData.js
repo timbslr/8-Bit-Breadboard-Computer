@@ -50,7 +50,7 @@ async function fillOpcodeMatrix() {
         if (opcode.length !== 8) {
           console.error(`Opcode length is not 8: ${opcode}`);
         }
-        label += ` &rarr;${REGISTER_LOOKUP[i]}`;
+        label += `<br>&rarr;${REGISTER_LOOKUP[i]}`;
         opcodeMap[opcode] = label;
         label = instruction.mnemonic;
       }
@@ -63,7 +63,7 @@ async function fillOpcodeMatrix() {
         }
         const upperRegisterIndex = (i >> 2) & 0b11;
         const lowerRegisterIndex = i & 0b11;
-        label += ` ${REGISTER_LOOKUP[upperRegisterIndex]}&rarr;${REGISTER_LOOKUP[lowerRegisterIndex]}`;
+        label += `<br>${REGISTER_LOOKUP[upperRegisterIndex]}&rarr;${REGISTER_LOOKUP[lowerRegisterIndex]}`;
         opcodeMap[opcode] = label;
         label = instruction.mnemonic;
       }
@@ -89,7 +89,7 @@ function addEntriesToOpcodeMatrix(opcodeMap) {
     //
     if (label) {
       //if the label exists/the opcode is actually used
-      currentCell.innerHTML = `<a href="" title="0x${opcodeHex}: ${label}">${label}</a>`;
+      currentCell.innerHTML = `<a href="" title="0x${opcodeHex}: ${label.replaceAll("<br>", "")}">${label}</a>`;
     }
   }
 }
