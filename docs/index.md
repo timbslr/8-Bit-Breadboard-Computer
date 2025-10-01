@@ -14,7 +14,7 @@ Welcome to the documentation of my 8-Bit breadboard computer! Here you will find
 <br>
 
 As the name already tells, this computer is based on an 8-Bit approach, which means that every number that this computer can store or compute arithmetic or logic with is in the range of -128 to 127 or 0 to 255, depending on the interpretation of the number (signed or unsigned). This means that all the registers, the bus, the memory and the ALU are 8-Bit long. <br>
-There is one exception: With 8 bits, you wouldn't be able to write bigger programs, as each program could only use a maximum of 256 bytes. But some instructions are up to three bytes long, and I wanted to have a RAM besides ROM. So I decided to double the addresses bits, resulting in a 16-Bit address. This means that the [Program Counter](modules/pc.html), the [Memory Address Register](modules/mar.html) and the [Stack Pointer](modules/sp.html) are 16-Bit long. Each of them is split up into a high and a low byte, so addresses can be transferred over the bus in two steps.
+There is one exception: With 8 bits, you wouldn't be able to write bigger programs, as each program could only use a maximum of 256 bytes. But some instructions are up to three bytes long, and I wanted to have a RAM besides ROM. So I decided to double the addresses bits, resulting in a 16-Bit address, which is stored in little-endian format in memory. This means that the [Program Counter](modules/pc.html), the [Memory Address Register](modules/mar.html) and the [Stack Pointer](modules/sp.html) are 16-Bit long. Each of them is split up into a high and a low byte, so addresses can be transferred over the bus in two steps.
 
 ## Color Coding
 

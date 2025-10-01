@@ -448,8 +448,8 @@
         ["MEM_EN_IO", "IE_BUF", "INC_PC"],
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_MAR_L", "INC_PC"],
-        ["OE_BUF", "IE_MAR_H"],
+        ["MEM_EN_IO", "IE_MAR_H", "INC_PC"],
+        ["OE_BUF", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_<reg>"],
         ["RSC"]
       ],
@@ -492,8 +492,8 @@
         ["MEM_EN_IO", "IE_BUF", "INC_PC"],
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_MAR_L", "INC_PC"],
-        ["OE_BUF", "IE_MAR_H"],
+        ["MEM_EN_IO", "IE_MAR_H", "INC_PC"],
+        ["OE_BUF", "IE_MAR_L"],
         ["MEM_EN_IO", "MEM_WE", "OE_<reg>"],
         ["RSC"]
       ],
