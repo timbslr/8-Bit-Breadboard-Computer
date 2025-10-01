@@ -469,13 +469,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "REG-MEM",
       "indexInGroup": 4,
       "shortDescription": "<reg> = mem[<addr> + X]",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "store",
@@ -514,13 +513,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "REG-MEM",
       "indexInGroup": 6,
       "shortDescription": "mem[<addr> + X] = <reg>",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "load stack-pointer",
@@ -533,13 +531,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "REG-MEM",
       "indexInGroup": 7,
       "shortDescription": "<reg> = mem[SP]",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "store stack-pointer",
@@ -552,13 +549,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "REG-MEM",
       "indexInGroup": 8,
       "shortDescription": "mem[SP] = <reg>",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "load immediate",
@@ -642,13 +638,12 @@
         "mov SP_L, A",
         "addi SP_L, 1",
         "mov SP_H, A",
-        "addc SP_H",
-        "//TODO: Test if correct"
+        "addc SP_H"
       ],
       "group": "REG-MEM",
       "indexInGroup": 14,
       "shortDescription": "SP = SP + 1",
-      "longDescription": ""
+      "longDescription": "TODO: test if microinstructions are correct"
     },
     {
       "name": "increment value in memory",
@@ -693,13 +688,12 @@
         "mov SP_L, A",
         "addi SP_L, -1",
         "mov SP_H, A",
-        "subc SP_H",
-        "//TODO: Test if correct"
+        "subc SP_H"
       ],
       "group": "REG-MEM",
       "indexInGroup": 17,
       "shortDescription": "SP = SP - 1",
-      "longDescription": ""
+      "longDescription": "TODO: test if microinstructions are correct"
     },
     {
       "name": "decrement value in memory",
@@ -746,13 +740,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 1,
       "shortDescription": "Outputs the value in the given register to the LCD-display as control",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "output immediate to lcd as control",
@@ -765,13 +758,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 2,
       "shortDescription": "Outputs the immediate value to the LCD-display as control",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "output to lcd as data",
@@ -784,13 +776,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 3,
       "shortDescription": "Outputs the value in the given register to the LCD-display as data",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "output immediate to lcd as data",
@@ -803,13 +794,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 4,
       "shortDescription": "Outputs the immediate value to the LCD-display as data",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "no operation",
@@ -860,7 +850,6 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["//TODO"],
           ["RSC"]
         ],
         "1": [
@@ -873,7 +862,7 @@
       "group": "SYS",
       "indexInGroup": 2,
       "shortDescription": "Calls the function placed at the given address",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "return",
@@ -886,13 +875,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "SYS",
       "indexInGroup": 3,
       "shortDescription": "Returns from a function call",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "jump",
@@ -905,13 +893,12 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["//TODO"],
         ["RSC"]
       ],
       "group": "BR-JMP",
       "indexInGroup": 0,
       "shortDescription": "PC = <addr>",
-      "longDescription": ""
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "branch if equal",

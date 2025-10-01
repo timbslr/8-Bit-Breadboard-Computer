@@ -1,6 +1,11 @@
 #include <cstdint>
 #include <iostream>
 #include <fstream>
+#include "../lib/json.hpp"
+#include <vector>
+#include <bitset>
+
+using json = nlohmann::json;
 
 const int EEPROM_SIZE = 8192; // Size of the EEPROM in bytes
 
@@ -68,6 +73,65 @@ const uint32_t MEM_EN_IO   = 0b00000000'00000000'00000000'00000100;
 const uint32_t INC_X       = 0b00000000'00000000'00000000'00000010;
 const uint32_t DEC_X       = 0b00000000'00000000'00000000'00000001;
 
+std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
+  {"IE_MAR_H",    IE_MAR_H},
+  {"IE_PC_H",     IE_PC_H},
+  {"IE_PC_L",     IE_PC_L},
+  {"RSC",         RSC},
+  {"IE_A",        IE_A},
+  {"IE_SP_H",     IE_SP_H},
+  {"IE_SP_L",     IE_SP_L},
+  {"IE_PRB",      IE_PRB},
+  {"IE_MAR_L",    IE_MAR_L},
+  {"INC_PC",      INC_PC},
+  {"IE_F",        IE_F},
+  {"IE_B",        IE_B},
+  {"IE_X",        IE_X},
+  {"LCD_RS",      LCD_RS},
+  {"LCD_E",       LCD_E},
+  {"IE_7SD",      IE_7SD},
+  {"MEM_WE",      MEM_WE},
+  {"ALU_BOP_AND", ALU_BOP_AND},
+  {"ALU_BOP_OR",  ALU_BOP_OR},
+  {"ALU_BOP_XOR", ALU_BOP_XOR},
+  {"ALU_BOP_NOT", ALU_BOP_NOT},
+  {"ALU_BOP_SLR", ALU_BOP_SLR},
+  {"ALU_BOP_SAR", ALU_BOP_SAR},
+  {"ALU_BOP_ROR", ALU_BOP_ROR},
+  {"ALU_BOP_ROL", ALU_BOP_ROL},
+  {"ALU_SRC_ARI", ALU_SRC_ARI},
+  {"ALU_SRC_BIT", ALU_SRC_BIT},
+  {"ALU_CIN",     ALU_CIN},
+  {"ALU_AOP_ADD", ALU_AOP_ADD},
+  {"ALU_AOP_SUB", ALU_AOP_SUB},
+  {"IE_IR",       IE_IR},
+  {"HALT",        HALT},
+  {"OE_X",        OE_X},
+  {"OE_ALU",      OE_ALU},
+  {"OE_PC_L",     OE_PC_L},
+  {"OE_PC_H",     OE_PC_H},
+  {"OE_F",        OE_F},
+  {"OE_A",        OE_A},
+  {"OE_T",        OE_T},
+  {"OE_B",        OE_B},
+  {"OE_SP_L",     OE_SP_L},
+  {"OE_SP_H",     OE_SP_H},
+  {"OE_IR",       OE_IR},
+  {"OE_PRB",      OE_PRB},
+  {"IE_T",        IE_T},
+  {"MEM_EN_IO",   MEM_EN_IO},
+  {"INC_X",       INC_X},
+  {"DEC_X",       DEC_X}
+};
+
+std::string registers[] = {"A", "B", "X", "T"};
+
+void loadInstructions(const char* fileName);
+void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits);
+std::vector<uint32_t> encodeMicroinstructions(std::vector<std::vector<std::string>> activeBits);
+void storeMicroinstructions(bool flag, std::string opcodeBinaryString, std::vector<uint32_t> outputBitsBasedOnMicroinstruction);
+void substituteArgument(std::vector<std::vector<std::string>> &values, std::string argument, std::string replacement);
+void replaceAll(std::string &str, const std::string &from, const std::string &to);
 
 //Control EEPROM Address
 // 12 11 10 9 8 7 6 5 4 3 2 1 0
@@ -77,19 +141,17 @@ const uint32_t DEC_X       = 0b00000000'00000000'00000000'00000001;
 // I = Instruction
 // C = Microstep Counter
 // F = Flag
-
-void loadInstructions(const char* fileName);
-
 int main() {
   uint32_t binData[EEPROM_SIZE];
   std::fill(binData, binData + EEPROM_SIZE, defaultPattern);
 
-  loadInstructions("../instructionData.json");
+  loadInstructions("../docs/resources/data/instructionData.json");
+
   for(int flagBit = 0; flagBit <= 1; flagBit++) {
     for(int microstep = 0; microstep <= 15; microstep++) {
       for(int opcode = 0; opcode <= 255; opcode++) {
-        int address = (flagBit << 12) | (microstep << 8) | opcode;
-        //binData[address] = instructions[flagBit][microstep][opcode];
+        int address = (flagBit << 12) | (microstep << 8) | opcode;  //map instructions entries to addresses
+        binData[address] = instructions[flagBit][microstep][opcode]; //and store them in the output data
       }
     }
   }
@@ -113,7 +175,101 @@ int main() {
 }
 
 void loadInstructions(const char* fileName) {
-  //TODO
-  //TODO XOR bits from microinstructions
+  std::fill(&instructions[0][0][0], (&instructions[0][0][0]) + 2 * 256 * 16, defaultPattern); //initialize every entry of instructions to defaultPattern
+
+  std::ifstream jsonFile(fileName);
+  json instructionsJsonArray = json::parse(jsonFile)["instructions"];
+
+  for(int i = 0; i < instructionsJsonArray.size(); i++) {
+    auto currentInstruction = instructionsJsonArray[i];
+    if(currentInstruction["type"] == "PSEUDO") continue;  //skip pseudo-instructions as they are not part of the Controller EEPROM
+    
+    std::string opcodeBinaryString = currentInstruction["opcode"];
+    if(currentInstruction["requiresFlag"]) {
+      processInstruction(false, opcodeBinaryString, currentInstruction["microinstructions"]["0"]);
+      processInstruction(true, opcodeBinaryString, currentInstruction["microinstructions"]["1"]);
+    } else {
+      processInstruction(false, opcodeBinaryString, currentInstruction["microinstructions"]); //if no flag is required, use the same microinstructions for flag = 0 and flag = 1
+      processInstruction(true, opcodeBinaryString, currentInstruction["microinstructions"]);
+    }
+  }
 }
 
+void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits) {
+  int registerIndex = opcodeBinaryString.find('R'); //used for checking if the opcode contains register arguments
+
+  if(registerIndex == std::string::npos) { //no register arguments
+    const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);
+    storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+  } else if(registerIndex == 6) { //one register argument
+    for(int i = 0; i < 4; i++) {
+      std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+      substituteArgument(activeBitsCopy, "<reg>", registers[i]);
+
+      const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+      std::bitset<2> bits(i);
+      opcodeBinaryString.replace(6, 2, bits.to_string()); //substitute argument in opcode
+      storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+    }
+  } else if(registerIndex == 4) { //two register arguments
+    for(int regd = 0; regd < 4; regd++) {
+      for(int regs = 0; regs < 4; regs++) {
+        std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+        substituteArgument(activeBitsCopy, "<regd>", registers[regd]);
+        substituteArgument(activeBitsCopy, "<regs>", registers[regs]);
+
+        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+        std::bitset<2> bitsRegs(regs);
+        std::bitset<2> bitsRegd(regd);
+        opcodeBinaryString.replace(4, 2, bitsRegs.to_string()); //substitute arguments in opcode
+        opcodeBinaryString.replace(6, 2, bitsRegd.to_string());
+        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+      }
+    }
+  } else {
+    std::cerr << "Register Index not valid. Should be -1, 4 or 6, but was: " + std::to_string(registerIndex) << std::endl;
+  }
+}
+
+std::vector<uint32_t> encodeMicroinstructions(std::vector<std::vector<std::string>> activeBits) {
+  std::vector<uint32_t> encodedMicroinstructions;
+  
+  for(int i = 0; i < activeBits.size(); i++) {
+    uint32_t pattern = defaultPattern;
+    for(int j = 0; j < activeBits[i].size(); j++) {
+      const uint32_t bitMask = controlSignalBitMasks.at(activeBits[i][j]);
+      pattern ^= bitMask; //XOR the pattern with every active bitmask <=> invert the bits in the pattern specified by the bitmask, making them active
+    }
+    encodedMicroinstructions.push_back(pattern);
+  }
+
+  while(encodedMicroinstructions.size() < 16) { //fill remaining microinstructions with default pattern, but practically, they won't be ever reached
+    encodedMicroinstructions.push_back(defaultPattern);
+  }
+
+  return encodedMicroinstructions;
+}
+
+void storeMicroinstructions(bool flag, std::string opcodeBinaryString, std::vector<uint32_t> outputBitsBasedOnMicroinstruction) {
+  uint8_t opcode = std::stoi(opcodeBinaryString, nullptr, 2);
+  int flagIndex = flag ? 1 : 0;
+  for(int i = 0; i < outputBitsBasedOnMicroinstruction.size(); i++) {
+    instructions[flagIndex][opcode][i] = outputBitsBasedOnMicroinstruction[i];
+  }
+}
+
+void substituteArgument(std::vector<std::vector<std::string>> &values, std::string argument, std::string replacement) {
+  for(int i = 0; i < values.size(); i++) {
+    for(int j = 0; j < values[i].size(); j++) {
+      replaceAll(values[i][j], argument, replacement);
+    }
+  }
+}
+
+void replaceAll(std::string &str, const std::string &from, const std::string &to) {
+  int pos = 0;
+  while ((pos = str.find(from, pos)) != std::string::npos) {
+      str.replace(pos, from.length(), to);
+      pos += to.length();
+  }
+}
