@@ -58,7 +58,7 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
  }
 
  #opcode-table th {
-    background: #D6D6FF;
+    background: #D6D6FFFF;
     height: 30px;
  }
 
@@ -88,68 +88,64 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
   height: 40px;
  }
 
- #opcode-table tr:nth-child(1),
- #opcode-table tr:nth-child(2),
+ #opcode-table tr:nth-child(1) td,
+ #opcode-table tr:nth-child(2) td,
  #table2 tr:nth-child(1) td:first-child {
   background-color: var(--color1);
  }
 
- #opcode-table tr:nth-child(3),
- #opcode-table tr:nth-child(4),
+ #opcode-table tr:nth-child(3) td,
+ #opcode-table tr:nth-child(4) td,
  #table2 tr:nth-child(2) td:first-child {
   background-color: var(--color2);
  }
 
- #opcode-table tr:nth-child(5),
- #opcode-table tr:nth-child(6),
+ #opcode-table tr:nth-child(5) td,
+ #opcode-table tr:nth-child(6) td,
  #table2 tr:nth-child(3) td:first-child {
   background-color: var(--color3);
  }
 
- #opcode-table tr:nth-child(7),
- #opcode-table tr:nth-child(8),
+ #opcode-table tr:nth-child(7) td,
+ #opcode-table tr:nth-child(8) td,
  #table2 tr:nth-child(4) td:first-child {
   background-color: var(--color4);
  }
 
- #opcode-table tr:nth-child(9),
- #opcode-table tr:nth-child(10),
+ #opcode-table tr:nth-child(9) td,
+ #opcode-table tr:nth-child(10) td,
  #table2 tr:nth-child(5) td:first-child {
   background-color: var(--color5);
  }
 
- #opcode-table tr:nth-child(11),
- #opcode-table tr:nth-child(12),
+ #opcode-table tr:nth-child(11) td,
+ #opcode-table tr:nth-child(12) td,
  #table2 tr:nth-child(6) td:first-child {
   background-color: var(--color6);
  }
 
- #opcode-table tr:nth-child(13),
- #opcode-table tr:nth-child(14),
+ #opcode-table tr:nth-child(13) td,
+ #opcode-table tr:nth-child(14) td,
  #table2 tr:nth-child(7) td:first-child {
   background-color: var(--color7);
  }
 
- #opcode-table tr:nth-child(15),
- #opcode-table tr:nth-child(16),
+ #opcode-table tr:nth-child(15) td,
+ #opcode-table tr:nth-child(16) td,
  #table2 tr:nth-child(8) td:first-child {
   background-color: var(--color8);
  }
 
- #opcode-table td:hover {
+ #opcode-table td:not(:first-child):hover {
   background-color: var(--matrix-hover-color);
  }
 
- #opcode-table td {
-   background-color: inherit;
- }
-
  #opcode-table th:first-child,
- #opcode-table td:first-child {
+ #opcode-table tr td:first-child {
   position: sticky;
   left: 0;
   z-index: 2;
-  background: #D6D6FF;
+  background: #D6D6FFFF;
   font-weight: bold;
  }
 </style>
