@@ -18,7 +18,7 @@ uint32_t instructions[2][256][16] = {};  // initialize everything with zero
 //  |                                  CTRL1                                 |                            CTRL2                               |                                         CTRL3                               |                                    CTRL4
 //  |      msb                                                         lsb   |    msb                                               lsb       |   msb                                                                 lsb   |   msb                                                              lsb  |      
 //  |      7         6         5      4     3        2         1        0    |     7        6     5      4      3      2       1       0      |    7         6          5          4         3        2        1       0    |    7         6         5         4        3        2         1      0   |
-//  | #IE_MAR_H  #IE_PC_H  #IE_PC_L  RSC  #IE_A  #IE_SP_H  #IE_SP_L  #IE_PRB | #IE_MAR_L  INC_PC  #IE_F  #IE_B  #IE_X  LCD_RS  LCD_E  #IE_7SD | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP  #IE_IR | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A  #IE_T  #MEM_EN_IO  INC_X  DEC_X |
+//  | #IE_MAR_H  #IE_PC_H  #IE_PC_L  RSC  #IE_A  #IE_SP_H  #IE_SP_L  #IE_BUF | #IE_MAR_L  INC_PC  #IE_F  #IE_B  #IE_X  LCD_RS  LCD_E  #IE_7SD | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP  #IE_IR | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A  #IE_T  #MEM_EN_IO  INC_X  DEC_X |
 const uint32_t defaultPattern = 0b11101111'10111001'10000001'00001100;
 
 const uint32_t IE_MAR_H    = 0b10000000'00000000'00000000'00000000;
@@ -28,7 +28,7 @@ const uint32_t RSC         = 0b00010000'00000000'00000000'00000000;
 const uint32_t IE_A        = 0b00001000'00000000'00000000'00000000;
 const uint32_t IE_SP_H     = 0b00000100'00000000'00000000'00000000;
 const uint32_t IE_SP_L     = 0b00000010'00000000'00000000'00000000;
-const uint32_t IE_PRB      = 0b00000001'00000000'00000000'00000000;
+const uint32_t IE_BUF      = 0b00000001'00000000'00000000'00000000;
 
 const uint32_t IE_MAR_L    = 0b00000000'10000000'00000000'00000000;
 const uint32_t INC_PC      = 0b00000000'01000000'00000000'00000000;
@@ -67,7 +67,7 @@ const uint32_t OE_B        = 0b00000000'00000000'00000000'10110000;
 const uint32_t OE_SP_L     = 0b00000000'00000000'00000000'11000000;
 const uint32_t OE_SP_H     = 0b00000000'00000000'00000000'11010000;
 const uint32_t OE_IR       = 0b00000000'00000000'00000000'11100000;
-const uint32_t OE_PRB      = 0b00000000'00000000'00000000'11110000;
+const uint32_t OE_BUF      = 0b00000000'00000000'00000000'11110000;
 const uint32_t IE_T        = 0b00000000'00000000'00000000'00001000;
 const uint32_t MEM_EN_IO   = 0b00000000'00000000'00000000'00000100;
 const uint32_t INC_X       = 0b00000000'00000000'00000000'00000010;
@@ -81,7 +81,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"IE_A",        IE_A},
   {"IE_SP_H",     IE_SP_H},
   {"IE_SP_L",     IE_SP_L},
-  {"IE_PRB",      IE_PRB},
+  {"IE_BUF",      IE_BUF},
   {"IE_MAR_L",    IE_MAR_L},
   {"INC_PC",      INC_PC},
   {"IE_F",        IE_F},
@@ -117,7 +117,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"OE_SP_L",     OE_SP_L},
   {"OE_SP_H",     OE_SP_H},
   {"OE_IR",       OE_IR},
-  {"OE_PRB",      OE_PRB},
+  {"OE_BUF",      OE_BUF},
   {"IE_T",        IE_T},
   {"MEM_EN_IO",   MEM_EN_IO},
   {"INC_X",       INC_X},

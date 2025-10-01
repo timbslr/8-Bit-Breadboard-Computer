@@ -93,12 +93,12 @@ s/a stands for synchronous/asynchronous
 | INC_X                                                  | Increment X     | s   | Increments the X-Register if DEC_X is low              |
 | DEC_X                                                  | Decrement X     | s   | Decrements the X-Register if INC_X is low              |
 
-## Page-Register-Buffer-Register (PRB)
+## Buffer-Register
 
-| Abbreviation                                             | Name              | s/a | Description                                              |
-| :------------------------------------------------------- | :---------------- | :-- | :------------------------------------------------------- |
-| <span style="text-decoration: overline;"> IE_PRB </span> | Input Enable PRB  | s   | Enables loading data from the bus to the PRB-Register    |
-| <span style="text-decoration: overline;"> OE_PRB </span> | Output Enable PRB | a   | Enables outputting data from the PRB-Register to the bus |
+| Abbreviation                                             | Name                          | s/a | Description                                                 |
+| :------------------------------------------------------- | :---------------------------- | :-- | :---------------------------------------------------------- |
+| <span style="text-decoration: overline;"> IE_BUF </span> | Input Enable Buffer Register  | s   | Enables loading data from the bus to the Buffer-Register    |
+| <span style="text-decoration: overline;"> OE_BUF </span> | Output Enable Buffer Register | a   | Enables outputting data from the Buffer-Register to the bus |
 
 ## 7-Segment Display
 
