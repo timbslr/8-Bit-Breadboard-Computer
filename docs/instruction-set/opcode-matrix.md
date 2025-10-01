@@ -57,6 +57,11 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
   border-color: black;
  }
 
+ #opcode-table th {
+    background: #D6D6FF;
+    height: 30px;
+ }
+
  a:link {
   color: #5c5962;
   text-decoration: none;
@@ -70,6 +75,17 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
  #opcode-table {
   line-height: 1.5;
   border-spacing: 0px; 
+  width: 100%;
+ }
+
+ #opcode-table th:not(:first-child),
+ #opcode-table td:not(:first-child) {
+  min-width: 40px;
+  width: 6.25%;
+ }
+
+ #opcode-table td:not(:first-child) {
+  height: 40px;
  }
 
  #opcode-table tr:nth-child(1),
@@ -128,7 +144,6 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
    background-color: inherit;
  }
 
-
  #opcode-table th:first-child,
  #opcode-table td:first-child {
   position: sticky;
@@ -136,10 +151,6 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
   z-index: 2;
   background: #D6D6FF;
   font-weight: bold;
- }
-
- #opcode-table th {
-    background: #D6D6FF;
  }
 </style>
 
