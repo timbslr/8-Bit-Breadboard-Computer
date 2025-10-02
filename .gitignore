@@ -1,5 +1,6 @@
 .vscode
 Schematics/8-Bit Breadboard Computer Schematics_backup
+asm/a.exe
 Control EEPROM Binary File Generators/a.exe
-Control EEPROM Binary File Generators/notes.txt
+notes.txt
 bin/compareBin.py

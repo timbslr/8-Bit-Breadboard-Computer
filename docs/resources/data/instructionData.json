@@ -323,7 +323,7 @@
       "type": "PSEUDO",
       "operands": ["reg", "n"],
       "mappedInstructions": [
-        "executes “ror A” (<n>-1) times and then “ror <reg>” once"
+        "executes \"ror A\" (<n>-1) times and then \"ror <reg>\" once"
       ],
       "group": "ALU",
       "indexInGroup": 17,
@@ -356,7 +356,7 @@
       "type": "PSEUDO",
       "operands": ["reg", "n"],
       "mappedInstructions": [
-        "executes “rol A” (<n>-1) times and then “rol <reg>” once"
+        "executes \"rol A\" (<n>-1) times and then \"rol <reg>\" once"
       ],
       "group": "ALU",
       "indexInGroup": 19,
@@ -632,18 +632,28 @@
     {
       "name": "increment stack-pointer",
       "mnemonic": "incsp",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": [],
-      "mappedInstructions": [
-        "mov SP_L, A",
-        "addi SP_L, 1",
-        "mov SP_H, A",
-        "addc SP_H"
-      ],
+      "requiresFlag": true,
+      "opcode": "00110000",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["RSC"]
+        ]
+      },
       "group": "REG-MEM",
       "indexInGroup": 14,
       "shortDescription": "SP = SP + 1",
-      "longDescription": "TODO: test if microinstructions are correct"
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "increment value in memory",
@@ -682,18 +692,28 @@
     {
       "name": "decrement stack-pointer",
       "mnemonic": "decsp",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": [],
-      "mappedInstructions": [
-        "mov SP_L, A",
-        "addi SP_L, -1",
-        "mov SP_H, A",
-        "subc SP_H"
-      ],
+      "requiresFlag": true,
+      "opcode": "00110001",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["RSC"]
+        ]
+      },
       "group": "REG-MEM",
-      "indexInGroup": 17,
+      "indexInGroup": 14,
       "shortDescription": "SP = SP - 1",
-      "longDescription": "TODO: test if microinstructions are correct"
+      "longDescription": "TODO: microinstructions"
     },
     {
       "name": "decrement value in memory",
