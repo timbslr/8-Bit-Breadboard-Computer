@@ -151,7 +151,7 @@ int main() {
     for(int microstep = 0; microstep <= 15; microstep++) {
       for(int opcode = 0; opcode <= 255; opcode++) {
         int address = (flagBit << 12) | (microstep << 8) | opcode;  //map instructions entries to addresses
-        binData[address] = instructions[flagBit][microstep][opcode]; //and store them in the output data
+        binData[address] = instructions[flagBit][opcode][microstep]; //and store them in the output data
       }
     }
   }
