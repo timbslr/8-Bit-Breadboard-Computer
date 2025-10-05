@@ -59,6 +59,29 @@
           "longDescription": {
             "type": "string",
             "minLength": 20
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 2
+                  },
+                  "minItems": 1
+                },
+                "result": {
+                  "type": "string",
+                  "minLength": 3
+                }
+              },
+              "required": ["code", "result"],
+              "additionalProperties": false
+            },
+            "minItems": 1
           }
         },
         "required": [
@@ -69,7 +92,8 @@
           "group",
           "indexInGroup",
           "shortDescription",
-          "longDescription"
+          "longDescription",
+          "examples"
         ],
         "additionalProperties": false,
         "allOf": [
