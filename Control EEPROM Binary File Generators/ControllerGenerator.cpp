@@ -15,29 +15,31 @@ uint32_t instructions[2][256][16] = {};  // initialize everything with zero
 // 16 = amount of microsteps (0 - 15)
 
 
-//  |                                  CTRL1                                 |                            CTRL2                               |                                         CTRL3                               |                                    CTRL4
-//  |      msb                                                         lsb   |    msb                                               lsb       |   msb                                                                 lsb   |   msb                                                              lsb  |      
-//  |      7         6         5      4     3        2         1        0    |     7        6     5      4      3      2       1       0      |    7         6          5          4         3        2        1       0    |    7         6         5         4        3        2         1      0   |
-//  | #IE_MAR_H  #IE_PC_H  #IE_PC_L  RSC  #IE_A  #IE_SP_H  #IE_SP_L  #IE_BUF | #IE_MAR_L  INC_PC  #IE_F  #IE_B  #IE_X  LCD_RS  LCD_E  #IE_7SD | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP  #IE_IR | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A  #IE_T  #MEM_EN_IO  INC_X  DEC_X |
-const uint32_t defaultPattern = 0b11101111'10111001'10000001'00001100;
+//  |                                CTRL1                                 |                            CTRL2                               |                                         CTRL3                               |                                    CTRL4
+//  |    msb                                                         lsb   |    msb                                               lsb       |   msb                                                                 lsb   |   msb                                                               lsb  |      
+//  |    7         6         5         4         3         2     1     0   |     7        6      5      4      3      2       1       0     |    7         6          5          4         3        2        1       0    |    7         6         5         4        3        2         1       0   |
+//  |   RSC     IE_MUX_D  IE_MUX_C  IE_MUX_B  IE_MUX_A                     |            INC_PC  #IE_F         IE_X  LCD_RS  LCD_E           | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP         | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A          #MEM_EN_IO  INC_X  DEC_X |
+const uint32_t defaultPattern = 0b00000000'00100000'10000000'00000100;
 
-const uint32_t IE_MAR_H    = 0b10000000'00000000'00000000'00000000;
-const uint32_t IE_PC_H     = 0b01000000'00000000'00000000'00000000;
-const uint32_t IE_PC_L     = 0b00100000'00000000'00000000'00000000;
-const uint32_t RSC         = 0b00010000'00000000'00000000'00000000;
-const uint32_t IE_A        = 0b00001000'00000000'00000000'00000000;
-const uint32_t IE_SP_H     = 0b00000100'00000000'00000000'00000000;
-const uint32_t IE_SP_L     = 0b00000010'00000000'00000000'00000000;
-const uint32_t IE_BUF      = 0b00000001'00000000'00000000'00000000;
+const uint32_t RSC         = 0b10000000'00000000'00000000'00000000;
+const uint32_t IE_T        = 0b00100000'00000000'00000000'00000000;
+const uint32_t IE_PC_L     = 0b00101000'00000000'00000000'00000000;
+const uint32_t IE_7SD      = 0b00110000'00000000'00000000'00000000;
+const uint32_t IE_SP_L     = 0b00111000'00000000'00000000'00000000;
+const uint32_t IE_SP_H     = 0b01000000'00000000'00000000'00000000;
+const uint32_t IE_PC_H     = 0b01001000'00000000'00000000'00000000;
+const uint32_t IE_MAR_H    = 0b01010000'00000000'00000000'00000000;
+const uint32_t IE_IR       = 0b01011000'00000000'00000000'00000000;
+const uint32_t IE_BUF      = 0b01100000'00000000'00000000'00000000;
+const uint32_t IE_A        = 0b01101000'00000000'00000000'00000000;
+const uint32_t IE_MAR_L    = 0b01110000'00000000'00000000'00000000;
+const uint32_t IE_B        = 0b01111000'00000000'00000000'00000000;
 
-const uint32_t IE_MAR_L    = 0b00000000'10000000'00000000'00000000;
 const uint32_t INC_PC      = 0b00000000'01000000'00000000'00000000;
 const uint32_t IE_F        = 0b00000000'00100000'00000000'00000000;
-const uint32_t IE_B        = 0b00000000'00010000'00000000'00000000;
 const uint32_t IE_X        = 0b00000000'00001000'00000000'00000000;
 const uint32_t LCD_RS      = 0b00000000'00000100'00000000'00000000;
 const uint32_t LCD_E       = 0b00000000'00000010'00000000'00000000;
-const uint32_t IE_7SD      = 0b00000000'00000001'00000000'00000000;
 
 const uint32_t MEM_WE      = 0b00000000'00000000'10000000'00000000;
 const uint32_t ALU_BOP_AND = 0b00000000'00000000'00000000'00000000;
@@ -53,7 +55,6 @@ const uint32_t ALU_SRC_BIT = 0b00000000'00000000'00001000'00000000;
 const uint32_t ALU_CIN     = 0b00000000'00000000'00000100'00000000;
 const uint32_t ALU_AOP_ADD = 0b00000000'00000000'00000000'00000000;
 const uint32_t ALU_AOP_SUB = 0b00000000'00000000'00000010'00000000;
-const uint32_t IE_IR       = 0b00000000'00000000'00000001'00000000;
 
 const uint32_t HALT        = 0b00000000'00000000'00000000'00010000; //TODO: not implemented in hardware yet
 const uint32_t OE_X        = 0b00000000'00000000'00000000'01000000;
@@ -68,7 +69,6 @@ const uint32_t OE_SP_L     = 0b00000000'00000000'00000000'11000000;
 const uint32_t OE_SP_H     = 0b00000000'00000000'00000000'11010000;
 const uint32_t OE_IR       = 0b00000000'00000000'00000000'11100000;
 const uint32_t OE_BUF      = 0b00000000'00000000'00000000'11110000;
-const uint32_t IE_T        = 0b00000000'00000000'00000000'00001000;
 const uint32_t MEM_EN_IO   = 0b00000000'00000000'00000000'00000100;
 const uint32_t INC_X       = 0b00000000'00000000'00000000'00000010;
 const uint32_t DEC_X       = 0b00000000'00000000'00000000'00000001;

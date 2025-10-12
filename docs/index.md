@@ -32,6 +32,6 @@ The project uses different colors for wires and LEDs. This makes determining the
 |        ![Yellow Wire Icon](resources/Icons/Wires/yellowWire.svg)        | CLK + internal module connections\*                |
 |          ![Blue Wire Icon](resources/Icons/Wires/blueWire.svg)          | Direct connection to the bus                       |
 |         ![White Wire Icon](resources/Icons/Wires/whiteWire.svg)         | Control line, connected directly to the controller |
-|         ![Brown Wire Icon](resources/Icons/Wires/brownWire.svg)         | Reset line + direct connection to the bus\*        |
+|         ![Brown Wire Icon](resources/Icons/Wires/brownWire.svg)         | Reset line + Control line\*                        |
 
 \*At some point, I ran out of correct colored wires, that's why some wire colors are occupied more than once.
