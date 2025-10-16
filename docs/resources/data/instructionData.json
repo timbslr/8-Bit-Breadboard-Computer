@@ -12,8 +12,13 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_ARI", "ALU_AOP_ADD"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_ARI",
+          "ALU_AOP_ADD",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -60,16 +65,27 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD"],
-          ["OE_ALU", "IE_<reg>", "IE_F"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "OE_ALU",
+            "IE_<reg>",
+            "IE_F"
+          ],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN"],
-          ["OE_ALU", "IE_<reg>", "IE_F"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "ALU_CIN",
+            "OE_ALU",
+            "IE_<reg>",
+            "IE_F"
+          ],
           ["RSC"]
         ]
       },
@@ -95,8 +111,14 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_ARI",
+          "ALU_AOP_SUB",
+          "ALU_CIN",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -122,16 +144,27 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB"],
-          ["OE_ALU", "IE_<reg>", "IE_F"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_SUB",
+            "OE_ALU",
+            "IE_<reg>",
+            "IE_F"
+          ],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN"],
-          ["OE_ALU", "IE_<reg>", "IE_F"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_SUB",
+            "ALU_CIN",
+            "OE_ALU",
+            "IE_<reg>",
+            "IE_F"
+          ],
           ["RSC"]
         ]
       },
