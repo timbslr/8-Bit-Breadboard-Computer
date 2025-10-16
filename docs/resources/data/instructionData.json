@@ -1244,6 +1244,13 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_PC_H"],
+        ["OE_BUF", "IE_PC_L"],
         ["RSC"]
       ],
       "group": "BR-JMP",
