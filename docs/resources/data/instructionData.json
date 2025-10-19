@@ -1033,6 +1033,33 @@
       ]
     },
     {
+      "name": "output immediate to 7-segment display",
+      "mnemonic": "out7sdi",
+      "type": "REAL",
+      "operands": ["imm"],
+      "requiresFlag": false,
+      "opcode": "00111011",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_7SD", "INC_PC"],
+        ["RSC"]
+      ],
+      "group": "I-O",
+      "indexInGroup": 0,
+      "shortDescription": "Outputs the value in the given register to the 7-segment display",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
       "name": "output to lcd as control",
       "mnemonic": "outlcdc",
       "type": "REAL",
@@ -1062,7 +1089,7 @@
       "type": "REAL",
       "operands": ["imm"],
       "requiresFlag": false,
-      "opcode": "010111RR",
+      "opcode": "01001011",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -1086,7 +1113,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "011011RR",
+      "opcode": "010111RR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -1110,7 +1137,7 @@
       "type": "REAL",
       "operands": ["imm"],
       "requiresFlag": false,
-      "opcode": "011111RR",
+      "opcode": "01011011",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -1256,7 +1283,7 @@
       "group": "BR-JMP",
       "indexInGroup": 0,
       "shortDescription": "PC = <addr>",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1267,24 +1294,9 @@
     {
       "name": "branch if equal",
       "mnemonic": "beq",
-      "type": "REAL",
+      "type": "PSEUDO",
       "operands": ["addr"],
-      "requiresFlag": true,
-      "opcode": "00001000",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ]
-      },
+      "mappedInstructions": ["bzs <addr>"],
       "group": "BR-JMP",
       "indexInGroup": 1,
       "shortDescription": "branch if A == TMP",
@@ -1316,26 +1328,11 @@
     {
       "name": "branch if not equal",
       "mnemonic": "bne",
-      "type": "REAL",
+      "type": "PSEUDO",
       "operands": ["addr"],
-      "requiresFlag": true,
-      "opcode": "00001001",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ]
-      },
+      "mappedInstructions": ["bzc <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 3,
+      "indexInGroup": 1,
       "shortDescription": "branch if A != TMP",
       "longDescription": "",
       "examples": [
@@ -1374,12 +1371,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ]
       },
@@ -1414,24 +1422,9 @@
     {
       "name": "branch if less than unsigned",
       "mnemonic": "bltu",
-      "type": "REAL",
+      "type": "PSEUDO",
       "operands": ["addr"],
-      "requiresFlag": true,
-      "opcode": "00100000",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ]
-      },
+      "mappedInstructions": ["bcc <addr>"],
       "group": "BR-JMP",
       "indexInGroup": 7,
       "shortDescription": "branch if A < TMP (unsigned)",
@@ -1475,12 +1468,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ]
       },
@@ -1524,12 +1528,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ]
       },
@@ -1576,12 +1591,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ]
       },
@@ -1616,24 +1642,9 @@
     {
       "name": "branch if greater or equal unsigned",
       "mnemonic": "bgeu",
-      "type": "REAL",
+      "type": "PSEUDO",
       "operands": ["addr"],
-      "requiresFlag": true,
-      "opcode": "00100001",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ]
-      },
+      "mappedInstructions": ["bcs <addr>"],
       "group": "BR-JMP",
       "indexInGroup": 15,
       "shortDescription": "branch if A >= TMP (unsigned)",
@@ -1677,12 +1688,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ]
       },
@@ -1726,12 +1748,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ]
       },
@@ -1767,6 +1800,178 @@
       ]
     },
     {
+      "name": "branch if zero set",
+      "mnemonic": "bzs",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "00001000",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 1,
+      "shortDescription": "branch if branch if ZF is set",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
+      "name": "branch if zero clear",
+      "mnemonic": "bzc",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "00001001",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 3,
+      "shortDescription": "branch if ZF is not set",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
+      "name": "branch if carry set",
+      "mnemonic": "bcs",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "00100000",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 23,
+      "shortDescription": "branch if CF is set",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
+      "name": "branch if carry clear",
+      "mnemonic": "bcc",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "00100001",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 24,
+      "shortDescription": "branch if CF is not set",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
       "name": "branch if negative set",
       "mnemonic": "bns",
       "type": "REAL",
@@ -1778,12 +1983,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ]
       },
@@ -1810,82 +2026,29 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ]
       },
       "group": "BR-JMP",
       "indexInGroup": 22,
       "shortDescription": "branch if NF is not set",
-      "longDescription": "",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
-      "name": "branch if carry set",
-      "mnemonic": "bcs",
-      "type": "REAL",
-      "operands": ["addr"],
-      "requiresFlag": true,
-      "opcode": "00100010",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ]
-      },
-      "group": "BR-JMP",
-      "indexInGroup": 23,
-      "shortDescription": "branch if CF is set",
-      "longDescription": "",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
-      "name": "branch if carry clear",
-      "mnemonic": "bcc",
-      "type": "REAL",
-      "operands": ["addr"],
-      "requiresFlag": true,
-      "opcode": "00100011",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ]
-      },
-      "group": "BR-JMP",
-      "indexInGroup": 24,
-      "shortDescription": "branch if CF is not set",
       "longDescription": "",
       "examples": [
         {
@@ -1906,12 +2069,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ]
       },
@@ -1938,12 +2112,23 @@
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_PC_H"],
+          ["OE_BUF", "IE_PC_L"],
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
+          ["INC_PC"],
+          ["INC_PC"],
           ["RSC"]
         ]
       },
