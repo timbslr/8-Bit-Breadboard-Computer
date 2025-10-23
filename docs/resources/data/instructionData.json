@@ -101,6 +101,23 @@
       ]
     },
     {
+      "name": "add with carry and immediate",
+      "mnemonic": "addci",
+      "type": "PSEUDO",
+      "operands": ["reg", "imm"],
+      "mappedInstructions": ["li TMP, <imm>", "addc <reg>"],
+      "group": "ALU",
+      "indexInGroup": 2,
+      "shortDescription": "<reg> = A + <imm> + CF",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
       "name": "subtract",
       "mnemonic": "sub",
       "type": "REAL",
@@ -171,6 +188,23 @@
       "group": "ALU",
       "indexInGroup": 4,
       "shortDescription": "<reg> = A - TMP - (1-CF)",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
+      "name": "subtract with carry and immediate",
+      "mnemonic": "subci",
+      "type": "PSEUDO",
+      "operands": ["reg", "imm"],
+      "mappedInstructions": ["li TMP, <imm>", "subc <reg>"],
+      "group": "ALU",
+      "indexInGroup": 2,
+      "shortDescription": "<reg> = A - <imm> - (1-CF)",
       "longDescription": "",
       "examples": [
         {
