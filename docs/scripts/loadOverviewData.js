@@ -1,22 +1,8 @@
-import {
-  getTableBodyByID,
-  applyFirstRowStylesByColumn,
-  deleteFirstRow,
-  getInstructions,
-} from "./util.js";
+import { getTableBodyByID, applyFirstRowStylesByColumn, deleteFirstRow, getInstructions } from "./util.js";
 
 async function fillOverviewTables() {
   let instructions = await getInstructions();
-  instructions = instructions.reduce((groups, item) => {
-    //group by group property
-    const key = item.group;
-    if (!groups[key]) {
-      groups[key] = [item];
-    } else {
-      groups[key].push(item);
-    }
-    return groups;
-  }, {});
+  instructions = Object.groupBy(instructions, (instructions) => instructions.group);
 
   let pseudoInstructions = [];
 
@@ -35,11 +21,7 @@ async function fillOverviewTables() {
     deleteFirstRow(tableId);
   });
 
-  addEntriesToTable("pseudo-instructions-table", pseudoInstructions, [
-    "mnemonic",
-    "instruction",
-    "mappedInstructions",
-  ]);
+  addEntriesToTable("pseudo-instructions-table", pseudoInstructions, ["mnemonic", "instruction", "mappedInstructions"]);
   applyFirstRowStylesByColumn("pseudo-instructions-table");
   deleteFirstRow("pseudo-instructions-table");
 }
@@ -62,9 +44,7 @@ function addEntriesToTable(tableId, entries, properties) {
           break;
         }
         case "instruction": {
-          innerHTML = `${entry.mnemonic} ${entry.operands
-            .map((operand) => `<${operand}>`)
-            .join(", ")}`;
+          innerHTML = `${entry.mnemonic} ${entry.operands.map((operand) => `<${operand}>`).join(", ")}`;
           break;
         }
         case "mappedInstructions": {
