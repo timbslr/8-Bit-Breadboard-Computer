@@ -16,9 +16,6 @@ nav_order: 2
 This instruction set is work in progress and can change anytime.
 
 {: .note }
-The opcodes are not set yet and will be added later.
-
-{: .note }
 A = A-Register<br>
 B = B-Register<br>
 X = X-Register<br>
