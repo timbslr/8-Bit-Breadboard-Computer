@@ -1,0 +1,317 @@
+{
+  "$schema": "./controlBitsSchema.json",
+  "controlBits": [
+    {
+      "name": "Input Enable 7-Segment-Display",
+      "abbreviation": "IE_7SD",
+      "isSynchronous": true,
+      "associatedModule": "7-Segment-Display",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the 7-Segment Display (the data will be displayed immediately)"
+    },
+    {
+      "name": "Output Enable ALU",
+      "abbreviation": "OE_ALU",
+      "isSynchronous": false,
+      "associatedModule": "Arithmetic Logic Unit (ALU)",
+      "isActiveHigh": false,
+      "description": "Enables outputting the ALU-result to the bus"
+    },
+    {
+      "name": "ALU Source",
+      "abbreviation": "ALU_SRC",
+      "isSynchronous": false,
+      "associatedModule": "Arithmetic Logic Unit (ALU)",
+      "isActiveHigh": true,
+      "description": "Sets the source of the ALU: 0 = arithmetic operation, 1 = bitwise operation"
+    },
+    {
+      "name": "ALU Carry In",
+      "abbreviation": "ALU_CIN",
+      "isSynchronous": false,
+      "associatedModule": "Arithmetic Logic Unit (ALU)",
+      "isActiveHigh": true,
+      "description": "Sets the Carry-In Bit for the adders of the ALU"
+    },
+    {
+      "name": "ALU Arithmetic Operation",
+      "abbreviation": "ALU_AOP",
+      "isSynchronous": false,
+      "associatedModule": "Arithmetic Logic Unit (ALU)",
+      "isActiveHigh": true,
+      "description": "Sets the arithmetic operation of the ALU:\n0 = ADD\n1 = SUB"
+    },
+    {
+      "name": "ALU Bitwise Operation",
+      "abbreviation": "ALU_BOP[0:2]",
+      "isSynchronous": false,
+      "associatedModule": "Arithmetic Logic Unit (ALU)",
+      "isActiveHigh": true,
+      "description": "Sets the bitwise operation of the ALU:\n000 = AND\n001 = OR\n010 = XOR\n011 = NOT\n100 = SLR\n101 = SAR\n110 = ROR\n111 = ROL"
+    },
+    {
+      "name": "Input Enable A-Register",
+      "abbreviation": "IE_A",
+      "isSynchronous": true,
+      "associatedModule": "A-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the A-Register"
+    },
+    {
+      "name": "Output Enable A-Register",
+      "abbreviation": "OE_A",
+      "isSynchronous": false,
+      "associatedModule": "A-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the A-Register to the bus"
+    },
+    {
+      "name": "Input Enable B-Register",
+      "abbreviation": "IE_B",
+      "isSynchronous": true,
+      "associatedModule": "B-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the B-Register"
+    },
+    {
+      "name": "Output Enable B-Register",
+      "abbreviation": "OE_B",
+      "isSynchronous": false,
+      "associatedModule": "B-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the B-Register to the bus"
+    },
+    {
+      "name": "Input Enable Buffer-Register",
+      "abbreviation": "IE_BUF",
+      "isSynchronous": true,
+      "associatedModule": "Buffer-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the Buffer-Register"
+    },
+    {
+      "name": "Output Enable Buffer-Register",
+      "abbreviation": "OE_BUF",
+      "isSynchronous": false,
+      "associatedModule": "Buffer-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the Buffer-Register to the bus"
+    },
+    {
+      "name": "Reset Step Counter",
+      "abbreviation": "RSC",
+      "isSynchronous": false,
+      "associatedModule": "Controller",
+      "isActiveHigh": true,
+      "description": "Resets the steps counter to zero. This microinstruction is executed at the end of each instruction to reduce the number of microsteps per instruction."
+    },
+    {
+      "name": "Input Enable Flags-Register",
+      "abbreviation": "IE_F",
+      "isSynchronous": true,
+      "associatedModule": "Flags-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the Flags-Register"
+    },
+    {
+      "name": "Output Enable Flags-Register",
+      "abbreviation": "OE_F",
+      "isSynchronous": false,
+      "associatedModule": "Flags-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the Flags-Register to the bus"
+    },
+    {
+      "name": "Input Enable Instruction-Register",
+      "abbreviation": "IE_IR",
+      "isSynchronous": true,
+      "associatedModule": "Instruction-Register (IR)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the Instruction-Register"
+    },
+    {
+      "name": "Output Enable Instruction-Register",
+      "abbreviation": "OE_IR",
+      "isSynchronous": false,
+      "associatedModule": "Instruction-Register (IR)",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the Instruction-Register to the bus"
+    },
+    {
+      "name": "LCD Read/Write",
+      "abbreviation": "LCD_RW",
+      "isSynchronous": false,
+      "associatedModule": "Liquid Crystal Display (LCD)",
+      "isActiveHigh": true,
+      "description": "//TODO"
+    },
+    {
+      "name": "LCD Register Select",
+      "abbreviation": "LCD_RS",
+      "isSynchronous": false,
+      "associatedModule": "Liquid Crystal Display (LCD)",
+      "isActiveHigh": true,
+      "description": "Chooses between the instruction register (0) and the data register (1) of the LCD"
+    },
+    {
+      "name": "LCD Enable Input",
+      "abbreviation": "LCD_E",
+      "isSynchronous": false,
+      "associatedModule": "Liquid Crystal Display (LCD)",
+      "isActiveHigh": true,
+      "description": "Writes the data that is currently present at the data pins to the internal selected register"
+    },
+    {
+      "name": "Input Enable Memory-Address-Register Low",
+      "abbreviation": "IE_MAR_L",
+      "isSynchronous": true,
+      "associatedModule": "Memory-Address-Register (MAR)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the low byte of the MAR"
+    },
+    {
+      "name": "Output Enable Memory-Address-Register Low",
+      "abbreviation": "OE_MAR_L",
+      "isSynchronous": false,
+      "associatedModule": "Memory-Address-Register (MAR)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the high byte of the MAR"
+    },
+    {
+      "name": "Memory Write Enable",
+      "abbreviation": "MEM_WE",
+      "isSynchronous": false,
+      "associatedModule": "Memory",
+      "isActiveHigh": false,
+      "description": "Enables writing to RAM"
+    },
+    {
+      "name": "Memory Enable Input/Output",
+      "abbreviation": "MEM_EN_IO",
+      "isSynchronous": false,
+      "associatedModule": "Memory",
+      "isActiveHigh": false,
+      "description": "Enables data flow between memory and bus (direction depends on MEM_WE)"
+    },
+    {
+      "name": "Increment Program Counter",
+      "abbreviation": "INC_PC",
+      "isSynchronous": true,
+      "associatedModule": "Program Counter (PC)",
+      "isActiveHigh": true,
+      "description": "Increments the PC in order to fetch the next opcode or operand"
+    },
+    {
+      "name": "Input Enable Program Counter Low",
+      "abbreviation": "IE_PC_L",
+      "isSynchronous": true,
+      "associatedModule": "Program Counter (PC)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the low byte of the PC"
+    },
+    {
+      "name": "Output Enable Program Counter Low",
+      "abbreviation": "OE_PC_L",
+      "isSynchronous": false,
+      "associatedModule": "Program Counter (PC)",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the low byte of the PC to the bus"
+    },
+    {
+      "name": "Input Enable Program Counter High",
+      "abbreviation": "IE_PC_H",
+      "isSynchronous": true,
+      "associatedModule": "Program Counter (PC)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the high byte of the PC"
+    },
+    {
+      "name": "Output Enable Program Counter High",
+      "abbreviation": "OE_PC_H",
+      "isSynchronous": false,
+      "associatedModule": "Program Counter (PC)",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the high byte of the PC to the bus"
+    },
+    {
+      "name": "Input Enable Stack Pointer Low",
+      "abbreviation": "IE_SP_L",
+      "isSynchronous": true,
+      "associatedModule": "Stack Pointer (SP)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the low byte of the SP"
+    },
+    {
+      "name": "Output Enable Stack Pointer Low",
+      "abbreviation": "OE_SP_L",
+      "isSynchronous": false,
+      "associatedModule": "Stack Pointer (SP)",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the low byte of the SP to the bus"
+    },
+    {
+      "name": "Input Enable Stack Pointer High",
+      "abbreviation": "IE_SP_H",
+      "isSynchronous": true,
+      "associatedModule": "Stack Pointer (SP)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the high byte of the SP"
+    },
+    {
+      "name": "Output Enable Stack Pointer High",
+      "abbreviation": "OE_SP_H",
+      "isSynchronous": false,
+      "associatedModule": "Stack Pointer (SP)",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the high byte of the SP to the bus"
+    },
+    {
+      "name": "Input Enable TMP-Register",
+      "abbreviation": "IE_TMP",
+      "isSynchronous": true,
+      "associatedModule": "Temporary-Register (TMP-Register)",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the TMP-Register"
+    },
+    {
+      "name": "Output Enable TMP-Register",
+      "abbreviation": "OE_TMP",
+      "isSynchronous": false,
+      "associatedModule": "Temporary-Register (TMP-Register)",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the TMP-Register to the bus"
+    },
+    {
+      "name": "Input Enable X-Register",
+      "abbreviation": "IE_X",
+      "isSynchronous": true,
+      "associatedModule": "X-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the X-Register"
+    },
+    {
+      "name": "Output Enable X-Register",
+      "abbreviation": "OE_X",
+      "isSynchronous": false,
+      "associatedModule": "X-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the X-Register to the bus"
+    },
+    {
+      "name": "Increment X-Register",
+      "abbreviation": "INC_X",
+      "isSynchronous": true,
+      "associatedModule": "X-Register",
+      "isActiveHigh": true,
+      "description": "Increments the X-Register if DEC_X is low"
+    },
+    {
+      "name": "Decrement X-Register",
+      "abbreviation": "DEC_X",
+      "isSynchronous": true,
+      "associatedModule": "X-Register",
+      "isActiveHigh": true,
+      "description": "Decrements the X-Register if INC_X is low"
+    }
+  ]
+}

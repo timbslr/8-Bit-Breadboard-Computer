@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": "string",
+    "controlBits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3
+          },
+          "abbreviation": {
+            "type": "string",
+            "minLength": 2
+          },
+          "isSynchronous": {
+            "type": "boolean"
+          },
+          "isActiveHigh": {
+            "type": "boolean"
+          },
+          "associatedModule": {
+            "type": "string",
+            "pattern": "(7-Segment-Display|A-Register|Arithmetic Logic Unit \\(ALU\\)|B-Register|Buffer-Register|Controller|Flags-Register|Instruction-Register \\(IR\\)|Liquid Crystal Display \\(LCD\\)|Memory-Address-Register \\(MAR\\)|Memory|Program Counter \\(PC\\)|Stack Pointer \\(SP\\)|Temporary-Register \\(TMP-Register\\)|X-Register)"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 5
+          }
+        },
+        "required": [
+          "name",
+          "abbreviation",
+          "isSynchronous",
+          "associatedModule",
+          "isActiveHigh",
+          "description"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["$schema", "controlBits"],
+  "additionalProperties": false
+}

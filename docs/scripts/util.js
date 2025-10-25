@@ -35,6 +35,12 @@ export async function getInstructions() {
   return data.instructions;
 }
 
+export async function getControlBits() {
+  const response = await fetch("../resources/data/controlBits.json");
+  const data = await response.json();
+  return data.controlBits;
+}
+
 export function getAmountOfCharOccurrencesInString(string, char) {
   return [...string].filter((c) => c === char).length;
 }
