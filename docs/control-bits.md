@@ -11,8 +11,8 @@ s/a stands for synchronous/asynchronous
 
 {: #template-table}
 
-| Abbreviation | Name       | s/a        | Description |
-| :----------- | :--------- | :--------- | :---------- |
+| Abbreviation | Name       |    s/a     | Description |
+| :----------- | :--------- | :--------: | :---------- |
 | Loading...   | Loading... | Loading... | Loading...  |
 
 <script type="module" src="../scripts/loadControlBits.js">

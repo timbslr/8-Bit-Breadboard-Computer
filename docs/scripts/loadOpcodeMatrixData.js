@@ -1,14 +1,14 @@
+import { applyFirstRowStylesByColumn, deleteFirstRow, getTableBodyById } from "./tableUtil.js";
 import {
-  applyFirstRowStylesByColumn,
-  deleteFirstRow,
+  generateLinkToMnemonic,
   getAmountOfCharOccurrencesInString,
   getInstructions,
-  getTableBodyByID,
+  isPSEUDOInstruction,
   REGISTER_LOOKUP,
 } from "./util.js";
 
 function createOpcodeMatrixTableCells() {
-  const tbody = getTableBodyByID("opcode-table");
+  const tbody = getTableBodyById("opcode-table");
   for (let rowIndex = 0; rowIndex < 16; rowIndex++) {
     const row = document.createElement("tr");
     for (let colIndex = 0; colIndex < 17; colIndex++) {
@@ -22,21 +22,42 @@ function createOpcodeMatrixTableCells() {
     tbody.appendChild(row);
   }
   applyFirstRowStylesByColumn("opcode-table");
-  deleteFirstRow("opcode-table");
+  deleteFirstRow("opcode-table"); //that was the "Loading..." row
 }
 
 async function fillOpcodeMatrix() {
-  const opcodeMap = {};
+  const table = document.getElementById("opcode-table");
   let instructions = await getInstructions();
+  const opcodeMap = createOpcodeMap(instructions); //stores all opcodes in binary mapped to their corresponding labels
+
+  for (let i = 0; i < 256; i++) {
+    const opcodeBinary = i.toString(2).padStart(8, "0");
+    const opcodeHex = i.toString(16).padStart(2, "0").toUpperCase();
+    const row = parseInt(opcodeHex[0], 16);
+    const col = parseInt(opcodeHex[1], 16);
+    const label = opcodeMap[opcodeBinary];
+    const currentCell = table.rows[row + 1].cells[col + 1];
+
+    //if the label exists/the opcode is used, put it into the corresponding cell
+    if (label) {
+      const mnemonic = label.split("<br>")[0];
+      const linkTitle = `0x${opcodeHex}: ${mnemonic}`;
+      currentCell.innerHTML = generateLinkToMnemonic(mnemonic, label, false, linkTitle);
+    }
+  }
+}
+
+function createOpcodeMap(instructions) {
+  const opcodeMap = {};
+
   instructions.forEach((instruction) => {
-    if (instruction.type === "PSEUDO") {
-      //skip pseudo instructions as they don't have an opcode
+    //skip pseudo instructions as they don't have an opcode
+    if (isPSEUDOInstruction(instruction.mnemonic, instructions)) {
       return;
     }
     const opcode = instruction.opcode;
-    if (!opcode) {
-      console.error(`Invalid opcode: ${opcode}`);
-      return;
+    if (opcode.length !== 8) {
+      console.error(`Opcode length is not 8: ${opcode}`);
     }
 
     const registerCount = getAmountOfCharOccurrencesInString(opcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
@@ -47,20 +68,14 @@ async function fillOpcodeMatrix() {
       let label = instruction.mnemonic;
       for (let i = 0; i < 4; i++) {
         let opcode = `${instruction.opcode.replaceAll("R", "")}${i.toString(2).padStart(2, "0")}`;
-        if (opcode.length !== 8) {
-          console.error(`Opcode length is not 8: ${opcode}`);
-        }
         label += `<br>&rarr;${REGISTER_LOOKUP[i]}`;
         opcodeMap[opcode] = label;
-        label = instruction.mnemonic;
+        label = instruction.mnemonic; //reset label for next iteration
       }
     } else if (registerCount == 2) {
       let label = instruction.mnemonic;
       for (let i = 0; i < 16; i++) {
         let opcode = `${instruction.opcode.replaceAll("R", "")}${i.toString(2).padStart(4, "0")}`;
-        if (opcode.length !== 8) {
-          console.error(`Opcode length is not 8: ${opcode}`);
-        }
         const upperRegisterIndex = (i >> 2) & 0b11;
         const lowerRegisterIndex = i & 0b11;
         label += `<br>${REGISTER_LOOKUP[upperRegisterIndex]}&rarr;${REGISTER_LOOKUP[lowerRegisterIndex]}`;
@@ -74,24 +89,7 @@ async function fillOpcodeMatrix() {
     }
   });
 
-  addEntriesToOpcodeMatrix(opcodeMap);
-}
-
-function addEntriesToOpcodeMatrix(opcodeMap) {
-  const table = document.getElementById("opcode-table");
-  for (let i = 0; i < 256; i++) {
-    const opcodeBinary = i.toString(2).padStart(8, "0");
-    const opcodeHex = i.toString(16).padStart(2, "0").toUpperCase();
-    const row = parseInt(opcodeHex[0], 16);
-    const col = parseInt(opcodeHex[1], 16);
-    const label = opcodeMap[opcodeBinary];
-    const currentCell = table.rows[row + 1].cells[col + 1];
-    //
-    if (label) {
-      //if the label exists/the opcode is actually used
-      currentCell.innerHTML = `<a href="" title="0x${opcodeHex}: ${label.replaceAll("<br>", "")}">${label}</a>`;
-    }
-  }
+  return opcodeMap;
 }
 
 createOpcodeMatrixTableCells();
