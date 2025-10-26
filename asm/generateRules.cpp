@@ -96,6 +96,9 @@ std::string generateRule(auto instruction) {
   } else {
     std::vector<std::string> mappedInstructions = instruction["mappedInstructions"];
     switch(operands.size()) {
+      case 0: {
+        return mnemonic + " => " + concatPseudoInstructions(mappedInstructions);
+      }
       case 1: {
         if(operands[0] == "reg") {
           return mnemonic + REGISTER_ARGUMENT("reg") + " => " + concatPseudoInstructions(mappedInstructions);
