@@ -73,7 +73,7 @@
 	li {reg: register}, {imm: i8} => 0b101010 @ reg @ imm
 	push {reg: register} => asm{ sts {reg} } @ asm{ incsp }
 	pop {reg: register} => asm{ decsp } @ asm{ lds {reg} }
-	peek {reg: register} => asm{ pop {reg}, incsp }
+	peek {reg: register} => asm{ pop {reg} } @ asm{ incsp }
 	incx => 0b01110000
 	incsp  => asm{ movaspl } @ asm{ addi A, 1 } @ asm{ movspla } @ asm{ movasph } @ asm{ addci A, 0 } @ asm{ movspha }
 	incm {addr: u16} => asm{ ld X, {addr} } @ asm{ incx } @ asm{ st X, {addr} }

@@ -979,7 +979,7 @@
       "mnemonic": "peek",
       "type": "PSEUDO",
       "operands": ["reg"],
-      "mappedInstructions": ["pop <reg>, incsp"],
+      "mappedInstructions": ["pop <reg>", "incsp"],
       "group": "REG-MEM",
       "indexInGroup": 12,
       "shortDescription": "<reg> = mem[SP]",
