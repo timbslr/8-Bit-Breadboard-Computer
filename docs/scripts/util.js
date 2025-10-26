@@ -7,7 +7,7 @@ export async function getInstructions() {
 }
 
 export async function getControlBits() {
-  const response = await fetch("../resources/data/controlBits.json");
+  const response = await fetch("./resources/data/controlBits.json");
   const data = await response.json();
   return data.controlBits;
 }
