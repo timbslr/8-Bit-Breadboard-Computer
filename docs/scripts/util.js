@@ -59,3 +59,28 @@ export function getInstructionByMnemonic(mnemonic, instructions) {
 export function isPSEUDOInstruction(mnemonic, instructions) {
   return getInstructionByMnemonic(mnemonic, instructions).type === "PSEUDO";
 }
+
+export function countClockCyclesForREALInstruction(instruction) {
+  let zeroMicroinstructions;
+  let oneMicroinstructions;
+  if (instruction.requiresFlag) {
+    zeroMicroinstructions = instruction.microinstructions["0"];
+    oneMicroinstructions = instruction.microinstructions["1"];
+  } else {
+    zeroMicroinstructions = instruction.microinstructions;
+    oneMicroinstructions = instruction.microinstructions;
+  }
+
+  return {
+    zero: countMicroinstructionsWithoutRSC(zeroMicroinstructions),
+    one: countMicroinstructionsWithoutRSC(oneMicroinstructions),
+  };
+}
+
+function countMicroinstructionsWithoutRSC(microinstructions) {
+  const length = microinstructions.length;
+  if (microinstructions[length - 1].includes("RSC")) {
+    return length - 1;
+  }
+  return length;
+}
