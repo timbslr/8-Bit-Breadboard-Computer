@@ -15,4 +15,4 @@ s/a stands for synchronous/asynchronous
 | :----------- | :--------- | :--------: | :---------- |
 | Loading...   | Loading... | Loading... | Loading...  |
 
-<script type="module" src="../scripts/loadControlBits.js">
+<script type="module" src="./scripts/loadControlBits.js">
