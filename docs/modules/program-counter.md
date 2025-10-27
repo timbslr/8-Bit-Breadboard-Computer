@@ -1,7 +1,7 @@
 ---
 title: PC
 layout: default
-nav_order: 1
+nav_order: 12
 parent: Modules
 ---
 

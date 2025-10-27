@@ -1,7 +1,7 @@
 ---
 title: X-Register
 layout: default
-nav_order: 9
+nav_order: 15
 parent: Modules
 ---
 
