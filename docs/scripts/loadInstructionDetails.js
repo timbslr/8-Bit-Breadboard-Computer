@@ -26,6 +26,14 @@ async function createAndFillTables() {
     }
 
     const numberOfClockCycles = calculateNumberOfClockCycles(mnemonic);
+
+    //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
+    if (numberOfClockCycles.zero > numberOfClockCycles.one) {
+      const tmp = numberOfClockCycles.zero;
+      numberOfClockCycles.zero = numberOfClockCycles.one;
+      numberOfClockCycles.one = tmp;
+    }
+
     const numberOfClockCyclesString =
       numberOfClockCycles.zero === numberOfClockCycles.one
         ? numberOfClockCycles.zero
