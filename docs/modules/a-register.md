@@ -15,4 +15,4 @@ An asynchronous input provides the ability to reset the registers to zero, the C
 
 The A-Register's specialty is that it is the first operand of the ALU, which means whenever you want to computer something with the ALU, no matter if it's a unary or binary operation, you have to store the first operands value in this register.
 
-![A-Register schematic](../resources/Wiring%20Diagrams/A-Register.svg)
+<img src="../resources/Wiring Diagrams/A-Register.svg" alt="A-Register schematic" style="width:100%; height:auto;">

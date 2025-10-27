@@ -25,3 +25,6 @@ callouts:
 
 plugins:
   - jemoji
+
+exclude:
+  - scripts/pdfToSvg.py

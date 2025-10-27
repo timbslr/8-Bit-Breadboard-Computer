@@ -6,3 +6,5 @@ parent: Modules
 ---
 
 ## Program Counter (PC)
+
+<img src="../resources/Wiring Diagrams/PC.svg" alt="Program-Counter schematic" style="width:100%; height:auto;">

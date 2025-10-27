@@ -25,7 +25,9 @@ This brings me to the question: How do you implement all of these in hardware? B
 But as always, there's something in between: I didn't want to go with option 1 because it would use a very large amount of space relative to the rest of the computer. The IC-count would also increase by using this approach. <br>
 But I didn't want to use a single chip for the ALU either, as this is primarily a learning project for me. I want to have fun building and explore different options for the same solution. In the end, I settled on the following approach with this structure:
 <br>
-![ALU overview diagram](../resources/Wiring%20Diagrams/ALU-Overview.svg)
+<br>
+<img src="../resources/Wiring Diagrams/ALU_page_1.svg" alt="ALU overview" style="width:100%; height:auto;">
+<br>
 As you can see, my ALU-design has two sections: An adder for addition and subtraction, and two EEPROM's, which handle all the logic operations. <br>
 
 ### Adding/Subtracting
@@ -85,3 +87,5 @@ The overflow flag is always set if the sign of the A-Register and the TMP-Regist
 </div>
 <br>
 \*We also want the overflow flag to be valid for subtraction, so the msb of the A-Register is actually compared with the output of the XOR between the msb of the TMP-Register and ALU_SRC.
+
+<img src="../resources/Wiring Diagrams/ALU_page_2.svg" alt="ALU schematic" style="width:100%; height:auto;">

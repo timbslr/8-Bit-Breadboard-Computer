@@ -13,4 +13,4 @@ Technically, the 4-bit register chips even have a three-state output, so an extr
 
 An asynchronous input provides the ability to reset the registers to zero, the CLK-input provides a synchronization for loading data from the bus (on the rising CLK edge). On the other hand, outputting data from the register to the bus is asynchronous, as the bus transceiver outputs data immediately after it's Output Enable signal goes low.
 
-![B-Register schematic](../resources/Wiring%20Diagrams/B-Register.svg)
+<img src="../resources/Wiring Diagrams/B-Register.svg" alt="B-Register schematic" style="width:100%; height:auto;">

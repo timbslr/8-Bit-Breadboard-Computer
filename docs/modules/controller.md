@@ -6,3 +6,5 @@ parent: Modules
 ---
 
 ## Controller
+
+<img src="../resources/Wiring Diagrams/Controller.svg" alt="Controller schematic" style="width:100%; height:auto;">

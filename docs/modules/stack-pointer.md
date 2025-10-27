@@ -6,3 +6,5 @@ parent: Modules
 ---
 
 ## Stack Pointer (SP)
+
+<img src="../resources/Wiring Diagrams/SP.svg" alt="Stack Pointer schematic" style="width:100%; height:auto;">

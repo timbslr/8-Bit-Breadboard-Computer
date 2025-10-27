@@ -18,4 +18,4 @@ The TMP-Register's specialty is that it is the second operand of the ALU, which 
 {: .warning}
 Be careful when storing values into the TMP-Register. It is meant for temporary values only and may be overwritten by many other instructions (e.g. immediate-type ALU-instructions). If you store values here, ensure they aren’t overwritten unexpectedly, so handle this register with care.
 
-![TMP-Register schematic](../resources/Wiring%20Diagrams/TMP-Register.svg)
+<img src="../resources/Wiring Diagrams/TMP-Register.svg" alt="TMP-Register schematic" style="width:100%; height:auto;">

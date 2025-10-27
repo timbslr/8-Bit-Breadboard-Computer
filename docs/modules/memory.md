@@ -6,3 +6,5 @@ parent: Modules
 ---
 
 ## Memory
+
+<img src="../resources/Wiring Diagrams/Memory.svg" alt="Memory schematic" style="width:100%; height:auto;">
