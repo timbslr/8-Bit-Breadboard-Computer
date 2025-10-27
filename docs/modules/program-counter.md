@@ -1,5 +1,5 @@
 ---
-title: PC
+title: Program Counter (PC)
 layout: default
 nav_order: 12
 parent: Modules

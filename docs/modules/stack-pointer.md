@@ -1,5 +1,5 @@
 ---
-title: SP
+title: Stack Pointer (SP)
 layout: default
 nav_order: 13
 parent: Modules

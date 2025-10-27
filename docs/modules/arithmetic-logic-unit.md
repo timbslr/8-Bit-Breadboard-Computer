@@ -1,5 +1,5 @@
 ---
-title: ALU
+title: Arithmetic Logic Unit (ALU)
 layout: default
 nav_order: 3
 parent: Modules

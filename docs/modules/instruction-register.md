@@ -1,5 +1,5 @@
 ---
-title: IR
+title: Instruction-Register (IR)
 layout: default
 nav_order: 8
 parent: Modules

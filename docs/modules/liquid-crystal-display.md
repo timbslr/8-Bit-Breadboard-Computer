@@ -1,5 +1,5 @@
 ---
-title: LCD
+title: Liquid-Crystal-Display (LCD)
 layout: default
 nav_order: 9
 parent: Modules
