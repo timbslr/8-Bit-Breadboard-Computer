@@ -1200,7 +1200,7 @@
       ],
       "group": "I-O",
       "indexInGroup": 1,
-      "shortDescription": "Outputs the value in the given register to the LCD-display as control",
+      "shortDescription": "Outputs the value in the given register to the LCD as control",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {
@@ -1224,7 +1224,7 @@
       ],
       "group": "I-O",
       "indexInGroup": 2,
-      "shortDescription": "Outputs the immediate value to the LCD-display as control",
+      "shortDescription": "Outputs the immediate value to the LCD as control",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {
@@ -1248,7 +1248,7 @@
       ],
       "group": "I-O",
       "indexInGroup": 3,
-      "shortDescription": "Outputs the value in the given register to the LCD-display as data",
+      "shortDescription": "Outputs the value in the given register to the LCD as data",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {
@@ -1272,7 +1272,7 @@
       ],
       "group": "I-O",
       "indexInGroup": 4,
-      "shortDescription": "Outputs the immediate value to the LCD-display as data",
+      "shortDescription": "Outputs the immediate value to the LCD as data",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {

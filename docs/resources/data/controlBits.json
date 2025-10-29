@@ -2,10 +2,10 @@
   "$schema": "./controlBitsSchema.json",
   "controlBits": [
     {
-      "name": "Input Enable 7-Segment-Display",
+      "name": "Input Enable 7-Segment Display",
       "abbreviation": "IE_7SD",
       "isSynchronous": true,
-      "associatedModule": "7-Segment-Display",
+      "associatedModule": "7-Segment Display",
       "isActiveHigh": false,
       "description": "Enables loading data from the bus to the 7-Segment Display (the data will be displayed immediately)"
     },

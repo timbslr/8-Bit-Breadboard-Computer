@@ -24,7 +24,7 @@
           },
           "associatedModule": {
             "type": "string",
-            "pattern": "(7-Segment-Display|A-Register|Arithmetic Logic Unit \\(ALU\\)|B-Register|Buffer-Register|Controller|Flags-Register|Instruction-Register \\(IR\\)|Liquid Crystal Display \\(LCD\\)|Memory-Address-Register \\(MAR\\)|Memory|Program Counter \\(PC\\)|Stack Pointer \\(SP\\)|Temporary-Register \\(TMP-Register\\)|X-Register)"
+            "pattern": "(7-Segment Display|A-Register|Arithmetic Logic Unit \\(ALU\\)|B-Register|Buffer-Register|Controller|Flags-Register|Instruction-Register \\(IR\\)|Liquid Crystal Display \\(LCD\\)|Memory-Address-Register \\(MAR\\)|Memory|Program Counter \\(PC\\)|Stack Pointer \\(SP\\)|Temporary-Register \\(TMP-Register\\)|X-Register)"
           },
           "description": {
             "type": "string",
