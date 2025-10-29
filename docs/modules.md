@@ -1,7 +1,7 @@
 ---
 title: Modules
 layout: default
-nav_order: 3
+nav_order: 4
 ---
 
 Each page in this section will give you all the information you need to know about the different modules of this breadboard-computer. Each and every module plays its own role in ensuring that each instruction is properly executed.
