@@ -39,7 +39,6 @@
 	slr {reg: register} => 0b111011 @ reg
 	sar {reg: register} => 0b111100 @ reg
 	ror {reg: register} => 0b111101 @ reg
-	rorn {reg: register}, 0 => asm{ }
 	rorn {reg: register}, 1 => asm{ ror {reg} }
 	rorn {reg: register}, 2 => asm{ ror A } @ asm{ ror {reg} }
 	rorn {reg: register}, 3 => asm{ ror A } @ asm{ ror A } @ asm{ ror {reg} }
@@ -48,7 +47,6 @@
 	rorn {reg: register}, 6 => asm{ rol A } @ asm{ rol {reg} }
 	rorn {reg: register}, 7 => asm{ rol {reg} }
 	rol {reg: register} => 0b111110 @ reg
-	roln {reg: register}, 0 => asm{ }
 	roln {reg: register}, 1 => asm{ rol {reg} }
 	roln {reg: register}, 2 => asm{ rol A } @ asm{ rol {reg} }
 	roln {reg: register}, 3 => asm{ rol A } @ asm{ rol A } @ asm{ rol {reg} }

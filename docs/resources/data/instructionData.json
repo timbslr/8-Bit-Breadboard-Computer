@@ -225,7 +225,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_AND"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_AND",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -268,7 +274,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_OR"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_OR",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -311,7 +323,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_XOR"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_XOR",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -354,7 +372,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_NOT"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_NOT",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -398,7 +422,13 @@
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["OE_A", "IE_T"],
         ["ALU_SRC_ARI", "ALU_AOP_ADD"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_ARI",
+          "ALU_AOP_ADD",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -424,7 +454,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_SLR"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_SLR",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -450,7 +486,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_SAR"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_SAR",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -476,7 +518,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_ROR"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_ROR",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -521,7 +569,13 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_ROL"],
-        ["OE_ALU", "IE_<reg>", "IE_F"],
+        [
+          "ALU_SRC_BIT",
+          "ALU_BOP_ROL",
+          "OE_ALU",
+          "IE_<reg>",
+          "IE_F"
+        ],
         ["RSC"]
       ],
       "group": "ALU",
@@ -566,7 +620,7 @@
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
         ["ALU_SRC_BIT", "ALU_BOP_AND"],
-        [],
+        ["ALU_SRC_BIT", "ALU_BOP_AND", "IE_F"],
         ["RSC"]
       ],
       "group": "ALU",

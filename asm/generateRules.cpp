@@ -152,7 +152,8 @@ std::string handleSpecialCaseRotateN(auto instruction, bool isrorn) {
   std::vector<std::string> rotateNMapCopy = rotateNMap;
   std::string resultingRule = "";
 
-  for(int i = 0; i < rotateNMap.size(); i++) {
+  //start from 1 as rorn <reg>, 0 and roln <reg>, 0 are useless
+  for(int i = 1; i < rotateNMap.size(); i++) {
     std::string currentMapElement = rotateNMapCopy[i];
     replaceAll(currentMapElement, "?", isrorn ? "r" : "l");
     replaceAll(currentMapElement, "!", isrorn ? "l" : "r");
