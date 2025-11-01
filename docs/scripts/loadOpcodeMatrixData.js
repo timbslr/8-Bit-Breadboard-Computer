@@ -4,6 +4,7 @@ import {
   getAmountOfCharOccurrencesInString,
   getInstructions,
   isPSEUDOInstruction,
+  LCDREGISTER_LOOKUP,
   REGISTER_LOOKUP,
 } from "./util.js";
 
@@ -41,7 +42,8 @@ async function fillOpcodeMatrix() {
     //if the label exists/the opcode is used, put it into the corresponding cell
     if (label) {
       const mnemonic = label.split("<br>")[0];
-      const linkTitle = `0x${opcodeHex}: ${mnemonic}`;
+      let linkTitle = `0x${opcodeHex}: ${label}`.replace("<br>", " "); //replace <br> between mnemonic and arguments with space
+      linkTitle = linkTitle.replaceAll("<br>", ""); //remove all <br> that are left
       currentCell.innerHTML = generateLinkToMnemonic(mnemonic, label, false, linkTitle);
     }
   }
@@ -61,16 +63,36 @@ function createOpcodeMap(instructions) {
     }
 
     const registerCount = getAmountOfCharOccurrencesInString(opcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
-
+    const lcdRegisterCount = getAmountOfCharOccurrencesInString(opcode, "L");
     if (registerCount === 0) {
-      opcodeMap[opcode] = instruction.mnemonic;
+      let label = instruction.mnemonic;
+      if (lcdRegisterCount > 0) {
+        for (let i = 0; i < 2; i++) {
+          let opcode = `${instruction.opcode.replaceAll("L", i.toString(2))}`;
+          label += `<br>&lt;imm&gt;<br>&rarr;${LCDREGISTER_LOOKUP[i]}`;
+          opcodeMap[opcode] = label;
+          label = instruction.mnemonic; //reset label for next iteration
+        }
+      } else {
+        opcodeMap[opcode] = instruction.mnemonic;
+      }
     } else if (registerCount == 1) {
       let label = instruction.mnemonic;
-      for (let i = 0; i < 4; i++) {
-        let opcode = `${instruction.opcode.replaceAll("R", "")}${i.toString(2).padStart(2, "0")}`;
-        label += `<br>&rarr;${REGISTER_LOOKUP[i]}`;
-        opcodeMap[opcode] = label;
-        label = instruction.mnemonic; //reset label for next iteration
+      const isLCDInstruction = getAmountOfCharOccurrencesInString(opcode, "L") > 0;
+
+      //outer for-loop is only for the lcd-instructions which contain the L-register arguments
+      for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 4; j++) {
+          let opcode = `${instruction.opcode.replaceAll("L", i.toString(2))}`;
+          opcode = `${opcode.replaceAll("R", "")}${j.toString(2).padStart(2, "0")}`;
+          if (isLCDInstruction) {
+            label += `<br>${REGISTER_LOOKUP[j]}&rarr;${LCDREGISTER_LOOKUP[i]}`;
+          } else {
+            label += `<br>&rarr;${REGISTER_LOOKUP[j]}`;
+          }
+          opcodeMap[opcode] = label;
+          label = instruction.mnemonic; //reset label for next iteration
+        }
       }
     } else if (registerCount == 2) {
       let label = instruction.mnemonic;

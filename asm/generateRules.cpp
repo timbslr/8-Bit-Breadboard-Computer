@@ -5,6 +5,7 @@
 using json = nlohmann::json;
 
 #define REGISTER_ARGUMENT(specifier)  ("{" specifier ": register}") //uses string literal concatenation
+#define LCDREGISTER_ARGUMENT(specifier)  ("{" specifier ": lcdregister}") //uses string literal concatenation
 #define IMMEDIATE_ARGUMENT(specifier) ("{" specifier ": i8}")
 #define ADDRESS_ARGUMENT(specifier)   ("{" specifier ": u16}")
 
@@ -36,6 +37,7 @@ int main() {
     if(currentInstruction.contains("opcode")) {
       std::string opcode = currentInstruction["opcode"];
       replaceAll(opcode, "R", "");
+      replaceAll(opcode, "L", "");
       replaceAll(currentRule, "<opcode>", opcode);
     }
     rules += "\t" + currentRule;
@@ -75,6 +77,7 @@ std::string generateRule(auto instruction) {
         if(operands[0] == "addr") {
           return mnemonic + ADDRESS_ARGUMENT("addr") + " => 0b<opcode> @ le(addr)";
         }
+        std::cerr << "No operands matched for operand count 1: " << operands[0] << std::endl;
         break;
       }
       case 2: {
@@ -90,6 +93,13 @@ std::string generateRule(auto instruction) {
         if(operands[0] == "imm" && operands[1] == "addr") {
           return mnemonic + IMMEDIATE_ARGUMENT("imm") + ", " + ADDRESS_ARGUMENT("addr") + " => 0b<opcode> @ imm @ le(addr)";
         }
+        if(operands[0] == "lcdreg" && operands[1] == "reg") {
+          return mnemonic + LCDREGISTER_ARGUMENT("lcdreg") + ", " + REGISTER_ARGUMENT("reg") + " => 0b<opcode> @ lcdreg @ reg";
+        }
+        if(operands[0] == "lcdreg" && operands[1] == "imm") {
+          return mnemonic + LCDREGISTER_ARGUMENT("lcdreg") + ", " + IMMEDIATE_ARGUMENT("imm") + " => 0b<opcode> @ lcdreg @ imm";
+        }
+        std::cerr << "No operands matched for operand count 2: " << operands[0] << " " << operands[1] << std::endl;
         break;
       }
     };

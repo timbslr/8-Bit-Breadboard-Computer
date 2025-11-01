@@ -38,7 +38,8 @@ const uint32_t IE_B        = 0b01111000'00000000'00000000'00000000;
 const uint32_t INC_PC      = 0b00000000'01000000'00000000'00000000;
 const uint32_t IE_F        = 0b00000000'00100000'00000000'00000000;
 const uint32_t IE_X        = 0b00000000'00001000'00000000'00000000;
-const uint32_t LCD_RS      = 0b00000000'00000100'00000000'00000000;
+const uint32_t LCD_CTRL    = 0b00000000'00000000'00000000'00000000;
+const uint32_t LCD_DATA    = 0b00000000'00000100'00000000'00000000;
 const uint32_t LCD_E       = 0b00000000'00000010'00000000'00000000;
 
 const uint32_t MEM_WE      = 0b00000000'00000000'10000000'00000000;
@@ -87,7 +88,8 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"IE_F",        IE_F},
   {"IE_B",        IE_B},
   {"IE_X",        IE_X},
-  {"LCD_RS",      LCD_RS},
+  {"LCD_CTRL",    LCD_CTRL},
+  {"LCD_DATA",    LCD_DATA},
   {"LCD_E",       LCD_E},
   {"IE_7SD",      IE_7SD},
   {"MEM_WE",      MEM_WE},
@@ -125,6 +127,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
 };
 
 std::string registers[] = {"A", "B", "X", "T"};
+std::string lcdregisters[] = {"CTRL", "DATA"};
 
 void loadInstructions(const char* fileName);
 void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits);
@@ -197,19 +200,42 @@ void loadInstructions(const char* fileName) {
 
 void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits) {
   int registerIndex = opcodeBinaryString.find('R'); //used for checking if the opcode contains register arguments
+  int lcdRegisterIndex = opcodeBinaryString.find('L');
 
   if(registerIndex == std::string::npos) { //no register arguments
-    const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);
-    storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
-  } else if(registerIndex == 6) { //one register argument
-    for(int i = 0; i < 4; i++) {
-      std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
-      substituteArgument(activeBitsCopy, "<reg>", registers[i]);
+    if(lcdRegisterIndex != std::string::npos) {
+      for(int i = 0; i < 2; i++) {
+        std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+        substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
+        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+        std::bitset<1> lcdbit(i);
+        opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
+        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);    
 
-      const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
-      std::bitset<2> bits(i);
-      opcodeBinaryString.replace(6, 2, bits.to_string()); //substitute argument in opcode
+      }
+    } else {
+      const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);
       storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+    }
+  } else if(registerIndex == 6) { //one register argument
+    for(int i = 0; i < 2; i++) {
+      for(int j = 0; j < 4; j++) {
+        std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+        substituteArgument(activeBitsCopy, "<reg>", registers[j]);
+        substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
+
+        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+
+        std::bitset<2> bits(j);
+        opcodeBinaryString.replace(6, 2, bits.to_string()); //substitute argument in opcode
+        
+        //if it's an LCD-instruction
+        if(lcdRegisterIndex != std::string::npos) {
+          std::bitset<1> lcdbit(i);
+          opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
+        }
+        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+      }
     }
   } else if(registerIndex == 4) { //two register arguments
     for(int regd = 0; regd < 4; regd++) {

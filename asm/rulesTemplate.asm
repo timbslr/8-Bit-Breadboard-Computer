@@ -19,6 +19,11 @@
   TMP => 0b11
 }
 
+#subruledef lcdregister { ;subruledef prevents the mnemonics from being used as freestanding instructions
+  CTRL   => 0b0
+  DATA   => 0b1
+}
+
 #ruledef {
 	<RULES>
 }

@@ -1229,7 +1229,7 @@
         ["RSC"]
       ],
       "group": "I-O",
-      "indexInGroup": 0,
+      "indexInGroup": 1,
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
       "longDescription": "",
       "examples": [
@@ -1240,45 +1240,23 @@
       ]
     },
     {
-      "name": "output to lcd as control",
-      "mnemonic": "outlcdc",
+      "name": "output to lcd",
+      "mnemonic": "outlcd",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": ["lcdreg", "reg"],
       "requiresFlag": false,
-      "opcode": "010011RR",
+      "opcode": "01001LRR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["RSC"]
-      ],
-      "group": "I-O",
-      "indexInGroup": 1,
-      "shortDescription": "Outputs the value in the given register to the LCD as control",
-      "longDescription": "TODO: microinstructions",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
-      "name": "output immediate to lcd as control",
-      "mnemonic": "outlcdic",
-      "type": "REAL",
-      "operands": ["imm"],
-      "requiresFlag": false,
-      "opcode": "01001011",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["LCD_<lcdreg>"],
+        ["OE_<reg>"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 2,
-      "shortDescription": "Outputs the immediate value to the LCD as control",
+      "shortDescription": "",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {
@@ -1288,21 +1266,22 @@
       ]
     },
     {
-      "name": "output to lcd as data",
-      "mnemonic": "outlcdd",
+      "name": "output immediate to lcd",
+      "mnemonic": "outlcdi",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": ["lcdreg", "imm"],
       "requiresFlag": false,
-      "opcode": "010111RR",
+      "opcode": "0100011L",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["LCD_<lcdreg>"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 3,
-      "shortDescription": "Outputs the value in the given register to the LCD as data",
+      "shortDescription": "",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {
@@ -1312,21 +1291,23 @@
       ]
     },
     {
-      "name": "output immediate to lcd as data",
-      "mnemonic": "outlcdid",
+      "name": "lcd read",
+      "mnemonic": "lcdrd",
       "type": "REAL",
-      "operands": ["imm"],
+      "operands": ["lcdreg", "reg"],
       "requiresFlag": false,
-      "opcode": "01011011",
+      "opcode": "01011LRR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["LCD_<lcdreg>"],
+        ["IE_<reg>"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 4,
-      "shortDescription": "Outputs the immediate value to the LCD as data",
+      "shortDescription": "",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {

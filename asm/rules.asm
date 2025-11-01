@@ -19,6 +19,11 @@
   TMP => 0b11
 }
 
+#subruledef lcdregister { ;subruledef prevents the mnemonics from being used as freestanding instructions
+  CTRL   => 0b0
+  DATA   => 0b1
+}
+
 #ruledef {
 	add {reg: register} => 0b110100 @ reg
 	addi {reg: register}, {imm: i8} => asm{ li TMP, {imm} } @ asm{ add {reg} }
@@ -80,10 +85,9 @@
 	decm {addr: u16} => asm{ ld X, {addr} } @ asm{ decx } @ asm{ st X, {addr} }
 	out7sd {reg: register} => 0b001111 @ reg
 	out7sdi {imm: i8} => 0b00111011 @ imm
-	outlcdc {reg: register} => 0b010011 @ reg
-	outlcdic {imm: i8} => 0b01001011 @ imm
-	outlcdd {reg: register} => 0b010111 @ reg
-	outlcdid {imm: i8} => 0b01011011 @ imm
+	outlcd {lcdreg: lcdregister}, {reg: register} => 0b01001 @ lcdreg @ reg
+	outlcdi {lcdreg: lcdregister}, {imm: i8} => 0b0100011 @ lcdreg @ imm
+	lcdrd {lcdreg: lcdregister}, {reg: register} => 0b01011 @ lcdreg @ reg
 	nop => 0b00000000
 	hlt => 0b00000001
 	call {addr: u16} => 0b00000010 @ le(addr)

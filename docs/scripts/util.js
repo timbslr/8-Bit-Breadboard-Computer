@@ -1,4 +1,5 @@
 export const REGISTER_LOOKUP = ["A", "B", "X", "T"];
+export const LCDREGISTER_LOOKUP = ["CTRL", "DATA"];
 
 export async function getInstructions() {
   const response = await fetch("../resources/data/instructionData.json");

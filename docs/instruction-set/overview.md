@@ -30,8 +30,11 @@ VF = Overflow flag<br>
 
 {: .note }
 Mnemonics with an asterisk are pseudo-instructions, their mapped instructions can be seen [here](#pseudo-instructions). <br> <br>
-Angle brackets indicate an argument (\<arg>). These are not written out in Assembly, but are replaced with their actual values. <br> <br>
+Angle brackets indicate an argument (\<arg>). These are not written out in Assembly, but are replaced with their actual values.
+<br> <br>
 A \<reg> argument means that you can input the A-, B-, X- or TMP-register there. Other registers are not allowed in this case and may have separate instructions.
+<br> <br>
+A \<lcdreg> argument means that you can input the CTRL- or DATA- register there (meaning the lcd-control- or lcd-data-register). Other registers are not allowed.
 
 ## ALU instructions
 
