@@ -1,15 +1,10 @@
-import { applyFirstRowStylesByColumn, deleteFirstRow, getTableBodyById } from "./tableUtil.js";
-import {
-  generateLinkToMnemonic,
-  getAmountOfCharOccurrencesInString,
-  getInstructions,
-  isPSEUDOInstruction,
-  LCDREGISTER_LOOKUP,
-  REGISTER_LOOKUP,
-} from "./util.js";
+import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
+import TableUtilProvider from "./TableUtilProvider.js";
+import StatisticsProvider from "./StatisticsProvider.js";
+import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "./util.js";
 
 function createOpcodeMatrixTableCells() {
-  const tbody = getTableBodyById("opcode-table");
+  const tbody = TableUtilProvider.getTableBodyById("opcode-table");
   for (let rowIndex = 0; rowIndex < 16; rowIndex++) {
     const row = document.createElement("tr");
     for (let colIndex = 0; colIndex < 17; colIndex++) {
@@ -22,14 +17,13 @@ function createOpcodeMatrixTableCells() {
     }
     tbody.appendChild(row);
   }
-  applyFirstRowStylesByColumn("opcode-table");
-  deleteFirstRow("opcode-table"); //that was the "Loading..." row
+  TableUtilProvider.applyFirstRowStylesToColumnsById("opcode-table");
+  TableUtilProvider.deleteFirstRowById("opcode-table"); //that was the "Loading..." row
 }
 
 async function fillOpcodeMatrix() {
   const table = document.getElementById("opcode-table");
-  let instructions = await getInstructions();
-  const opcodeMap = createOpcodeMap(instructions); //stores all opcodes in binary mapped to their corresponding labels
+  const opcodeMap = await createOpcodeMap(); //stores all opcodes in binary mapped to their corresponding labels
 
   for (let i = 0; i < 256; i++) {
     const opcodeBinary = i.toString(2).padStart(8, "0");
@@ -44,46 +38,50 @@ async function fillOpcodeMatrix() {
       const mnemonic = label.split("<br>")[0];
       let linkTitle = `0x${opcodeHex}: ${label}`.replace("<br>", " "); //replace <br> between mnemonic and arguments with space
       linkTitle = linkTitle.replaceAll("<br>", ""); //remove all <br> that are left
-      currentCell.innerHTML = generateLinkToMnemonic(mnemonic, label, false, linkTitle);
+      currentCell.innerHTML = InstructionsUtilProvider.decorateMnemonicWithLink(mnemonic, label, linkTitle);
     }
   }
 }
 
-function createOpcodeMap(instructions) {
+async function createOpcodeMap() {
+  let instructions = await InstructionsUtilProvider.loadInstructions();
   const opcodeMap = {};
 
-  instructions.forEach((instruction) => {
+  for (const instruction of instructions) {
     //skip pseudo instructions as they don't have an opcode
-    if (isPSEUDOInstruction(instruction.mnemonic, instructions)) {
-      return;
-    }
-    const opcode = instruction.opcode;
-    if (opcode.length !== 8) {
-      console.error(`Opcode length is not 8: ${opcode}`);
+    const mnemonic = instruction.mnemonic;
+    const originalOpcode = instruction.opcode;
+    const isPSEUDOInstruction = await InstructionsUtilProvider.isPSEUDOInstruction(mnemonic);
+    if (isPSEUDOInstruction) {
+      continue;
     }
 
-    const registerCount = getAmountOfCharOccurrencesInString(opcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
-    const lcdRegisterCount = getAmountOfCharOccurrencesInString(opcode, "L");
+    if (originalOpcode.length !== 8) {
+      console.error(`Opcode length is not 8: ${originalOpcode}`);
+    }
+
+    const registerCount = StatisticsProvider.countCharsInString(originalOpcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
+    const lcdRegisterCount = StatisticsProvider.countCharsInString(originalOpcode, "L");
     if (registerCount === 0) {
-      let label = instruction.mnemonic;
+      let label = mnemonic;
       if (lcdRegisterCount > 0) {
         for (let i = 0; i < 2; i++) {
-          let opcode = `${instruction.opcode.replaceAll("L", i.toString(2))}`;
+          let opcode = `${originalOpcode.replaceAll("L", i.toString(2))}`;
           label += `<br>&lt;imm&gt;<br>&rarr;${LCDREGISTER_LOOKUP[i]}`;
           opcodeMap[opcode] = label;
-          label = instruction.mnemonic; //reset label for next iteration
+          label = mnemonic; //reset label for next iteration
         }
       } else {
-        opcodeMap[opcode] = instruction.mnemonic;
+        opcodeMap[originalOpcode] = mnemonic;
       }
     } else if (registerCount == 1) {
-      let label = instruction.mnemonic;
-      const isLCDInstruction = getAmountOfCharOccurrencesInString(opcode, "L") > 0;
+      let label = mnemonic;
+      const isLCDInstruction = StatisticsProvider.countCharsInString(originalOpcode, "L") > 0;
 
       //outer for-loop is only for the lcd-instructions which contain the L-register arguments
       for (let i = 0; i < 2; i++) {
         for (let j = 0; j < 4; j++) {
-          let opcode = `${instruction.opcode.replaceAll("L", i.toString(2))}`;
+          let opcode = `${originalOpcode.replaceAll("L", i.toString(2))}`;
           opcode = `${opcode.replaceAll("R", "")}${j.toString(2).padStart(2, "0")}`;
           if (isLCDInstruction) {
             label += `<br>${REGISTER_LOOKUP[j]}&rarr;${LCDREGISTER_LOOKUP[i]}`;
@@ -91,25 +89,25 @@ function createOpcodeMap(instructions) {
             label += `<br>&rarr;${REGISTER_LOOKUP[j]}`;
           }
           opcodeMap[opcode] = label;
-          label = instruction.mnemonic; //reset label for next iteration
+          label = mnemonic; //reset label for next iteration
         }
       }
     } else if (registerCount == 2) {
-      let label = instruction.mnemonic;
+      let label = mnemonic;
       for (let i = 0; i < 16; i++) {
-        let opcode = `${instruction.opcode.replaceAll("R", "")}${i.toString(2).padStart(4, "0")}`;
+        let opcode = `${originalOpcode.replaceAll("R", "")}${i.toString(2).padStart(4, "0")}`;
         const upperRegisterIndex = (i >> 2) & 0b11;
         const lowerRegisterIndex = i & 0b11;
         label += `<br>${REGISTER_LOOKUP[upperRegisterIndex]}&rarr;${REGISTER_LOOKUP[lowerRegisterIndex]}`;
         opcodeMap[opcode] = label;
-        label = instruction.mnemonic;
+        label = mnemonic;
       }
     } else {
       console.error(
         `Invalid register count! The maximum allowed amount of registers per instruction is 2, but it was ${registerCount}.`
       );
     }
-  });
+  }
 
   return opcodeMap;
 }

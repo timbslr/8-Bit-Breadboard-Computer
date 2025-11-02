@@ -1,43 +1,26 @@
-import {
-  applyFirstRowStylesByColumn,
-  attachTableWrapper,
-  createRowFromCellContent,
-  deleteFirstRow,
-} from "./tableUtil.js";
-import { countClockCyclesForREALInstruction, extractMnemonicFromInstruction, getInstructions } from "./util.js";
-
-let instructions; //store instructions from json-file globally to make them accessible to other methods
+import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
+import StatisticsProvider from "./StatisticsProvider.js";
+import TableUtilProvider from "./TableUtilProvider.js";
 
 async function createAndFillTables() {
-  instructions = await getInstructions();
-  instructions = instructions.sort((a, b) => a.mnemonic.localeCompare(b.mnemonic)); //sort in ascending alphabetical order
+  const sortedInstructions = await InstructionsUtilProvider.getSortedInstructionObjectsByMnemonic(); //sort in ascending alphabetical order
   const mainContent = document.getElementById("main-content"); //the section for the pages main content
 
   const templateTable = document.getElementById("template-stats-table"); //the template table which defines layouts
 
-  instructions.forEach((instruction) => {
+  for (const instruction of sortedInstructions) {
     const mnemonic = instruction.mnemonic;
     const opcode = instruction.opcode || "-";
 
-    const sizeInROM = calculateSizeInROM(mnemonic);
+    const sizeInROM = await StatisticsProvider.getByteSizeInROM(mnemonic);
     let sizeInROMString = `${sizeInROM} Byte`;
     if (sizeInROM !== 1) {
       sizeInROMString += "s"; //s for Bytes
     }
 
-    const numberOfClockCycles = calculateNumberOfClockCycles(mnemonic);
+    const numberOfClockCycles = await StatisticsProvider.getAmountOfClockCyclesPerExecution(mnemonic);
 
-    //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
-    if (numberOfClockCycles.zero > numberOfClockCycles.one) {
-      const tmp = numberOfClockCycles.zero;
-      numberOfClockCycles.zero = numberOfClockCycles.one;
-      numberOfClockCycles.one = tmp;
-    }
-
-    const numberOfClockCyclesString =
-      numberOfClockCycles.zero === numberOfClockCycles.one
-        ? numberOfClockCycles.zero
-        : `${numberOfClockCycles.zero}/${numberOfClockCycles.one}`;
+    const numberOfClockCyclesString = StatisticsProvider.formatNumberOfClockCyclesString(numberOfClockCycles);
 
     const tableId = `${mnemonic}-table`;
 
@@ -54,119 +37,20 @@ async function createAndFillTables() {
     templateTableCopy.id = tableId;
 
     const cellContents = [instruction.type, instruction.group, opcode, sizeInROMString, numberOfClockCyclesString];
-    const contentRow = createRowFromCellContent(cellContents);
+    const contentRow = TableUtilProvider.createRowFromCellContents(cellContents);
     templateTableCopy.appendChild(contentRow);
 
-    templateTableCopy = attachTableWrapper(templateTableCopy);
+    templateTableCopy = TableUtilProvider.surroundWithTableWrapper(templateTableCopy);
 
     mainContent.appendChild(templateTableCopy, lineBreak.nextSibling);
 
-    applyFirstRowStylesByColumn(tableId);
-    deleteFirstRow(tableId); //that was the "Loading..." row from the template-table
-  });
+    TableUtilProvider.applyFirstRowStylesToColumnsById(tableId);
+    TableUtilProvider.deleteFirstRowById(tableId); //that was the "Loading..." row from the template-table
+  }
 
   templateTable.remove();
 
   scrollToHeaderIfNecessary(); //scroll header into view if the url contains a hash linking to it
-  console.log(calculateSizeInROM("peek"));
-}
-
-const operandSizesInBytes = {
-  reg: 0,
-  regd: 0,
-  regs: 0,
-  imm: 1,
-  addr: 2,
-};
-
-function calculateSizeInROM(mnemonic) {
-  //rorn and rol have to be handled separately because they have "n" as an argument
-  if (mnemonic === "rorn") {
-    const sizeInBytes = calculateSizeInROM("ror");
-    if (sizeInBytes === 1) {
-      return "n";
-    }
-    return `${sizeInBytes}*n`;
-  }
-  if (mnemonic === "roln") {
-    const sizeInBytes = calculateSizeInROM("rol");
-    if (sizeInBytes === 1) {
-      return "n";
-    }
-    return `${sizeInBytes}*n`;
-  }
-
-  const instruction = instructions.find((instruction) => instruction.mnemonic === mnemonic);
-
-  if (!instruction) {
-    console.error(`Unable to calculate size in ROM for mnemonic "${mnemonic}"`);
-    return null;
-  }
-
-  let sizeInBytes = 0;
-
-  if (instruction.type === "PSEUDO") {
-    instruction.mappedInstructions.forEach((mappedInstruction) => {
-      sizeInBytes += calculateSizeInROM(extractMnemonicFromInstruction(mappedInstruction));
-    });
-    return sizeInBytes;
-  }
-
-  sizeInBytes += 1; //each REAL instruction needs at least 1 byte in ROM for the opcode
-
-  instruction.operands.forEach((operand) => {
-    const operandSizeInROM = operandSizesInBytes[operand];
-    if (operandSizeInROM === undefined) {
-      console.error(
-        `Found invalid argument "${operand}" during computation of the size in ROM for mnemonic "${mnemonic}"`
-      );
-      return null;
-    }
-
-    sizeInBytes += operandSizeInROM;
-  });
-
-  return sizeInBytes;
-}
-
-function calculateNumberOfClockCycles(mnemonic) {
-  //rorn and rol have to be handled separately because they have "n" as an argument
-  if (mnemonic === "rorn") {
-    const clockCycles = calculateNumberOfClockCycles("ror");
-    return { zero: `${clockCycles.zero}*n`, one: `${clockCycles.one}*n` };
-  }
-  if (mnemonic === "roln") {
-    const clockCycles = calculateNumberOfClockCycles("rol");
-    return { zero: `${clockCycles.zero}*n`, one: `${clockCycles.one}*n` };
-  }
-
-  const instruction = instructions.find((instruction) => instruction.mnemonic === mnemonic);
-
-  if (!instruction) {
-    console.error(`Unable to calculate number of clock cycles for mnemonic "${mnemonic}"`);
-    return null;
-  }
-
-  let numberOfClockCycles = { zero: 0, one: 0 };
-
-  if (instruction.type === "PSEUDO") {
-    instruction.mappedInstructions.forEach((mappedInstruction) => {
-      const clockCycles = calculateNumberOfClockCycles(extractMnemonicFromInstruction(mappedInstruction));
-      numberOfClockCycles = {
-        zero: numberOfClockCycles.zero + clockCycles.zero,
-        one: numberOfClockCycles.one + clockCycles.one,
-      };
-    });
-    return numberOfClockCycles;
-  }
-
-  const clockCycles = countClockCyclesForREALInstruction(instruction);
-  numberOfClockCycles = {
-    zero: numberOfClockCycles.zero + clockCycles.zero,
-    one: numberOfClockCycles.one + clockCycles.one,
-  };
-
-  return numberOfClockCycles;
 }
 
 function scrollToHeaderIfNecessary() {

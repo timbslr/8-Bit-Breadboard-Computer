@@ -1,10 +1,5 @@
-import {
-  applyFirstRowStylesByColumn,
-  attachTableWrapper,
-  createRowFromCellContent,
-  deleteFirstRow,
-} from "./tableUtil.js";
 import { getControlBits } from "./util.js";
+import TableUtilProvider from "./TableUtilProvider.js";
 
 async function createAndFillTables() {
   let controlBits = await getControlBits();
@@ -24,7 +19,7 @@ async function createAndFillTables() {
         : `<span style="text-decoration: overline;"> ${controlBit.abbreviation} </span>`;
       const synchronousCellContent = controlBit.isSynchronous ? "s" : "a";
       const cellContents = [abbreviation, controlBit.name, synchronousCellContent, controlBit.description];
-      const row = createRowFromCellContent(cellContents);
+      const row = TableUtilProvider.createRowFromCellContents(cellContents);
       templateTableCopy.appendChild(row);
     });
 
@@ -32,12 +27,12 @@ async function createAndFillTables() {
     tableHeader.innerHTML = moduleName;
     mainContent.appendChild(tableHeader);
 
-    templateTableCopy = attachTableWrapper(templateTableCopy);
+    templateTableCopy = TableUtilProvider.surroundWithTableWrapper(templateTableCopy);
 
     mainContent.appendChild(templateTableCopy);
 
-    applyFirstRowStylesByColumn(tableId);
-    deleteFirstRow(tableId);
+    TableUtilProvider.applyFirstRowStylesToColumnsById(tableId);
+    TableUtilProvider.deleteFirstRowById(tableId);
   });
 
   templateTable.remove();
