@@ -143,7 +143,7 @@
       "isSynchronous": false,
       "associatedModule": "Liquid Crystal Display (LCD)",
       "isActiveHigh": true,
-      "description": "//TODO"
+      "description": "Select between read (1) or write (0) from or to LCD"
     },
     {
       "name": "LCD Register Select",

@@ -1087,7 +1087,7 @@
       "group": "REG-MEM",
       "indexInGroup": 14,
       "shortDescription": "SP = SP + 1",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1158,7 +1158,7 @@
       "group": "REG-MEM",
       "indexInGroup": 14,
       "shortDescription": "SP = SP - 1",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1255,8 +1255,8 @@
       ],
       "group": "I-O",
       "indexInGroup": 2,
-      "shortDescription": "",
-      "longDescription": "TODO: microinstructions",
+      "shortDescription": "Outputs the value in the given register to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1287,8 +1287,8 @@
       ],
       "group": "I-O",
       "indexInGroup": 3,
-      "shortDescription": "",
-      "longDescription": "TODO: microinstructions",
+      "shortDescription": "Outputs an immediate to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1312,7 +1312,7 @@
       ],
       "group": "I-O",
       "indexInGroup": 4,
-      "shortDescription": "",
+      "shortDescription": "Reads from the LCD (either from CTRL or DATA register, depending on <lcdreg>) into the given register",
       "longDescription": "TODO: microinstructions",
       "examples": [
         {
