@@ -18,7 +18,7 @@ uint32_t instructions[2][256][16] = {};  // initialize everything with zero
 //  |                                CTRL1                                 |                            CTRL2                               |                                         CTRL3                               |                                    CTRL4
 //  |    msb                                                         lsb   |    msb                                               lsb       |   msb                                                                 lsb   |   msb                                                               lsb  |      
 //  |    7         6         5         4         3         2     1     0   |     7        6      5      4      3      2       1       0     |    7         6          5          4         3        2        1       0    |    7         6         5         4        3        2         1       0   |
-//  |   RSC     IE_MUX_D  IE_MUX_C  IE_MUX_B  IE_MUX_A                     |            INC_PC  #IE_F         IE_X  LCD_RS  LCD_E           | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP         | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A          #MEM_EN_IO  INC_X  DEC_X |
+//  |   RSC     IE_MUX_D  IE_MUX_C  IE_MUX_B  IE_MUX_A                     |            INC_PC  #IE_F         IE_X  LCD_RS  LCD_E  LCD_RW   | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP         | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A          #MEM_EN_IO  INC_X  DEC_X |
 const uint32_t defaultPattern = 0b00000000'00100000'10000000'00000100;
 
 const uint32_t RSC         = 0b10000000'00000000'00000000'00000000;
@@ -41,6 +41,9 @@ const uint32_t IE_X        = 0b00000000'00001000'00000000'00000000;
 const uint32_t LCD_CTRL    = 0b00000000'00000000'00000000'00000000;
 const uint32_t LCD_DATA    = 0b00000000'00000100'00000000'00000000;
 const uint32_t LCD_E       = 0b00000000'00000010'00000000'00000000;
+const uint32_t LCD_READ    = 0b00000000'00000001'00000000'00000000;
+const uint32_t LCD_WRITE   = 0b00000000'00000000'00000000'00000000;
+
 
 const uint32_t MEM_WE      = 0b00000000'00000000'10000000'00000000;
 const uint32_t ALU_BOP_AND = 0b00000000'00000000'00000000'00000000;
@@ -91,6 +94,8 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"LCD_CTRL",    LCD_CTRL},
   {"LCD_DATA",    LCD_DATA},
   {"LCD_E",       LCD_E},
+  {"LCD_READ",    LCD_READ},
+  {"LCD_WRITE",   LCD_WRITE},
   {"IE_7SD",      IE_7SD},
   {"MEM_WE",      MEM_WE},
   {"ALU_BOP_AND", ALU_BOP_AND},

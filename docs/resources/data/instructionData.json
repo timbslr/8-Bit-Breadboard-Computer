@@ -1250,8 +1250,7 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["LCD_<lcdreg>"],
-        ["OE_<reg>"],
+        ["OE_<reg>", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E"],
         ["RSC"]
       ],
       "group": "I-O",
@@ -1274,9 +1273,16 @@
       "opcode": "0100011L",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["LCD_<lcdreg>"],
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        [
+          "MEM_EN_IO",
+          "LCD_WRITE",
+          "LCD_<lcdreg>",
+          "LCD_E",
+          "INC_PC"
+        ],
         ["RSC"]
       ],
       "group": "I-O",
@@ -1301,8 +1307,7 @@
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["LCD_<lcdreg>"],
-        ["IE_<reg>"],
+        ["IE_<reg>", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E"],
         ["RSC"]
       ],
       "group": "I-O",
