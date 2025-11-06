@@ -4,7 +4,7 @@ layout: default
 nav_order: 1
 ---
 
-A few years ago, I already watched the [6502](https://www.youtube.com/watch?v=LnzuMJLZRdU&list=PLowKtXNTBypFbtuVMUVXNR0z1mu7dp7eH) and [8-Bit Breadboard Computer](https://www.youtube.com/watch?v=HyznrdDSSGM&list=PLowKtXNTBypGqImE405J2565dvjafglHU) projects from Bean Eater, which I found very fascinating. But at that time, I wasn't really able to fully understand what happens there, neither did I have the parts for building these projects. But as time goes by, I got access to more and more IC's, many of which are logic gates and other basic and useful IC's for such projects.
+A few years ago, I already watched the [6502](https://www.youtube.com/watch?v=LnzuMJLZRdU&list=PLowKtXNTBypFbtuVMUVXNR0z1mu7dp7eH) and [8-Bit Breadboard Computer](https://www.youtube.com/watch?v=HyznrdDSSGM&list=PLowKtXNTBypGqImE405J2565dvjafglHU) projects from Ben Eater, which I found very fascinating. But at that time, I wasn't really able to fully understand what happens there, neither did I have the parts for building these projects. But as time goes by, I got access to more and more IC's, many of which are logic gates and other basic and useful IC's for such projects.
 
 Although I now had access to most of the parts, I still didn't know how such an 8-Bit computer works, but that changed in summer 2025. In this semester at university we had the module "Rechnerorganisation" (in English: Computer Architecture), where we learned everything, as the name implies, about computer architecture from the ground up. We covered topics like:
 
