@@ -1,0 +1,3 @@
+{
+  "ruleDefinitions": ["./asm/rules.asm"]
+}
