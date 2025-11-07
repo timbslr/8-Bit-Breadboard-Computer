@@ -28,11 +28,16 @@ void replaceAll(std::string &str, const std::string &from, const std::string &to
 int main() {
   std::ifstream jsonFile("../docs/resources/data/instructionData.json");
   json instructionsJsonArray = json::parse(jsonFile)["instructions"];
-  std::string rules = ""; //separated by \n
+  std::vector<std::string> rules;
 
+  int maxIndexOfAssignOperator = -1;
   for(int i = 0; i < instructionsJsonArray.size(); i++) {
     auto currentInstruction = instructionsJsonArray[i];
     std::string currentRule = generateRule(currentInstruction);
+    int indexOfAssignOperator = currentRule.find("=>");
+    if(maxIndexOfAssignOperator < indexOfAssignOperator) {
+      maxIndexOfAssignOperator = indexOfAssignOperator;
+    }
 
     if(currentInstruction.contains("opcode")) {
       std::string opcode = currentInstruction["opcode"];
@@ -40,16 +45,33 @@ int main() {
       replaceAll(opcode, "L", "");
       replaceAll(currentRule, "<opcode>", opcode);
     }
-    rules += "\t" + currentRule;
 
-    if(i < instructionsJsonArray.size() - 1) {
-      rules += "\n";
+    std::stringstream ss(currentRule);
+    std::string singleRuleString;
+    while(std::getline(ss, singleRuleString, '\n')) { //split at \n for rorn and roln
+      rules.push_back(singleRuleString);
+    }
+  }
+
+  //Format rules
+  std::string rulesString = "";
+  int rulesSize = rules.size();
+  for(int i = 0; i < rulesSize; i++) {
+    std::string currentRule = rules.at(i);
+    int indexOfAssignOperator = currentRule.find("=>");
+    while(indexOfAssignOperator < maxIndexOfAssignOperator + 1) {
+      currentRule.insert(indexOfAssignOperator, " ");
+      indexOfAssignOperator++;
+    }
+    rulesString += "\t" + currentRule;
+    if(i < rulesSize - 1) {
+      rulesString += "\n";
     }
   }
 
   std::ifstream templateFile("./rulesTemplate.asm");
   std::string fileContent((std::istreambuf_iterator<char>(templateFile)),std::istreambuf_iterator<char>());
-  replaceAll(fileContent, "\t<RULES>", rules);
+  replaceAll(fileContent, "\t<RULES>", rulesString);
 
   std::ofstream outputFileStream("rules.asm");
   outputFileStream.write(fileContent.c_str(), fileContent.length());
@@ -170,7 +192,7 @@ std::string handleSpecialCaseRotateN(auto instruction, bool isrorn) {
 
     resultingRule += currentMapElement;
     if(i < rotateNMap.size() - 1) {
-      resultingRule += "\n\t";
+      resultingRule += "\n";
     }
   }
 
