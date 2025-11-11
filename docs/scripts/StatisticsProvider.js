@@ -5,6 +5,8 @@ export default class StatisticsProvider {
     reg: 0,
     regd: 0,
     regs: 0,
+    regsd: 0,
+    regss: 0,
     lcdreg: 0,
     imm: 1,
     addr: 2,
