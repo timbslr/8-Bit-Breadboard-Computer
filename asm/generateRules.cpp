@@ -23,6 +23,7 @@ const std::vector<std::string> rotateNMap = {
 std::string generateRule(auto instruction);
 std::string concatPseudoInstructions(std::vector<std::string> mappedInstructions);
 std::string handleSpecialCaseRotateN(auto instruction, bool isrorn);
+std::string handleSpecialCaseMovs(auto instruction);
 void replaceAll(std::string &str, const std::string &from, const std::string &to);
 
 int main() {
@@ -83,6 +84,13 @@ std::string generateRule(auto instruction) {
   std::vector<std::string> operands = instruction["operands"];
   std::string mnemonic = std::string(instruction["mnemonic"]) + " "; //theres always a space behind the mnemonic, so you can already insert it here 
   bool isInstructionReal = std::string(instruction["type"]) == "REAL";
+  if(mnemonic == "rorn ") {
+    return handleSpecialCaseRotateN(instruction, true);
+  } else if(mnemonic == "roln ") {
+    return handleSpecialCaseRotateN(instruction, false);
+  } else if(mnemonic == "movs ") {
+    return handleSpecialCaseMovs(instruction);
+  }
 
   if(isInstructionReal) {
     switch(operands.size()) {
@@ -152,12 +160,6 @@ std::string generateRule(auto instruction) {
     };
   }
 
-  if(mnemonic == "rorn ") {
-    return handleSpecialCaseRotateN(instruction, true);
-  } if(mnemonic == "roln ") {
-    return handleSpecialCaseRotateN(instruction, false);
-  }
-
   std::cerr << "Not able to generate customasm-rule for instruction: " + mnemonic << std::endl;
   return "ERROR";
 }
@@ -192,6 +194,28 @@ std::string handleSpecialCaseRotateN(auto instruction, bool isrorn) {
 
     resultingRule += currentMapElement;
     if(i < rotateNMap.size() - 1) {
+      resultingRule += "\n";
+    }
+  }
+
+  return resultingRule;
+}
+
+std::string handleSpecialCaseMovs(auto instruction) {
+  std::ifstream jsonFile("../docs/resources/data/movsData.json");
+  json movsData = json::parse(jsonFile);
+  std::string resultingRule = "";
+  std::string firstNibble = instruction["opcode"];
+  replaceAll(firstNibble, "R", "");
+
+  for(int i = 0; i < movsData.size(); i++) {
+    auto currentData = movsData[i];
+    std::string secondNibble = currentData["secondNibble"];
+    std::string sourceRegister = currentData["from"];
+    std::string destinationRegister = currentData["to"];
+    resultingRule += "movs " + destinationRegister + ", " + sourceRegister + " => 0b" + firstNibble + secondNibble;
+    
+    if(i < movsData.size() - 1) {
       resultingRule += "\n";
     }
   }

@@ -135,6 +135,7 @@ std::string registers[] = {"A", "B", "X", "T"};
 std::string lcdregisters[] = {"CTRL", "DATA"};
 
 void loadInstructions(const char* fileName);
+void handleSpecialCaseMovs(std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits);
 void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits);
 std::vector<uint32_t> encodeMicroinstructions(std::vector<std::vector<std::string>> activeBits);
 void storeMicroinstructions(bool flag, std::string opcodeBinaryString, std::vector<uint32_t> outputBitsBasedOnMicroinstruction);
@@ -193,6 +194,12 @@ void loadInstructions(const char* fileName) {
     if(currentInstruction["type"] == "PSEUDO") continue;  //skip pseudo-instructions as they are not part of the Controller EEPROM
     
     std::string opcodeBinaryString = currentInstruction["opcode"];
+
+    if(currentInstruction["mnemonic"] == "movs") {
+      handleSpecialCaseMovs(opcodeBinaryString, currentInstruction["microinstructions"]);
+      continue;
+    }
+
     if(currentInstruction["requiresFlag"]) {
       processInstruction(false, opcodeBinaryString, currentInstruction["microinstructions"]["0"]);
       processInstruction(true, opcodeBinaryString, currentInstruction["microinstructions"]["1"]);
@@ -200,6 +207,28 @@ void loadInstructions(const char* fileName) {
       processInstruction(false, opcodeBinaryString, currentInstruction["microinstructions"]); //if no flag is required, use the same microinstructions for flag = 0 and flag = 1
       processInstruction(true, opcodeBinaryString, currentInstruction["microinstructions"]);
     }
+  }
+}
+
+void handleSpecialCaseMovs(std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits) {
+  std::ifstream jsonFile("../docs/resources/data/movsData.json");
+  json movsData = json::parse(jsonFile);
+  std::string firstNibble = opcodeBinaryString;
+  replaceAll(firstNibble, "R", "");
+
+  for(int i = 0; i < movsData.size(); i++) {
+    auto currentData = movsData[i];
+    std::string secondNibble = currentData["secondNibble"];
+    std::string sourceRegister = currentData["from"];
+    std::string destinationRegister = currentData["to"];
+    std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+    substituteArgument(activeBitsCopy, "<regss>", sourceRegister);
+    substituteArgument(activeBitsCopy, "<regsd>", destinationRegister);
+
+    const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+    opcodeBinaryString = firstNibble + secondNibble;
+    storeMicroinstructions(true, opcodeBinaryString, activeBits_bin);
+    storeMicroinstructions(false, opcodeBinaryString, activeBits_bin);
   }
 }
 
@@ -215,8 +244,7 @@ void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<s
         const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
         std::bitset<1> lcdbit(i);
         opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
-        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);    
-
+        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
       }
     } else {
       const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);

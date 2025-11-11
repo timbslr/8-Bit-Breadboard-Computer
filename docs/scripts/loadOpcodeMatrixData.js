@@ -56,6 +56,14 @@ async function createOpcodeMap() {
       continue;
     }
 
+    if (mnemonic === "movs") {
+      const opcodeMapForMovSpecial = await getOpcodeMapForMoveSpecial(instruction);
+      opcodeMapForMovSpecial.forEach(({ opcode, label }) => {
+        opcodeMap[opcode] = label;
+      });
+      continue;
+    }
+
     if (originalOpcode.length !== 8) {
       console.error(`Opcode length is not 8: ${originalOpcode}`);
     }
@@ -110,6 +118,20 @@ async function createOpcodeMap() {
   }
 
   return opcodeMap;
+}
+
+async function getOpcodeMapForMoveSpecial(instruction) {
+  const opcode = instruction.opcode;
+  if (StatisticsProvider.countCharsInString(opcode, "R") != 4) {
+    console.error("R-count in movs opcode should be 4!");
+  }
+  const firstNibble = opcode.substring(0, 4);
+  const response = await fetch("../resources/data/movsData.json");
+  const movsData = await response.json();
+  return movsData.map((entry) => ({
+    opcode: `${firstNibble}${entry.secondNibble}`,
+    label: `movs<br>${entry.from}&rarr;${entry.to}`,
+  }));
 }
 
 createOpcodeMatrixTableCells();

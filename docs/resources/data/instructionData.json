@@ -677,122 +677,22 @@
       ]
     },
     {
-      "name": "move A-Register to SP_L",
-      "mnemonic": "movspla",
+      "name": "move special",
+      "mnemonic": "movs",
       "type": "REAL",
-      "operands": [],
+      "operands": ["regsd", "regss"],
       "requiresFlag": false,
-      "opcode": "01101100",
+      "opcode": "0111RRRR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_A", "IE_SP_L"],
+        ["OE_<regss>", "IE_<regsd>"],
         ["RSC"]
       ],
       "group": "REG-MEM",
       "indexInGroup": 1,
-      "shortDescription": "SP_L = A",
-      "longDescription": "",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
-      "name": "move A-Register to SP_H",
-      "mnemonic": "movspha",
-      "type": "REAL",
-      "operands": [],
-      "requiresFlag": false,
-      "opcode": "01101101",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_A", "IE_SP_H"],
-        ["RSC"]
-      ],
-      "group": "REG-MEM",
-      "indexInGroup": 1,
-      "shortDescription": "SP_H = A",
-      "longDescription": "",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
-      "name": "move SP_L to A-Register",
-      "mnemonic": "movaspl",
-      "type": "REAL",
-      "operands": [],
-      "requiresFlag": false,
-      "opcode": "01101110",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_SP_L", "IE_A"],
-        ["RSC"]
-      ],
-      "group": "REG-MEM",
-      "indexInGroup": 1,
-      "shortDescription": "A = SP_L",
-      "longDescription": "",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
-      "name": "move SP_H to A-Register",
-      "mnemonic": "movasph",
-      "type": "REAL",
-      "operands": [],
-      "requiresFlag": false,
-      "opcode": "01101111",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_SP_H", "IE_A"],
-        ["RSC"]
-      ],
-      "group": "REG-MEM",
-      "indexInGroup": 1,
-      "shortDescription": "A = SP_H",
-      "longDescription": "",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
-      "name": "move from Flags-Register",
-      "mnemonic": "movf",
-      "type": "REAL",
-      "operands": ["reg"],
-      "requiresFlag": false,
-      "opcode": "100011RR",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_F", "IE_<reg>"],
-        ["RSC"]
-      ],
-      "group": "REG-MEM",
-      "indexInGroup": 2,
-      "shortDescription": "<reg> = Flag Register",
+      "shortDescription": "<regsd> = <regss>",
       "longDescription": "",
       "examples": [
         {
@@ -1051,7 +951,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "01110000",
+      "opcode": "01100100",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
@@ -1122,7 +1022,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "01110001",
+      "opcode": "01100101",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"],
         ["OE_PC_L", "IE_MAR_L"],
