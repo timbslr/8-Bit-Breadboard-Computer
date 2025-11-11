@@ -977,12 +977,12 @@
       "operands": [],
       "requiresFlag": true,
       "mappedInstructions": [
-        "movaspl",
+        "movs A, SP_L",
         "addi A, 1",
-        "movspla",
-        "movasph",
+        "movs SP_L, A",
+        "movs A, SP_H",
         "addci A, 0",
-        "movspha"
+        "movs SP_H, A"
       ],
       "group": "REG-MEM",
       "indexInGroup": 14,
@@ -1048,12 +1048,12 @@
       "operands": [],
       "requiresFlag": true,
       "mappedInstructions": [
-        "movaspl",
+        "movs A, SP_L",
         "addi A, -1",
-        "movspla",
-        "movasph",
+        "movs SP_L, A",
+        "movs A, SP_H",
         "subci A, 0",
-        "movspha"
+        "movs SP_H, A"
       ],
       "group": "REG-MEM",
       "indexInGroup": 14,

@@ -85,10 +85,10 @@
 	pop {reg: register}                            => asm{ decsp } @ asm{ lds {reg} }
 	peek {reg: register}                           => asm{ pop {reg} } @ asm{ incsp }
 	incx                                           => 0b01100100
-	incsp                                          => asm{ movaspl } @ asm{ addi A, 1 } @ asm{ movspla } @ asm{ movasph } @ asm{ addci A, 0 } @ asm{ movspha }
+	incsp                                          => asm{ movs A, SP_L } @ asm{ addi A, 1 } @ asm{ movs SP_L, A } @ asm{ movs A, SP_H } @ asm{ addci A, 0 } @ asm{ movs SP_H, A }
 	incm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ incx } @ asm{ st X, {addr} }
 	decx                                           => 0b01100101
-	decsp                                          => asm{ movaspl } @ asm{ addi A, -1 } @ asm{ movspla } @ asm{ movasph } @ asm{ subci A, 0 } @ asm{ movspha }
+	decsp                                          => asm{ movs A, SP_L } @ asm{ addi A, -1 } @ asm{ movs SP_L, A } @ asm{ movs A, SP_H } @ asm{ subci A, 0 } @ asm{ movs SP_H, A }
 	decm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ decx } @ asm{ st X, {addr} }
 	out7sd {reg: register}                         => 0b001111 @ reg
 	out7sdi {imm: i8}                              => 0b00111011 @ imm
