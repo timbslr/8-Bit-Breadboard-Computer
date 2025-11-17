@@ -62,18 +62,21 @@
 	bit {imm: i8}                                  => 0b11111100 @ imm
 	clr {reg: register}                            => asm{ li {reg}, 0 }
 	mov {regd: register}, {regs: register}         => 0b1001 @ regs @ regd
-	movs SP_L, A                                   => 0b01110000
-	movs SP_H, A                                   => 0b01110001
-	movs A, SP_L                                   => 0b01110010
-	movs A, SP_H                                   => 0b01110011
-	movs PC_L, A                                   => 0b01110100
-	movs PC_H, A                                   => 0b01110101
-	movs A, PC_L                                   => 0b01110110
-	movs A, PC_H                                   => 0b01110111
+	movs SP_L, TMP                                 => 0b01110000
+	movs SP_H, TMP                                 => 0b01110001
+	movs TMP, BUF                                  => 0b01110010
+	movs BUF, TMP                                  => 0b01110011
+	movs PC_L, TMP                                 => 0b01110100
+	movs PC_H, TMP                                 => 0b01110101
+	movs TMP, PC_L                                 => 0b01110110
+	movs TMP, PC_H                                 => 0b01110111
 	movs A, F                                      => 0b01111000
 	movs TMP, F                                    => 0b01111001
 	movs B, F                                      => 0b01111010
 	movs X, F                                      => 0b01111011
+	movs PC_L, BUF                                 => 0b01111100
+	movs A, SP_L                                   => 0b01111101
+	movs A, SP_H                                   => 0b01111110
 	ld {reg: register}, {addr: u16}                => 0b101011 @ reg @ le(addr)
 	ldo {reg: register}, {addr: u16}               => 0b101100 @ reg @ le(addr)
 	st {reg: register}, {addr: u16}                => 0b101101 @ reg @ le(addr)
@@ -85,10 +88,10 @@
 	pop {reg: register}                            => asm{ decsp } @ asm{ lds {reg} }
 	peek {reg: register}                           => asm{ pop {reg} } @ asm{ incsp }
 	incx                                           => 0b01100100
-	incsp                                          => asm{ movs A, SP_L } @ asm{ addi A, 1 } @ asm{ movs SP_L, A } @ asm{ movs A, SP_H } @ asm{ addci A, 0 } @ asm{ movs SP_H, A }
+	incsp                                          => asm{ movs A, SP_L } @ asm{ addi TMP, 1 } @ asm{ movs SP_L, TMP } @ asm{ movs A, SP_H } @ asm{ addci TMP, 0 } @ asm{ movs SP_H, TMP }
 	incm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ incx } @ asm{ st X, {addr} }
 	decx                                           => 0b01100101
-	decsp                                          => asm{ movs A, SP_L } @ asm{ addi A, -1 } @ asm{ movs SP_L, A } @ asm{ movs A, SP_H } @ asm{ subci A, 0 } @ asm{ movs SP_H, A }
+	decsp                                          => asm{ movs A, SP_L } @ asm{ addi TMP, -1 } @ asm{ movs SP_L, TMP } @ asm{ movs A, SP_H } @ asm{ subci TMP, 0 } @ asm{ movs SP_H, TMP }
 	decm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ decx } @ asm{ st X, {addr} }
 	out7sd {reg: register}                         => 0b001111 @ reg
 	out7sdi {imm: i8}                              => 0b00111011 @ imm
@@ -97,9 +100,16 @@
 	lcdrd {lcdreg: lcdregister}, {reg: register}   => 0b01011 @ lcdreg @ reg
 	nop                                            => 0b00000000
 	hlt                                            => 0b00000001
-	call {addr: u16}                               => 0b00000010 @ le(addr)
-	ret                                            => 0b00000011
+	call {addr: u16}                               => asm{ 
+			li TMP, nextInstructionAddress[15:8]
+			push TMP
+			li TMP, nextInstructionAddress[7:0]
+			push TMP
+			jmp {addr}
+			nextInstructionAddress: }
+	ret                                            => asm{ pop TMP } @ asm{ movs BUF, TMP } @ asm{ pop TMP } @ asm{ jmpr }
 	jmp {addr: u16}                                => 0b00000101 @ le(addr)
+	jmpr                                           => 0b00000110
 	beq {addr: u16}                                => asm{ bzs {addr} }
 	beqi {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ beq {addr} }
 	bne {addr: u16}                                => asm{ bzc {addr} }

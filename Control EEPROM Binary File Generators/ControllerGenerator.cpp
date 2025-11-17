@@ -220,7 +220,13 @@ void handleSpecialCaseMovs(std::string opcodeBinaryString, std::vector<std::vect
     auto currentData = movsData[i];
     std::string secondNibble = currentData["secondNibble"];
     std::string sourceRegister = currentData["from"];
+    if(sourceRegister == "TMP") {
+      sourceRegister = "T";
+    }
     std::string destinationRegister = currentData["to"];
+    if(destinationRegister == "TMP") {
+      destinationRegister = "T";
+    }
     std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
     substituteArgument(activeBitsCopy, "<regss>", sourceRegister);
     substituteArgument(activeBitsCopy, "<regsd>", destinationRegister);

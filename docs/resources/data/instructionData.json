@@ -978,11 +978,11 @@
       "requiresFlag": true,
       "mappedInstructions": [
         "movs A, SP_L",
-        "addi A, 1",
-        "movs SP_L, A",
+        "addi TMP, 1",
+        "movs SP_L, TMP",
         "movs A, SP_H",
-        "addci A, 0",
-        "movs SP_H, A"
+        "addci TMP, 0",
+        "movs SP_H, TMP"
       ],
       "group": "REG-MEM",
       "indexInGroup": 14,
@@ -1049,11 +1049,11 @@
       "requiresFlag": true,
       "mappedInstructions": [
         "movs A, SP_L",
-        "addi A, -1",
-        "movs SP_L, A",
+        "addi TMP, -1",
+        "movs SP_L, TMP",
         "movs A, SP_H",
-        "subci A, 0",
-        "movs SP_H, A"
+        "subci TMP, 0",
+        "movs SP_H, TMP"
       ],
       "group": "REG-MEM",
       "indexInGroup": 14,
@@ -1271,30 +1271,21 @@
       ]
     },
     {
-      "name": "call",
+      "name": "call subroutine",
       "mnemonic": "call",
-      "type": "REAL",
+      "type": "PSEUDO",
       "operands": ["addr"],
-      "requiresFlag": true,
-      "opcode": "00000010",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["RSC"]
-        ]
-      },
+      "mappedInstructions": [
+        "li TMP, nextInstructionAddress[15:8]",
+        "push TMP",
+        "li TMP, nextInstructionAddress[7:0]",
+        "push TMP",
+        "jmp {addr}"
+      ],
       "group": "SYS",
       "indexInGroup": 2,
-      "shortDescription": "Calls the function placed at the given address",
-      "longDescription": "TODO: microinstructions",
+      "shortDescription": "Calls the subroutine placed at the given address",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1303,22 +1294,20 @@
       ]
     },
     {
-      "name": "return",
+      "name": "return from subroutine",
       "mnemonic": "ret",
-      "type": "REAL",
+      "type": "PSEUDO",
       "operands": [],
-      "requiresFlag": false,
-      "opcode": "00000011",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["RSC"]
+      "mappedInstructions": [
+        "pop TMP",
+        "movs BUF, TMP",
+        "pop TMP",
+        "jmpr"
       ],
       "group": "SYS",
       "indexInGroup": 3,
       "shortDescription": "Returns from a function call",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1349,6 +1338,32 @@
       "group": "BR-JMP",
       "indexInGroup": 0,
       "shortDescription": "PC = <addr>",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
+      "name": "jump register",
+      "mnemonic": "jmpr",
+      "type": "REAL",
+      "operands": [],
+      "requiresFlag": false,
+      "opcode": "00000110",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"],
+        ["OE_PC_L", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["OE_BUF", "IE_PC_L"],
+        ["OE_T", "IE_PC_H"],
+        ["RSC"]
+      ],
+      "group": "BR-JMP",
+      "indexInGroup": 0,
+      "shortDescription": "PC_L = BUF, PC_H = TMP",
       "longDescription": "",
       "examples": [
         {

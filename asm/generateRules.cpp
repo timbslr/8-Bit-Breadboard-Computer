@@ -21,7 +21,7 @@ const std::vector<std::string> rotateNMap = {
 };
 
 std::string generateRule(auto instruction);
-std::string concatPseudoInstructions(std::vector<std::string> mappedInstructions);
+std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions);
 std::string handleSpecialCaseRotateN(auto instruction, bool isrorn);
 std::string handleSpecialCaseMovs(auto instruction);
 void replaceAll(std::string &str, const std::string &from, const std::string &to);
@@ -60,6 +60,10 @@ int main() {
   for(int i = 0; i < rulesSize; i++) {
     std::string currentRule = rules.at(i);
     int indexOfAssignOperator = currentRule.find("=>");
+    if(indexOfAssignOperator == std::string::npos) {
+      rulesString += "\t\t\t" + currentRule + "\n";
+      continue;
+    }
     while(indexOfAssignOperator < maxIndexOfAssignOperator + 1) {
       currentRule.insert(indexOfAssignOperator, " ");
       indexOfAssignOperator++;
@@ -137,23 +141,23 @@ std::string generateRule(auto instruction) {
     std::vector<std::string> mappedInstructions = instruction["mappedInstructions"];
     switch(operands.size()) {
       case 0: {
-        return mnemonic + " => " + concatPseudoInstructions(mappedInstructions);
+        return mnemonic + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
       }
       case 1: {
         if(operands[0] == "reg") {
-          return mnemonic + REGISTER_ARGUMENT("reg") + " => " + concatPseudoInstructions(mappedInstructions);
+          return mnemonic + REGISTER_ARGUMENT("reg") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
         }
         if(operands[0] == "addr") {
-          return mnemonic + ADDRESS_ARGUMENT("addr") + " => " + concatPseudoInstructions(mappedInstructions);
+          return mnemonic + ADDRESS_ARGUMENT("addr") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
         }
         break;
       }
       case 2: {
         if(operands[0] == "reg" && operands[1] == "imm") {
-          return mnemonic + REGISTER_ARGUMENT("reg") + ", " + IMMEDIATE_ARGUMENT("imm") + " => " + concatPseudoInstructions(mappedInstructions);
+          return mnemonic + REGISTER_ARGUMENT("reg") + ", " + IMMEDIATE_ARGUMENT("imm") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
         }
         if(operands[0] == "imm" && operands[1] == "addr") {
-          return mnemonic + IMMEDIATE_ARGUMENT("imm") + ", " + ADDRESS_ARGUMENT("addr") + " => " + concatPseudoInstructions(mappedInstructions);
+          return mnemonic + IMMEDIATE_ARGUMENT("imm") + ", " + ADDRESS_ARGUMENT("addr") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
         }
         break;
       }
@@ -164,8 +168,16 @@ std::string generateRule(auto instruction) {
   return "ERROR";
 }
 
-std::string concatPseudoInstructions(std::vector<std::string> mappedInstructions) {
+std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions) {
   std::string concattedString = "";
+  if(mnemonic == "call ") {  //handle special case call, in this representation of mnemonic, every mnemonic has a space behind its name
+    concattedString = "asm{ \n";
+    for(int i = 0; i < mappedInstructions.size(); i++) {
+      concattedString += mappedInstructions[i] + "\n";
+    }
+    concattedString += "nextInstructionAddress: }";
+    return concattedString;
+  }
 
   for(int i = 0; i < mappedInstructions.size(); i++) {
     std::string currentInstruction = mappedInstructions[i];

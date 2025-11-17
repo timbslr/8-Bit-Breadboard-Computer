@@ -1,14 +1,17 @@
 [
-  { "secondNibble": "0000", "from": "A", "to": "SP_L" },
-  { "secondNibble": "0001", "from": "A", "to": "SP_H" },
-  { "secondNibble": "0010", "from": "SP_L", "to": "A" },
-  { "secondNibble": "0011", "from": "SP_H", "to": "A" },
-  { "secondNibble": "0100", "from": "A", "to": "PC_L" },
-  { "secondNibble": "0101", "from": "A", "to": "PC_H" },
-  { "secondNibble": "0110", "from": "PC_L", "to": "A" },
-  { "secondNibble": "0111", "from": "PC_H", "to": "A" },
+  { "secondNibble": "0000", "from": "TMP", "to": "SP_L" },
+  { "secondNibble": "0001", "from": "TMP", "to": "SP_H" },
+  { "secondNibble": "0010", "from": "BUF", "to": "TMP" },
+  { "secondNibble": "0011", "from": "TMP", "to": "BUF" },
+  { "secondNibble": "0100", "from": "TMP", "to": "PC_L" },
+  { "secondNibble": "0101", "from": "TMP", "to": "PC_H" },
+  { "secondNibble": "0110", "from": "PC_L", "to": "TMP" },
+  { "secondNibble": "0111", "from": "PC_H", "to": "TMP" },
   { "secondNibble": "1000", "from": "F", "to": "A" },
   { "secondNibble": "1001", "from": "F", "to": "T" },
   { "secondNibble": "1010", "from": "F", "to": "B" },
-  { "secondNibble": "1011", "from": "F", "to": "X" }
+  { "secondNibble": "1011", "from": "F", "to": "X" },
+  { "secondNibble": "1100", "from": "BUF", "to": "PC_L" },
+  { "secondNibble": "1101", "from": "SP_L", "to": "A" },
+  { "secondNibble": "1110", "from": "SP_H", "to": "A" }
 ]
