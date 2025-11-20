@@ -88,10 +88,10 @@
 	pop {reg: register}                            => asm{ decsp } @ asm{ lds {reg} }
 	peek {reg: register}                           => asm{ pop {reg} } @ asm{ incsp }
 	incx                                           => 0b01100100
-	incsp                                          => 0b00110000 @ 0b00000001 @ 0b00000000
+	incsp                                          => 0b00110000
 	incm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ incx } @ asm{ st X, {addr} }
 	decx                                           => 0b01100101
-	decsp                                          => 0b00110001 @ 0b11111111 @ 0b00000000
+	decsp                                          => 0b00110001
 	decm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ decx } @ asm{ st X, {addr} }
 	out7sd {reg: register}                         => 0b001111 @ reg
 	out7sdi {imm: i8}                              => 0b00111011 @ imm

@@ -885,35 +885,22 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //TODO optimize
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_T", "IE_F"],
-          ["OE_T", "IE_SP_L"],
-          ["OE_SP_H", "IE_A"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_T", "IE_F"],
-          ["OE_T", "IE_SP_H"]
+          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
+          ["IE_T"], //set TMP-Register to 0 (works because of pull-down resistors on the bus)
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_SP_L", "IE_F"], //add one to SP_L by using ALU_CIN as the source for a "1"
+          ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //TODO optimize
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_T", "IE_F"],
-          ["OE_T", "IE_SP_L"],
-          ["OE_SP_H", "IE_A"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_T", "IE_F"],
-          ["OE_T", "IE_SP_H"]
+          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
+          ["IE_T"], //set TMP-Register to 0 (works because of pull-down resistors on the bus)
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_SP_L", "IE_F"], //add one to SP_L by using ALU_CIN as the source for a "1"
+          ["OE_SP_H", "IE_A"], //move SP_H to A-Register
+          ["IE_T"], //set TMP-Register to 0 (works because of pull-down resistors on the bus)
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_SP_H", "IE_F"], //add one to SP_H as carry occurred
+          ["RSC"]
         ]
       },
       "group": "REG-MEM",
@@ -981,31 +968,22 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //TODO optimize
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_SP_L", "IE_F"],
+          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
+          ["IE_T"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_L", "IE_F"], //without an ALU_CIN, its automatically an addition with -1
           ["OE_SP_H", "IE_A"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_H", "IE_F"]
+          ["IE_T"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_H", "IE_F"],
+          ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //TODO optimize
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_SP_L", "IE_F"],
-          ["OE_SP_H", "IE_A"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_T", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_SP_H", "IE_F"]
+          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
+          ["IE_T"],
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_L", "IE_F"], //without an ALU_CIN, its automatically an addition with -1
+          ["RSC"]
         ]
       },
       "group": "REG-MEM",
