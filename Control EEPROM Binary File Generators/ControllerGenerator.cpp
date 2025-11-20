@@ -154,7 +154,7 @@ int main() {
   uint32_t binData[EEPROM_SIZE];
   std::fill(binData, binData + EEPROM_SIZE, defaultPattern);
 
-  loadInstructions("../docs/resources/data/instructionData.json");
+  loadInstructions("../docs/resources/data/instructionData.jsonc");
 
   for(int flagBit = 0; flagBit <= 1; flagBit++) {
     for(int microstep = 0; microstep <= 15; microstep++) {
@@ -187,7 +187,7 @@ void loadInstructions(const char* fileName) {
   std::fill(&instructions[0][0][0], (&instructions[0][0][0]) + 2 * 256 * 16, defaultPattern); //initialize every entry of instructions to defaultPattern
 
   std::ifstream jsonFile(fileName);
-  json instructionsJsonArray = json::parse(jsonFile)["instructions"];
+  json instructionsJsonArray = json::parse(jsonFile, nullptr, true, true)["instructions"];
 
   for(int i = 0; i < instructionsJsonArray.size(); i++) {
     auto currentInstruction = instructionsJsonArray[i];

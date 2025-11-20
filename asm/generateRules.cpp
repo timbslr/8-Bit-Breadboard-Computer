@@ -27,8 +27,8 @@ std::string handleSpecialCaseMovs(auto instruction);
 void replaceAll(std::string &str, const std::string &from, const std::string &to);
 
 int main() {
-  std::ifstream jsonFile("../docs/resources/data/instructionData.json");
-  json instructionsJsonArray = json::parse(jsonFile)["instructions"];
+  std::ifstream jsonFile("../docs/resources/data/instructionData.jsonc");
+  json instructionsJsonArray = json::parse(jsonFile, nullptr, true, true)["instructions"];
   std::vector<std::string> rules;
 
   int maxIndexOfAssignOperator = -1;

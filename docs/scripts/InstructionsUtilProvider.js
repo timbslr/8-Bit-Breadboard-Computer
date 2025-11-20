@@ -8,8 +8,10 @@ export default class InstructionsUtilProvider {
       return this.#instructions;
     }
 
-    const response = await fetch("../resources/data/instructionData.json");
-    const instructions = (await response.json()).instructions;
+    const response = await fetch("../resources/data/instructionData.jsonc");
+    const fileContent = await response.text();
+    const cleanedContent = fileContent.replace(/\/\*[\s\S]*?\*\/|\/\/.*(?=[\n\r])/g, "");
+    const instructions = JSON.parse(cleanedContent).instructions;
     this.#instructions = instructions;
     return this.#instructions;
   }

@@ -9,16 +9,10 @@
       "requiresFlag": false,
       "opcode": "110100RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        [
-          "ALU_SRC_ARI",
-          "ALU_AOP_ADD",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_<reg>", "IE_F"], //calculate addition and output to register (works in one step because addition and subtraction is fast)
         ["RSC"]
       ],
       "group": "ALU",
@@ -62,30 +56,17 @@
       "opcode": "001001RR",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "OE_ALU",
-            "IE_<reg>",
-            "IE_F"
-          ],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_<reg>", "IE_F"], //if there's no carry, compute a normal addition
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "ALU_CIN",
-            "OE_ALU",
-            "IE_<reg>",
-            "IE_F"
-          ],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_<reg>", "IE_F"], //if there is a carry, add it to the result via ALU_CIN (Carry In)
           ["RSC"]
         ]
       },
@@ -125,17 +106,10 @@
       "requiresFlag": false,
       "opcode": "110101RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        [
-          "ALU_SRC_ARI",
-          "ALU_AOP_SUB",
-          "ALU_CIN",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_<reg>", "IE_F"], //calculate subtraction and output to register (works in one step because addition and subtraction is fast)
         ["RSC"]
       ],
       "group": "ALU",
@@ -158,30 +132,17 @@
       "opcode": "001010RR",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_SUB",
-            "OE_ALU",
-            "IE_<reg>",
-            "IE_F"
-          ],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_<reg>", "IE_F"], //if carry is zero, a borrow occurred --> compute subtraction without ALU_CIN, resulting in decrementing the result by one
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_SUB",
-            "ALU_CIN",
-            "OE_ALU",
-            "IE_<reg>",
-            "IE_F"
-          ],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_<reg>", "IE_F"], //if the carry is one, no borrow occurred --> adding ALU_CIN results in a normal subtraction
           ["RSC"]
         ]
       },
@@ -221,17 +182,11 @@
       "requiresFlag": false,
       "opcode": "110110RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_AND"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_AND",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_AND"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_AND", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -270,17 +225,11 @@
       "requiresFlag": false,
       "opcode": "110111RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_OR"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_OR",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_OR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_OR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -319,17 +268,11 @@
       "requiresFlag": false,
       "opcode": "111000RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_XOR"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_XOR",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_XOR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_XOR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -368,17 +311,11 @@
       "requiresFlag": false,
       "opcode": "111001RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_NOT"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_NOT",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_NOT"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_NOT", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -417,18 +354,12 @@
       "requiresFlag": false,
       "opcode": "111010RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["OE_A", "IE_T"],
-        ["ALU_SRC_ARI", "ALU_AOP_ADD"],
-        [
-          "ALU_SRC_ARI",
-          "ALU_AOP_ADD",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["ALU_SRC_ARI", "ALU_AOP_ADD"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -450,17 +381,11 @@
       "requiresFlag": false,
       "opcode": "111011RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_SLR"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_SLR",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_SLR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_SLR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -482,17 +407,11 @@
       "requiresFlag": false,
       "opcode": "111100RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_SAR"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_SAR",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_SAR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_SAR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -514,17 +433,11 @@
       "requiresFlag": false,
       "opcode": "111101RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_ROR"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_ROR",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_ROR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_ROR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -543,9 +456,7 @@
       "mnemonic": "rorn",
       "type": "PSEUDO",
       "operands": ["reg", "n"],
-      "mappedInstructions": [
-        "executes \"ror A\" (<n>-1) times and then \"ror <reg>\" once"
-      ],
+      "mappedInstructions": ["executes \"ror A\" (<n>-1) times and then \"ror <reg>\" once"],
       "group": "ALU",
       "indexInGroup": 17,
       "shortDescription": "<reg> = rotate A right by <n> bits",
@@ -565,17 +476,11 @@
       "requiresFlag": false,
       "opcode": "111110RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_ROL"],
-        [
-          "ALU_SRC_BIT",
-          "ALU_BOP_ROL",
-          "OE_ALU",
-          "IE_<reg>",
-          "IE_F"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_ROL"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_ROL", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -594,9 +499,7 @@
       "mnemonic": "roln",
       "type": "PSEUDO",
       "operands": ["reg", "n"],
-      "mappedInstructions": [
-        "executes \"rol A\" (<n>-1) times and then \"rol <reg>\" once"
-      ],
+      "mappedInstructions": ["executes \"rol A\" (<n>-1) times and then \"rol <reg>\" once"],
       "group": "ALU",
       "indexInGroup": 19,
       "shortDescription": "<reg> = rotate A left by <n> bits",
@@ -616,11 +519,11 @@
       "requiresFlag": false,
       "opcode": "11111100",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["ALU_SRC_BIT", "ALU_BOP_AND"],
-        ["ALU_SRC_BIT", "ALU_BOP_AND", "IE_F"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["ALU_SRC_BIT", "ALU_BOP_AND"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
+        ["ALU_SRC_BIT", "ALU_BOP_AND", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
@@ -659,10 +562,10 @@
       "requiresFlag": false,
       "opcode": "1001RRRR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_<regs>", "IE_<regd>"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_<regs>", "IE_<regd>"], //move from source to destination register
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -684,10 +587,10 @@
       "requiresFlag": false,
       "opcode": "0111RRRR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_<regss>", "IE_<regsd>"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_<regss>", "IE_<regsd>"], //only special combinations of non-standard registers are allowed here, the exact combinations are specified in movsData.json
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -709,17 +612,17 @@
       "requiresFlag": false,
       "opcode": "101011RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_MAR_H", "INC_PC"],
-        ["OE_BUF", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_<reg>"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //           ──┐
+        ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch first operand (= low byte of address) and move it into the buffer
+        ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //             ──┐
+        ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch second operand (= high byte of address) and move it into MAR_H
+        ["MEM_EN_IO", "IE_MAR_H", "INC_PC"], // ──┘
+        ["OE_BUF", "IE_MAR_L"], //move buffer value (= low byte of address) to MAR_L
+        ["MEM_EN_IO", "IE_<reg>"], //read from memory at fetched address and move the result to the given register
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -741,15 +644,15 @@
       "requiresFlag": false,
       "opcode": "101100RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["RSC"]
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["RSC"] //TODO: Microinstructions
       ],
       "group": "REG-MEM",
       "indexInGroup": 4,
       "shortDescription": "<reg> = mem[<addr> + X]",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -765,17 +668,17 @@
       "requiresFlag": false,
       "opcode": "101101RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_MAR_H", "INC_PC"],
-        ["OE_BUF", "IE_MAR_L"],
-        ["MEM_EN_IO", "MEM_WE", "OE_<reg>"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //           ──┐
+        ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch first operand (= low byte of address) and move it into the buffer
+        ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //             ──┐
+        ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch second operand (= high byte of address) and move it into MAR_H
+        ["MEM_EN_IO", "IE_MAR_H", "INC_PC"], // ──┘
+        ["OE_BUF", "IE_MAR_L"], //move buffer value (= low byte of address) to MAR_L
+        ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store the value of the given register into memory at the fetched address
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -797,15 +700,15 @@
       "requiresFlag": false,
       "opcode": "101110RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["RSC"]
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["RSC"] //TODO: Microinstructions
       ],
       "group": "REG-MEM",
       "indexInGroup": 6,
       "shortDescription": "mem[<addr> + X] = <reg>",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -821,12 +724,12 @@
       "requiresFlag": false,
       "opcode": "101110RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_SP_H", "IE_MAR_H"],
-        ["OE_SP_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_<reg>"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
+        ["OE_SP_L", "IE_MAR_L"], // ──┘
+        ["MEM_EN_IO", "IE_<reg>"], //read from memory at current SP address and move the value into the specified register
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -848,18 +751,18 @@
       "requiresFlag": false,
       "opcode": "101111RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_SP_H", "IE_MAR_H"],
-        ["OE_SP_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "MEM_WE", "OE_<reg>"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
+        ["OE_SP_L", "IE_MAR_L"], // ──┘
+        ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store value from given register into memory at address of SP
         ["RSC"]
       ],
       "group": "REG-MEM",
       "indexInGroup": 8,
       "shortDescription": "mem[SP] = <reg>",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -875,12 +778,12 @@
       "requiresFlag": false,
       "opcode": "101010RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_<reg>", "INC_PC"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //             ──┐
+        ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch Operand (= immediate) and move into the specified register
+        ["MEM_EN_IO", "IE_<reg>", "INC_PC"], // ──┘
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -953,10 +856,10 @@
       "requiresFlag": false,
       "opcode": "01100100",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["INC_X"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["INC_X"], //increment the X-Register
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -979,62 +882,37 @@
       "opcode": "00110000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_SP_L", "IE_A"], //TODO optimize
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "OE_ALU",
-            "IE_T",
-            "IE_F"
-          ],
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_T", "IE_F"],
           ["OE_T", "IE_SP_L"],
           ["OE_SP_H", "IE_A"],
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "OE_ALU",
-            "IE_T",
-            "IE_F"
-          ],
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_T", "IE_F"],
           ["OE_T", "IE_SP_H"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_SP_L", "IE_A"], //TODO optimize
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "OE_ALU",
-            "IE_T",
-            "IE_F"
-          ],
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_T", "IE_F"],
           ["OE_T", "IE_SP_L"],
           ["OE_SP_H", "IE_A"],
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "ALU_CIN",
-            "OE_ALU",
-            "IE_T",
-            "IE_F"
-          ],
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_T", "IE_F"],
           ["OE_T", "IE_SP_H"]
         ]
       },
@@ -1054,11 +932,7 @@
       "mnemonic": "incm",
       "type": "PSEUDO",
       "operands": ["addr"],
-      "mappedInstructions": [
-        "ld X, <addr>",
-        "incx",
-        "st X, <addr>"
-      ],
+      "mappedInstructions": ["ld X, <addr>", "incx", "st X, <addr>"],
       "group": "REG-MEM",
       "indexInGroup": 15,
       "shortDescription": "mem[<addr>] = mem[<addr>] + 1",
@@ -1078,10 +952,10 @@
       "requiresFlag": false,
       "opcode": "01100101",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["DEC_X"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["DEC_X"], //decrement the X-Register
         ["RSC"]
       ],
       "group": "REG-MEM",
@@ -1104,59 +978,34 @@
       "opcode": "00110001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_SP_L", "IE_A"], //TODO optimize
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "OE_ALU",
-            "IE_SP_L",
-            "IE_F"
-          ],
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_SP_L", "IE_F"],
           ["OE_SP_H", "IE_A"],
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_SUB",
-            "OE_ALU",
-            "IE_SP_H",
-            "IE_F"
-          ]
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_H", "IE_F"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_SP_L", "IE_A"], //TODO optimize
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_ADD",
-            "OE_ALU",
-            "IE_SP_L",
-            "IE_F"
-          ],
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_SP_L", "IE_F"],
           ["OE_SP_H", "IE_A"],
           ["OE_PC_H", "IE_MAR_H"],
           ["OE_PC_L", "IE_MAR_L"],
           ["MEM_EN_IO", "IE_T", "INC_PC"],
-          [
-            "ALU_SRC_ARI",
-            "ALU_AOP_SUB",
-            "ALU_CIN",
-            "OE_ALU",
-            "IE_SP_H",
-            "IE_F"
-          ]
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_SP_H", "IE_F"]
         ]
       },
       "group": "REG-MEM",
@@ -1175,11 +1024,7 @@
       "mnemonic": "decm",
       "type": "PSEUDO",
       "operands": ["addr"],
-      "mappedInstructions": [
-        "ld X, <addr>",
-        "decx",
-        "st X, <addr>"
-      ],
+      "mappedInstructions": ["ld X, <addr>", "decx", "st X, <addr>"],
       "group": "REG-MEM",
       "indexInGroup": 18,
       "shortDescription": "mem[<addr>] = mem[<addr>] - 1",
@@ -1199,10 +1044,10 @@
       "requiresFlag": false,
       "opcode": "001111RR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_<reg>", "IE_7SD"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_<reg>", "IE_7SD"], //load value from specified register into 7-Segment Display
         ["RSC"]
       ],
       "group": "I-O",
@@ -1224,12 +1069,12 @@
       "requiresFlag": false,
       "opcode": "00111011",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_7SD", "INC_PC"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //           ──┐
+        ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch Operand (= immediate) and move it to the 7-Segment Display
+        ["MEM_EN_IO", "IE_7SD", "INC_PC"], // ──┘
         ["RSC"]
       ],
       "group": "I-O",
@@ -1251,10 +1096,10 @@
       "requiresFlag": false,
       "opcode": "01001LRR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_<reg>", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_<reg>", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E"], //enables writing, selects the specified LCD-Register (DATA or CONTROL) and creates a short pulse at the enable-line
         ["RSC"]
       ],
       "group": "I-O",
@@ -1276,17 +1121,12 @@
       "requiresFlag": false,
       "opcode": "0100011L",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        [
-          "MEM_EN_IO",
-          "LCD_WRITE",
-          "LCD_<lcdreg>",
-          "LCD_E",
-          "INC_PC"
-        ],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //                                       ──┐
+        ["OE_PC_L", "IE_MAR_L"], //                                         ├──> Fetch Operand (= immediate) and send it to the lcd by enabling write, selecting the specified LCD-Register (DATA or CONTROL) and creating a short pulse at the enable-line
+        ["MEM_EN_IO", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E", "INC_PC"], // ──┘
         ["RSC"]
       ],
       "group": "I-O",
@@ -1308,16 +1148,16 @@
       "requiresFlag": false,
       "opcode": "01011LRR",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["IE_<reg>", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["IE_<reg>", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E"], //TODO Microinstructions => not correct as data is only available at the falling clock edge
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 4,
       "shortDescription": "Reads from the LCD (either from CTRL or DATA register, depending on <lcdreg>) into the given register",
-      "longDescription": "TODO: microinstructions",
+      "longDescription": "",
       "examples": [
         {
           "code": [""],
@@ -1333,9 +1173,9 @@
       "requiresFlag": false,
       "opcode": "00000000",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["RSC"]
       ],
       "group": "SYS",
@@ -1357,10 +1197,10 @@
       "requiresFlag": false,
       "opcode": "00000001",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["HALT"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["HALT"], //halts the computer by stopping the clock
         ["RSC"]
       ],
       "group": "SYS",
@@ -1402,12 +1242,7 @@
       "mnemonic": "ret",
       "type": "PSEUDO",
       "operands": [],
-      "mappedInstructions": [
-        "pop TMP",
-        "movs BUF, TMP",
-        "pop TMP",
-        "jmpr"
-      ],
+      "mappedInstructions": ["pop TMP", "movs BUF, TMP", "pop TMP", "jmpr"],
       "group": "SYS",
       "indexInGroup": 3,
       "shortDescription": "Returns from a function call",
@@ -1427,16 +1262,16 @@
       "requiresFlag": false,
       "opcode": "00000101",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_PC_H"],
-        ["OE_BUF", "IE_PC_L"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //           ──┐
+        ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+        ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //           ──┐
+        ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+        ["MEM_EN_IO", "IE_PC_H"], //          ──┘
+        ["OE_BUF", "IE_PC_L"], //move buffer value (= low byte of address to jump to) to PC_L
         ["RSC"]
       ],
       "group": "BR-JMP",
@@ -1458,11 +1293,11 @@
       "requiresFlag": false,
       "opcode": "00000110",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"],
-        ["OE_PC_L", "IE_MAR_L"],
-        ["MEM_EN_IO", "IE_IR", "INC_PC"],
-        ["OE_BUF", "IE_PC_L"],
-        ["OE_T", "IE_PC_H"],
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_BUF", "IE_PC_L"], //          ──┐
+        ["OE_T", "IE_PC_H"], //            ──┴──> Set PC to values in BUF- and TMP-Register (low and high address byte)
         ["RSC"]
       ],
       "group": "BR-JMP",
@@ -1553,26 +1388,26 @@
       "opcode": "10000000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ]
       },
@@ -1626,10 +1461,7 @@
       "mnemonic": "bltiu",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": [
-        "li TMP, <imm>",
-        "bltu <addr>"
-      ],
+      "mappedInstructions": ["li TMP, <imm>", "bltu <addr>"],
       "group": "BR-JMP",
       "indexInGroup": 8,
       "shortDescription": "branch if A < <imm> (unsigned)",
@@ -1650,26 +1482,26 @@
       "opcode": "10100000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ]
       },
@@ -1710,26 +1542,26 @@
       "opcode": "11000000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ]
       },
@@ -1749,10 +1581,7 @@
       "mnemonic": "bleiu",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": [
-        "li TMP, <imm>",
-        "bleu <addr>"
-      ],
+      "mappedInstructions": ["li TMP, <imm>", "bleu <addr>"],
       "group": "BR-JMP",
       "indexInGroup": 12,
       "shortDescription": "branch if A <= <imm> (unsigned)",
@@ -1773,26 +1602,26 @@
       "opcode": "10000001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ]
       },
@@ -1846,10 +1675,7 @@
       "mnemonic": "bgeiu",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": [
-        "li TMP, <imm>",
-        "bgeu <addr>"
-      ],
+      "mappedInstructions": ["li TMP, <imm>", "bgeu <addr>"],
       "group": "BR-JMP",
       "indexInGroup": 16,
       "shortDescription": "branch if A >= <imm> (unsigned)",
@@ -1870,26 +1696,26 @@
       "opcode": "10100001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ]
       },
@@ -1930,26 +1756,26 @@
       "opcode": "11000001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to P_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ]
       },
@@ -1969,10 +1795,7 @@
       "mnemonic": "bgtiu",
       "type": "PSEUDO",
       "operands": ["imm", "addr"],
-      "mappedInstructions": [
-        "li TMP, <imm>",
-        "bgtu <addr>"
-      ],
+      "mappedInstructions": ["li TMP, <imm>", "bgtu <addr>"],
       "group": "BR-JMP",
       "indexInGroup": 20,
       "shortDescription": "branch if A > <imm> (unsigned)",
@@ -1993,26 +1816,26 @@
       "opcode": "00001000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ]
       },
@@ -2036,26 +1859,26 @@
       "opcode": "00001001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ]
       },
@@ -2079,26 +1902,26 @@
       "opcode": "00100000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ]
       },
@@ -2122,26 +1945,26 @@
       "opcode": "00100001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ]
       },
@@ -2165,26 +1988,26 @@
       "opcode": "01000000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ]
       },
@@ -2208,26 +2031,26 @@
       "opcode": "01000001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
           ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ]
       },
@@ -2251,26 +2074,26 @@
       "opcode": "01100000",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ]
       },
@@ -2294,26 +2117,26 @@
       "opcode": "01100001",
       "microinstructions": {
         "0": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_BUF", "INC_PC"],
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_PC_H"],
-          ["OE_BUF", "IE_PC_L"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
           ["RSC"]
         ],
         "1": [
-          ["OE_PC_H", "IE_MAR_H"],
-          ["OE_PC_L", "IE_MAR_L"],
-          ["MEM_EN_IO", "IE_IR", "INC_PC"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
-          ["INC_PC"],
-          ["INC_PC"],
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
         ]
       },
