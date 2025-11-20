@@ -99,7 +99,14 @@ std::string generateRule(auto instruction) {
   if(isInstructionReal) {
     switch(operands.size()) {
       case 0: { //no operands => simply map to opcode
-        return mnemonic + "=> 0b<opcode>";  //<opcode> will be replaced later with the actual opcode 
+        std::string rule = mnemonic + "=> 0b<opcode>"; //<opcode> will be replaced later with the actual opcode 
+        if(mnemonic == "incsp ") {
+          rule += " @ 0b00000001 @ 0b00000000";
+        }
+        if(mnemonic == "decsp ") {
+          rule += " @ 0b11111111 @ 0b00000000";
+        }
+        return rule;
       }
       case 1: {
         if(operands[0] == "reg") {

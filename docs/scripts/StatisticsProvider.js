@@ -40,6 +40,9 @@ export default class StatisticsProvider {
     }
 
     byteSizeInROM = 1; //each REAL instruction needs at least 1 byte in ROM for the opcode
+    if (mnemonic == "incsp" || mnemonic == "decsp") {
+      byteSizeInROM += 2; //for the two immediates following the opcode
+    }
 
     instruction.operands.forEach((operand) => {
       const operandsSizeInROM = this.#operandSizesInBytes[operand];

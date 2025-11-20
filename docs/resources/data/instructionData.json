@@ -973,17 +973,71 @@
     {
       "name": "increment stack-pointer",
       "mnemonic": "incsp",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": [],
       "requiresFlag": true,
-      "mappedInstructions": [
-        "movs A, SP_L",
-        "addi TMP, 1",
-        "movs SP_L, TMP",
-        "movs A, SP_H",
-        "addci TMP, 0",
-        "movs SP_H, TMP"
-      ],
+      "opcode": "00110000",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "OE_ALU",
+            "IE_T",
+            "IE_F"
+          ],
+          ["OE_T", "IE_SP_L"],
+          ["OE_SP_H", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "OE_ALU",
+            "IE_T",
+            "IE_F"
+          ],
+          ["OE_T", "IE_SP_H"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "OE_ALU",
+            "IE_T",
+            "IE_F"
+          ],
+          ["OE_T", "IE_SP_L"],
+          ["OE_SP_H", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "ALU_CIN",
+            "OE_ALU",
+            "IE_T",
+            "IE_F"
+          ],
+          ["OE_T", "IE_SP_H"]
+        ]
+      },
       "group": "REG-MEM",
       "indexInGroup": 14,
       "shortDescription": "SP = SP + 1",
@@ -1044,17 +1098,67 @@
     {
       "name": "decrement stack-pointer",
       "mnemonic": "decsp",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": [],
       "requiresFlag": true,
-      "mappedInstructions": [
-        "movs A, SP_L",
-        "addi TMP, -1",
-        "movs SP_L, TMP",
-        "movs A, SP_H",
-        "subci TMP, 0",
-        "movs SP_H, TMP"
-      ],
+      "opcode": "00110001",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "OE_ALU",
+            "IE_SP_L",
+            "IE_F"
+          ],
+          ["OE_SP_H", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_SUB",
+            "OE_ALU",
+            "IE_SP_H",
+            "IE_F"
+          ]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_IR", "INC_PC"],
+          ["OE_SP_L", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_ADD",
+            "OE_ALU",
+            "IE_SP_L",
+            "IE_F"
+          ],
+          ["OE_SP_H", "IE_A"],
+          ["OE_PC_H", "IE_MAR_H"],
+          ["OE_PC_L", "IE_MAR_L"],
+          ["MEM_EN_IO", "IE_T", "INC_PC"],
+          [
+            "ALU_SRC_ARI",
+            "ALU_AOP_SUB",
+            "ALU_CIN",
+            "OE_ALU",
+            "IE_SP_H",
+            "IE_F"
+          ]
+        ]
+      },
       "group": "REG-MEM",
       "indexInGroup": 14,
       "shortDescription": "SP = SP - 1",
