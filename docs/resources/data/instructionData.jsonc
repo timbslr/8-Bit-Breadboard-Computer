@@ -358,7 +358,6 @@
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["OE_A", "IE_T"],
-        ["ALU_SRC_ARI", "ALU_AOP_ADD"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
         ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
@@ -1292,11 +1291,37 @@
     {
       "name": "branch if equal",
       "mnemonic": "beq",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": ["addr"],
-      "mappedInstructions": ["bzs <addr>"],
+      "requiresFlag": true,
+      "opcode": "00010000",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ]
+      },
       "group": "BR-JMP",
-      "indexInGroup": 1,
+      "indexInGroup": 5,
       "shortDescription": "branch if A == TMP",
       "longDescription": "",
       "examples": [
@@ -1326,12 +1351,38 @@
     {
       "name": "branch if not equal",
       "mnemonic": "bne",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": ["addr"],
-      "mappedInstructions": ["bzc <addr>"],
+      "requiresFlag": true,
+      "opcode": "00010001",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ]
+      },
       "group": "BR-JMP",
-      "indexInGroup": 1,
-      "shortDescription": "branch if A != TMP",
+      "indexInGroup": 5,
+      "shortDescription": "branch if A == TMP",
       "longDescription": "",
       "examples": [
         {
@@ -1797,7 +1848,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
@@ -1806,7 +1856,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -1840,7 +1889,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -1854,7 +1902,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
@@ -1883,7 +1930,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
@@ -1892,7 +1938,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -1926,7 +1971,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -1940,7 +1984,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
@@ -1969,7 +2012,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
@@ -1978,7 +2020,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -2012,7 +2053,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"],
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -2026,7 +2066,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
@@ -2055,7 +2094,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]
@@ -2064,7 +2102,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -2098,7 +2135,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
@@ -2112,7 +2148,6 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
           ["INC_PC"], //  ──┐
           ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
           ["RSC"]

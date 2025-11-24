@@ -110,9 +110,9 @@
 	ret                                            => asm{ pop TMP } @ asm{ movs BUF, TMP } @ asm{ pop TMP } @ asm{ jmpr }
 	jmp {addr: u16}                                => 0b00000101 @ le(addr)
 	jmpr                                           => 0b00000110
-	beq {addr: u16}                                => asm{ bzs {addr} }
+	beq {addr: u16}                                => 0b00010000 @ le(addr)
 	beqi {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ beq {addr} }
-	bne {addr: u16}                                => asm{ bzc {addr} }
+	bne {addr: u16}                                => 0b00010001 @ le(addr)
 	bnei {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ bne {addr} }
 	blt {addr: u16}                                => 0b10000000 @ le(addr)
 	blti {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ blt {addr} }
