@@ -1039,6 +1039,56 @@
       ]
     },
     {
+      "name": "set 7-segment display signed mode",
+      "mnemonic": "s7sdsm",
+      "type": "REAL",
+      "operands": [],
+      "requiresFlag": false,
+      "opcode": "00000010",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["7SD_SM"], //activate 7-Segment Display signed mode
+        ["RSC"]
+      ],
+      "group": "I-O",
+      "indexInGroup": 0,
+      "shortDescription": "Sets the 7-segment display into signed mode (values -128 to 127)",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
+      "name": "set 7-segment display unsigned mode",
+      "mnemonic": "s7sdum",
+      "type": "REAL",
+      "operands": [],
+      "requiresFlag": false,
+      "opcode": "00000011",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["7SD_UM"], //activate 7-Segment Display unsigned mode
+        ["RSC"]
+      ],
+      "group": "I-O",
+      "indexInGroup": 0,
+      "shortDescription": "Sets the 7-segment display into unsigned mode (values 0 to 255)",
+      "longDescription": "",
+      "examples": [
+        {
+          "code": [""],
+          "result": ""
+        }
+      ]
+    },
+    {
       "name": "output immediate to 7-segment display",
       "mnemonic": "out7sdi",
       "type": "REAL",

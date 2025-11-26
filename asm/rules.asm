@@ -94,6 +94,8 @@
 	decsp                                          => 0b00110001
 	decm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ decx } @ asm{ st X, {addr} }
 	out7sd {reg: register}                         => 0b001111 @ reg
+	s7sdsm                                         => 0b00000010
+	s7sdum                                         => 0b00000011
 	out7sdi {imm: i8}                              => 0b00111011 @ imm
 	outlcd {lcdreg: lcdregister}, {reg: register}  => 0b01001 @ lcdreg @ reg
 	outlcdi {lcdreg: lcdregister}, {imm: i8}       => 0b0100011 @ lcdreg @ imm
