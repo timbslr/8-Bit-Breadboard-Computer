@@ -511,32 +511,6 @@
       ]
     },
     {
-      "name": "bit check",
-      "mnemonic": "bit",
-      "type": "REAL",
-      "operands": ["imm"],
-      "requiresFlag": false,
-      "opcode": "11111100",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"], //          ──┐
-        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["ALU_SRC_BIT", "ALU_BOP_AND"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_AND", "IE_F"], //let the ALU control signals unchanged and output result to register
-        ["RSC"]
-      ],
-      "group": "ALU",
-      "indexInGroup": 20,
-      "shortDescription": "A & <imm>, only updates flags",
-      "longDescription": "",
-      "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
-      ]
-    },
-    {
       "name": "clear",
       "mnemonic": "clr",
       "type": "PSEUDO",
