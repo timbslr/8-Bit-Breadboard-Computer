@@ -225,9 +225,7 @@ std::string handleSpecialCaseMovs(auto instruction) {
     auto currentData = movsData[i];
     std::string secondNibble = currentData["secondNibble"];
     std::string sourceRegister = currentData["from"];
-    if(sourceRegister == "T") sourceRegister = "TMP";
     std::string destinationRegister = currentData["to"];
-    if(destinationRegister == "T") destinationRegister = "TMP";
 
     resultingRule += "movs " + destinationRegister + ", " + sourceRegister + " => 0b" + firstNibble + secondNibble;
     

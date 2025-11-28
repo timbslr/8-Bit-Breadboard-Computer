@@ -22,7 +22,7 @@ uint32_t instructions[2][256][16] = {};  // initialize everything with zero
 const uint32_t defaultPattern = 0b00000010'00110000'10000000'00000100;
 
 const uint32_t RSC         = 0b10000000'00000000'00000000'00000000;
-const uint32_t IE_T        = 0b00100000'00000000'00000000'00000000;
+const uint32_t IE_TMP      = 0b00100000'00000000'00000000'00000000;
 const uint32_t IE_PC_L     = 0b00101000'00000000'00000000'00000000;
 const uint32_t IE_7SD      = 0b00110000'00000000'00000000'00000000;
 const uint32_t IE_SP_L     = 0b00111000'00000000'00000000'00000000;
@@ -68,7 +68,7 @@ const uint32_t OE_PC_L     = 0b00000000'00000000'00000000'01100000;
 const uint32_t OE_PC_H     = 0b00000000'00000000'00000000'01110000;
 const uint32_t OE_F        = 0b00000000'00000000'00000000'10000000;
 const uint32_t OE_A        = 0b00000000'00000000'00000000'10010000;
-const uint32_t OE_T        = 0b00000000'00000000'00000000'10100000;
+const uint32_t OE_TMP      = 0b00000000'00000000'00000000'10100000;
 const uint32_t OE_B        = 0b00000000'00000000'00000000'10110000;
 const uint32_t OE_SP_L     = 0b00000000'00000000'00000000'11000000;
 const uint32_t OE_SP_H     = 0b00000000'00000000'00000000'11010000;
@@ -122,19 +122,19 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"OE_PC_H",     OE_PC_H},
   {"OE_F",        OE_F},
   {"OE_A",        OE_A},
-  {"OE_T",        OE_T},
+  {"OE_TMP",      OE_TMP},
   {"OE_B",        OE_B},
   {"OE_SP_L",     OE_SP_L},
   {"OE_SP_H",     OE_SP_H},
   {"OE_IR",       OE_IR},
   {"OE_BUF",      OE_BUF},
-  {"IE_T",        IE_T},
+  {"IE_TMP",      IE_TMP},
   {"MEM_EN_IO",   MEM_EN_IO},
   {"INC_X",       INC_X},
   {"DEC_X",       DEC_X}
 };
 
-std::string registers[] = {"A", "B", "X", "T"};
+std::string registers[] = {"A", "B", "X", "TMP"};
 std::string lcdregisters[] = {"CTRL", "DATA"};
 
 void loadInstructions(const char* fileName);
@@ -223,13 +223,7 @@ void handleSpecialCaseMovs(std::string opcodeBinaryString, std::vector<std::vect
     auto currentData = movsData[i];
     std::string secondNibble = currentData["secondNibble"];
     std::string sourceRegister = currentData["from"];
-    if(sourceRegister == "TMP") {
-      sourceRegister = "T";
-    }
     std::string destinationRegister = currentData["to"];
-    if(destinationRegister == "TMP") {
-      destinationRegister = "T";
-    }
     std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
     substituteArgument(activeBitsCopy, "<regss>", sourceRegister);
     substituteArgument(activeBitsCopy, "<regsd>", destinationRegister);

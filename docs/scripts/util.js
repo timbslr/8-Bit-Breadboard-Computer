@@ -1,4 +1,4 @@
-export const REGISTER_LOOKUP = ["A", "B", "X", "T"];
+export const REGISTER_LOOKUP = ["A", "B", "X", "TMP"];
 export const LCDREGISTER_LOOKUP = ["CTRL", "DATA"];
 
 export async function getControlBits() {

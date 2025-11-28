@@ -8,7 +8,7 @@
   { "secondNibble": "0110", "from": "PC_L", "to": "TMP" },
   { "secondNibble": "0111", "from": "PC_H", "to": "TMP" },
   { "secondNibble": "1000", "from": "F", "to": "A" },
-  { "secondNibble": "1001", "from": "F", "to": "T" },
+  { "secondNibble": "1001", "from": "F", "to": "TMP" },
   { "secondNibble": "1010", "from": "F", "to": "B" },
   { "secondNibble": "1011", "from": "F", "to": "X" },
   { "secondNibble": "1100", "from": "BUF", "to": "PC_L" },
