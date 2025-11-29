@@ -5,6 +5,8 @@ nav_order: 1
 parent: Modules
 ---
 
+<script type="module" src="../scripts/PartsList.js"></script>
+
 ## 7-Segment Display
 
 The 7-Segment Display is the only module that I implemented the same as Ben Eater (except for an extra 555-Timer used as a single Flip-Flop to store the current display mode (signed or unsigned)). Here's a description of how [Ben Eaters design](https://eater.net/8bit/output) works:
@@ -23,5 +25,10 @@ The Dual J-K-Flip-Flop and the 2-to-4 line decoder control which digit is active
 <br>
 
 In summary, the 555 timer allows the 2-bit counter to cycle so quickly through the digits, that the human eye does not recognize single digits put perceives a complete image instead. The EEPROM decodes this input along with the number to be displayed and the current representation bit (decimal or hexadecimal). The decoder then outputs the correct signals for the active digit, while the 2-to-4 line decoder enables the corresponding digit of the display.
+<br>
+<parts-list src="../resources/BOMs/7-Segment Display.csv"></parts-list>
 
+### Schematic
+
+<br>
 <img src="../resources/Wiring Diagrams/7 Segment Display.svg" alt="7-Segment Display schematic" style="width:100%; height:auto;">

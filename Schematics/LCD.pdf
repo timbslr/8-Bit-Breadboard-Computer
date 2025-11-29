@@ -10,7 +10,7 @@
 endobj
 4 0 obj
 <<
-/Length 42389
+/Length 37802
 >>
 stream
 0.14 w
@@ -781,9 +781,9 @@ S
 BT
 /F2 13.090909090909088 Tf
 14.40 TL
-0.000 0.000 1.000 rg
-438.18 210.70 Td
-(16x2 LCD) Tj
+0.000 0.000 0.502 rg
+443.60 214.30 Td
+(16x2LCD) Tj
 ET
 1 J
 1 j
@@ -1335,11 +1335,11 @@ S
 463.680 344.880 m 
 463.680 316.080 l
 S
-622.080 344.880 m 
-622.080 337.680 l
-S
 463.680 344.880 m 
-622.080 344.880 l
+618.480 344.880 l
+S
+618.480 344.880 m 
+618.480 326.880 l
 S
 1 J
 1 j
@@ -1356,11 +1356,11 @@ S
 463.680 344.880 m 
 463.680 316.080 l
 S
-622.080 344.880 m 
-622.080 337.680 l
-S
 463.680 344.880 m 
-622.080 344.880 l
+618.480 344.880 l
+S
+618.480 344.880 m 
+618.480 326.880 l
 S
 1 J
 1 j
@@ -1500,7 +1500,7 @@ S
 7.20 w
 BT
 7.20 TL
-0.000 0.000 1.000 rg
+0.000 0.000 0.502 rg
 343.53 245.39 Td
 /F2 6.545454545454544 Tf
 (50k) Tj
@@ -1667,731 +1667,6 @@ ET
 1 j
 0.72 w
 0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-317.520 352.080 m 
-323.280 352.080 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-301.680 352.080 m 
-308.880 352.080 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-314.640 346.320 m 
-314.640 357.840 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-308.880 352.080 m 
-314.640 352.080 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-330.480 352.080 m 
-323.280 352.080 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-317.520 357.840 m 
-317.520 346.320 l
-S
-7.20 w
-BT
-/F2 4.909090909090908 Tf
-5.40 TL
-0.000 0.000 0.502 rg
-308.88 360.26 Td
-(100nF) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-317.520 373.680 m 
-323.280 373.680 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-301.680 373.680 m 
-308.880 373.680 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-314.640 367.920 m 
-314.640 379.440 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-308.880 373.680 m 
-314.640 373.680 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-330.480 373.680 m 
-323.280 373.680 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-317.520 379.440 m 
-317.520 367.920 l
-S
-7.20 w
-BT
-/F2 4.909090909090908 Tf
-5.40 TL
-0.000 0.000 0.502 rg
-308.88 381.86 Td
-(100nF) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-337.680 362.880 m 
-341.280 362.880 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-344.880 366.480 m 
-344.880 359.280 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-344.880 362.880 m 
-341.280 362.880 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 0.000 0.502 rg
-0.00 1.00 -1.00 0.00 350.77 355.97 Tm
-(VCC) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-294.480 362.880 m 
-287.280 362.880 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-287.280 370.080 m 
-287.280 355.680 l
-280.080 362.880 l
-287.280 370.080 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 0.000 0.502 rg
-0.00 1.00 -1.00 0.00 278.77 355.61 Tm
-(GND) Tj
-ET
-1 J
-1 j
-0.72 w
-1.00 0.00 0.00 RG
-0.00 g
-[] 0 d
-334.080 362.880 m 
-337.680 362.880 l
-S
-334.080 352.080 m 
-334.080 362.880 l
-S
-330.480 352.080 m 
-334.080 352.080 l
-S
-334.080 362.880 m 
-334.080 373.680 l
-S
-334.080 373.680 m 
-330.480 373.680 l
-S
-1 J
-1 j
-0.72 w
-1.00 0.00 0.00 RG
-0.00 g
-[] 0 d
-334.080 362.880 m 
-337.680 362.880 l
-S
-334.080 352.080 m 
-334.080 362.880 l
-S
-330.480 352.080 m 
-334.080 352.080 l
-S
-334.080 362.880 m 
-334.080 373.680 l
-S
-334.080 373.680 m 
-330.480 373.680 l
-S
-1 J
-1 j
-0.72 w
-0.00 G
-0.00 g
-[] 0 d
-298.080 373.680 m 
-301.680 373.680 l
-S
-298.080 362.880 m 
-298.080 373.680 l
-S
-298.080 362.880 m 
-294.480 362.880 l
-S
-298.080 362.880 m 
-298.080 352.080 l
-S
-301.680 352.080 m 
-298.080 352.080 l
-S
-1 J
-1 j
-0.72 w
-0.00 G
-0.00 g
-[] 0 d
-298.080 373.680 m 
-301.680 373.680 l
-S
-298.080 362.880 m 
-298.080 373.680 l
-S
-298.080 362.880 m 
-294.480 362.880 l
-S
-298.080 362.880 m 
-298.080 352.080 l
-S
-301.680 352.080 m 
-298.080 352.080 l
-S
-2 J
-0 j
-72 M
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-571.68 330.48 57.60 -36.00 re
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-576.36 298.08 m 576.36 298.68 575.88 299.16 575.28 299.16 c
-574.68 299.16 574.20 298.68 574.20 298.08 c
-574.20 297.48 574.68 297.00 575.28 297.00 c
-575.88 297.00 576.36 297.48 576.36 298.08 c
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 581.83 297.14 Tm
-(1A) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 578.23 290.48 Tm
-(1) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-578.880 287.280 m 
-578.880 294.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-576.000 290.160 m 
-581.760 284.400 l
-576.000 284.400 m 
-581.760 290.160 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 589.03 297.14 Tm
-(1B) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 585.43 290.48 Tm
-(2) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-586.080 287.280 m 
-586.080 294.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-583.200 290.160 m 
-588.960 284.400 l
-583.200 284.400 m 
-588.960 290.160 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 596.23 297.14 Tm
-(1Y) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 592.63 290.48 Tm
-(3) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-593.280 287.280 m 
-593.280 294.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-590.400 290.160 m 
-596.160 284.400 l
-590.400 284.400 m 
-596.160 290.160 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 603.43 297.14 Tm
-(2A) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 599.83 290.48 Tm
-(4) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-600.480 287.280 m 
-600.480 294.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-597.600 290.160 m 
-603.360 284.400 l
-597.600 284.400 m 
-603.360 290.160 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 610.63 297.14 Tm
-(2B) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 607.03 290.48 Tm
-(5) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-607.680 287.280 m 
-607.680 294.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-604.800 290.160 m 
-610.560 284.400 l
-604.800 284.400 m 
-610.560 290.160 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 617.83 297.14 Tm
-(2Y) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 614.23 290.48 Tm
-(6) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-614.880 287.280 m 
-614.880 294.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-612.000 290.160 m 
-617.760 284.400 l
-612.000 284.400 m 
-617.760 290.160 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 625.03 297.14 Tm
-(GND) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 621.43 290.48 Tm
-(7) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-622.080 287.280 m 
-622.080 294.480 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 625.03 319.81 Tm
-(3Y) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 621.43 330.84 Tm
-(8) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-622.080 337.680 m 
-622.080 330.480 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 617.83 319.81 Tm
-(3A) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 614.23 330.84 Tm
-(9) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-614.880 337.680 m 
-614.880 330.480 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 610.63 319.81 Tm
-(3B) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 607.03 330.84 Tm
-(10) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-607.680 337.680 m 
-607.680 330.480 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 603.43 319.81 Tm
-(4Y) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 599.83 330.84 Tm
-(11) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-600.480 337.680 m 
-600.480 330.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-597.600 340.560 m 
-603.360 334.800 l
-597.600 334.800 m 
-603.360 340.560 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 596.23 319.81 Tm
-(4A) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 592.63 330.84 Tm
-(12) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-593.280 337.680 m 
-593.280 330.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-590.400 340.560 m 
-596.160 334.800 l
-590.400 334.800 m 
-596.160 340.560 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 589.03 319.81 Tm
-(4B) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 585.43 330.84 Tm
-(13) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-586.080 337.680 m 
-586.080 330.480 l
-S
-1 J
-1 j
-0.72 w
-0.20 0.80 0.20 RG
-[] 0 d
-583.200 340.560 m 
-588.960 334.800 l
-583.200 334.800 m 
-588.960 340.560 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 581.83 314.00 Tm
-(VCC) Tj
-ET
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 g
-0.00 1.00 -1.00 0.00 578.23 330.84 Tm
-(14) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-578.880 337.680 m 
-578.880 330.480 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 0.000 1.000 rg
-582.29 310.19 Td
-(SN74LS08N) Tj
-ET
-7.20 w
-BT
-/F2 3.272727272727272 Tf
-3.60 TL
-0.000 g
-0.00 1.00 -1.00 0.00 634.03 301.75 Tm
-(4x2-Input AND) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
 [] 0 d
 604.080 366.480 m 
 604.080 373.680 l
@@ -2423,14 +1698,8 @@ ET
 0.60 G
 0.00 g
 [] 0 d
-604.080 359.280 m 
-607.680 359.280 l
-S
 604.080 366.480 m 
-604.080 359.280 l
-S
-607.680 337.680 m 
-607.680 359.280 l
+604.080 341.280 l
 S
 1 J
 1 j
@@ -2438,22 +1707,16 @@ S
 0.60 G
 0.00 g
 [] 0 d
-604.080 359.280 m 
-607.680 359.280 l
-S
 604.080 366.480 m 
-604.080 359.280 l
-S
-607.680 337.680 m 
-607.680 359.280 l
+604.080 341.280 l
 S
 1 J
 1 j
 0.72 w
 0.63 0.00 0.00 RG
 [] 0 d
-618.480 366.480 m 
-618.480 373.680 l
+611.280 366.480 m 
+611.280 373.680 l
 S
 1 J
 1 j
@@ -2461,19 +1724,19 @@ S
 0.63 0.00 0.00 RG
 0.00 g
 [] 0 d
-618.480 373.680 m 
-622.080 380.880 l
-622.080 395.280 l
-614.880 395.280 l
+611.280 373.680 m 
 614.880 380.880 l
-618.480 373.680 l
+614.880 395.280 l
+607.680 395.280 l
+607.680 380.880 l
+611.280 373.680 l
 S
 7.20 w
 BT
 /F2 6.545454545454544 Tf
 7.20 TL
 0.000 0.000 1.000 rg
-0.00 1.00 -1.00 0.00 620.77 398.88 Tm
+0.00 1.00 -1.00 0.00 613.57 398.88 Tm
 (CLK) Tj
 ET
 1 J
@@ -2482,14 +1745,8 @@ ET
 1.00 0.80 0.00 RG
 0.00 g
 [] 0 d
-618.480 359.280 m 
-618.480 366.480 l
-S
-618.480 359.280 m 
-614.880 359.280 l
-S
-614.880 337.680 m 
-614.880 359.280 l
+611.280 366.480 m 
+611.280 341.280 l
 S
 1 J
 1 j
@@ -2497,111 +1754,8 @@ S
 1.00 0.80 0.00 RG
 0.00 g
 [] 0 d
-618.480 359.280 m 
-618.480 366.480 l
-S
-618.480 359.280 m 
-614.880 359.280 l
-S
-614.880 337.680 m 
-614.880 359.280 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-622.080 262.080 m 
-622.080 254.880 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-614.880 254.880 m 
-629.280 254.880 l
-622.080 247.680 l
-614.880 254.880 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 0.000 0.502 rg
-614.81 241.79 Td
-(GND) Tj
-ET
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-[] 0 d
-578.880 366.480 m 
-578.880 370.080 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-575.280 373.680 m 
-582.480 373.680 l
-S
-1 J
-1 j
-0.72 w
-0.63 0.00 0.00 RG
-0.00 g
-[] 0 d
-578.880 373.680 m 
-578.880 370.080 l
-S
-7.20 w
-BT
-/F2 6.545454545454544 Tf
-7.20 TL
-0.000 0.000 0.502 rg
-571.97 374.99 Td
-(VCC) Tj
-ET
-1 J
-1 j
-0.72 w
-1.00 0.00 0.00 RG
-0.00 g
-[] 0 d
-578.880 337.680 m 
-578.880 366.480 l
-S
-1 J
-1 j
-0.72 w
-1.00 0.00 0.00 RG
-0.00 g
-[] 0 d
-578.880 337.680 m 
-578.880 366.480 l
-S
-1 J
-1 j
-0.72 w
-0.00 G
-0.00 g
-[] 0 d
-622.080 262.080 m 
-622.080 287.280 l
-S
-1 J
-1 j
-0.72 w
-0.00 G
-0.00 g
-[] 0 d
-622.080 262.080 m 
-622.080 287.280 l
+611.280 366.480 m 
+611.280 341.280 l
 S
 7.20 w
 BT
@@ -3596,7 +2750,7 @@ S
 BT
 /F2 6.545454545454544 Tf
 7.20 TL
-0.000 0.000 1.000 rg
+0.000 0.000 0.502 rg
 242.07 241.79 Td
 (SN74LS245N) Tj
 ET
@@ -3745,6 +2899,460 @@ S
 236.880 272.880 m 
 236.880 312.480 l
 S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+314.640 384.480 m 
+308.880 384.480 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+330.480 384.480 m 
+323.280 384.480 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+317.520 390.240 m 
+317.520 378.720 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+323.280 384.480 m 
+317.520 384.480 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+301.680 384.480 m 
+308.880 384.480 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+314.640 378.720 m 
+314.640 390.240 l
+S
+7.20 w
+BT
+/F2 4.909090909090908 Tf
+5.40 TL
+0.000 0.000 0.502 rg
+309.12 392.66 Td
+(100nF) Tj
+ET
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+314.640 362.880 m 
+308.880 362.880 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+330.480 362.880 m 
+323.280 362.880 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+317.520 368.640 m 
+317.520 357.120 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+323.280 362.880 m 
+317.520 362.880 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+301.680 362.880 m 
+308.880 362.880 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+314.640 357.120 m 
+314.640 368.640 l
+S
+7.20 w
+BT
+/F2 4.909090909090908 Tf
+5.40 TL
+0.000 0.000 0.502 rg
+309.12 371.06 Td
+(100nF) Tj
+ET
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+294.480 373.680 m 
+290.880 373.680 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+287.280 370.080 m 
+287.280 377.280 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+287.280 373.680 m 
+290.880 373.680 l
+S
+7.20 w
+BT
+/F2 6.545454545454544 Tf
+7.20 TL
+0.000 0.000 0.502 rg
+0.00 1.00 -1.00 0.00 285.97 366.77 Tm
+(VCC) Tj
+ET
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+337.680 373.680 m 
+344.880 373.680 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+344.880 366.480 m 
+344.880 380.880 l
+352.080 373.680 l
+344.880 366.480 l
+S
+7.20 w
+BT
+/F2 6.545454545454544 Tf
+7.20 TL
+0.000 0.000 0.502 rg
+0.00 1.00 -1.00 0.00 357.97 366.41 Tm
+(GND) Tj
+ET
+1 J
+1 j
+0.72 w
+1.00 0.00 0.00 RG
+0.00 g
+[] 0 d
+298.080 373.680 m 
+294.480 373.680 l
+S
+298.080 384.480 m 
+298.080 373.680 l
+S
+301.680 384.480 m 
+298.080 384.480 l
+S
+298.080 373.680 m 
+298.080 362.880 l
+S
+298.080 362.880 m 
+301.680 362.880 l
+S
+1 J
+1 j
+0.72 w
+1.00 0.00 0.00 RG
+0.00 g
+[] 0 d
+298.080 373.680 m 
+294.480 373.680 l
+S
+298.080 384.480 m 
+298.080 373.680 l
+S
+301.680 384.480 m 
+298.080 384.480 l
+S
+298.080 373.680 m 
+298.080 362.880 l
+S
+298.080 362.880 m 
+301.680 362.880 l
+S
+1 J
+1 j
+0.72 w
+0.00 G
+0.00 g
+[] 0 d
+334.080 362.880 m 
+330.480 362.880 l
+S
+334.080 373.680 m 
+334.080 362.880 l
+S
+334.080 373.680 m 
+337.680 373.680 l
+S
+334.080 373.680 m 
+334.080 384.480 l
+S
+330.480 384.480 m 
+334.080 384.480 l
+S
+1 J
+1 j
+0.72 w
+0.00 G
+0.00 g
+[] 0 d
+334.080 362.880 m 
+330.480 362.880 l
+S
+334.080 373.680 m 
+334.080 362.880 l
+S
+334.080 373.680 m 
+337.680 373.680 l
+S
+334.080 373.680 m 
+334.080 384.480 l
+S
+330.480 384.480 m 
+334.080 384.480 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+604.080 326.880 m 
+604.080 319.680 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+607.680 319.680 m 
+607.680 305.280 l
+604.080 298.080 l
+600.480 305.280 l
+600.480 319.680 l
+607.680 319.680 l
+S
+7.20 w
+BT
+/F2 6.545454545454544 Tf
+7.20 TL
+0.000 0.000 1.000 rg
+0.00 1.00 -1.00 0.00 606.37 246.84 Tm
+(SHRD_AND_3B) Tj
+ET
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+611.280 326.880 m 
+611.280 319.680 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+614.880 319.680 m 
+614.880 305.280 l
+611.280 298.080 l
+607.680 305.280 l
+607.680 319.680 l
+614.880 319.680 l
+S
+7.20 w
+BT
+/F2 6.545454545454544 Tf
+7.20 TL
+0.000 0.000 1.000 rg
+0.00 1.00 -1.00 0.00 613.57 246.84 Tm
+(SHRD_AND_3A) Tj
+ET
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+618.480 326.880 m 
+618.480 319.680 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+618.480 319.680 m 
+614.880 312.480 l
+614.880 298.080 l
+622.080 298.080 l
+622.080 312.480 l
+618.480 319.680 l
+S
+7.20 w
+BT
+/F2 6.545454545454544 Tf
+7.20 TL
+0.000 0.000 1.000 rg
+0.00 1.00 -1.00 0.00 620.77 246.84 Tm
+(SHRD_AND_3Y) Tj
+ET
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+604.080 341.280 m 
+604.080 337.680 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+604.080 326.880 m 
+604.080 330.480 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+604.080 330.480 m 
+601.920 334.080 l
+604.080 337.680 l
+606.240 334.080 l
+604.080 330.480 l
+S
+1 J
+1 j
+0.72 w
+0.00 0.53 0.00 RG
+0.00 g
+[] 0 d
+604.080 326.880 m 
+604.080 326.880 l
+S
+1 J
+1 j
+0.72 w
+0.00 0.53 0.00 RG
+0.00 g
+[] 0 d
+604.080 326.880 m 
+604.080 326.880 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+611.280 341.280 m 
+611.280 337.680 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+[] 0 d
+611.280 326.880 m 
+611.280 330.480 l
+S
+1 J
+1 j
+0.72 w
+0.63 0.00 0.00 RG
+0.00 g
+[] 0 d
+611.280 330.480 m 
+609.120 334.080 l
+611.280 337.680 l
+613.440 334.080 l
+611.280 330.480 l
+S
+1 J
+1 j
+0.72 w
+0.00 0.53 0.00 RG
+0.00 g
+[] 0 d
+611.280 326.880 m 
+611.280 326.880 l
+S
+1 J
+1 j
+0.72 w
+0.00 0.53 0.00 RG
+0.00 g
+[] 0 d
+611.280 326.880 m 
+611.280 326.880 l
+S
+7.20 w
+BT
+/F2 3.272727272727272 Tf
+3.60 TL
+0.000 g
+566.34 332.93 Td
+(Only for EasyEDA, -->) Tj
+5.41 -3.60 Td
+(no actual short) Tj
+ET
 0.80 0.00 0.00 rg
 443.88 283.68 m 443.88 284.67 443.07 285.48 442.08 285.48 c
 441.09 285.48 440.28 284.67 440.28 283.68 c
@@ -3752,16 +3360,16 @@ S
 443.07 281.88 443.88 282.69 443.88 283.68 c
 f
 0.80 0.00 0.00 rg
-335.88 362.88 m 335.88 363.87 335.07 364.68 334.08 364.68 c
-333.09 364.68 332.28 363.87 332.28 362.88 c
-332.28 361.89 333.09 361.08 334.08 361.08 c
-335.07 361.08 335.88 361.89 335.88 362.88 c
+299.88 373.68 m 299.88 374.67 299.07 375.48 298.08 375.48 c
+297.09 375.48 296.28 374.67 296.28 373.68 c
+296.28 372.69 297.09 371.88 298.08 371.88 c
+299.07 371.88 299.88 372.69 299.88 373.68 c
 f
 0.80 0.00 0.00 rg
-299.88 362.88 m 299.88 363.87 299.07 364.68 298.08 364.68 c
-297.09 364.68 296.28 363.87 296.28 362.88 c
-296.28 361.89 297.09 361.08 298.08 361.08 c
-299.07 361.08 299.88 361.89 299.88 362.88 c
+335.88 373.68 m 335.88 374.67 335.07 375.48 334.08 375.48 c
+333.09 375.48 332.28 374.67 332.28 373.68 c
+332.28 372.69 333.09 371.88 334.08 371.88 c
+335.07 371.88 335.88 372.69 335.88 373.68 c
 f
 Q
 endstream
@@ -3905,51 +3513,51 @@ endobj
 90 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 91 0 R>> endobj
 91 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/175.68/5;this.zoom*=scale;var scrollX=532.8-(box[2]-box[0])/2/scale;var scrollY=307.8-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[444.96,343.44,620.64,272.15999999999997]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/78.48000000000003/5;this.zoom*=scale;var scrollX=386.99999999999994-(box[2]-box[0])/2/scale;var scrollY=271.8-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[347.75999999999993,278.64,426.23999999999995,264.96]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 92 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 93 0 R>> endobj
 93 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/78.48000000000003/5;this.zoom*=scale;var scrollX=386.99999999999994-(box[2]-box[0])/2/scale;var scrollY=271.8-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[347.75999999999993,278.64,426.23999999999995,264.96]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/272.88/5;this.zoom*=scale;var scrollX=369-(box[2]-box[0])/2/scale;var scrollY=289.79999999999995-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[232.56,311.03999999999996,505.44,268.55999999999995]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 94 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 95 0 R>> endobj
 95 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/272.88/5;this.zoom*=scale;var scrollX=369-(box[2]-box[0])/2/scale;var scrollY=289.79999999999995-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[232.56,311.03999999999996,505.44,268.55999999999995]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=277.2-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[275.76,213.84,278.64,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 96 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 97 0 R>> endobj
 97 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=277.2-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[275.76,213.84,278.64,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=270-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[268.56,213.84,271.44,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 98 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 99 0 R>> endobj
 99 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=270-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[268.56,213.84,271.44,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=262.8-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[261.36,213.84,264.24,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 100 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 101 0 R>> endobj
 101 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=262.8-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[261.36,213.84,264.24,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=255.6-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[254.16,213.84,257.04,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 102 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 103 0 R>> endobj
 103 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=255.6-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[254.16,213.84,257.04,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=248.39999999999998-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[246.95999999999998,213.84,249.83999999999997,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 104 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 105 0 R>> endobj
 105 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=248.39999999999998-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[246.95999999999998,213.84,249.83999999999997,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=241.2-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[239.76,213.84,242.64,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 106 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 107 0 R>> endobj
 107 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=241.2-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[239.76,213.84,242.64,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=234-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[232.56,213.84,235.44,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 108 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 109 0 R>> endobj
 109 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=234-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[232.56,213.84,235.44,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=226.79999999999998-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[225.35999999999999,213.84,228.23999999999998,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 110 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 111 0 R>> endobj
 111 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/17.28/5;this.zoom*=scale;var scrollX=226.79999999999998-(box[2]-box[0])/2/scale;var scrollY=205.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[225.35999999999999,213.84,228.23999999999998,196.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/28.08/5;this.zoom*=scale;var scrollX=608.4-(box[2]-box[0])/2/scale;var scrollY=350.99999999999994-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[606.9599999999999,365.03999999999996,609.8399999999999,336.96]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 112 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 113 0 R>> endobj
 113 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/31.68/5;this.zoom*=scale;var scrollX=613.8-(box[2]-box[0])/2/scale;var scrollY=349.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[610.56,365.03999999999996,617.04,333.35999999999996]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/2.88/5;this.zoom*=scale;var scrollX=608.4-(box[2]-box[0])/2/scale;var scrollY=324-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[606.9599999999999,325.44,609.8399999999999,322.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 114 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 115 0 R>> endobj
 115 0 obj
@@ -3965,23 +3573,23 @@ endobj
 120 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 121 0 R>> endobj
 121 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=295.2-(box[2]-box[0])/2/scale;var scrollY=360-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[290.15999999999997,372.24,300.23999999999995,347.76]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=288-(box[2]-box[0])/2/scale;var scrollY=201.6-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[282.96,213.84,293.03999999999996,189.36]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 122 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 123 0 R>> endobj
 123 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/28.08/5;this.zoom*=scale;var scrollX=619.2-(box[2]-box[0])/2/scale;var scrollY=271.79999999999995-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[617.76,285.84,620.64,257.76]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/42.48/5;this.zoom*=scale;var scrollX=225-(box[2]-box[0])/2/scale;var scrollY=289.79999999999995-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[221.76,311.03999999999996,228.23999999999998,268.55999999999995]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 124 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 125 0 R>> endobj
 125 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=288-(box[2]-box[0])/2/scale;var scrollY=201.6-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[282.96,213.84,293.03999999999996,189.36]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=331.2-(box[2]-box[0])/2/scale;var scrollY=370.79999999999995-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[326.15999999999997,383.03999999999996,336.23999999999995,358.55999999999995]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 126 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 127 0 R>> endobj
 127 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/42.48/5;this.zoom*=scale;var scrollX=225-(box[2]-box[0])/2/scale;var scrollY=289.79999999999995-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[221.76,311.03999999999996,228.23999999999998,268.55999999999995]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/28.08/5;this.zoom*=scale;var scrollX=601.2-(box[2]-box[0])/2/scale;var scrollY=350.99999999999994-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[599.76,365.03999999999996,602.64,336.96]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 128 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 129 0 R>> endobj
 129 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/31.68/5;this.zoom*=scale;var scrollX=603-(box[2]-box[0])/2/scale;var scrollY=349.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[599.76,365.03999999999996,606.24,333.35999999999996]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/2.88/5;this.zoom*=scale;var scrollX=601.2-(box[2]-box[0])/2/scale;var scrollY=324-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[599.76,325.44,602.64,322.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 130 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 131 0 R>> endobj
 131 0 obj
@@ -3993,27 +3601,27 @@ endobj
 134 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 135 0 R>> endobj
 135 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/46.08/5;this.zoom*=scale;var scrollX=507.6-(box[2]-box[0])/2/scale;var scrollY=295.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[502.56,318.24,512.64,272.16]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/172.07999999999998/5;this.zoom*=scale;var scrollX=531-(box[2]-box[0])/2/scale;var scrollY=307.8-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[444.96,343.44,617.04,272.15999999999997]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 136 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 137 0 R>> endobj
 137 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/46.07999999999991/5;this.zoom*=scale;var scrollX=417.59999999999997-(box[2]-box[0])/2/scale;var scrollY=295.20000000000005-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[416.15999999999997,318.24,419.03999999999996,272.1600000000001]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/46.08/5;this.zoom*=scale;var scrollX=507.6-(box[2]-box[0])/2/scale;var scrollY=295.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[502.56,318.24,512.64,272.16]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 138 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 139 0 R>> endobj
 139 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/20.88/5;this.zoom*=scale;var scrollX=363.59999999999997-(box[2]-box[0])/2/scale;var scrollY=243-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[362.15999999999997,253.44,365.03999999999996,232.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/46.07999999999991/5;this.zoom*=scale;var scrollX=417.59999999999997-(box[2]-box[0])/2/scale;var scrollY=295.20000000000005-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[416.15999999999997,318.24,419.03999999999996,272.1600000000001]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 140 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 141 0 R>> endobj
 141 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=331.2-(box[2]-box[0])/2/scale;var scrollY=360-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[326.15999999999997,372.24,336.23999999999995,347.76]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/20.88/5;this.zoom*=scale;var scrollX=363.59999999999997-(box[2]-box[0])/2/scale;var scrollY=243-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[362.15999999999997,253.44,365.03999999999996,232.56]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 142 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 143 0 R>> endobj
 143 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/31.68/5;this.zoom*=scale;var scrollX=576-(box[2]-box[0])/2/scale;var scrollY=349.2-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[574.56,365.03999999999996,577.4399999999999,333.35999999999996]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=302.4-(box[2]-box[0])/2/scale;var scrollY=201.6-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[290.15999999999997,213.84,314.64,189.36]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 144 0 obj
 <</D[0 /XYZ 0 599.76 0]/S/GoTo/Next 145 0 R>> endobj
 145 0 obj
-<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=302.4-(box[2]-box[0])/2/scale;var scrollY=201.6-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[290.15999999999997,213.84,314.64,189.36]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
+<</JS(this.zoomType=zoomtype.fitV;var box=this.getPageBox('Media',0);var scale=(box[2]-box[0])/24.48/5;this.zoom*=scale;var scrollX=295.2-(box[2]-box[0])/2/scale;var scrollY=370.79999999999995-(box[3]-box[1])/2/scale;this.scroll(scrollX,scrollY);this.removeField('arrow');var a = this.addField('arrow','text',0,[290.15999999999997,383.03999999999996,300.23999999999995,358.55999999999995]);a.textColor=color.blue;a.value="")/S/JavaScript>> endobj
 
 13 0 obj
 <<
@@ -4041,7 +3649,7 @@ endobj
 /Parent 13 0 R
 /Prev 14 0 R
 /First 17 0 R
-/Last 69 0 R
+/Last 70 0 R
 /Count 59
 >> 
 endobj
@@ -4139,7 +3747,7 @@ endobj
 
 31 0 obj
 <<
-/Title ($1N1553)
+/Title ($1N1676)
 /Parent 16 0 R
 /Prev 29 0 R
 /Next 33 0 R
@@ -4151,7 +3759,7 @@ endobj
 
 33 0 obj
 <<
-/Title ($1N1676)
+/Title ($1N3261)
 /Parent 16 0 R
 /Prev 31 0 R
 /Next 35 0 R
@@ -4163,7 +3771,7 @@ endobj
 
 35 0 obj
 <<
-/Title ($1N3261)
+/Title (BUS0)
 /Parent 16 0 R
 /Prev 33 0 R
 /Next 37 0 R
@@ -4175,7 +3783,7 @@ endobj
 
 37 0 obj
 <<
-/Title (BUS0)
+/Title (BUS1)
 /Parent 16 0 R
 /Prev 35 0 R
 /Next 39 0 R
@@ -4187,7 +3795,7 @@ endobj
 
 39 0 obj
 <<
-/Title (BUS1)
+/Title (BUS2)
 /Parent 16 0 R
 /Prev 37 0 R
 /Next 41 0 R
@@ -4199,7 +3807,7 @@ endobj
 
 41 0 obj
 <<
-/Title (BUS2)
+/Title (BUS3)
 /Parent 16 0 R
 /Prev 39 0 R
 /Next 43 0 R
@@ -4211,7 +3819,7 @@ endobj
 
 43 0 obj
 <<
-/Title (BUS3)
+/Title (BUS4)
 /Parent 16 0 R
 /Prev 41 0 R
 /Next 45 0 R
@@ -4223,7 +3831,7 @@ endobj
 
 45 0 obj
 <<
-/Title (BUS4)
+/Title (BUS5)
 /Parent 16 0 R
 /Prev 43 0 R
 /Next 47 0 R
@@ -4235,7 +3843,7 @@ endobj
 
 47 0 obj
 <<
-/Title (BUS5)
+/Title (BUS6)
 /Parent 16 0 R
 /Prev 45 0 R
 /Next 49 0 R
@@ -4247,7 +3855,7 @@ endobj
 
 49 0 obj
 <<
-/Title (BUS6)
+/Title (BUS7)
 /Parent 16 0 R
 /Prev 47 0 R
 /Next 51 0 R
@@ -4259,84 +3867,84 @@ endobj
 
 51 0 obj
 <<
-/Title (BUS7)
-/Parent 16 0 R
-/Prev 49 0 R
-/Next 53 0 R
-/First 52 0 R
-/Last 52 0 R
-/Count 1
->> 
-endobj
-
-53 0 obj
-<<
 /Title (CLK)
 /Parent 16 0 R
-/Prev 51 0 R
-/Next 55 0 R
-/First 54 0 R
-/Last 54 0 R
-/Count 1
+/Prev 49 0 R
+/Next 54 0 R
+/First 52 0 R
+/Last 53 0 R
+/Count 2
 >> 
 endobj
 
-55 0 obj
+54 0 obj
 <<
 /Title (GND)
 /Parent 16 0 R
-/Prev 53 0 R
-/Next 63 0 R
-/First 56 0 R
-/Last 62 0 R
-/Count 7
+/Prev 51 0 R
+/Next 61 0 R
+/First 55 0 R
+/Last 60 0 R
+/Count 6
 >> 
 endobj
 
-63 0 obj
+61 0 obj
 <<
 /Title (LCD_E)
 /Parent 16 0 R
-/Prev 55 0 R
-/Next 65 0 R
-/First 64 0 R
-/Last 64 0 R
-/Count 1
+/Prev 54 0 R
+/Next 64 0 R
+/First 62 0 R
+/Last 63 0 R
+/Count 2
 >> 
 endobj
 
-65 0 obj
+64 0 obj
 <<
 /Title (LCD_RS)
 /Parent 16 0 R
-/Prev 63 0 R
-/Next 67 0 R
-/First 66 0 R
-/Last 66 0 R
+/Prev 61 0 R
+/Next 66 0 R
+/First 65 0 R
+/Last 65 0 R
 /Count 1
 >> 
 endobj
 
-67 0 obj
+66 0 obj
 <<
 /Title (LCD_RW)
 /Parent 16 0 R
-/Prev 65 0 R
-/Next 69 0 R
-/First 68 0 R
-/Last 68 0 R
+/Prev 64 0 R
+/Next 68 0 R
+/First 67 0 R
+/Last 67 0 R
 /Count 1
 >> 
 endobj
 
-69 0 obj
+68 0 obj
+<<
+/Title (SHRD_AND_3Y)
+/Parent 16 0 R
+/Prev 66 0 R
+/Next 70 0 R
+/First 69 0 R
+/Last 69 0 R
+/Count 1
+>> 
+endobj
+
+70 0 obj
 <<
 /Title (VCC)
 /Parent 16 0 R
-/Prev 67 0 R
-/First 70 0 R
+/Prev 68 0 R
+/First 71 0 R
 /Last 75 0 R
-/Count 6
+/Count 5
 >> 
 endobj
 
@@ -4398,7 +4006,7 @@ endobj
 
 32 0 obj
 <<
-/Title ($1N1553)
+/Title ($1N1676)
 /Parent 31 0 R
 /A 90 0 R
 >> 
@@ -4406,7 +4014,7 @@ endobj
 
 34 0 obj
 <<
-/Title ($1N1676)
+/Title ($1N3261)
 /Parent 33 0 R
 /A 92 0 R
 >> 
@@ -4414,7 +4022,7 @@ endobj
 
 36 0 obj
 <<
-/Title ($1N3261)
+/Title ($1N3033)
 /Parent 35 0 R
 /A 94 0 R
 >> 
@@ -4422,7 +4030,7 @@ endobj
 
 38 0 obj
 <<
-/Title ($1N3033)
+/Title ($1N3039)
 /Parent 37 0 R
 /A 96 0 R
 >> 
@@ -4430,7 +4038,7 @@ endobj
 
 40 0 obj
 <<
-/Title ($1N3039)
+/Title ($1N3046)
 /Parent 39 0 R
 /A 98 0 R
 >> 
@@ -4438,7 +4046,7 @@ endobj
 
 42 0 obj
 <<
-/Title ($1N3046)
+/Title ($1N3053)
 /Parent 41 0 R
 /A 100 0 R
 >> 
@@ -4446,7 +4054,7 @@ endobj
 
 44 0 obj
 <<
-/Title ($1N3053)
+/Title ($1N3060)
 /Parent 43 0 R
 /A 102 0 R
 >> 
@@ -4454,7 +4062,7 @@ endobj
 
 46 0 obj
 <<
-/Title ($1N3060)
+/Title ($1N3067)
 /Parent 45 0 R
 /A 104 0 R
 >> 
@@ -4462,7 +4070,7 @@ endobj
 
 48 0 obj
 <<
-/Title ($1N3067)
+/Title ($1N3074)
 /Parent 47 0 R
 /A 106 0 R
 >> 
@@ -4470,7 +4078,7 @@ endobj
 
 50 0 obj
 <<
-/Title ($1N3074)
+/Title ($1N3081)
 /Parent 49 0 R
 /A 108 0 R
 >> 
@@ -4478,126 +4086,126 @@ endobj
 
 52 0 obj
 <<
-/Title ($1N3081)
+/Title ($1N2586)
 /Parent 51 0 R
+/Next 53 0 R
 /A 110 0 R
 >> 
 endobj
 
-54 0 obj
+53 0 obj
 <<
-/Title ($1N2586)
-/Parent 53 0 R
+/Title ($1N3959)
+/Parent 51 0 R
+/Prev 52 0 R
 /A 112 0 R
+>> 
+endobj
+
+55 0 obj
+<<
+/Title ($1N1494)
+/Parent 54 0 R
+/Next 56 0 R
+/A 114 0 R
 >> 
 endobj
 
 56 0 obj
 <<
-/Title ($1N1494)
-/Parent 55 0 R
+/Title ($1N1514)
+/Parent 54 0 R
+/Prev 55 0 R
 /Next 57 0 R
-/A 114 0 R
+/A 116 0 R
 >> 
 endobj
 
 57 0 obj
 <<
-/Title ($1N1514)
-/Parent 55 0 R
+/Title ($1N1718)
+/Parent 54 0 R
 /Prev 56 0 R
 /Next 58 0 R
-/A 116 0 R
+/A 118 0 R
 >> 
 endobj
 
 58 0 obj
 <<
-/Title ($1N1718)
-/Parent 55 0 R
+/Title ($1N3088)
+/Parent 54 0 R
 /Prev 57 0 R
 /Next 59 0 R
-/A 118 0 R
+/A 120 0 R
 >> 
 endobj
 
 59 0 obj
 <<
-/Title ($1N2084)
-/Parent 55 0 R
+/Title ($1N3258)
+/Parent 54 0 R
 /Prev 58 0 R
 /Next 60 0 R
-/A 120 0 R
+/A 122 0 R
 >> 
 endobj
 
 60 0 obj
 <<
-/Title ($1N2635)
-/Parent 55 0 R
+/Title ($1N3628)
+/Parent 54 0 R
 /Prev 59 0 R
-/Next 61 0 R
-/A 122 0 R
->> 
-endobj
-
-61 0 obj
-<<
-/Title ($1N3088)
-/Parent 55 0 R
-/Prev 60 0 R
-/Next 62 0 R
 /A 124 0 R
 >> 
 endobj
 
 62 0 obj
 <<
-/Title ($1N3258)
-/Parent 55 0 R
-/Prev 61 0 R
+/Title ($1N2565)
+/Parent 61 0 R
+/Next 63 0 R
 /A 126 0 R
 >> 
 endobj
 
-64 0 obj
+63 0 obj
 <<
-/Title ($1N2565)
-/Parent 63 0 R
+/Title ($1N3943)
+/Parent 61 0 R
+/Prev 62 0 R
 /A 128 0 R
 >> 
 endobj
 
-66 0 obj
+65 0 obj
 <<
 /Title ($1N1546)
-/Parent 65 0 R
+/Parent 64 0 R
 /A 130 0 R
 >> 
 endobj
 
-68 0 obj
+67 0 obj
 <<
 /Title ($1N1502)
-/Parent 67 0 R
+/Parent 66 0 R
 /A 132 0 R
 >> 
 endobj
 
-70 0 obj
+69 0 obj
 <<
-/Title ($1N1489)
-/Parent 69 0 R
-/Next 71 0 R
+/Title ($1N1553)
+/Parent 68 0 R
 /A 134 0 R
 >> 
 endobj
 
 71 0 obj
 <<
-/Title ($1N1508)
-/Parent 69 0 R
-/Prev 70 0 R
+/Title ($1N1489)
+/Parent 70 0 R
 /Next 72 0 R
 /A 136 0 R
 >> 
@@ -4605,8 +4213,8 @@ endobj
 
 72 0 obj
 <<
-/Title ($1N1723)
-/Parent 69 0 R
+/Title ($1N1508)
+/Parent 70 0 R
 /Prev 71 0 R
 /Next 73 0 R
 /A 138 0 R
@@ -4615,8 +4223,8 @@ endobj
 
 73 0 obj
 <<
-/Title ($1N2078)
-/Parent 69 0 R
+/Title ($1N1723)
+/Parent 70 0 R
 /Prev 72 0 R
 /Next 74 0 R
 /A 140 0 R
@@ -4625,8 +4233,8 @@ endobj
 
 74 0 obj
 <<
-/Title ($1N2630)
-/Parent 69 0 R
+/Title ($1N3225)
+/Parent 70 0 R
 /Prev 73 0 R
 /Next 75 0 R
 /A 142 0 R
@@ -4635,8 +4243,8 @@ endobj
 
 75 0 obj
 <<
-/Title ($1N3225)
-/Parent 69 0 R
+/Title ($1N3627)
+/Parent 70 0 R
 /Prev 74 0 R
 /A 144 0 R
 >> 
@@ -4645,7 +4253,7 @@ endobj
 146 0 obj
 <<
 /Producer (jsPDF 0.0.0)
-/CreationDate (D:20251102184428+01'00')
+/CreationDate (D:20251129222743+01'00')
 >>
 endobj
 147 0 obj
@@ -4660,160 +4268,160 @@ endobj
 xref
 0 148
 0000000000 65535 f 
-0000042566 00000 n 
-0000044774 00000 n 
+0000037979 00000 n 
+0000040187 00000 n 
 0000000015 00000 n 
 0000000124 00000 n 
-0000042623 00000 n 
-0000042788 00000 n 
-0000042967 00000 n 
-0000043083 00000 n 
-0000043252 00000 n 
-0000044296 00000 n 
-0000044462 00000 n 
-0000044656 00000 n 
-0000061708 00000 n 
-0000061785 00000 n 
-0000061990 00000 n 
-0000061888 00000 n 
-0000062082 00000 n 
-0000064848 00000 n 
-0000062187 00000 n 
-0000064914 00000 n 
-0000062305 00000 n 
-0000064980 00000 n 
-0000062423 00000 n 
-0000065046 00000 n 
-0000062541 00000 n 
-0000065112 00000 n 
-0000062659 00000 n 
-0000065178 00000 n 
-0000062777 00000 n 
-0000065244 00000 n 
-0000062895 00000 n 
-0000065310 00000 n 
-0000063013 00000 n 
-0000065376 00000 n 
-0000063131 00000 n 
-0000065442 00000 n 
-0000063249 00000 n 
-0000065508 00000 n 
-0000063364 00000 n 
-0000065574 00000 n 
-0000063479 00000 n 
-0000065640 00000 n 
-0000063594 00000 n 
-0000065707 00000 n 
-0000063709 00000 n 
-0000065774 00000 n 
-0000063824 00000 n 
-0000065841 00000 n 
-0000063939 00000 n 
-0000065908 00000 n 
-0000064054 00000 n 
-0000065975 00000 n 
-0000064169 00000 n 
-0000066042 00000 n 
-0000064283 00000 n 
-0000066109 00000 n 
-0000066189 00000 n 
-0000066282 00000 n 
-0000066375 00000 n 
-0000066468 00000 n 
-0000066561 00000 n 
-0000066654 00000 n 
-0000064397 00000 n 
-0000066734 00000 n 
-0000064513 00000 n 
-0000066801 00000 n 
-0000064630 00000 n 
-0000066868 00000 n 
-0000064747 00000 n 
-0000066935 00000 n 
-0000067015 00000 n 
-0000067108 00000 n 
-0000067201 00000 n 
-0000067294 00000 n 
-0000067387 00000 n 
-0000044899 00000 n 
-0000044960 00000 n 
-0000045390 00000 n 
-0000045451 00000 n 
-0000045843 00000 n 
-0000045904 00000 n 
-0000046335 00000 n 
-0000046396 00000 n 
-0000046803 00000 n 
-0000046864 00000 n 
-0000047283 00000 n 
-0000047344 00000 n 
-0000047786 00000 n 
-0000047847 00000 n 
-0000048239 00000 n 
-0000048300 00000 n 
-0000048708 00000 n 
-0000048769 00000 n 
-0000049213 00000 n 
-0000049274 00000 n 
-0000049705 00000 n 
-0000049766 00000 n 
-0000050161 00000 n 
-0000050222 00000 n 
-0000050615 00000 n 
-0000050678 00000 n 
-0000051074 00000 n 
-0000051137 00000 n 
-0000051533 00000 n 
-0000051596 00000 n 
-0000052029 00000 n 
-0000052092 00000 n 
-0000052488 00000 n 
-0000052551 00000 n 
-0000052945 00000 n 
-0000053008 00000 n 
-0000053441 00000 n 
-0000053504 00000 n 
-0000053924 00000 n 
-0000053987 00000 n 
-0000054392 00000 n 
-0000054455 00000 n 
-0000054899 00000 n 
-0000054962 00000 n 
-0000055393 00000 n 
-0000055456 00000 n 
-0000055874 00000 n 
-0000055937 00000 n 
-0000056346 00000 n 
-0000056409 00000 n 
-0000056815 00000 n 
-0000056878 00000 n 
-0000057321 00000 n 
-0000057384 00000 n 
+0000038036 00000 n 
+0000038201 00000 n 
+0000038380 00000 n 
+0000038496 00000 n 
+0000038665 00000 n 
+0000039709 00000 n 
+0000039875 00000 n 
+0000040069 00000 n 
+0000057205 00000 n 
+0000057282 00000 n 
+0000057487 00000 n 
+0000057385 00000 n 
+0000057579 00000 n 
+0000060349 00000 n 
+0000057684 00000 n 
+0000060415 00000 n 
 0000057802 00000 n 
-0000057865 00000 n 
-0000058295 00000 n 
-0000058358 00000 n 
-0000058778 00000 n 
-0000058841 00000 n 
-0000059237 00000 n 
-0000059300 00000 n 
-0000059769 00000 n 
-0000059832 00000 n 
-0000060263 00000 n 
-0000060326 00000 n 
-0000060744 00000 n 
-0000060807 00000 n 
-0000061236 00000 n 
-0000061299 00000 n 
-0000067467 00000 n 
-0000067554 00000 n 
+0000060481 00000 n 
+0000057920 00000 n 
+0000060547 00000 n 
+0000058038 00000 n 
+0000060613 00000 n 
+0000058156 00000 n 
+0000060679 00000 n 
+0000058274 00000 n 
+0000060745 00000 n 
+0000058392 00000 n 
+0000060811 00000 n 
+0000058510 00000 n 
+0000060877 00000 n 
+0000058628 00000 n 
+0000060943 00000 n 
+0000058743 00000 n 
+0000061009 00000 n 
+0000058858 00000 n 
+0000061075 00000 n 
+0000058973 00000 n 
+0000061141 00000 n 
+0000059088 00000 n 
+0000061208 00000 n 
+0000059203 00000 n 
+0000061275 00000 n 
+0000059318 00000 n 
+0000061342 00000 n 
+0000059433 00000 n 
+0000061409 00000 n 
+0000059548 00000 n 
+0000061476 00000 n 
+0000061556 00000 n 
+0000059662 00000 n 
+0000061636 00000 n 
+0000061716 00000 n 
+0000061809 00000 n 
+0000061902 00000 n 
+0000061995 00000 n 
+0000062088 00000 n 
+0000059776 00000 n 
+0000062168 00000 n 
+0000062248 00000 n 
+0000059892 00000 n 
+0000062328 00000 n 
+0000060009 00000 n 
+0000062395 00000 n 
+0000060126 00000 n 
+0000062462 00000 n 
+0000060248 00000 n 
+0000062529 00000 n 
+0000062609 00000 n 
+0000062702 00000 n 
+0000062795 00000 n 
+0000062888 00000 n 
+0000040312 00000 n 
+0000040373 00000 n 
+0000040803 00000 n 
+0000040864 00000 n 
+0000041256 00000 n 
+0000041317 00000 n 
+0000041748 00000 n 
+0000041809 00000 n 
+0000042216 00000 n 
+0000042277 00000 n 
+0000042696 00000 n 
+0000042757 00000 n 
+0000043199 00000 n 
+0000043260 00000 n 
+0000043652 00000 n 
+0000043713 00000 n 
+0000044157 00000 n 
+0000044218 00000 n 
+0000044649 00000 n 
+0000044710 00000 n 
+0000045105 00000 n 
+0000045166 00000 n 
+0000045559 00000 n 
+0000045620 00000 n 
+0000046015 00000 n 
+0000046078 00000 n 
+0000046474 00000 n 
+0000046537 00000 n 
+0000046970 00000 n 
+0000047033 00000 n 
+0000047429 00000 n 
+0000047492 00000 n 
+0000047886 00000 n 
+0000047949 00000 n 
+0000048382 00000 n 
+0000048445 00000 n 
+0000048888 00000 n 
+0000048951 00000 n 
+0000049366 00000 n 
+0000049429 00000 n 
+0000049834 00000 n 
+0000049897 00000 n 
+0000050341 00000 n 
+0000050404 00000 n 
+0000050835 00000 n 
+0000050898 00000 n 
+0000051304 00000 n 
+0000051367 00000 n 
+0000051810 00000 n 
+0000051873 00000 n 
+0000052330 00000 n 
+0000052393 00000 n 
+0000052814 00000 n 
+0000052877 00000 n 
+0000053270 00000 n 
+0000053333 00000 n 
+0000053763 00000 n 
+0000053826 00000 n 
+0000054246 00000 n 
+0000054309 00000 n 
+0000054728 00000 n 
+0000054791 00000 n 
+0000055187 00000 n 
+0000055250 00000 n 
+0000055719 00000 n 
+0000055782 00000 n 
+0000056213 00000 n 
+0000056276 00000 n 
+0000056684 00000 n 
+0000056747 00000 n 
+0000062968 00000 n 
+0000063055 00000 n 
 trailer
 <<
 /Size 148
 /Root 147 0 R
 /Info 146 0 R
-/ID [ <1FE1B43167E7B14B60CE72014E07A7FD> <1FE1B43167E7B14B60CE72014E07A7FD> ]
+/ID [ <D627EBA358735D009090003E30C80F7E> <D627EBA358735D009090003E30C80F7E> ]
 >>
 startxref
-67676
+63177
 %%EOF

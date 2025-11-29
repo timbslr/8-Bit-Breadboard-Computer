@@ -95,4 +95,31 @@ export default class TableUtilProvider {
 
     return pseudoInstructionsInGroup;
   }
+
+  static createPartsListTable(content) {
+    const table = document.createElement("table");
+    const headerRow = document.createElement("tr");
+    const quantityHeader = document.createElement("th");
+    quantityHeader.textContent = "Quantity";
+    headerRow.appendChild(quantityHeader);
+    const partNameHeader = document.createElement("th");
+    partNameHeader.textContent = "Part Name";
+    headerRow.appendChild(partNameHeader);
+    table.appendChild(headerRow);
+
+    for (const [partName, amount] of content.entries()) {
+      const row = document.createElement("tr");
+      const partNameCell = document.createElement("td");
+      partNameCell.textContent = partName;
+      const quantityCell = document.createElement("td");
+      quantityCell.textContent = amount;
+      quantityCell.style.textAlign = "center";
+
+      row.appendChild(quantityCell);
+      row.appendChild(partNameCell);
+      table.appendChild(row);
+    }
+
+    return this.surroundWithTableWrapper(table);
+  }
 }

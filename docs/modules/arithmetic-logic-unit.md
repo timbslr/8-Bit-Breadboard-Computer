@@ -5,6 +5,8 @@ nav_order: 3
 parent: Modules
 ---
 
+<script type="module" src="../scripts/PartsList.js"></script>
+
 ## Arithmetic Logic Unit (ALU)
 
 The 8-Bit ALU supports computing the following arithmetic and logic operations:
@@ -87,5 +89,10 @@ The overflow flag is always set if the sign of the A-Register and the TMP-Regist
 </div>
 <br>
 \*We also want the overflow flag to be valid for subtraction, so the msb of the A-Register is actually compared with the output of the XOR between the msb of the TMP-Register and ALU_SRC.
+<br>
+<parts-list src="../resources/BOMs/ALU.csv"></parts-list>
 
+### Schematic
+
+<br>
 <img src="../resources/Wiring Diagrams/ALU_page_2.svg" alt="ALU schematic" style="width:100%; height:auto;">
