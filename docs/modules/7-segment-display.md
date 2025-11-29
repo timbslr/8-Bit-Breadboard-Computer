@@ -7,7 +7,7 @@ parent: Modules
 
 ## 7-Segment Display
 
-The 7-Segment Display is the only module that I implemented the same as Ben Eater. Here's a description of how [his design](https://eater.net/8bit/output) works:
+The 7-Segment Display is the only module that I implemented the same as Ben Eater (except for an extra 555-Timer used as a single Flip-Flop to store the current display mode (signed or unsigned)). Here's a description of how [Ben Eaters design](https://eater.net/8bit/output) works:
 
 The number to be displayed is first loaded into the module's register. The register's output, which is exactly that number, is fed directly into a 16K EEPROM, which works as a decoder for the 7-segment display control pins.
 According to the CAT28C16API's datasheet (the EEPROM I used), the chip has a total amount of 11 address lines, which serve as inputs in this design. Eight of these inputs are already used to represent the number to be displayed, leaving three bits for additional features.
