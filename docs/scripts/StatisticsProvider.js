@@ -27,31 +27,24 @@ export default class StatisticsProvider {
       return sizeInBytes === 1 ? "n" : `${sizeInBytes}*n`;
     }
 
-    let byteSizeInROM = 0;
     const instruction = await InstructionsUtilProvider.getInstructionObjectByMnemonic(mnemonic);
-    const isPSEUDOInstruction = await InstructionsUtilProvider.isPSEUDOInstruction(mnemonic);
+    const executedInstructions = await InstructionsUtilProvider.getExecutedInstructions(instruction);
+    let byteSizeInROM = 0;
 
-    if (isPSEUDOInstruction) {
-      for (const mappedInstruction of instruction.mappedInstructions) {
-        const mnemonic = InstructionsUtilProvider.extractMnemonicFromInstructionString(mappedInstruction);
-        byteSizeInROM += await this.getByteSizeInROM(mnemonic);
+    for (const executedInstruction of executedInstructions) {
+      byteSizeInROM += 1; //opcode of instruction
+      for (const operand of executedInstruction.operands) {
+        const operandsSizeInROM = this.#operandSizesInBytes[operand];
+        if (operandsSizeInROM === undefined) {
+          console.error(
+            `Found invalid operand "${operand}" during computation of the size in ROM for mnemonic "${mnemonic}"`
+          );
+          return null;
+        }
+
+        byteSizeInROM += operandsSizeInROM;
       }
-      return byteSizeInROM;
     }
-
-    byteSizeInROM = 1; //each REAL instruction needs at least 1 byte in ROM for the opcode
-
-    instruction.operands.forEach((operand) => {
-      const operandsSizeInROM = this.#operandSizesInBytes[operand];
-      if (operandsSizeInROM === undefined) {
-        console.error(
-          `Found invalid operand "${operand}" during computation of the size in ROM for mnemonic "${mnemonic}"`
-        );
-        return null;
-      }
-
-      byteSizeInROM += operandsSizeInROM;
-    });
 
     return byteSizeInROM;
   }
@@ -106,17 +99,5 @@ export default class StatisticsProvider {
       return length - 1;
     }
     return length;
-  }
-
-  static formatNumberOfClockCyclesString(numberOfClockCyclesObject) {
-    const clockCycles = numberOfClockCyclesObject;
-    if (clockCycles.flagLow > clockCycles.flagHigh) {
-      //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
-      [clockCycles.flagLow, clockCycles.flagHigh] = [clockCycles.flagHigh, clockCycles.flagLow];
-    }
-
-    return clockCycles.flagLow === clockCycles.flagHigh
-      ? clockCycles.flagLow
-      : `${clockCycles.flagLow}/${clockCycles.flagHigh}`;
   }
 }

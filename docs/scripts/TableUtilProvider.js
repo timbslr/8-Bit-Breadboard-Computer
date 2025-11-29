@@ -1,5 +1,5 @@
+import Formatter from "./Formatter.js";
 import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
-import { escapeHTML } from "./util.js";
 
 export default class TableUtilProvider {
   static getTableBodyById(tableId) {
@@ -70,7 +70,9 @@ export default class TableUtilProvider {
             break;
           }
           case "instruction": {
-            innerHTML = escapeHTML(InstructionsUtilProvider.joinMnemonicWithOperands(entry.mnemonic, entry.operands));
+            innerHTML = Formatter.escapeHTML(
+              InstructionsUtilProvider.joinMnemonicWithOperands(entry.mnemonic, entry.operands)
+            );
             break;
           }
           case "mappedInstructions": {
@@ -80,7 +82,7 @@ export default class TableUtilProvider {
             break;
           }
           case "shortDescription": {
-            innerHTML = escapeHTML(innerHTML);
+            innerHTML = Formatter.escapeHTML(innerHTML);
             break;
           }
         }

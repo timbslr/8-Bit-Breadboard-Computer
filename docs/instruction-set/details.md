@@ -14,9 +14,9 @@ nav_exclude: true
 
 {: #template-stats-table}
 
-| Instruction Type |   Group    |   Opcode   | Size in ROM | Number of Clock Cycles |
-| :--------------: | :--------: | :--------: | :---------: | :--------------------: |
-|    Loading...    | Loading... | Loading... | Loading...  |       Loading...       |
+| Instruction Type |   Group    |   Opcode   | Clobbered Registers | Size in ROM | Number of Clock Cycles |
+| :--------------: | :--------: | :--------: | :-----------------: | :---------: | :--------------------: |
+|    Loading...    | Loading... | Loading... |     Loading...      | Loading...  |       Loading...       |
 
 <style>
   .highlightedHeader {

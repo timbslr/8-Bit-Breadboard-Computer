@@ -1,3 +1,4 @@
+import Formatter from "./Formatter.js";
 import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
 import StatisticsProvider from "./StatisticsProvider.js";
 import TableUtilProvider from "./TableUtilProvider.js";
@@ -12,6 +13,10 @@ async function createAndFillTables() {
     const mnemonic = instruction.mnemonic;
     const opcode = instruction.opcode || "-";
 
+    const clobberedRegisters = Formatter.formatClobberedRegisters(
+      await InstructionsUtilProvider.getClobberedRegisters(instruction)
+    );
+
     const sizeInROM = await StatisticsProvider.getByteSizeInROM(mnemonic);
     let sizeInROMString = `${sizeInROM} Byte`;
     if (sizeInROM !== 1) {
@@ -20,7 +25,7 @@ async function createAndFillTables() {
 
     const numberOfClockCycles = await StatisticsProvider.getAmountOfClockCyclesPerExecution(mnemonic);
 
-    const numberOfClockCyclesString = StatisticsProvider.formatNumberOfClockCyclesString(numberOfClockCycles);
+    const numberOfClockCyclesString = Formatter.formatNumberOfClockCyclesString(numberOfClockCycles);
 
     const tableId = `${mnemonic}-table`;
 
@@ -36,7 +41,14 @@ async function createAndFillTables() {
 
     templateTableCopy.id = tableId;
 
-    const cellContents = [instruction.type, instruction.group, opcode, sizeInROMString, numberOfClockCyclesString];
+    const cellContents = [
+      instruction.type,
+      instruction.group,
+      opcode,
+      clobberedRegisters,
+      sizeInROMString,
+      numberOfClockCyclesString,
+    ];
     const contentRow = TableUtilProvider.createRowFromCellContents(cellContents);
     templateTableCopy.appendChild(contentRow);
 
