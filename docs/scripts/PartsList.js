@@ -7,10 +7,10 @@ export class PartsList extends HTMLElement {
 
     let contentMap = new Map();
     if (src === "ALL") {
-      const response = await fetch("../resources/BOMs/files.json");
+      const response = await fetch("./resources/BOMs/files.json");
       const files = await response.json();
       for (const file of files) {
-        const fileSpecificContentMap = await this.getContentMapFromFile("../resources/BOMs/" + file);
+        const fileSpecificContentMap = await this.getContentMapFromFile("./resources/BOMs/" + file);
         contentMap = this.concatContentMaps(contentMap, fileSpecificContentMap);
       }
     } else {
