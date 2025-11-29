@@ -1,0 +1,18 @@
+[
+  "7-Segment Display.csv",
+  "A-Register.csv",
+  "ALU.csv",
+  "B-Register.csv",
+  "BUF-Register.csv",
+  "Controller.csv",
+  "Flags-Register.csv",
+  "General.csv",
+  "IR.csv",
+  "LCD.csv",
+  "MAR.csv",
+  "Memory.csv",
+  "PC.csv",
+  "SP.csv",
+  "TMP-Register.csv",
+  "X-Register.csv"
+]
