@@ -9,7 +9,7 @@ nav_order: 0
 Welcome to the documentation of my 8-Bit breadboard computer! Here you will find everything from the overall structure of the build, schematics, explanation of the modules, the instruction set and so much more. Have fun digging into the technical specifications of this project!
 <br>
 <br>
-![Image of the 8-Bit Breadboard Computer](resources/images/Breadboard Computer Top Down.png)
+![Image of the 8-Bit Breadboard Computer](resources/images/Breadboard Computer Top Down.jpg)
 <br>
 <br>
 
