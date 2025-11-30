@@ -59,7 +59,6 @@
 	roln {reg: register}, 5                        => asm{ ror A } @ asm{ ror A } @ asm{ ror {reg} }
 	roln {reg: register}, 6                        => asm{ ror A } @ asm{ ror {reg} }
 	roln {reg: register}, 7                        => asm{ ror {reg} }
-	bit {imm: i8}                                  => 0b11111100 @ imm
 	clr {reg: register}                            => asm{ li {reg}, 0 }
 	mov {regd: register}, {regs: register}         => 0b1001 @ regs @ regd
 	movs SP_L, TMP                                 => 0b01110000
@@ -78,9 +77,9 @@
 	movs A, SP_L                                   => 0b01111101
 	movs A, SP_H                                   => 0b01111110
 	ld {reg: register}, {addr: u16}                => 0b101011 @ reg @ le(addr)
-	ldo {reg: register}, {addr: u16}               => 0b101100 @ reg @ le(addr)
+	ldo {reg: register}, {addr: u16}               => 0b001101 @ reg @ le(addr)
 	st {reg: register}, {addr: u16}                => 0b101101 @ reg @ le(addr)
-	sto {reg: register}, {addr: u16}               => 0b101110 @ reg @ le(addr)
+	sto {reg: register}, {addr: u16}               => 0b001110 @ reg @ le(addr)
 	lds {reg: register}                            => 0b101110 @ reg
 	sts {reg: register}                            => 0b101111 @ reg
 	li {reg: register}, {imm: i8}                  => 0b101010 @ reg @ imm
@@ -93,10 +92,10 @@
 	decx                                           => 0b01100101
 	decsp                                          => 0b00110001
 	decm {addr: u16}                               => asm{ ld X, {addr} } @ asm{ decx } @ asm{ st X, {addr} }
-	out7sd {reg: register}                         => 0b001111 @ reg
+	out7sd {reg: register}                         => 0b000111 @ reg
 	s7sdsm                                         => 0b00000010
 	s7sdum                                         => 0b00000011
-	out7sdi {imm: i8}                              => 0b00111011 @ imm
+	out7sdi {imm: i8}                              => 0b00001111 @ imm
 	outlcd {lcdreg: lcdregister}, {reg: register}  => 0b01001 @ lcdreg @ reg
 	outlcdi {lcdreg: lcdregister}, {imm: i8}       => 0b0100011 @ lcdreg @ imm
 	lcdrd {lcdreg: lcdregister}, {reg: register}   => 0b01011 @ lcdreg @ reg
