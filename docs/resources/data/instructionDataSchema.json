@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
-    "$schema": "string",
+    "$schema": { "type": "string" },
     "instructions": {
       "type": "array",
       "items": {
@@ -34,7 +34,7 @@
             "type": "string",
             "minLength": 8,
             "maxLength": 8,
-            "pattern": "(0|1|R|L){8}"
+            "pattern": "^(0|1|R|L){8}$"
           },
           "microinstructions": {},
           "mappedInstructions": {
@@ -65,6 +65,23 @@
             "items": {
               "type": "object",
               "properties": {
+                "prerequisites": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "register": {
+                        "type": "string",
+                        "pattern": "^(PC_L|PC_H|MAR_L|MAR_H|IR|BUF|SP_L|SP_H|A|F|TMP|B|X|7SD)$"
+                      },
+                      "value": {
+                        "type": "number"
+                      }
+                    },
+                    "required": ["register", "value"],
+                    "additionalProperties": false
+                  }
+                },
                 "code": {
                   "type": "array",
                   "items": {
@@ -74,11 +91,29 @@
                   "minItems": 1
                 },
                 "result": {
-                  "type": "string",
-                  "minLength": 3
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "register": {
+                        "type": "string",
+                        "pattern": "^(PC_L|PC_H|MAR_L|MAR_H|IR|BUF|SP_L|SP_H|A|F|TMP|B|X|7SD)$"
+                      },
+                      "value": {
+                        "type": "number"
+                      }
+                    },
+                    "required": ["register", "value"],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
                 }
               },
-              "required": ["code", "result"],
+              "required": [
+                "prerequisites",
+                "code",
+                "result"
+              ],
               "additionalProperties": false
             },
             "minItems": 1

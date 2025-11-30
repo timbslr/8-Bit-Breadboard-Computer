@@ -18,15 +18,31 @@
       "group": "ALU",
       "indexInGroup": 0,
       "shortDescription": "<reg> = A + TMP",
-      "longDescription": "",
+      "longDescription": "The ADD instruction computes an addition on the A and B registers. These two operands are fixed and cannot be changed. What can be changed is the register in which the result is saved, it is specified as an operand of the instruction. After computation, the corresponding flags are set.",
       "examples": [
         {
-          "code": ["li A, 40", "li TMP, 2", "add B"],
-          "result": "B = 42"
+          "prerequisites": [
+            { "register": "A", "value": 40 },
+            { "register": "TMP", "value": 2 }
+          ],
+          "code": ["add B"],
+          "result": [{ "register": "B", "value": 42 }]
         },
         {
-          "code": ["li A, 2", "li TMP, -4", "add B"],
-          "result": "B = -2"
+          "prerequisites": [
+            { "register": "A", "value": 2 },
+            { "register": "TMP", "value": -4 }
+          ],
+          "code": ["add X"],
+          "result": [{ "register": "X", "value": -2 }]
+        },
+        {
+          "prerequisites": [
+            { "register": "A", "value": -42 },
+            { "register": "TMP", "value": -8 }
+          ],
+          "code": ["add A"],
+          "result": [{ "register": "A", "value": -50 }]
         }
       ]
     },
@@ -39,11 +55,17 @@
       "group": "ALU",
       "indexInGroup": 1,
       "shortDescription": "<reg> = A + <imm>",
-      "longDescription": "",
+      "longDescription": "The ADDI instruction adds the specified immediate value to the A register. Internally, the instruction first loads the immediate into the TMP register and then performs a normal addition, which means that the TMP register will be overwritten by this instruction. Finally, the corresponding flags are set.",
       "examples": [
         {
-          "code": [""],
-          "result": ""
+          "prerequisites": [{ "register": "A", "value": 8 }],
+          "code": ["addi TMP, -8"],
+          "result": [{ "register": "TMP", "value": 0 }]
+        },
+        {
+          "prerequisites": [{ "register": "A", "value": -42 }],
+          "code": ["addi A, 60"],
+          "result": [{ "register": "A", "value": 18 }]
         }
       ]
     },
@@ -75,10 +97,7 @@
       "shortDescription": "<reg> = A + TMP + CF",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -92,10 +111,7 @@
       "shortDescription": "<reg> = A + <imm> + CF",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -118,8 +134,20 @@
       "longDescription": "",
       "examples": [
         {
-          "code": [""],
-          "result": ""
+          "prerequisites": [
+            { "register": "A", "value": 100 },
+            { "register": "TMP", "value": 30 }
+          ],
+          "code": ["sub B"],
+          "result": [{ "register": "B", "value": 70 }]
+        },
+        {
+          "prerequisites": [
+            { "register": "A", "value": 100 },
+            { "register": "TMP", "value": 30 }
+          ],
+          "code": ["sub B"],
+          "result": [{ "register": "B", "value": 70 }]
         }
       ]
     },
@@ -151,10 +179,7 @@
       "shortDescription": "<reg> = A - TMP - (1-CF)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -168,10 +193,7 @@
       "shortDescription": "<reg> = A - <imm> - (1-CF)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -194,10 +216,7 @@
       "shortDescription": "<reg> = A & TMP",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -211,10 +230,7 @@
       "shortDescription": "<reg> = A & <imm>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -237,10 +253,7 @@
       "shortDescription": "<reg> = A | TMP",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -254,10 +267,7 @@
       "shortDescription": "<reg> = A | <imm>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -280,10 +290,7 @@
       "shortDescription": "<reg> = A ^ TMP",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -297,10 +304,7 @@
       "shortDescription": "<reg> = A ^ <imm>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -323,10 +327,7 @@
       "shortDescription": "<reg> = ~A",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -340,10 +341,7 @@
       "shortDescription": "<reg> = ~A + 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -366,10 +364,7 @@
       "shortDescription": "<reg> = A << 1 (zero-extended)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -392,10 +387,7 @@
       "shortDescription": "<reg> = A >> 1 (zero-extended)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -418,10 +410,7 @@
       "shortDescription": "<reg> = A >> 1 (sign-extended)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -444,10 +433,7 @@
       "shortDescription": "<reg> = rotate A right by one bit",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -461,10 +447,7 @@
       "shortDescription": "<reg> = rotate A right by <n> bits",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -487,10 +470,7 @@
       "shortDescription": "<reg> = rotate A left by one bit",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -504,10 +484,7 @@
       "shortDescription": "<reg> = rotate A left by <n> bits",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -521,10 +498,7 @@
       "shortDescription": "<reg> = 0",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -546,10 +520,7 @@
       "shortDescription": "<regd> = <regs>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -571,10 +542,7 @@
       "shortDescription": "<regsd> = <regss>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -603,10 +571,7 @@
       "shortDescription": "<reg> = mem[<addr>]",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -627,10 +592,7 @@
       "shortDescription": "<reg> = mem[<addr> + X]",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -659,10 +621,7 @@
       "shortDescription": "mem[<addr>] = <reg>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -683,10 +642,7 @@
       "shortDescription": "mem[<addr> + X] = <reg>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -710,10 +666,7 @@
       "shortDescription": "<reg> = mem[SP]",
       "longDescription": "TODO: microinstructions",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -737,10 +690,7 @@
       "shortDescription": "mem[SP] = <reg>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -764,10 +714,7 @@
       "shortDescription": "<reg> = <imm>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -781,10 +728,7 @@
       "shortDescription": "mem[SP] = <reg>\nSP = SP + 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -798,10 +742,7 @@
       "shortDescription": "SP = SP - 1\n<reg> = mem[SP]",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -815,10 +756,7 @@
       "shortDescription": "<reg> = mem[SP]",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -840,10 +778,7 @@
       "shortDescription": "X= X + 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -881,10 +816,7 @@
       "shortDescription": "SP = SP + 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -898,10 +830,7 @@
       "shortDescription": "mem[<addr>] = mem[<addr>] + 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -923,10 +852,7 @@
       "shortDescription": "X = X - 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -964,10 +890,7 @@
       "shortDescription": "SP = SP - 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -981,10 +904,7 @@
       "shortDescription": "mem[<addr>] = mem[<addr>] - 1",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1006,10 +926,7 @@
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1031,10 +948,7 @@
       "shortDescription": "Sets the 7-segment display into signed mode (values -128 to 127)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1056,10 +970,7 @@
       "shortDescription": "Sets the 7-segment display into unsigned mode (values 0 to 255)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1083,10 +994,7 @@
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1108,10 +1016,7 @@
       "shortDescription": "Outputs the value in the given register to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1135,10 +1040,7 @@
       "shortDescription": "Outputs an immediate to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1160,10 +1062,7 @@
       "shortDescription": "Reads from the LCD (either from CTRL or DATA register, depending on <lcdreg>) into the given register",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1184,10 +1083,7 @@
       "shortDescription": "Does nothing for clock cycles",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1209,10 +1105,7 @@
       "shortDescription": "Halts the entire computer. This instruction is called at the end of a program.",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1232,10 +1125,7 @@
       "shortDescription": "Calls the subroutine placed at the given address",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1249,10 +1139,7 @@
       "shortDescription": "Returns from a function call",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1280,10 +1167,7 @@
       "shortDescription": "PC = <addr>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1306,10 +1190,7 @@
       "shortDescription": "PC_L = BUF, PC_H = TMP",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1349,10 +1230,7 @@
       "shortDescription": "branch if A == TMP",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1366,10 +1244,7 @@
       "shortDescription": "branch if A == <imm>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1409,10 +1284,7 @@
       "shortDescription": "branch if A == TMP",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1426,10 +1298,7 @@
       "shortDescription": "branch if A != <imm>",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1469,10 +1338,7 @@
       "shortDescription": "branch if A < TMP (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1486,10 +1352,7 @@
       "shortDescription": "branch if A < <imm> (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1503,10 +1366,7 @@
       "shortDescription": "branch if A < TMP (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1520,10 +1380,7 @@
       "shortDescription": "branch if A < <imm> (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1563,10 +1420,7 @@
       "shortDescription": "branch if A <= TMP (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1580,10 +1434,7 @@
       "shortDescription": "branch if A <= <imm> (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1623,10 +1474,7 @@
       "shortDescription": "branch if A <= TMP (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1640,10 +1488,7 @@
       "shortDescription": "branch if A <= <imm> (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1683,10 +1528,7 @@
       "shortDescription": "branch if A >= TMP (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1700,10 +1542,7 @@
       "shortDescription": "branch if A >= <imm> (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1717,10 +1556,7 @@
       "shortDescription": "branch if A >= TMP (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1734,10 +1570,7 @@
       "shortDescription": "branch if A >= <imm> (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1777,10 +1610,7 @@
       "shortDescription": "branch if A > TMP (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1794,10 +1624,7 @@
       "shortDescription": "branch if A > <imm> (signed)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1837,10 +1664,7 @@
       "shortDescription": "branch if A > TMP (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1854,10 +1678,7 @@
       "shortDescription": "branch if A > <imm> (unsigned)",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1895,10 +1716,7 @@
       "shortDescription": "branch if branch if ZF is set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1936,10 +1754,7 @@
       "shortDescription": "branch if ZF is not set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -1977,10 +1792,7 @@
       "shortDescription": "branch if CF is set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -2018,10 +1830,7 @@
       "shortDescription": "branch if CF is not set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -2059,10 +1868,7 @@
       "shortDescription": "branch if NF is set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -2100,10 +1906,7 @@
       "shortDescription": "branch if NF is not set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -2141,10 +1944,7 @@
       "shortDescription": "branch if VF is set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     },
     {
@@ -2182,10 +1982,7 @@
       "shortDescription": "branch if VF is not set",
       "longDescription": "",
       "examples": [
-        {
-          "code": [""],
-          "result": ""
-        }
+        //TODO
       ]
     }
   ]
