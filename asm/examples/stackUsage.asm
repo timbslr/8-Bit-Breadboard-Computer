@@ -41,3 +41,5 @@ pop A
 out7sd A
 pop A
 out7sd A
+
+hlt

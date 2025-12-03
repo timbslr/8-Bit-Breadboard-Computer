@@ -16,3 +16,5 @@ incx
 jmp loop2
 end:
 jmp start
+
+hlt

@@ -4,6 +4,7 @@
   "ALU.csv",
   "B-Register.csv",
   "BUF-Register.csv",
+  "Clock.csv",
   "Controller.csv",
   "Flags-Register.csv",
   "General.csv",
@@ -12,6 +13,7 @@
   "MAR.csv",
   "Memory.csv",
   "PC.csv",
+  "Reset.csv",
   "SP.csv",
   "TMP-Register.csv",
   "X-Register.csv"

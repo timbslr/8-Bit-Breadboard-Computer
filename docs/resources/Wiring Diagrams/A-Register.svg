@@ -129,8 +129,6 @@
 <use data-text="R" xlink:href="#font_4_51" transform="matrix(0,-6.5454547,-6.5454547,-0,226.18476,21.10254)" fill="#0000ff"/>
 <use data-text="S" xlink:href="#font_4_52" transform="matrix(0,-6.5454547,-6.5454547,-0,226.18476,16.376709)" fill="#0000ff"/>
 <use data-text="T" xlink:href="#font_4_53" transform="matrix(0,-6.5454547,-6.5454547,-0,226.18476,12.010895)" fill="#0000ff"/>
-<use data-text="_" xlink:href="#font_4_64" transform="matrix(0,-6.5454547,-6.5454547,-0,226.18476,8.011627)" fill="#0000ff"/>
-<use data-text="A" xlink:href="#font_4_34" transform="matrix(0,-6.5454547,-6.5454547,-0,226.18476,4.372345)" fill="#0000ff"/>
 <path transform="matrix(1,0,0,-1,-192.98526,430.78254)" stroke-width=".72" stroke-linecap="square" stroke-miterlimit="72" stroke-linejoin="miter" fill="none" stroke="#a10000" d="M308.88 326.88H388.08003V283.68H308.88Z"/>
 <use data-text="D" xlink:href="#font_4_37" transform="matrix(0,-6.5454547,-6.5454547,-0,126.04474,144.44254)"/>
 <use data-text="I" xlink:href="#font_4_42" transform="matrix(0,-6.5454547,-6.5454547,-0,126.04474,139.7167)"/>

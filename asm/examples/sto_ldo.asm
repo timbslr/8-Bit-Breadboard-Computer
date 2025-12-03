@@ -60,3 +60,4 @@ loop:
   jmp loop
 
 end:
+  hlt

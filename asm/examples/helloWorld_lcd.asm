@@ -18,3 +18,5 @@ outlcdi DATA, "r"
 outlcdi DATA, "l"
 outlcdi DATA, "d"
 outlcdi DATA, "!"
+
+hlt

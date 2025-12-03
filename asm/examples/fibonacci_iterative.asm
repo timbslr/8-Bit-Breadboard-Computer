@@ -13,3 +13,4 @@ fib:
   jmp fib
 
 end:
+  hlt

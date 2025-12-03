@@ -1,20 +1,20 @@
 #include "./rules.asm"
 
-start:
-  out7sdi 1
-  out7sdi 2
-  out7sdi 3
-  call f1
-  out7sdi 37
-  out7sdi 38
-  out7sdi 39
-  call f2
-  out7sdi 100
-  out7sdi 101
-  out7sdi 102
-  out7sdi 103
-  out7sdi 104
-  jmp start
+out7sdi 1
+out7sdi 2
+out7sdi 3
+call f1
+out7sdi 37
+out7sdi 38
+out7sdi 39
+call f2
+out7sdi 100
+out7sdi 101
+out7sdi 102
+out7sdi 103
+out7sdi 104
+  
+hlt
 
 #addr 0x15EA
 f2:

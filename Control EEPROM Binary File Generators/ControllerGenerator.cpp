@@ -18,7 +18,7 @@ uint32_t instructions[2][256][16] = {};  // initialize everything with zero
 //  |                                CTRL1                                  |                              CTRL2                              |                                         CTRL3                               |                                    CTRL4
 //  |    msb                                                         lsb    |    msb                                                lsb       |   msb                                                                 lsb   |   msb                                                               lsb  |      
 //  |    7         6         5         4         3        2       1     0   |     7        6      5       4      3      2       1       0     |    7         6          5          4         3        2        1       0    |    7         6         5         4        3        2         1       0   |
-//  |   RSC     IE_MUX_D  IE_MUX_C  IE_MUX_B  IE_MUX_A          7SD_UM      |            INC_PC  #IE_F  7SD_SM  IE_X  LCD_RS  LCD_E  LCD_RW   | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP         | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A          #MEM_EN_IO  INC_X  DEC_X |
+//  |   RSC     IE_MUX_D  IE_MUX_C  IE_MUX_B  IE_MUX_A          7SD_UM      |            INC_PC  #IE_F  7SD_SM  IE_X  LCD_RS  LCD_E  LCD_RW   | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP         | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A   HALT   #MEM_EN_IO  INC_X  DEC_X |
 const uint32_t defaultPattern = 0b00000010'00110000'10000000'00000100;
 
 const uint32_t RSC         = 0b10000000'00000000'00000000'00000000;
@@ -61,7 +61,7 @@ const uint32_t ALU_CIN     = 0b00000000'00000000'00000100'00000000;
 const uint32_t ALU_AOP_ADD = 0b00000000'00000000'00000000'00000000;
 const uint32_t ALU_AOP_SUB = 0b00000000'00000000'00000010'00000000;
 
-const uint32_t HALT        = 0b00000000'00000000'00000000'00010000; //TODO: not implemented in hardware yet
+const uint32_t HALT        = 0b00000000'00000000'00000000'00001000; //TODO: not implemented in hardware yet
 const uint32_t OE_X        = 0b00000000'00000000'00000000'01000000;
 const uint32_t OE_ALU      = 0b00000000'00000000'00000000'01010000;
 const uint32_t OE_PC_L     = 0b00000000'00000000'00000000'01100000;

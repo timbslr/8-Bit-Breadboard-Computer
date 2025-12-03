@@ -133,10 +133,6 @@
 <use data-text="R" xlink:href="#font_4_51" transform="matrix(0,-6.5454547,-6.5454547,-0,211.78475,29.827698)" fill="#0000ff"/>
 <use data-text="S" xlink:href="#font_4_52" transform="matrix(0,-6.5454547,-6.5454547,-0,211.78475,25.101868)" fill="#0000ff"/>
 <use data-text="T" xlink:href="#font_4_53" transform="matrix(0,-6.5454547,-6.5454547,-0,211.78475,20.736054)" fill="#0000ff"/>
-<use data-text="_" xlink:href="#font_4_64" transform="matrix(0,-6.5454547,-6.5454547,-0,211.78475,16.736786)" fill="#0000ff"/>
-<use data-text="B" xlink:href="#font_4_35" transform="matrix(0,-6.5454547,-6.5454547,-0,211.78475,13.097504)" fill="#0000ff"/>
-<use data-text="U" xlink:href="#font_4_54" transform="matrix(0,-6.5454547,-6.5454547,-0,211.78475,8.731689)" fill="#0000ff"/>
-<use data-text="F" xlink:href="#font_4_39" transform="matrix(0,-6.5454547,-6.5454547,-0,211.78475,4.0058596)" fill="#0000ff"/>
 <path transform="matrix(1,0,0,-1,-218.18526,457.5077)" stroke-width=".72" stroke-linecap="square" stroke-miterlimit="72" stroke-linejoin="miter" fill="none" stroke="#a10000" d="M319.68 344.88H398.88V301.68H319.68Z"/>
 <use data-text="D" xlink:href="#font_4_37" transform="matrix(0,-6.5454547,-6.5454547,-0,111.64473,153.1677)"/>
 <use data-text="I" xlink:href="#font_4_42" transform="matrix(0,-6.5454547,-6.5454547,-0,111.64473,148.44187)"/>

@@ -45,3 +45,5 @@ ld X, 0x8001
 out7sd X
 ld X, 0x8000
 out7sd X
+
+hlt
