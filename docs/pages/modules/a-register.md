@@ -2,10 +2,11 @@
 title: A-Register
 layout: default
 nav_order: 2
+permalink: /modules/a-register
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## A-Register
 

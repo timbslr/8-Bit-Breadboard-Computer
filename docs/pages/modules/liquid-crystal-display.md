@@ -2,10 +2,11 @@
 title: Liquid-Crystal-Display (LCD)
 layout: default
 nav_order: 10
+permalink: /modules/liquid-crystal-display
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Liquid-Crystal-Display (LCD)
 

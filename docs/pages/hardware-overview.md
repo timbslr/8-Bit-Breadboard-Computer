@@ -1,6 +1,7 @@
 ---
 title: Hardware Overview
 layout: default
+permalink: /hardware-overview
 nav_order: 3
 ---
 

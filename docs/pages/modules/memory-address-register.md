@@ -2,10 +2,11 @@
 title: Memory-Address-Register (MAR)
 layout: default
 nav_order: 10
+permalink: /modules/memory-address-register
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Memory-Address-Register (MAR)
 

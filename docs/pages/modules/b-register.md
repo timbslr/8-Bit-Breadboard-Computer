@@ -2,10 +2,11 @@
 title: B-Register
 layout: default
 nav_order: 4
+permalink: /modules/b-register
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## B-Register
 

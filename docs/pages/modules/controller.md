@@ -2,10 +2,11 @@
 title: Controller
 layout: default
 nav_order: 7
+permalink: /modules/controller
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Controller
 

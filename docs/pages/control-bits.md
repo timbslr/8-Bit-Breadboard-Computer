@@ -1,6 +1,7 @@
 ---
 title: Control Bits
 layout: default
+permalink: /control-bits
 nav_order: 5
 ---
 
@@ -15,4 +16,4 @@ s stands for synchronous, a for asynchronous
 | :----------- | :--------- | :--------: | :---------- |
 | Loading...   | Loading... | Loading... | Loading...  |
 
-<script type="module" src="./scripts/loadControlBits.js">
+<script type="module" src="./src/loadControlBits.js">

@@ -2,10 +2,11 @@
 title: Clock
 layout: default
 nav_order: 6
+permalink: /modules/clock
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Clock
 

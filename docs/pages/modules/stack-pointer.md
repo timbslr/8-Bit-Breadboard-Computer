@@ -2,10 +2,11 @@
 title: Stack Pointer (SP)
 layout: default
 nav_order: 13
+permalink: /modules/stack-pointer
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Stack Pointer (SP)
 

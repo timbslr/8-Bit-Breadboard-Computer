@@ -1,6 +1,7 @@
 ---
 title: Inspiration
 layout: default
+permalink: /inspiration
 nav_order: 1
 ---
 

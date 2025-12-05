@@ -2,10 +2,11 @@
 title: Instruction-Register (IR)
 layout: default
 nav_order: 9
+permalink: /modules/instruction-register
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Instruction-Register (IR)
 

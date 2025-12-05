@@ -2,10 +2,11 @@
 title: Program Counter (PC)
 layout: default
 nav_order: 12
+permalink: /modules/program-counter
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Program Counter (PC)
 

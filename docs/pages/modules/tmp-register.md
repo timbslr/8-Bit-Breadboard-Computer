@@ -2,10 +2,11 @@
 title: TMP-Register
 layout: default
 nav_order: 14
+permalink: /modules/tmp-register
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Temporary-Register (TMP)
 

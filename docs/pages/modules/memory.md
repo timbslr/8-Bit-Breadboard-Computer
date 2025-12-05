@@ -2,10 +2,11 @@
 title: Memory
 layout: default
 nav_order: 11
+permalink: /modules/memory
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Memory
 

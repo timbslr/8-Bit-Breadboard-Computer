@@ -1,14 +1,15 @@
 ---
 title: OpCode Matrix
 layout: default
+permalink: /instruction-set/opcode-matrix
 nav_exclude: true
 ---
 
 :point_right: Click to switch representation:
 
-[Instruction Set Overview](./overview.html){: .btn .btn-outline}
-[OpCode Matrix](./opcode-matrix.html){: .btn .btn-green}
-[Instruction Details](./details.html){: .btn .btn-outline}
+[Instruction Set Overview](./overview){: .btn .btn-outline}
+[OpCode Matrix](./opcode-matrix){: .btn .btn-green}
+[Instruction Details](./details){: .btn .btn-outline}
 
 ---
 
@@ -150,4 +151,4 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
  }
 </style>
 
-<script type="module" src="../scripts/loadOpcodeMatrixData.js">
+<script type="module" src="../src/loadOpcodeMatrixData.js">

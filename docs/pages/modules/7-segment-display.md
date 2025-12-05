@@ -2,10 +2,11 @@
 title: 7-Segment Display
 layout: default
 nav_order: 1
+permalink: /modules/7-segment-display
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## 7-Segment Display
 

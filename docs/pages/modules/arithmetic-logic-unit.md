@@ -2,10 +2,11 @@
 title: Arithmetic Logic Unit (ALU)
 layout: default
 nav_order: 3
+permalink: /modules/arithmetic-logic-unit
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Arithmetic Logic Unit (ALU)
 

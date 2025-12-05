@@ -2,10 +2,11 @@
 title: Buffer-Register
 layout: default
 nav_order: 5
+permalink: /modules/buffer-register
 parent: Modules
 ---
 
-<script type="module" src="../scripts/PartsList.js"></script>
+<script type="module" src="../src/PartsList.js"></script>
 
 ## Buffer-Register
 

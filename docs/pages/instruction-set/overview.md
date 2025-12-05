@@ -1,14 +1,15 @@
 ---
 title: Instruction Set
 layout: default
+permalink: /instruction-set/overview
 nav_order: 2
 ---
 
 :point_right: Click to switch representation:
 
-[Instruction Set Overview](./overview.html){: .btn .btn-green}
-[OpCode Matrix](./opcode-matrix.html){: .btn .btn-outline}
-[Instruction Details](./details.html){: .btn .btn-outline}
+[Instruction Set Overview](./overview){: .btn .btn-green}
+[OpCode Matrix](./opcode-matrix){: .btn .btn-outline}
+[Instruction Details](./details){: .btn .btn-outline}
 
 ---
 
@@ -91,4 +92,4 @@ Here is a list of all pseudo-instructions that were mentioned in the tables abov
 | :--------- | :---------- | :----------------- |
 | Loading... | Loading...  | Loading...         |
 
-<script type="module" src="../scripts/loadOverviewData.js">
+<script type="module" src="../src/loadOverviewData.js">
