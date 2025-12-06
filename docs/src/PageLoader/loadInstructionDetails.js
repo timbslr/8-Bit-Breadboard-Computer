@@ -1,7 +1,7 @@
-import Formatter from "./Formatter.js";
-import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
-import StatisticsProvider from "./StatisticsProvider.js";
-import { TableFactory } from "./TableFactory.js";
+import Formatter from "../Formatter.js";
+import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
+import Statistics from "../Statistics.js";
+import TableFactory from "../TableFactory.js";
 
 async function createAndFillTables() {
   const sortedInstructions = await InstructionsUtilProvider.getSortedInstructionObjectsByMnemonic(); //sort in ascending alphabetical order
@@ -13,13 +13,13 @@ async function createAndFillTables() {
       await InstructionsUtilProvider.getClobberedRegisters(instruction)
     );
 
-    const sizeInROM = await StatisticsProvider.getByteSizeInROM(mnemonic);
+    const sizeInROM = await Statistics.getByteSizeInROM(mnemonic);
     let sizeInROMString = `${sizeInROM} Byte`;
     if (sizeInROM !== 1) {
       sizeInROMString += "s"; //s for Bytes
     }
 
-    const numberOfClockCycles = await StatisticsProvider.getAmountOfClockCyclesPerExecution(mnemonic);
+    const numberOfClockCycles = await Statistics.getAmountOfClockCyclesPerExecution(mnemonic);
     const numberOfClockCyclesString = Formatter.formatNumberOfClockCyclesString(numberOfClockCycles);
 
     const table = new TableFactory()

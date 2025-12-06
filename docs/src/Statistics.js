@@ -1,6 +1,6 @@
 import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
 
-export default class StatisticsProvider {
+export default class Statistics {
   static #operandSizesInBytes = {
     reg: 0,
     regd: 0,

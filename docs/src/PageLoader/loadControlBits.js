@@ -1,9 +1,9 @@
-import { getControlBits } from "./util.js";
-import { TableFactory } from "./TableFactory.js";
-import Formatter from "./Formatter.js";
+import TableFactory from "../TableFactory.js";
+import Formatter from "../Formatter.js";
+import DataProvider from "../DataProvider.js";
 
 async function createAndFillTables() {
-  let controlBits = await getControlBits();
+  let controlBits = await DataProvider.getControlBits();
   controlBits = Object.groupBy(controlBits, (controlBits) => controlBits.associatedModule); //group by associated module
   const mainContent = document.getElementById("main-content");
 

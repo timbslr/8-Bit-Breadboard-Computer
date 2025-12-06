@@ -1,35 +1,21 @@
+import DataProvider from "./DataProvider.js";
 import Formatter from "./Formatter.js";
 import { REGISTER_REGEX } from "./util.js";
 
 export default class InstructionsUtilProvider {
-  static #instructions = null;
-
-  static async loadInstructions() {
-    if (this.#instructions) {
-      return this.#instructions;
-    }
-
-    const response = await fetch("../resources/data/instructionData.jsonc");
-    const fileContent = await response.text();
-    const cleanedContent = fileContent.replace(/\/\*[\s\S]*?\*\/|\/\/.*(?=[\n\r])/g, "");
-    const instructions = JSON.parse(cleanedContent).instructions;
-    this.#instructions = instructions;
-    return this.#instructions;
-  }
-
   static async getSortedInstructionObjectsByMnemonic() {
-    const instructions = await this.loadInstructions();
+    const instructions = await DataProvider.getInstructions();
     return [...instructions].sort((instr1, instr2) => instr1.mnemonic.localeCompare(instr2.mnemonic)); //shallow copy of instructions
   }
 
   static async getGroupedInstructionObjects() {
-    const instructions = await this.loadInstructions();
+    const instructions = await DataProvider.getInstructions();
     const groupedInstructions = Object.groupBy([...instructions], (instructions) => instructions.group); //shallow copy of instructions
     return groupedInstructions;
   }
 
   static async getInstructionObjectByMnemonic(mnemonic) {
-    const instructions = await this.loadInstructions();
+    const instructions = await DataProvider.getInstructions();
     return instructions.find((instruction) => instruction.mnemonic === mnemonic);
   }
 

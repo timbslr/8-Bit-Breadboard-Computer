@@ -26,4 +26,4 @@ nav_exclude: true
   }
 </style>
 
-<script type="module" src="../src/loadInstructionDetails.js">
+<script type="module" src="../src/PageLoader/loadInstructionDetails.js">

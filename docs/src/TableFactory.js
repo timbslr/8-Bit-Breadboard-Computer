@@ -1,6 +1,4 @@
-import TableUtilProvider from "./TableUtilProvider.js";
-
-export class TableFactory {
+export default class TableFactory {
   constructor() {
     this.table = {
       headers: [],
@@ -107,6 +105,13 @@ export class TableFactory {
 
     table.id = this.table.id;
 
-    return TableUtilProvider.surroundWithTableWrapper(table);
+    return this.#surroundWithTableWrapperDiv(table);
+  }
+
+  #surroundWithTableWrapperDiv(table) {
+    const wrapperDiv = document.createElement("div");
+    wrapperDiv.classList.add("table-wrapper");
+    wrapperDiv.appendChild(table);
+    return wrapperDiv;
   }
 }

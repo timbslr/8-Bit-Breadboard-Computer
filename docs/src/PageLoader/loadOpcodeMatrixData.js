@@ -1,7 +1,8 @@
-import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
-import StatisticsProvider from "./StatisticsProvider.js";
-import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "./util.js";
-import { TableFactory } from "./TableFactory.js";
+import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
+import Statistics from "../Statistics.js";
+import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../util.js";
+import TableFactory from "../TableFactory.js";
+import DataProvider from "../DataProvider.js";
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
@@ -46,7 +47,7 @@ async function fillOpcodeMatrix() {
 }
 
 async function createOpcodeMap() {
-  let instructions = await InstructionsUtilProvider.loadInstructions();
+  let instructions = await DataProvider.getInstructions();
   const opcodeMap = {};
 
   for (const instruction of instructions) {
@@ -70,8 +71,8 @@ async function createOpcodeMap() {
       console.error(`Opcode length is not 8: ${originalOpcode}`);
     }
 
-    const registerCount = StatisticsProvider.countCharsInString(originalOpcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
-    const lcdRegisterCount = StatisticsProvider.countCharsInString(originalOpcode, "L");
+    const registerCount = Statistics.countCharsInString(originalOpcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
+    const lcdRegisterCount = Statistics.countCharsInString(originalOpcode, "L");
     if (registerCount === 0) {
       let label = mnemonic;
       if (lcdRegisterCount > 0) {
@@ -86,7 +87,7 @@ async function createOpcodeMap() {
       }
     } else if (registerCount == 1) {
       let label = mnemonic;
-      const isLCDInstruction = StatisticsProvider.countCharsInString(originalOpcode, "L") > 0;
+      const isLCDInstruction = Statistics.countCharsInString(originalOpcode, "L") > 0;
 
       //outer for-loop is only for the lcd-instructions which contain the L-register arguments
       for (let i = 0; i < 2; i++) {
@@ -124,7 +125,7 @@ async function createOpcodeMap() {
 
 async function getOpcodeMapForMoveSpecial(instruction) {
   const opcode = instruction.opcode;
-  if (StatisticsProvider.countCharsInString(opcode, "R") != 4) {
+  if (Statistics.countCharsInString(opcode, "R") != 4) {
     console.error("R-count in movs opcode should be 4!");
   }
   const firstNibble = opcode.substring(0, 4);

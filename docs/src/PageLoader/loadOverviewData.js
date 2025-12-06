@@ -1,6 +1,6 @@
-import Formatter from "./Formatter.js";
-import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
-import { TableFactory } from "./TableFactory.js";
+import Formatter from "../Formatter.js";
+import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
+import TableFactory from "../TableFactory.js";
 
 async function fillOverviewTables() {
   const groupedInstructions = await InstructionsUtilProvider.getGroupedInstructionObjects();
