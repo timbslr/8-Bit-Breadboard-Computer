@@ -1,24 +1,26 @@
 import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
-import TableUtilProvider from "./TableUtilProvider.js";
 import StatisticsProvider from "./StatisticsProvider.js";
 import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "./util.js";
+import { TableFactory } from "./TableFactory.js";
 
 function createOpcodeMatrixTableCells() {
-  const tbody = TableUtilProvider.getTableBodyById("opcode-table");
-  for (let rowIndex = 0; rowIndex < 16; rowIndex++) {
-    const row = document.createElement("tr");
-    for (let colIndex = 0; colIndex < 17; colIndex++) {
-      const cell = document.createElement("td");
-      if (colIndex == 0) {
-        cell.textContent = `${rowIndex.toString(16).toUpperCase()}-`;
-        cell.style.minWidth = "30px";
-      }
-      row.appendChild(cell);
-    }
-    tbody.appendChild(row);
-  }
-  TableUtilProvider.applyFirstRowStylesToColumnsById("opcode-table");
-  TableUtilProvider.deleteFirstRowById("opcode-table"); //that was the "Loading..." row
+  const placeholder = document.getElementById("placeholder-opcode-table");
+
+  //create an empty table which only contains the opcode nibbles for description, the instructions will be added in another method
+  const table = new TableFactory()
+    .headers(["", "-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-A", "-B", "-C", "-D", "-E", "-F"])
+    .addRows(
+      Array(16)
+        .fill("") //turn sparse array into an actual array, otherwise .map() doesn't behave as expected
+        .map((_, index) => [`${index.toString(16).toUpperCase()}-`, ...Array(16).fill("")]) //creates 16 rows, each has an opcode nibble followed by 16 empty cells
+    )
+    .firstColumnMinWidth("30px")
+    .id("opcode-table")
+    .textAlign(Array(17).fill("center"))
+    .build();
+
+  placeholder.parentNode.insertBefore(table, placeholder);
+  placeholder.remove();
 }
 
 async function fillOpcodeMatrix() {

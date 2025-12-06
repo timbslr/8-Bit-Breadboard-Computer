@@ -13,11 +13,7 @@ nav_exclude: true
 
 ---
 
-{: #opcode-table}
-
-|            |     -0     |     -1     |     -2     |     -3     |     -4     |     -5     |     -6     |     -7     |     -8     |     -9     |     -A     |     -B     |     -C     |     -D     |     -E     |     -F     |
-| :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: |
-| Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... | Loading... |
+<div id="placeholder-opcode-table"></div>
 
 Each opcode has an associated color which represents the flag (combination) that is available to that opcode.
 Because of this, I only need to connect a single flag-bit to the controller, which saves address/input bits in order to be able to have a full 8-bit opcode input.

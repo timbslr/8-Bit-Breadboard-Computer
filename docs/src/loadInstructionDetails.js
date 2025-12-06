@@ -1,18 +1,14 @@
 import Formatter from "./Formatter.js";
 import InstructionsUtilProvider from "./InstructionsUtilProvider.js";
 import StatisticsProvider from "./StatisticsProvider.js";
-import TableUtilProvider from "./TableUtilProvider.js";
+import { TableFactory } from "./TableFactory.js";
 
 async function createAndFillTables() {
   const sortedInstructions = await InstructionsUtilProvider.getSortedInstructionObjectsByMnemonic(); //sort in ascending alphabetical order
-  const mainContent = document.getElementById("main-content"); //the section for the pages main content
-
-  const templateTable = document.getElementById("template-stats-table"); //the template table which defines layouts
 
   for (const instruction of sortedInstructions) {
     const mnemonic = instruction.mnemonic;
     const opcode = instruction.opcode || "-";
-
     const clobberedRegisters = Formatter.formatClobberedRegisters(
       await InstructionsUtilProvider.getClobberedRegisters(instruction)
     );
@@ -24,43 +20,33 @@ async function createAndFillTables() {
     }
 
     const numberOfClockCycles = await StatisticsProvider.getAmountOfClockCyclesPerExecution(mnemonic);
-
     const numberOfClockCyclesString = Formatter.formatNumberOfClockCyclesString(numberOfClockCycles);
 
-    const tableId = `${mnemonic}-table`;
+    const table = new TableFactory()
+      .headers(["Instruction Type", "Group", "Opcode", "Clobbered Registers", "Size in ROM", "Number of Clock Cycles"])
+      .addRow([
+        instruction.type,
+        instruction.group,
+        opcode,
+        clobberedRegisters,
+        sizeInROMString,
+        numberOfClockCyclesString,
+      ])
+      .textAlign(["center", "center", "center", "center", "center", "center"])
+      .id(`${mnemonic}-table`)
+      .build();
 
-    const header = document.createElement("h4");
-    header.id = mnemonic;
-    header.innerHTML = `${mnemonic} &ndash; ${instruction.name}`;
-    mainContent.appendChild(header);
+    const mainContent = document.getElementById("main-content"); //the section for the pages main content
+
+    const tableDescription = document.createElement("h4");
+    tableDescription.id = mnemonic;
+    tableDescription.innerHTML = `${mnemonic} &ndash; ${instruction.name}`;
+    mainContent.appendChild(tableDescription);
 
     const lineBreak = document.createElement("br");
     mainContent.appendChild(lineBreak);
-
-    let templateTableCopy = templateTable.cloneNode(true); //true for deep-cloning
-
-    templateTableCopy.id = tableId;
-
-    const cellContents = [
-      instruction.type,
-      instruction.group,
-      opcode,
-      clobberedRegisters,
-      sizeInROMString,
-      numberOfClockCyclesString,
-    ];
-    const contentRow = TableUtilProvider.createRowFromCellContents(cellContents);
-    templateTableCopy.appendChild(contentRow);
-
-    templateTableCopy = TableUtilProvider.surroundWithTableWrapper(templateTableCopy);
-
-    mainContent.appendChild(templateTableCopy, lineBreak.nextSibling);
-
-    TableUtilProvider.applyFirstRowStylesToColumnsById(tableId);
-    TableUtilProvider.deleteFirstRowById(tableId); //that was the "Loading..." row from the template-table
+    mainContent.appendChild(table, lineBreak.nextSibling);
   }
-
-  templateTable.remove();
 
   scrollToHeaderIfNecessary(); //scroll header into view if the url contains a hash linking to it
 }

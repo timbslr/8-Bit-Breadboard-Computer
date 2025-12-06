@@ -19,4 +19,8 @@ export default class Formatter {
   static escapeHTML(string) {
     return string.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
   }
+
+  static appendHTMLBar(string) {
+    return `<span style="text-decoration: overline;"> ${string} </span>`;
+  }
 }

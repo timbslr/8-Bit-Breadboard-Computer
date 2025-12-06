@@ -1,5 +1,5 @@
 import { Parser } from "./Parser.js";
-import TableUtilProvider from "./TableUtilProvider.js";
+import { TableFactory } from "./TableFactory.js";
 
 export class PartsList extends HTMLElement {
   async connectedCallback() {
@@ -21,8 +21,13 @@ export class PartsList extends HTMLElement {
     partsListHeader.textContent = "Parts List";
     this.appendChild(partsListHeader);
 
-    const partsListTable = TableUtilProvider.createPartsListTable(contentMap);
-    this.appendChild(partsListTable);
+    const table = new TableFactory()
+      .headers(["Quantity", "Part Name"])
+      .addRows(Array.from(contentMap.entries()).map(([partName, quantity]) => [quantity, partName]))
+      .textAlign(["center", "left"])
+      .build();
+
+    this.appendChild(table);
   }
 
   async getContentMapFromFile(src) {

@@ -1,41 +1,39 @@
 import { getControlBits } from "./util.js";
-import TableUtilProvider from "./TableUtilProvider.js";
+import { TableFactory } from "./TableFactory.js";
+import Formatter from "./Formatter.js";
 
 async function createAndFillTables() {
   let controlBits = await getControlBits();
   controlBits = Object.groupBy(controlBits, (controlBits) => controlBits.associatedModule); //group by associated module
   const mainContent = document.getElementById("main-content");
 
-  const templateTable = document.getElementById("template-table");
+  Object.entries(controlBits).forEach(([groupName, moduleProperties]) => {
+    const table = new TableFactory()
+      .headers(["Abbreviation", "Name", "s/a", "Description"])
+      .addRows(createTableRowsFromProperties(moduleProperties))
+      .textAlign(["left", "left", "center", "left"])
+      .id(`${groupName}-table`)
+      .build();
 
-  Object.entries(controlBits).forEach(([moduleName, moduleProperties]) => {
-    const tableId = `${moduleName}-table`;
-    let templateTableCopy = templateTable.cloneNode(true); //true for deep-cloning
-    templateTableCopy.id = tableId;
+    const tableDescription = document.createElement("h2");
+    tableDescription.innerHTML = groupName;
+    mainContent.appendChild(tableDescription);
 
-    moduleProperties.forEach((controlBit) => {
-      const abbreviation = controlBit.isActiveHigh
-        ? controlBit.abbreviation
-        : `<span style="text-decoration: overline;"> ${controlBit.abbreviation} </span>`;
-      const synchronousCellContent = controlBit.isSynchronous ? "s" : "a";
-      const cellContents = [abbreviation, controlBit.name, synchronousCellContent, controlBit.description];
-      const row = TableUtilProvider.createRowFromCellContents(cellContents);
-      templateTableCopy.appendChild(row);
-    });
+    mainContent.appendChild(table);
+  });
+}
 
-    const tableHeader = document.createElement("h2");
-    tableHeader.innerHTML = moduleName;
-    mainContent.appendChild(tableHeader);
-
-    templateTableCopy = TableUtilProvider.surroundWithTableWrapper(templateTableCopy);
-
-    mainContent.appendChild(templateTableCopy);
-
-    TableUtilProvider.applyFirstRowStylesToColumnsById(tableId);
-    TableUtilProvider.deleteFirstRowById(tableId);
+function createTableRowsFromProperties(moduleProperties) {
+  const rows = [];
+  moduleProperties.forEach((controlBit) => {
+    const abbreviation = controlBit.isActiveHigh
+      ? controlBit.abbreviation
+      : Formatter.appendHTMLBar(controlBit.abbreviation);
+    const synchronousCellContent = controlBit.isSynchronous ? "s" : "a";
+    rows.push([abbreviation, controlBit.name, synchronousCellContent, controlBit.description]);
   });
 
-  templateTable.remove();
+  return rows;
 }
 
 createAndFillTables();

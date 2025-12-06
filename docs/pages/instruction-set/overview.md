@@ -41,55 +41,31 @@ A \<lcdreg> argument means that you can input the CTRL- or DATA- register there 
 
 All ALU-operations are performed on the A-register (and the TMP-register as a second operand, if it's a binary operation).
 
-{: #ALU-table}
-
-|   OpCode   | mnemonic   | Instruction | Description |
-| :--------: | :--------- | :---------- | :---------- |
-| Loading... | Loading... | Loading...  | Loading...  |
+<div id="placeholder-ALU-table"></div>
 
 ## Register, load & store Instructions
 
-{: #REG-MEM-table}
-
-|   OpCode   | mnemonic   | Instruction | Description |
-| :--------: | :--------- | :---------- | :---------- |
-| Loading... | Loading... | Loading...  | Loading...  |
+<div id="placeholder-REG-MEM-table"></div>
 
 ## I/O Instructions
 
-{: #I-O-table}
-
-|   OpCode   | mnemonic   | Instruction | Description |
-| :--------: | :--------- | :---------- | :---------- |
-| Loading... | Loading... | Loading...  | Loading...  |
+<div id="placeholder-I-O-table"></div>
 
 ## System Instructions
 
-{: #SYS-table}
-
-|   OpCode   | mnemonic   | Instruction | Description |
-| :--------: | :--------- | :---------- | :---------- |
-| Loading... | Loading... | Loading...  | Loading...  |
+<div id="placeholder-SYS-table"></div>
 
 ## Branch- and Jump Instructions
 
 The given \<addr> is the absolute address to which the computer jumps or branches to.
 
-{: #BR-JMP-table}
-
-|   OpCode   | mnemonic   | Instruction | Description |
-| :--------: | :--------- | :---------- | :---------- |
-| Loading... | Loading... | Loading...  | Loading...  |
+<div id="placeholder-BR-JMP-table"></div>
 
 ## Pseudo-Instructions
 
 Some of the instructions/mnemonics in the upper tables have an asterisk, which means that they are pseudo-instructions. Pseudo-instructions are aren't hardcoded into the controller and have no dedicated opcode, instead, they use other instructions of the ISA. Their purpose is to make programming more convenient by having to write less or more understandable instructions/code.
 Here is a list of all pseudo-instructions that were mentioned in the tables above, with their mapped instructions.
 
-{: #pseudo-instructions-table}
-
-| mnemonic   | Instruction | Mapped Instruction |
-| :--------- | :---------- | :----------------- |
-| Loading... | Loading...  | Loading...         |
+<div id="placeholder-pseudo-instructions-table"></div>
 
 <script type="module" src="../src/loadOverviewData.js">
