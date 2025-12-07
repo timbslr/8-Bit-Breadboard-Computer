@@ -1,4 +1,4 @@
-#include "./rules.asm"
+#include "rules.asm"
 
 out7sdi 1
 out7sdi 2

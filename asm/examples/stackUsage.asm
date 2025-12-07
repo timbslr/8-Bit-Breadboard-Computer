@@ -1,4 +1,4 @@
-#include "./rules.asm"
+#include "rules.asm"
 
 li TMP, 10
 push TMP

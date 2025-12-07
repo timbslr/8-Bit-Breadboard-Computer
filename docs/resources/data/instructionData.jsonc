@@ -1114,7 +1114,7 @@
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["IE_<reg>", "LCD_WRITE", "LCD_<lcdreg>", "LCD_E"], //TODO Microinstructions => not correct as data is only available at the falling clock edge
+        ["IE_<reg>", "LCD_READ", "LCD_<lcdreg>", "LCD_E"], //TODO Microinstructions => not correct as data is only available at the falling clock edge
         ["RSC"]
       ],
       "group": "I-O",

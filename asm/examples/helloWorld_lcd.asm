@@ -1,22 +1,36 @@
-#include "./rules.asm"
+; See example: "anyString_lcd.asm" for a cleaner way to print strings
 
-outlcdi CTRL, %00000001 ; Clear display
-outlcdi CTRL, %00111000 ; Function set:             8-bit display interface, 2-line display, 5x8 dots
-outlcdi CTRL, %00001100 ; Display on/off control:   display on, cursor off, cursor blinking off
-outlcdi CTRL, %00000110 ; Entry mode set:           move cursor from left to right, no display shift
+#include "rules.asm"
 
-outlcdi DATA, "H"
-outlcdi DATA, "e"
-outlcdi DATA, "l"
-outlcdi DATA, "l"
-outlcdi DATA, "o"
-outlcdi DATA, ","
-outlcdi DATA, " "
-outlcdi DATA, "W"
-outlcdi DATA, "o"
-outlcdi DATA, "r"
-outlcdi DATA, "l"
-outlcdi DATA, "d"
-outlcdi DATA, "!"
+call lcd_init
+
+li B, "H"
+call print_char
+li B, "e"
+call print_char
+li B, "l"
+call print_char
+li B, "l"
+call print_char
+li B, "o"
+call print_char
+li B, ","
+call print_char
+li B, " "
+call print_char
+li B, "W"
+call print_char
+li B, "o"
+call print_char
+li B, "r"
+call print_char
+li B, "l"
+call print_char
+li B, "d"
+call print_char
+li B, "!"
+call print_char
 
 hlt
+
+#include "common.asm"

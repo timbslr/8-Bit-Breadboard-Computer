@@ -1,4 +1,4 @@
-#include "./rules.asm"
+#include "rules.asm"
 
 start:
 li X, 10

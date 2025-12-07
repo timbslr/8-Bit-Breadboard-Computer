@@ -1,4 +1,4 @@
-#include "./rules.asm"
+#include "rules.asm"
 
 li X, 10
 st X, 0x8000
