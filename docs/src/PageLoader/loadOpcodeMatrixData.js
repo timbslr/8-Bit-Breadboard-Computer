@@ -1,14 +1,14 @@
 import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
 import Statistics from "../Statistics.js";
 import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../util.js";
-import TableFactory from "../TableFactory.js";
+import TableBuilder from "../TableBuilder.js";
 import DataProvider from "../DataProvider.js";
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
 
   //create an empty table which only contains the opcode nibbles for description, the instructions will be added in another method
-  const table = new TableFactory()
+  const table = new TableBuilder()
     .headers(["", "-0", "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-A", "-B", "-C", "-D", "-E", "-F"])
     .addRows(
       Array(16)

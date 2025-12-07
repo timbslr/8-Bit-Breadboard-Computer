@@ -1,6 +1,6 @@
 import Formatter from "../Formatter.js";
 import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
-import TableFactory from "../TableFactory.js";
+import TableBuilder from "../TableBuilder.js";
 
 async function fillOverviewTables() {
   const groupedInstructions = await InstructionsUtilProvider.getGroupedInstructionObjects();
@@ -13,7 +13,7 @@ async function fillOverviewTables() {
     const group = sameGroupInstructions[0].group;
     const { rows, pseudoInstructionsInGroup } = await createTableRows(sameGroupInstructions);
 
-    const table = new TableFactory()
+    const table = new TableBuilder()
       .headers(["OpCode", "Mnemonic", "Instruction", "Description"])
       .addRows(rows)
       .textAlign(["center", "center", "left", "left"])
@@ -30,7 +30,7 @@ async function fillOverviewTables() {
   //addEntriesToTable("pseudo-instructions-table", pseudoInstructions, ["mnemonic", "instruction", "mappedInstructions"]);
   const placeholder = document.querySelector(`#placeholder-pseudo-instructions-table`);
   const pseudoInstructionRows = await createPseudoInstructionRows(pseudoInstructions);
-  const table = new TableFactory()
+  const table = new TableBuilder()
     .headers(["Mnemonic", "Instruction", "Mapped Instructions"])
     .addRows(pseudoInstructionRows)
     .id(`pseudo-instruction-table`)

@@ -1,5 +1,5 @@
 import DataProvider from "./DataProvider.js";
-import TableFactory from "./TableFactory.js";
+import TableBuilder from "./TableBuilder.js";
 
 export class PartsList extends HTMLElement {
   async connectedCallback() {
@@ -8,7 +8,7 @@ export class PartsList extends HTMLElement {
 
     this.appendChild(this.getDescriptionHeader());
 
-    const partsListTable = new TableFactory()
+    const partsListTable = new TableBuilder()
       .headers(["Quantity", "Part Name"])
       .addRows(Array.from(partsListMap.entries()).map(([partName, quantity]) => [quantity, partName]))
       .textAlign(["center", "left"])

@@ -1,7 +1,7 @@
 import Formatter from "../Formatter.js";
 import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
 import Statistics from "../Statistics.js";
-import TableFactory from "../TableFactory.js";
+import TableBuilder from "../TableBuilder.js";
 
 async function createAndFillTables() {
   const sortedInstructions = await InstructionsUtilProvider.getSortedInstructionObjectsByMnemonic(); //sort in ascending alphabetical order
@@ -22,7 +22,7 @@ async function createAndFillTables() {
     const numberOfClockCycles = await Statistics.getAmountOfClockCyclesPerExecution(mnemonic);
     const numberOfClockCyclesString = Formatter.formatNumberOfClockCyclesString(numberOfClockCycles);
 
-    const table = new TableFactory()
+    const table = new TableBuilder()
       .headers(["Instruction Type", "Group", "Opcode", "Clobbered Registers", "Size in ROM", "Number of Clock Cycles"])
       .addRow([
         instruction.type,

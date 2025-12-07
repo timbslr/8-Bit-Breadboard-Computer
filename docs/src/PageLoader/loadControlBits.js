@@ -1,4 +1,4 @@
-import TableFactory from "../TableFactory.js";
+import TableBuilder from "../TableBuilder.js";
 import Formatter from "../Formatter.js";
 import DataProvider from "../DataProvider.js";
 
@@ -8,7 +8,7 @@ async function createAndFillTables() {
   const mainContent = document.getElementById("main-content");
 
   Object.entries(controlBits).forEach(([groupName, moduleProperties]) => {
-    const table = new TableFactory()
+    const table = new TableBuilder()
       .headers(["Abbreviation", "Name", "s/a", "Description"])
       .addRows(createTableRowsFromProperties(moduleProperties))
       .textAlign(["left", "left", "center", "left"])

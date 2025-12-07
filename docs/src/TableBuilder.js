@@ -1,4 +1,4 @@
-export default class TableFactory {
+export default class TableBuilder {
   constructor() {
     this.table = {
       headers: [],
@@ -13,7 +13,7 @@ export default class TableFactory {
 
   /**
    * @param {string[]} headers
-   * @returns {TableFactory}
+   * @returns {TableBuilder}
    */
   headers(headers) {
     this.table.headers = headers;
@@ -23,7 +23,7 @@ export default class TableFactory {
 
   /**
    * @param {string[]} row
-   * @returns {TableFactory}
+   * @returns {TableBuilder}
    */
   addRow(row) {
     if (row.length != this.table.headers.length) {
@@ -36,7 +36,7 @@ export default class TableFactory {
 
   /**
    * @param {string[][]} rows[]
-   * @returns {TableFactory}
+   * @returns {TableBuilder}
    */
   addRows(rows) {
     rows.forEach((row) => {
