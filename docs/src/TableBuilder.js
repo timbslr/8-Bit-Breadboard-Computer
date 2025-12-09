@@ -65,6 +65,17 @@ export default class TableBuilder {
     return this;
   }
 
+  sortByColumn(columnName, compareFunction) {
+    const columnIndex = this.table.headers.indexOf(columnName);
+
+    if (columnIndex === -1) {
+      throw new ReferenceError(`Column ${columnName} does not exist on table with id ${this.table.id}`);
+    }
+
+    this.table.rows.sort((rowA, rowB) => compareFunction(rowA[columnIndex], rowB[columnIndex]));
+    return this;
+  }
+
   build() {
     const table = document.createElement("table");
     const thead = document.createElement("thead");

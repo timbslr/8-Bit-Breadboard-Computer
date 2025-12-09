@@ -1,3 +1,4 @@
+import ComponentComparator from "./ComponentComparator.js";
 import DataProvider from "./DataProvider.js";
 import TableBuilder from "./TableBuilder.js";
 
@@ -11,6 +12,7 @@ export class PartsList extends HTMLElement {
     const partsListTable = new TableBuilder()
       .headers(["Quantity", "Part Name"])
       .addRows(Array.from(partsListMap.entries()).map(([partName, quantity]) => [quantity, partName]))
+      .sortByColumn("Part Name", ComponentComparator.compare)
       .textAlign(["center", "left"])
       .build();
 
