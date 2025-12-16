@@ -26,10 +26,12 @@ export default class DataProvider {
     if (filePath === "ALL") {
       let contentMap = new Map();
       const files = await this.#getObjectFromJSONFile("./resources/BOMs/files.json");
-      for (const file of files) {
-        const fileSpecificContentMap = await BOMFileParser.getContentMapFromFile("./resources/BOMs/" + file);
-        contentMap = contentMap.concatBySum(fileSpecificContentMap);
-      }
+      const promises = files.map(async (file) => {
+        const fileSpecificMap = await BOMFileParser.getContentMapFromFile("./resources/BOMs/" + file);
+        contentMap.concatBySum(fileSpecificMap);
+      });
+
+      await Promise.all(promises);
       return contentMap;
     }
 
