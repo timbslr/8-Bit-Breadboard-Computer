@@ -19,22 +19,27 @@ export default class Formatter {
     return formattedString === "" ? "-" : formattedString;
   }
 
-  static escapeHTML(string) {
-    return string.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
+  static escapeHTML(text: string): string {
+    return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
   }
 
-  static appendHTMLBar(string) {
-    return `<span style="text-decoration: overline;"> ${string} </span>`;
+  static appendHTMLBar(text: string) {
+    return `<span style="text-decoration: overline;"> ${text} </span>`;
   }
 
-  static decorateMnemonicWithLink(mnemonic, linkLabel = undefined, linkTitle = undefined, redirectLink = undefined) {
+  static decorateMnemonicWithLink(
+    mnemonic: string,
+    linkLabel = undefined,
+    linkTitle = undefined,
+    redirectLink = undefined
+  ) {
     const label = linkLabel || mnemonic;
     const title = linkTitle ? `title="${linkTitle}` : "";
     const link = redirectLink || `./details#${mnemonic}`;
     return `<a href="${link}" ${title}">${label}</a>`;
   }
 
-  static joinMnemonicWithOperands(mnemonic, operands) {
+  static joinMnemonicWithOperands(mnemonic: string, operands: string[]) {
     return `${mnemonic} ${operands.map((operand) => `<${operand}>`).join(", ")}`;
   }
 

@@ -13,119 +13,85 @@ const operandSizesInBytes = {
   addr: 2,
 };
 
-export default class Instruction {
-  #name;
-  #mnemonic;
-  #isPSEUDO;
-  #requiresFlag;
-  #operands;
-  #group;
-  #indexInGroup;
-  #shortDescription;
-  #longDescription;
+export default abstract class Instruction {
+  private name: string;
+  private mnemonic: string;
+  private type: "REAL" | "PSEUDO";
+  private needsFlag: boolean;
+  private operands: string[];
+  private group: string;
+  private indexInGroup: number;
+  private shortDescription: string;
+  private longDescription: string;
 
   constructor(instructionJSONObject) {
-    if (new.target === Instruction) {
-      throw new Error("Cannot instantiate abstract class Instruction");
-    }
-
     if (instructionJSONObject == null || instructionJSONObject instanceof Instruction) {
       throw new TypeError(
         "Instruction for initialization must not be null or undefined and has to be a plain object, not an instance of Instruction!"
       );
     }
 
-    this.#isPSEUDO = instructionJSONObject.type === "PSEUDO";
-    this.#name = instructionJSONObject.name;
-    this.#mnemonic = instructionJSONObject.mnemonic;
-    this.#requiresFlag = instructionJSONObject.requiresFlag;
-    this.#operands = instructionJSONObject.operands;
-    this.#group = instructionJSONObject.group;
-    this.#indexInGroup = instructionJSONObject.indexInGroup;
-    this.#shortDescription = instructionJSONObject.shortDescription;
-    this.#longDescription = instructionJSONObject.longDescription;
+    this.type = instructionJSONObject.type;
+    this.name = instructionJSONObject.name;
+    this.mnemonic = instructionJSONObject.mnemonic;
+    this.needsFlag = instructionJSONObject.requiresFlag;
+    this.operands = instructionJSONObject.operands;
+    this.group = instructionJSONObject.group;
+    this.indexInGroup = instructionJSONObject.indexInGroup;
+    this.shortDescription = instructionJSONObject.shortDescription;
+    this.longDescription = instructionJSONObject.longDescription;
   }
 
-  /**
-   * @returns {string}
-   */
-  getName() {
-    return this.#name;
+  getName(): string {
+    return this.name;
   }
 
-  /**
-   * @returns {boolean}
-   */
-  isPSEUDO() {
-    return this.#isPSEUDO;
+  isPSEUDO(): boolean {
+    return this.type === "PSEUDO";
   }
 
-  /**
-   * @returns {string}
-   */
-  getMnemonic() {
-    return this.#mnemonic;
+  getMnemonic(): string {
+    return this.mnemonic;
   }
 
-  /**
-   * @returns {boolean}
-   */
-  requiresFlag() {
-    return this.#requiresFlag;
+  requiresFlag(): boolean {
+    return this.needsFlag;
   }
 
-  /**
-   * @returns {string}
-   */
-  getGroup() {
-    return this.#group;
+  getGroup(): string {
+    return this.group;
   }
 
   /**
    * @returns {number}
    */
   getIndexInGroup() {
-    return this.#indexInGroup;
+    return this.indexInGroup;
   }
 
-  /**
-   * @returns {string[]}
-   */
-  getOperands() {
-    return this.#operands;
+  getOperands(): string[] {
+    return this.operands;
   }
 
-  /**
-   * @returns {string}
-   */
-  getShortDescription() {
-    return this.#shortDescription;
+  getShortDescription(): string {
+    return this.shortDescription;
   }
 
-  /**
-   * @returns {string}
-   */
-  getLongDescription() {
-    return this.#longDescription;
+  getLongDescription(): string {
+    return this.longDescription;
   }
 
-  static extractMnemonicFromInstructionString(instructionString) {
+  static extractMnemonicFromInstructionString(instructionString: string) {
     return instructionString.split(" ")[0].trim();
   }
 
-  async getExecutedInstructions() {
-    throw new Error("getExecutedInstructions() is abstract and must be implemented");
-  }
+  abstract getExecutedInstructions(): Promise<Instruction[]>;
 
-  async getModifiedRegisters() {
-    throw new Error("getModifiedRegisters() is abstract and must be implemented");
-  }
+  abstract getModifiedRegisters(): Promise<Set<string>>;
 
-  static async getAmountOfClockCyclesPerExecution() {
-    throw new Error("getAmountOfClockCyclesPerExecution() is abstract and must be implemented");
-  }
+  static async getAmountOfClockCyclesPerExecution(): Promise<string>;
 
-  async getByteSizeInROM() {
+  async getByteSizeInROM(): Promise<number> {
     const executedInstructions = await this.getExecutedInstructions();
     let byteSizeInROM = 0;
 
@@ -133,13 +99,6 @@ export default class Instruction {
       byteSizeInROM += 1; //opcode of instruction
       for (const operand of executedInstruction.getOperands()) {
         const operandsSizeInROM = operandSizesInBytes[operand];
-        if (operandsSizeInROM === undefined) {
-          console.error(
-            `Found invalid operand "${operand}" during computation of the size in ROM for mnemonic "${this.#mnemonic}"`
-          );
-          return null;
-        }
-
         byteSizeInROM += operandsSizeInROM;
       }
     }

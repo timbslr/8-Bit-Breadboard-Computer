@@ -20,7 +20,7 @@ export default class PSEUDOInstruction extends Instruction {
     return this.#mappedInstructions;
   }
 
-  async getModifiedRegisters() {
+  async getModifiedRegisters(): Promise<Set<string>[]> {
     const mnemonic = this.getMnemonic();
     if (mnemonic === "rorn" || mnemonic === "roln") {
       const newMnemonic = mnemonic.replace("n", "");

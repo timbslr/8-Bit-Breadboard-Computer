@@ -29,12 +29,14 @@ export const COMPONENT_TYPES = {
   Other: "Other",
 };
 
+type Component = { type: typeof COMPONENT_TYPES; value: string | null };
+
 /**
  * Takes a description for a component (like the one in the BOM-files) and
  * outputs a unified object containing the type and value of the Component
  * @param {string} componentDescription
  */
-export function parseComponent(componentDescription) {
+export function parseComponent(componentDescription: string): Component {
   let match;
 
   if ((match = componentDescription.match(RESISTOR_REGEX))) {
@@ -50,7 +52,7 @@ export function parseComponent(componentDescription) {
     };
   }
   if ((match = componentDescription.match(IC7400_REGEX))) {
-    return { type: COMPONENT_TYPES.IC7400, value: match[1].replaceAll("LS", "") };
+    return { type: COMPONENT_TYPES.IC7400, value: match[1].replace("LS", "") };
   }
   if ((match = componentDescription.match(IC_MEMORY_REGEX))) {
     return { type: COMPONENT_TYPES.IC_MEMORY, value: match[1] };

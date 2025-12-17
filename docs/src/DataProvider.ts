@@ -3,6 +3,7 @@ import BOMFileParser from "./Parser/BOMFileParser.js";
 import "./MapExtension.js";
 import PSEUDOInstruction from "./PSEUDOInstruction.js";
 import REALInstruction from "./REALInstruction.js";
+import Instruction from "./Instruction.js";
 
 export default class DataProvider {
   static #instructions;
@@ -11,7 +12,7 @@ export default class DataProvider {
   /**
    * @returns {Promise<Instruction[]>}
    */
-  static async getInstructions() {
+  static async getInstructions(): Promise<Instruction[]> {
     if (!this.#instructions) {
       const jsonInstructions = (await this.#getObjectFromJSONFile("../resources/data/instructionData.jsonc"))
         .instructions;

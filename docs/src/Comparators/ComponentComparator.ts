@@ -10,7 +10,7 @@ const TYPE_RANKING = [
 ]; //smaller index means that it appears before the others
 
 export default class ComponentComparator {
-  static compare(componentA, componentB) {
+  static compare(componentA: string, componentB: string): number {
     const unifiedComponentA = parseComponent(componentA);
     const unifiedComponentB = parseComponent(componentB);
 

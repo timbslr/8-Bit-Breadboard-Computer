@@ -1,19 +1,23 @@
 import DataProvider from "./DataProvider.js";
+import Instruction from "./Instruction.js";
 
 export default class InstructionRepository {
   /**
    * Creates an instruction object from a given mnemonic
    * If that mnemonic doesn't exist in the ISA, a TypeError is thrown
-   * @param {string} mnemonic
-   * @returns {Promise<REALInstruction> | Promise<PSEUDOInstruction>}
    */
-  static async fromMnemonic(mnemonic) {
+  static async fromMnemonic(mnemonic: string): Promise<Instruction> {
     const instructions = await DataProvider.getInstructions();
     const instruction = instructions.find((instruction) => instruction.getMnemonic() === mnemonic);
+    if (!instruction) {
+      throw new TypeError(
+        `The Instruction could not be creates because the mnemonic ${mnemonic} is not specified in the ISA!`
+      );
+    }
     return instruction;
   }
 
-  static async isMnemonicValid(mnemonic) {
+  static async isMnemonicValid(mnemonic: string): Promise<boolean> {
     if (mnemonic == null) {
       return false;
     }
