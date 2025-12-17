@@ -1,8 +1,8 @@
-import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
+import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction.js";
 import Statistics from "../Statistics.js";
-import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../util.js";
 import TableBuilder from "../TableBuilder.js";
 import DataProvider from "../DataProvider.js";
+import Formatter from "../Formatter.js";
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
@@ -41,7 +41,7 @@ async function fillOpcodeMatrix() {
       const mnemonic = label.split("<br>")[0];
       let linkTitle = `0x${opcodeHex}: ${label}`.replace("<br>", " "); //replace <br> between mnemonic and arguments with space
       linkTitle = linkTitle.replaceAll("<br>", ""); //remove all <br> that are left
-      currentCell.innerHTML = InstructionsUtilProvider.decorateMnemonicWithLink(mnemonic, label, linkTitle);
+      currentCell.innerHTML = Formatter.decorateMnemonicWithLink(mnemonic, label, linkTitle);
     }
   }
 }
@@ -52,12 +52,11 @@ async function createOpcodeMap() {
 
   for (const instruction of instructions) {
     //skip pseudo instructions as they don't have an opcode
-    const mnemonic = instruction.mnemonic;
-    const originalOpcode = instruction.opcode;
-    const isPSEUDOInstruction = await InstructionsUtilProvider.isPSEUDOInstruction(mnemonic);
-    if (isPSEUDOInstruction) {
+    const mnemonic = instruction.getMnemonic();
+    if (instruction.isPSEUDO()) {
       continue;
     }
+    const originalOpcode = instruction.getOpcode();
 
     if (mnemonic === "movs") {
       const opcodeMapForMovSpecial = await getOpcodeMapForMoveSpecial(instruction);
@@ -124,7 +123,7 @@ async function createOpcodeMap() {
 }
 
 async function getOpcodeMapForMoveSpecial(instruction) {
-  const opcode = instruction.opcode;
+  const opcode = instruction.getOpcode();
   if (Statistics.countCharsInString(opcode, "R") != 4) {
     console.error("R-count in movs opcode should be 4!");
   }

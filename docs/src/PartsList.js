@@ -1,4 +1,4 @@
-import ComponentComparator from "./ComponentComparator.js";
+import ComponentComparator from "./Comparators/ComponentComparator.js";
 import DataProvider from "./DataProvider.js";
 import TableBuilder from "./TableBuilder.js";
 

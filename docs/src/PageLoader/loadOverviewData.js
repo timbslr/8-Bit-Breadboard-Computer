@@ -1,16 +1,16 @@
 import Formatter from "../Formatter.js";
-import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
+import InstructionRepository from "../InstructionRepository.js";
 import TableBuilder from "../TableBuilder.js";
 
 async function fillOverviewTables() {
-  const groupedInstructions = await InstructionsUtilProvider.getGroupedInstructionObjects();
+  const groupedInstructions = await InstructionRepository.getGrouped();
 
   let pseudoInstructions = [];
 
   //sort each group by indexInGroup and add to table
   for (const sameGroupInstructions of Object.values(groupedInstructions)) {
-    sameGroupInstructions.sort((instr1, instr2) => instr1.indexInGroup - instr2.indexInGroup); //sort in ascending alphabetical order
-    const group = sameGroupInstructions[0].group;
+    sameGroupInstructions.sort((instr1, instr2) => instr1.getIndexInGroup() - instr2.getIndexInGroup()); //sort in ascending alphabetical order
+    const group = sameGroupInstructions[0].getGroup();
     const { rows, pseudoInstructionsInGroup } = await createTableRows(sameGroupInstructions);
 
     const table = new TableBuilder()
@@ -33,33 +33,34 @@ async function fillOverviewTables() {
   const table = new TableBuilder()
     .headers(["Mnemonic", "Instruction", "Mapped Instructions"])
     .addRows(pseudoInstructionRows)
+    .textAlign(["center", "center", "left"])
     .id(`pseudo-instruction-table`)
     .build();
   placeholder.parentNode.insertBefore(table, placeholder);
   placeholder.remove();
 }
 
-async function createTableRows(entries) {
+async function createTableRows(instructions) {
   const pseudoInstructionsInGroup = [];
   const rows = [];
-  for (const entry of entries) {
-    const isPSEUDO = await InstructionsUtilProvider.isPSEUDOInstruction(entry.mnemonic);
-    if (isPSEUDO) {
-      pseudoInstructionsInGroup.push(entry);
+  for (const instruction of instructions) {
+    if (instruction.isPSEUDO()) {
+      pseudoInstructionsInGroup.push(instruction);
     }
+    const mnemonic = instruction.getMnemonic();
 
-    const mnemonicString = InstructionsUtilProvider.decorateMnemonicWithLink(
-      entry.mnemonic,
-      isPSEUDO ? `*${entry.mnemonic}` : entry.mnemonic
+    const mnemonicString = Formatter.decorateMnemonicWithLink(
+      mnemonic,
+      instruction.isPSEUDO() ? `*${mnemonic}` : mnemonic
     );
 
     const instructionString = Formatter.escapeHTML(
-      InstructionsUtilProvider.joinMnemonicWithOperands(entry.mnemonic, entry.operands)
+      Formatter.joinMnemonicWithOperands(mnemonic, instruction.getOperands())
     );
 
-    const shortDescription = Formatter.escapeHTML(entry.shortDescription);
+    const shortDescription = Formatter.escapeHTML(instruction.getShortDescription());
 
-    const opcode = entry.opcode || "-";
+    const opcode = instruction.isPSEUDO() ? "-" : instruction.getOpcode();
     rows.push([opcode, mnemonicString, instructionString, shortDescription]);
   }
 
@@ -68,18 +69,17 @@ async function createTableRows(entries) {
 
 async function createPseudoInstructionRows(pseudoInstructions) {
   const rows = [];
-  for (const entry of pseudoInstructions) {
-    const isPSEUDO = await InstructionsUtilProvider.isPSEUDOInstruction(entry.mnemonic);
-
-    const mnemonicString = InstructionsUtilProvider.decorateMnemonicWithLink(
-      entry.mnemonic,
-      isPSEUDO ? `*${entry.mnemonic}` : entry.mnemonic
+  for (const pseudoInstruction of pseudoInstructions) {
+    const mnemonic = pseudoInstruction.getMnemonic();
+    const mnemonicString = Formatter.decorateMnemonicWithLink(
+      mnemonic,
+      pseudoInstruction.isPSEUDO() ? `*${mnemonic}` : mnemonic
     );
     const instructionString = Formatter.escapeHTML(
-      InstructionsUtilProvider.joinMnemonicWithOperands(entry.mnemonic, entry.operands)
+      Formatter.joinMnemonicWithOperands(mnemonic, pseudoInstruction.getOperands())
     );
-    const mappedInstructionString = await InstructionsUtilProvider.joinAndDecorateMappedInstructionsWithLink(
-      entry.mappedInstructions
+    const mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(
+      pseudoInstruction.getMappedInstructions()
     );
 
     rows.push([mnemonicString, instructionString, mappedInstructionString]);

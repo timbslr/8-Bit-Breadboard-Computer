@@ -1,32 +1,28 @@
 import Formatter from "../Formatter.js";
-import InstructionsUtilProvider from "../InstructionsUtilProvider.js";
-import Statistics from "../Statistics.js";
+import InstructionRepository from "../InstructionRepository.js";
 import TableBuilder from "../TableBuilder.js";
 
 async function createAndFillTables() {
-  const sortedInstructions = await InstructionsUtilProvider.getSortedInstructionObjectsByMnemonic(); //sort in ascending alphabetical order
-
+  const sortedInstructions = await InstructionRepository.getSorted();
   for (const instruction of sortedInstructions) {
-    const mnemonic = instruction.mnemonic;
-    const opcode = instruction.opcode || "-";
-    const clobberedRegisters = Formatter.formatClobberedRegisters(
-      await InstructionsUtilProvider.getClobberedRegisters(instruction)
-    );
+    const mnemonic = instruction.getMnemonic();
+    const opcode = instruction.isPSEUDO() ? "-" : instruction.getOpcode();
+    const clobberedRegisters = Formatter.formatClobberedRegisters(await instruction.getClobberedRegisters());
 
-    const sizeInROM = await Statistics.getByteSizeInROM(mnemonic);
+    const sizeInROM = await instruction.getByteSizeInROM();
     let sizeInROMString = `${sizeInROM} Byte`;
     if (sizeInROM !== 1) {
       sizeInROMString += "s"; //s for Bytes
     }
 
-    const numberOfClockCycles = await Statistics.getAmountOfClockCyclesPerExecution(mnemonic);
+    const numberOfClockCycles = await instruction.getAmountOfClockCyclesPerExecution();
     const numberOfClockCyclesString = Formatter.formatNumberOfClockCyclesString(numberOfClockCycles);
 
     const table = new TableBuilder()
       .headers(["Instruction Type", "Group", "Opcode", "Clobbered Registers", "Size in ROM", "Number of Clock Cycles"])
       .addRow([
-        instruction.type,
-        instruction.group,
+        instruction.isPSEUDO() ? "PSEUDO" : "REAL",
+        instruction.getGroup(),
         opcode,
         clobberedRegisters,
         sizeInROMString,
@@ -40,7 +36,7 @@ async function createAndFillTables() {
 
     const tableDescription = document.createElement("h4");
     tableDescription.id = mnemonic;
-    tableDescription.innerHTML = `${mnemonic} &ndash; ${instruction.name}`;
+    tableDescription.innerHTML = `${mnemonic} &ndash; ${instruction.getName()}`;
     mainContent.appendChild(tableDescription);
 
     const lineBreak = document.createElement("br");

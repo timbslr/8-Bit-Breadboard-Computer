@@ -1,3 +1,6 @@
+import Instruction from "./Instruction.js";
+import InstructionRepository from "./InstructionRepository.js";
+
 export default class Formatter {
   static formatNumberOfClockCyclesString(numberOfClockCyclesObject) {
     const clockCycles = numberOfClockCyclesObject;
@@ -22,5 +25,33 @@ export default class Formatter {
 
   static appendHTMLBar(string) {
     return `<span style="text-decoration: overline;"> ${string} </span>`;
+  }
+
+  static decorateMnemonicWithLink(mnemonic, linkLabel = undefined, linkTitle = undefined, redirectLink = undefined) {
+    const label = linkLabel || mnemonic;
+    const title = linkTitle ? `title="${linkTitle}` : "";
+    const link = redirectLink || `./details#${mnemonic}`;
+    return `<a href="${link}" ${title}">${label}</a>`;
+  }
+
+  static joinMnemonicWithOperands(mnemonic, operands) {
+    return `${mnemonic} ${operands.map((operand) => `<${operand}>`).join(", ")}`;
+  }
+
+  static async joinAndDecorateMappedInstructionsWithLink(mappedInstructions, lineDelimiter = "<br>") {
+    const decoratedInstructions = await Promise.all(
+      mappedInstructions.map(async (instruction) => {
+        instruction = Formatter.escapeHTML(instruction);
+        const mnemonic = Instruction.extractMnemonicFromInstructionString(instruction);
+        //if the mnemonic is valid, add a link to it
+        if (await InstructionRepository.isMnemonicValid(mnemonic)) {
+          instruction = instruction.replace(mnemonic, Formatter.decorateMnemonicWithLink(mnemonic, mnemonic, false));
+        }
+
+        return instruction;
+      })
+    );
+
+    return decoratedInstructions.join(lineDelimiter);
   }
 }

@@ -1,4 +1,4 @@
-import { COMPONENT_TYPES, parseComponent } from "./Parser/ComponentParser.js";
+import { COMPONENT_TYPES, parseComponent } from "../Parser/ComponentParser.js";
 
 const TYPE_RANKING = [
   COMPONENT_TYPES.RESISTOR,
