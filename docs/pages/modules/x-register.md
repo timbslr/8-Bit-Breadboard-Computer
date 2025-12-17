@@ -6,7 +6,7 @@ permalink: /modules/x-register
 parent: Modules
 ---
 
-<script type="module" src="../src/PartsList.js"></script>
+<script type="module" src="../dist/PartsList.js"></script>
 
 ## X-Register
 

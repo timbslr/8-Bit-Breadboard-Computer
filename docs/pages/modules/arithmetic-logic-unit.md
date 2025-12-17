@@ -6,7 +6,7 @@ permalink: /modules/arithmetic-logic-unit
 parent: Modules
 ---
 
-<script type="module" src="../src/PartsList.js"></script>
+<script type="module" src="../dist/PartsList.js"></script>
 
 ## Arithmetic Logic Unit (ALU)
 

@@ -9,9 +9,13 @@ async function fillOverviewTables() {
 
   //sort each group by indexInGroup and add to table
   for (const sameGroupInstructions of Object.values(groupedInstructions)) {
-    sameGroupInstructions.sort((instr1, instr2) => instr1.getIndexInGroup() - instr2.getIndexInGroup()); //sort in ascending alphabetical order
+    sameGroupInstructions.sort(
+      (instr1, instr2) => instr1.getIndexInGroup() - instr2.getIndexInGroup()
+    ); //sort in ascending alphabetical order
     const group = sameGroupInstructions[0].getGroup();
-    const { rows, pseudoInstructionsInGroup } = await createTableRows(sameGroupInstructions);
+    const { rows, pseudoInstructionsInGroup } = await createTableRows(
+      sameGroupInstructions
+    );
 
     const table = new TableBuilder()
       .headers(["OpCode", "Mnemonic", "Instruction", "Description"])
@@ -28,8 +32,12 @@ async function fillOverviewTables() {
   }
 
   //addEntriesToTable("pseudo-instructions-table", pseudoInstructions, ["mnemonic", "instruction", "mappedInstructions"]);
-  const placeholder = document.querySelector(`#placeholder-pseudo-instructions-table`);
-  const pseudoInstructionRows = await createPseudoInstructionRows(pseudoInstructions);
+  const placeholder = document.querySelector(
+    `#placeholder-pseudo-instructions-table`
+  );
+  const pseudoInstructionRows = await createPseudoInstructionRows(
+    pseudoInstructions
+  );
   const table = new TableBuilder()
     .headers(["Mnemonic", "Instruction", "Mapped Instructions"])
     .addRows(pseudoInstructionRows)
@@ -58,7 +66,9 @@ async function createTableRows(instructions) {
       Formatter.joinMnemonicWithOperands(mnemonic, instruction.getOperands())
     );
 
-    const shortDescription = Formatter.escapeHTML(instruction.getShortDescription());
+    const shortDescription = Formatter.escapeHTML(
+      instruction.getShortDescription()
+    );
 
     const opcode = instruction.isPSEUDO() ? "-" : instruction.getOpcode();
     rows.push([opcode, mnemonicString, instructionString, shortDescription]);
@@ -76,11 +86,15 @@ async function createPseudoInstructionRows(pseudoInstructions) {
       pseudoInstruction.isPSEUDO() ? `*${mnemonic}` : mnemonic
     );
     const instructionString = Formatter.escapeHTML(
-      Formatter.joinMnemonicWithOperands(mnemonic, pseudoInstruction.getOperands())
+      Formatter.joinMnemonicWithOperands(
+        mnemonic,
+        pseudoInstruction.getOperands()
+      )
     );
-    const mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(
-      pseudoInstruction.getMappedInstructions()
-    );
+    const mappedInstructionString =
+      await Formatter.joinAndDecorateMappedInstructionsWithLink(
+        pseudoInstruction.getMappedInstructions()
+      );
 
     rows.push([mnemonicString, instructionString, mappedInstructionString]);
   }

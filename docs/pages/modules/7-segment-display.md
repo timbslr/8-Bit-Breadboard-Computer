@@ -6,7 +6,7 @@ permalink: /modules/7-segment-display
 parent: Modules
 ---
 
-<script type="module" src="../src/PartsList.js"></script>
+<script type="module" src="../dist/PartsList.js"></script>
 
 ## 7-Segment Display
 

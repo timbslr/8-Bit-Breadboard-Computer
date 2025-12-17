@@ -1,7 +1,15 @@
 {
+  "scripts": {
+    "ts:watch": "esbuild \"docs/src/**/*.ts\" --outdir=docs/dist --format=esm --platform=browser --sourcemap --watch",
+    "jekyll:serve": "cd docs && bundle exec jekyll serve --livereload --watch --baseurl \"/8-Bit-Breadboard-Computer\"",
+    "dev:docs": "concurrently -k \"npm run ts:watch\" \"npm run jekyll:serve\""
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.27.2",
     "eslint": "^9.39.1",
-    "globals": "^16.5.0"
+    "globals": "^16.5.0",
+    "typescript": "^5.9.3"
   }
 }

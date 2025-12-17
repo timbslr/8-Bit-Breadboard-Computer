@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ESNext",
+    "strict": true,
+    "rootDir": "docs/src",
+    "outDir": "docs/dist",
+    "moduleResolution": "Bundler",
+    "sourceMap": true
+  },
+  "include": ["docs/src/**/*.ts"]
+}

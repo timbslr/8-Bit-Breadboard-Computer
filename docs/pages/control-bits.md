@@ -10,4 +10,4 @@ Each module (Registers, ALU, memory, ...) has multiple input bits that control t
 {: .note }
 s stands for synchronous, a for asynchronous
 
-<script type="module" src="./src/PageLoader/loadControlBits.js">
+<script type="module" src="./dist/PageLoader/loadControlBits.js">

@@ -6,7 +6,7 @@ permalink: /modules/memory-address-register
 parent: Modules
 ---
 
-<script type="module" src="../src/PartsList.js"></script>
+<script type="module" src="../dist/PartsList.js"></script>
 
 ## Memory-Address-Register (MAR)
 

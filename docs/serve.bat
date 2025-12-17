@@ -1,1 +1,0 @@
-bundle exec jekyll serve --livereload --watch --baseurl "/8-Bit-Breadboard-Computer"
