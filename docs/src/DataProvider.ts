@@ -4,19 +4,22 @@ import "./MapExtension.js";
 import PSEUDOInstruction from "./PSEUDOInstruction.js";
 import REALInstruction from "./REALInstruction.js";
 import Instruction from "./Instruction.js";
+import { ControlBit } from "./types/ControlBit.js";
+import { JSONInstruction } from "./types/InstructionTypes.js";
 
 export default class DataProvider {
-  static #instructions;
-  static #controlBits;
+  private static instructions: Instruction[];
+  private static controlBits: ControlBit[];
 
   /**
    * @returns {Promise<Instruction[]>}
    */
   static async getInstructions(): Promise<Instruction[]> {
-    if (!this.#instructions) {
-      const jsonInstructions = (await this.#getObjectFromJSONFile("../resources/data/instructionData.jsonc"))
-        .instructions;
-      this.#instructions = jsonInstructions.map((jsonInstruction) => {
+    if (!this.instructions) {
+      const jsonInstructions: JSONInstruction[] = (
+        await this.getObjectFromJSONFile("../resources/data/instructionData.jsonc")
+      ).instructions;
+      this.instructions = jsonInstructions.map((jsonInstruction) => {
         if (jsonInstruction.type === "PSEUDO") {
           return new PSEUDOInstruction(jsonInstruction);
         }
@@ -24,21 +27,21 @@ export default class DataProvider {
       });
     }
 
-    return this.#instructions;
+    return this.instructions;
   }
 
-  static async getControlBits() {
-    if (!this.#controlBits) {
-      this.#controlBits = (await this.#getObjectFromJSONFile("./resources/data/controlBits.json")).controlBits;
+  static async getControlBits(): Promise<ControlBit[]> {
+    if (!this.controlBits) {
+      this.controlBits = (await this.getObjectFromJSONFile("./resources/data/controlBits.json")).controlBits;
     }
 
-    return this.#controlBits;
+    return this.controlBits;
   }
 
-  static async getBOMFromFile(filePath) {
+  static async getBOMFromFile(filePath: string) {
     if (filePath === "ALL") {
       let contentMap = new Map();
-      const files = await this.#getObjectFromJSONFile("./resources/BOMs/files.json");
+      const files: string[] = await this.getObjectFromJSONFile("./resources/BOMs/files.json");
       const promises = files.map(async (file) => {
         const fileSpecificMap = await BOMFileParser.getContentMapFromFile("./resources/BOMs/" + file);
         contentMap.concatBySum(fileSpecificMap);
@@ -51,7 +54,7 @@ export default class DataProvider {
     return await BOMFileParser.getContentMapFromFile(filePath);
   }
 
-  static async #getObjectFromJSONFile(filePath) {
+  private static async getObjectFromJSONFile(filePath: string) {
     const response = await fetch(filePath);
     return parseJSONC(await response.text());
   }

@@ -29,7 +29,8 @@ export const COMPONENT_TYPES = {
   Other: "Other",
 };
 
-type Component = { type: typeof COMPONENT_TYPES; value: string | null };
+type ComponentType = (typeof COMPONENT_TYPES)[keyof typeof COMPONENT_TYPES];
+type Component = { type: ComponentType; value: string | null };
 
 /**
  * Takes a description for a component (like the one in the BOM-files) and
@@ -42,13 +43,13 @@ export function parseComponent(componentDescription: string): Component {
   if ((match = componentDescription.match(RESISTOR_REGEX))) {
     return {
       type: COMPONENT_TYPES.RESISTOR,
-      value: applyUnitMultiplier(match[1], match[2], RESISTOR_UNIT_MULTIPLIERS),
+      value: applyUnitMultiplier(Number(match[1]), match[2], RESISTOR_UNIT_MULTIPLIERS).toString(),
     };
   }
   if ((match = componentDescription.match(CAPACITOR_REGEX))) {
     return {
       type: COMPONENT_TYPES.CAPACITOR,
-      value: applyUnitMultiplier(match[1], match[2], CAPACITOR_UNIT_MULTIPLIERS),
+      value: applyUnitMultiplier(Number(match[1]), match[2], CAPACITOR_UNIT_MULTIPLIERS).toString(),
     };
   }
   if ((match = componentDescription.match(IC7400_REGEX))) {
@@ -64,6 +65,10 @@ export function parseComponent(componentDescription: string): Component {
   return { type: COMPONENT_TYPES.Other, value: null };
 }
 
-function applyUnitMultiplier(value, unit, unitTable) {
+function applyUnitMultiplier<T extends Record<string, number>, U extends keyof T>(
+  value: number,
+  unit: U,
+  unitTable: T
+): number {
   return value * unitTable[unit];
 }

@@ -5,6 +5,10 @@ import TableBuilder from "./TableBuilder.js";
 export class PartsList extends HTMLElement {
   async connectedCallback() {
     const srcPath = this.getAttribute("src");
+    if (!srcPath) {
+      throw new TypeError("SourcePath of PartsList must be specified!");
+    }
+
     const partsListMap = await DataProvider.getBOMFromFile(srcPath);
 
     this.appendChild(this.getDescriptionHeader());

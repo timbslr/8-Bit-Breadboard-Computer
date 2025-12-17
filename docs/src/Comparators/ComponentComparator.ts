@@ -15,7 +15,7 @@ export default class ComponentComparator {
     const unifiedComponentB = parseComponent(componentB);
 
     if (unifiedComponentA.type === unifiedComponentB.type) {
-      return unifiedComponentA.value - unifiedComponentB.value;
+      return Number(unifiedComponentA.value) - Number(unifiedComponentB.value);
     }
 
     return TYPE_RANKING.indexOf(unifiedComponentA.type) - TYPE_RANKING.indexOf(unifiedComponentB.type);

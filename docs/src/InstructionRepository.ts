@@ -6,14 +6,13 @@ export default class InstructionRepository {
    * Creates an instruction object from a given mnemonic
    * If that mnemonic doesn't exist in the ISA, a TypeError is thrown
    */
-  static async fromMnemonic(mnemonic: string): Promise<Instruction> {
+  static async fromMnemonic(mnemonic: string): Promise<Instruction | null> {
     const instructions = await DataProvider.getInstructions();
     const instruction = instructions.find((instruction) => instruction.getMnemonic() === mnemonic);
     if (!instruction) {
-      throw new TypeError(
-        `The Instruction could not be creates because the mnemonic ${mnemonic} is not specified in the ISA!`
-      );
+      return null;
     }
+
     return instruction;
   }
 

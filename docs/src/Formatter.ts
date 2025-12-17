@@ -1,38 +1,45 @@
 import Instruction from "./Instruction.js";
 import InstructionRepository from "./InstructionRepository.js";
 
+type ClockCyclesObject = { flagLow: number; flagHigh: number };
+
 export default class Formatter {
-  static formatNumberOfClockCyclesString(numberOfClockCyclesObject) {
+  static formatNumberOfClockCyclesString(numberOfClockCyclesObject: ClockCyclesObject): string {
     const clockCycles = numberOfClockCyclesObject;
-    if (clockCycles.flagLow > clockCycles.flagHigh) {
+    if (Number(clockCycles.flagLow) > Number(clockCycles.flagHigh)) {
       //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
       [clockCycles.flagLow, clockCycles.flagHigh] = [clockCycles.flagHigh, clockCycles.flagLow];
     }
 
     return clockCycles.flagLow === clockCycles.flagHigh
-      ? clockCycles.flagLow
+      ? String(clockCycles.flagLow)
       : `${clockCycles.flagLow}/${clockCycles.flagHigh}`;
   }
 
-  static formatClobberedRegisters(clobberedRegisters) {
+  static formatClobberedRegisters(clobberedRegisters: string[]): string {
     const formattedString = [...clobberedRegisters].map((entry) => Formatter.escapeHTML(entry)).join(",<br>");
     return formattedString === "" ? "-" : formattedString;
   }
 
   static escapeHTML(text: string): string {
-    return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
+    const replacements = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\n": "<br>",
+    };
+
+    return Object.entries(replacements).reduce(
+      (replacedText, [key, value]) => replacedText.replaceAll(key, value),
+      text
+    );
   }
 
   static appendHTMLBar(text: string) {
     return `<span style="text-decoration: overline;"> ${text} </span>`;
   }
 
-  static decorateMnemonicWithLink(
-    mnemonic: string,
-    linkLabel = undefined,
-    linkTitle = undefined,
-    redirectLink = undefined
-  ) {
+  static decorateMnemonicWithLink(mnemonic: string, linkLabel?: string, linkTitle?: string, redirectLink?: string) {
     const label = linkLabel || mnemonic;
     const title = linkTitle ? `title="${linkTitle}` : "";
     const link = redirectLink || `./details#${mnemonic}`;
@@ -43,14 +50,14 @@ export default class Formatter {
     return `${mnemonic} ${operands.map((operand) => `<${operand}>`).join(", ")}`;
   }
 
-  static async joinAndDecorateMappedInstructionsWithLink(mappedInstructions, lineDelimiter = "<br>") {
+  static async joinAndDecorateMappedInstructionsWithLink(mappedInstructions: string[], lineDelimiter = "<br>") {
     const decoratedInstructions = await Promise.all(
       mappedInstructions.map(async (instruction) => {
         instruction = Formatter.escapeHTML(instruction);
         const mnemonic = Instruction.extractMnemonicFromInstructionString(instruction);
         //if the mnemonic is valid, add a link to it
         if (await InstructionRepository.isMnemonicValid(mnemonic)) {
-          instruction = instruction.replace(mnemonic, Formatter.decorateMnemonicWithLink(mnemonic, mnemonic, false));
+          instruction = instruction.replace(mnemonic, Formatter.decorateMnemonicWithLink(mnemonic, mnemonic));
         }
 
         return instruction;

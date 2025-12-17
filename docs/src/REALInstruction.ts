@@ -1,45 +1,53 @@
 import Instruction from "./Instruction.js";
-import Statistics from "./Statistics.js";
+import { JSONInstruction, MicroInstructions } from "./types/InstructionTypes.js";
 
 export default class REALInstruction extends Instruction {
-  #opcode;
-  #microInstructions;
+  private opcode: string;
+  private microInstructions: MicroInstructions;
+  private needsFlag: boolean;
 
-  constructor(instructionJSONObject) {
+  constructor(instructionJSONObject: JSONInstruction) {
     super(instructionJSONObject);
     if (super.isPSEUDO()) {
       throw new TypeError("Instruction is not of type REAL");
     }
 
-    this.#opcode = instructionJSONObject.opcode;
-    this.#microInstructions = instructionJSONObject.microinstructions;
+    if (
+      !("opcode" in instructionJSONObject) ||
+      !("microinstructions" in instructionJSONObject) ||
+      !("requiresFlag" in instructionJSONObject)
+    ) {
+      throw new TypeError(
+        `Instruction misses one or more of the following fields: opcode, microinstructions, requiresFlag`
+      );
+    }
+
+    this.opcode = instructionJSONObject.opcode as string;
+    this.microInstructions = instructionJSONObject.microinstructions as MicroInstructions;
+    this.needsFlag = instructionJSONObject.requiresFlag as boolean;
   }
 
-  /**
-   * @returns {string[]}
-   */
-  getMicroinstructions() {
-    return this.#microInstructions;
+  getMicroinstructions(): string[] | { "0": string[]; "1": string[] } {
+    return this.microInstructions;
   }
 
-  /**
-   * @returns {string}
-   */
-  getOpcode() {
-    return this.#opcode;
+  getOpcode(): string {
+    return this.opcode;
   }
 
-  async getModifiedRegisters() {
+  async getModifiedRegisters(): Promise<Set<string>> {
     const executedInstructions = await this.getExecutedInstructions();
-    const modifiedRegisters = new Set();
+    const modifiedRegisters: Set<string> = new Set();
     for (const executedInstruction of executedInstructions) {
       let microinstructions = executedInstruction.getMicroinstructions();
-      if (typeof microinstructions === "object") {
+      if (this.requiresFlag()) {
         //if true, its an instruction with requiresFlag: true, thus it contains the properties "0" and "1"
-        microinstructions = microinstructions["0"].concat(microinstructions["1"]);
+        const firstHalf = microinstructions["0"] as string[];
+        const secondHalf = microinstructions["1"] as string[];
+        microinstructions = firstHalf.concat(secondHalf);
       }
 
-      for (const microinstruction of microinstructions) {
+      for (const microinstruction of microinstructions as string[]) {
         for (const controlString of microinstruction) {
           let match;
           if ((match = /IE_(.*)|li (\w+),/.exec(controlString))) {
@@ -52,25 +60,37 @@ export default class REALInstruction extends Instruction {
     return modifiedRegisters;
   }
 
-  async getExecutedInstructions() {
+  async getExecutedInstructions(): Promise<REALInstruction[]> {
     return [this];
   }
 
-  async getAmountOfClockCyclesPerExecution() {
+  requiresFlag(): boolean {
+    return this.needsFlag;
+  }
+
+  async getAmountOfClockCyclesPerExecution(): Promise<{ flagLow: string; flagHigh: string }> {
     const microinstructions = this.getMicroinstructions();
-    let flagLowMicroinstructions;
-    let flagHighMicroinstructions;
+    let flagLowMicroinstructions: string[];
+    let flagHighMicroinstructions: string[];
     if (this.requiresFlag()) {
-      flagLowMicroinstructions = microinstructions["0"];
-      flagHighMicroinstructions = microinstructions["1"];
+      flagLowMicroinstructions = microinstructions["0"] as string[];
+      flagHighMicroinstructions = microinstructions["1"] as string[];
     } else {
-      flagLowMicroinstructions = microinstructions;
-      flagHighMicroinstructions = microinstructions;
+      flagLowMicroinstructions = microinstructions as string[];
+      flagHighMicroinstructions = microinstructions as string[];
     }
 
     return {
-      flagLow: Statistics.countMicroinstructionsWithoutRSC(flagLowMicroinstructions),
-      flagHigh: Statistics.countMicroinstructionsWithoutRSC(flagHighMicroinstructions),
+      flagLow: REALInstruction.countMicroinstructionsWithoutRSC(flagLowMicroinstructions).toString(),
+      flagHigh: REALInstruction.countMicroinstructionsWithoutRSC(flagHighMicroinstructions).toString(),
     };
+  }
+
+  static countMicroinstructionsWithoutRSC(microinstructionsArray: string[]) {
+    const length = microinstructionsArray.length;
+    if (microinstructionsArray[length - 1].includes("RSC")) {
+      return length - 1;
+    }
+    return length;
   }
 }

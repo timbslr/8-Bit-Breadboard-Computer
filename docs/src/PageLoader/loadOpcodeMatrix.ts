@@ -3,6 +3,7 @@ import Statistics from "../Statistics.js";
 import TableBuilder from "../TableBuilder.js";
 import DataProvider from "../DataProvider.js";
 import Formatter from "../Formatter.js";
+import PSEUDOInstruction from "../PSEUDOInstruction.js";
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
@@ -53,9 +54,10 @@ async function createOpcodeMap() {
   for (const instruction of instructions) {
     //skip pseudo instructions as they don't have an opcode
     const mnemonic = instruction.getMnemonic();
-    if (instruction.isPSEUDO()) {
+    if (instruction instanceof PSEUDOInstruction) {
       continue;
     }
+
     const originalOpcode = instruction.getOpcode();
 
     if (mnemonic === "movs") {
@@ -70,8 +72,8 @@ async function createOpcodeMap() {
       console.error(`Opcode length is not 8: ${originalOpcode}`);
     }
 
-    const registerCount = Statistics.countCharsInString(originalOpcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
-    const lcdRegisterCount = Statistics.countCharsInString(originalOpcode, "L");
+    const registerCount = countCharsInString(originalOpcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
+    const lcdRegisterCount = countCharsInString(originalOpcode, "L");
     if (registerCount === 0) {
       let label = mnemonic;
       if (lcdRegisterCount > 0) {
@@ -86,7 +88,7 @@ async function createOpcodeMap() {
       }
     } else if (registerCount == 1) {
       let label = mnemonic;
-      const isLCDInstruction = Statistics.countCharsInString(originalOpcode, "L") > 0;
+      const isLCDInstruction = countCharsInString(originalOpcode, "L") > 0;
 
       //outer for-loop is only for the lcd-instructions which contain the L-register arguments
       for (let i = 0; i < 2; i++) {
@@ -124,7 +126,7 @@ async function createOpcodeMap() {
 
 async function getOpcodeMapForMoveSpecial(instruction) {
   const opcode = instruction.getOpcode();
-  if (Statistics.countCharsInString(opcode, "R") != 4) {
+  if (countCharsInString(opcode, "R") != 4) {
     console.error("R-count in movs opcode should be 4!");
   }
   const firstNibble = opcode.substring(0, 4);
@@ -134,6 +136,10 @@ async function getOpcodeMapForMoveSpecial(instruction) {
     opcode: `${firstNibble}${entry.secondNibble}`,
     label: `movs<br>${entry.from}&rarr;${entry.to}`,
   }));
+}
+
+function countCharsInString(string: string, char: string) {
+  return [...string].filter((c) => c === char).length;
 }
 
 createOpcodeMatrixTableCells();

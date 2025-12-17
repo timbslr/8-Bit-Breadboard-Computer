@@ -1,3 +1,6 @@
+import REALInstruction from "./REALInstruction";
+import { InstructionType, JSONInstruction } from "./types/InstructionTypes";
+
 export const REGISTER_LOOKUP = ["A", "B", "X", "TMP"];
 export const LCDREGISTER_LOOKUP = ["CTRL", "DATA"];
 export const REGISTER_REGEX = /(PC_L|PC_H|MAR_L|MAR_H|IR|BUF|SP_L|SP_H|A|F|TMP|B|X|7SD)/;
@@ -13,29 +16,33 @@ const operandSizesInBytes = {
   addr: 2,
 };
 
+type Operand = keyof typeof operandSizesInBytes;
+
 export default abstract class Instruction {
   private name: string;
   private mnemonic: string;
-  private type: "REAL" | "PSEUDO";
-  private needsFlag: boolean;
-  private operands: string[];
+  private type: InstructionType;
+  private operands: Operand[];
   private group: string;
   private indexInGroup: number;
   private shortDescription: string;
   private longDescription: string;
 
-  constructor(instructionJSONObject) {
+  constructor(instructionJSONObject: JSONInstruction) {
     if (instructionJSONObject == null || instructionJSONObject instanceof Instruction) {
       throw new TypeError(
         "Instruction for initialization must not be null or undefined and has to be a plain object, not an instance of Instruction!"
       );
     }
 
-    this.type = instructionJSONObject.type;
+    if (instructionJSONObject.type !== "REAL" && instructionJSONObject.type !== "PSEUDO") {
+      throw new TypeError(`Instruction type can only be REAL or PSEUDO, but was ${instructionJSONObject.type}`);
+    }
+
+    this.type = instructionJSONObject.type as InstructionType;
     this.name = instructionJSONObject.name;
     this.mnemonic = instructionJSONObject.mnemonic;
-    this.needsFlag = instructionJSONObject.requiresFlag;
-    this.operands = instructionJSONObject.operands;
+    this.operands = instructionJSONObject.operands as Operand[];
     this.group = instructionJSONObject.group;
     this.indexInGroup = instructionJSONObject.indexInGroup;
     this.shortDescription = instructionJSONObject.shortDescription;
@@ -54,22 +61,15 @@ export default abstract class Instruction {
     return this.mnemonic;
   }
 
-  requiresFlag(): boolean {
-    return this.needsFlag;
-  }
-
   getGroup(): string {
     return this.group;
   }
 
-  /**
-   * @returns {number}
-   */
-  getIndexInGroup() {
+  getIndexInGroup(): number {
     return this.indexInGroup;
   }
 
-  getOperands(): string[] {
+  getOperands(): Operand[] {
     return this.operands;
   }
 
@@ -85,25 +85,25 @@ export default abstract class Instruction {
     return instructionString.split(" ")[0].trim();
   }
 
-  abstract getExecutedInstructions(): Promise<Instruction[]>;
+  abstract getExecutedInstructions(): Promise<REALInstruction[]>;
 
   abstract getModifiedRegisters(): Promise<Set<string>>;
 
-  static async getAmountOfClockCyclesPerExecution(): Promise<string>;
+  abstract getAmountOfClockCyclesPerExecution(): Promise<{ flagLow: string; flagHigh: string }>;
 
-  async getByteSizeInROM(): Promise<number> {
+  async getByteSizeInROM(): Promise<string> {
     const executedInstructions = await this.getExecutedInstructions();
     let byteSizeInROM = 0;
 
     for (const executedInstruction of executedInstructions) {
       byteSizeInROM += 1; //opcode of instruction
       for (const operand of executedInstruction.getOperands()) {
-        const operandsSizeInROM = operandSizesInBytes[operand];
+        const operandsSizeInROM: number = operandSizesInBytes[operand];
         byteSizeInROM += operandsSizeInROM;
       }
     }
 
-    return byteSizeInROM;
+    return byteSizeInROM.toString();
   }
 
   async getClobberedRegisters() {

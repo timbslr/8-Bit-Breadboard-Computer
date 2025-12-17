@@ -1,31 +1,26 @@
-export default class TableBuilder {
-  constructor() {
-    this.table = {
-      headers: [],
-      rows: [],
-      style: {
-        textAlign: null,
-        firstColumnMinWidth: null,
-      },
-      id: "",
-    };
-  }
+type Table = {
+  headers: string[];
+  rows: string[][];
+  style: {
+    textAlign?: TextAlignment[];
+    firstColumnMinWidth?: string;
+  };
+  id?: string;
+  amountOfColumns: number;
+};
 
-  /**
-   * @param {string[]} headers
-   * @returns {TableBuilder}
-   */
-  headers(headers) {
+type TextAlignment = "left" | "center" | "right";
+
+export default class TableBuilder {
+  private table: Table = { headers: [], rows: [], style: {}, amountOfColumns: 0 };
+
+  headers(headers: string[]): TableBuilder {
     this.table.headers = headers;
     this.table.amountOfColumns = headers.length;
     return this;
   }
 
-  /**
-   * @param {string[]} row
-   * @returns {TableBuilder}
-   */
-  addRow(row) {
+  addRow(row: string[]): TableBuilder {
     if (row.length != this.table.headers.length) {
       throw new Error("Row length must match the length of the headers!");
     }
@@ -34,19 +29,15 @@ export default class TableBuilder {
     return this;
   }
 
-  /**
-   * @param {string[][]} rows[]
-   * @returns {TableBuilder}
-   */
-  addRows(rows) {
-    rows.forEach((row) => {
+  addRows(rows: string[][]): TableBuilder {
+    rows.forEach((row: string[]) => {
       this.addRow(row);
     });
 
     return this;
   }
 
-  textAlign(alignments) {
+  textAlign(alignments: TextAlignment[]) {
     if (alignments.length != this.table.headers.length) {
       throw new Error("Alignments length must match the length of the headers!");
     }
@@ -55,17 +46,17 @@ export default class TableBuilder {
     return this;
   }
 
-  id(idString) {
-    this.table.id = idString;
+  id(id: string) {
+    this.table.id = id;
     return this;
   }
 
-  firstColumnMinWidth(minWidth) {
+  firstColumnMinWidth(minWidth: string) {
     this.table.style.firstColumnMinWidth = minWidth;
     return this;
   }
 
-  sortByColumn(columnName, compareFunction) {
+  sortByColumn(columnName: string, compareFunction: (a: string, b: string) => number) {
     const columnIndex = this.table.headers.indexOf(columnName);
 
     if (columnIndex === -1) {
@@ -76,7 +67,7 @@ export default class TableBuilder {
     return this;
   }
 
-  build() {
+  build(): HTMLElement {
     const table = document.createElement("table");
     const thead = document.createElement("thead");
     const headerRow = document.createElement("tr");
@@ -114,12 +105,14 @@ export default class TableBuilder {
 
     table.appendChild(tbody);
 
-    table.id = this.table.id;
+    if (this.table.id) {
+      table.id = this.table.id;
+    }
 
     return this.#surroundWithTableWrapperDiv(table);
   }
 
-  #surroundWithTableWrapperDiv(table) {
+  #surroundWithTableWrapperDiv(table: HTMLTableElement): HTMLElement {
     const wrapperDiv = document.createElement("div");
     wrapperDiv.classList.add("table-wrapper");
     wrapperDiv.appendChild(table);

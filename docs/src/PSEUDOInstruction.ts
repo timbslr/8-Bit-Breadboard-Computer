@@ -1,26 +1,25 @@
 import Instruction, { REGISTER_REGEX } from "./Instruction.js";
 import InstructionRepository from "./InstructionRepository.js";
+import REALInstruction from "./REALInstruction.js";
+import { JSONInstruction } from "./types/InstructionTypes.js";
 
 export default class PSEUDOInstruction extends Instruction {
-  #mappedInstructions;
+  private mappedInstructions: string[];
 
-  constructor(instructionJSONObject) {
+  constructor(instructionJSONObject: JSONInstruction) {
     super(instructionJSONObject);
     if (!super.isPSEUDO()) {
       throw new TypeError("Instruction is not of type PSEUDO");
     }
 
-    this.#mappedInstructions = instructionJSONObject.mappedInstructions;
+    this.mappedInstructions = instructionJSONObject.mappedInstructions as string[];
   }
 
-  /**
-   * @returns {string[]}
-   */
-  getMappedInstructions() {
-    return this.#mappedInstructions;
+  getMappedInstructions(): string[] {
+    return this.mappedInstructions;
   }
 
-  async getModifiedRegisters(): Promise<Set<string>[]> {
+  async getModifiedRegisters(): Promise<Set<string>> {
     const mnemonic = this.getMnemonic();
     if (mnemonic === "rorn" || mnemonic === "roln") {
       const newMnemonic = mnemonic.replace("n", "");
@@ -29,9 +28,9 @@ export default class PSEUDOInstruction extends Instruction {
       ); //A is modified during rotation
     }
 
-    let modifiedRegisters = new Set();
+    let modifiedRegisters: Set<string> = new Set();
 
-    for (let mappedInstructionString of this.#mappedInstructions) {
+    for (let mappedInstructionString of this.mappedInstructions) {
       let match;
       while ((match = REGISTER_REGEX.exec(mappedInstructionString))) {
         const register = match[1];
@@ -47,8 +46,8 @@ export default class PSEUDOInstruction extends Instruction {
     return modifiedRegisters;
   }
 
-  async getExecutedInstructions() {
-    let executedInstructions = [];
+  async getExecutedInstructions(): Promise<REALInstruction[]> {
+    let executedInstructions: REALInstruction[] = [];
     for (const mappedInstructionString of this.getMappedInstructions()) {
       const mappedInstructionMnemonic = Instruction.extractMnemonicFromInstructionString(mappedInstructionString);
 
@@ -60,7 +59,7 @@ export default class PSEUDOInstruction extends Instruction {
     return executedInstructions;
   }
 
-  async getAmountOfClockCyclesPerExecution() {
+  async getAmountOfClockCyclesPerExecution(): Promise<{ flagLow: string; flagHigh: string }> {
     const mnemonic = this.getMnemonic();
     //rorn and rol have to be handled separately because they have "n" as an argument
     if (mnemonic === "rorn" || mnemonic == "roln") {
@@ -72,28 +71,28 @@ export default class PSEUDOInstruction extends Instruction {
       };
     }
 
-    let numberOfClockCycles = { flagLow: 0, flagHigh: 0 }; //may differ if flag is low or high
+    let numberOfClockCycles = { flagLow: "0", flagHigh: "0" }; //may differ if flag is low or high
 
     for (const instructionString of this.getMappedInstructions()) {
       const mnemonic = Instruction.extractMnemonicFromInstructionString(instructionString);
       const mappedInstruction = await InstructionRepository.fromMnemonic(mnemonic);
       const clockCyclesForMappedInstruction = await mappedInstruction.getAmountOfClockCyclesPerExecution();
       numberOfClockCycles = {
-        flagLow: numberOfClockCycles.flagLow + clockCyclesForMappedInstruction.flagLow,
-        flagHigh: numberOfClockCycles.flagHigh + clockCyclesForMappedInstruction.flagHigh,
+        flagLow: String(Number(numberOfClockCycles.flagLow) + Number(clockCyclesForMappedInstruction.flagLow)),
+        flagHigh: String(Number(numberOfClockCycles.flagHigh) + Number(clockCyclesForMappedInstruction.flagHigh)),
       };
     }
 
     return numberOfClockCycles;
   }
 
-  async getByteSizeInROM() {
+  async getByteSizeInROM(): Promise<string> {
     //rorn and rol have to be handled separately because they have "n" as an argument
     if (this.getMnemonic() === "rorn" || this.getMnemonic() === "roln") {
       const sizeInBytes = await (
-        await InstructionRepository.fromMnemonic(this.getMnemonic().replace("n", ""))
+        (await InstructionRepository.fromMnemonic(this.getMnemonic().replace("n", ""))) as Instruction
       ).getByteSizeInROM();
-      return sizeInBytes === 1 ? "n" : `${sizeInBytes}*n`;
+      return sizeInBytes === "1" ? "n" : `${sizeInBytes}*n`;
     }
 
     return super.getByteSizeInROM();
