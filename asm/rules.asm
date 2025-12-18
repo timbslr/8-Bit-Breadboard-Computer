@@ -103,7 +103,7 @@
 	bnei {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ bne {addr} }
 	blt {addr: u16}                                => 0b10000000 @ le(addr)
 	blti {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ blt {addr} }
-	bltu {addr: u16}                               => asm{ bcc {addr} }
+	bltu {addr: u16}                               => 0b00100010 @ le(addr)
 	bltiu {imm: i8}, {addr: u16}                   => asm{ li TMP, {imm} } @ asm{ bltu {addr} }
 	ble {addr: u16}                                => 0b10100000 @ le(addr)
 	blei {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ ble {addr} }
@@ -111,7 +111,7 @@
 	bleiu {imm: i8}, {addr: u16}                   => asm{ li TMP, {imm} } @ asm{ bleu {addr} }
 	bge {addr: u16}                                => 0b10000001 @ le(addr)
 	bgei {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ bge {addr} }
-	bgeu {addr: u16}                               => asm{ bcs {addr} }
+	bgeu {addr: u16}                               => 0b00100011 @ le(addr)
 	bgeiu {imm: i8}, {addr: u16}                   => asm{ li TMP, {imm} } @ asm{ bgeu {addr} }
 	bgt {addr: u16}                                => 0b10100001 @ le(addr)
 	bgti {imm: i8}, {addr: u16}                    => asm{ li TMP, {imm} } @ asm{ bgt {addr} }
