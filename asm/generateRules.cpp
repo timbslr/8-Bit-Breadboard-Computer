@@ -22,7 +22,6 @@ const std::vector<std::string> rotateNMap = {
 
 std::string generateRule(auto instruction);
 std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions);
-std::string handleSpecialCaseRotateN(auto instruction, bool isrorn);
 std::string handleSpecialCaseMovs(auto instruction);
 void replaceAll(std::string &str, const std::string &from, const std::string &to);
 
@@ -49,7 +48,7 @@ int main() {
 
     std::stringstream ss(currentRule);
     std::string singleRuleString;
-    while(std::getline(ss, singleRuleString, '\n')) { //split at \n for rorn and roln
+    while(std::getline(ss, singleRuleString, '\n')) {
       rules.push_back(singleRuleString);
     }
   }
@@ -88,11 +87,7 @@ std::string generateRule(auto instruction) {
   std::vector<std::string> operands = instruction["operands"];
   std::string mnemonic = std::string(instruction["mnemonic"]) + " "; //theres always a space behind the mnemonic, so you can already insert it here 
   bool isInstructionReal = std::string(instruction["type"]) == "REAL";
-  if(mnemonic == "rorn ") {
-    return handleSpecialCaseRotateN(instruction, true);
-  } else if(mnemonic == "roln ") {
-    return handleSpecialCaseRotateN(instruction, false);
-  } else if(mnemonic == "movs ") {
+  if(mnemonic == "movs ") {
     return handleSpecialCaseMovs(instruction);
   }
 
@@ -191,27 +186,6 @@ std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::stri
   }
 
   return concattedString;
-}
-
-//optimization that was performed here: 
-//if n is greater than 4, rorn executes rol (8-n) times, the same happens with roln
-std::string handleSpecialCaseRotateN(auto instruction, bool isrorn) {
-  std::vector<std::string> rotateNMapCopy = rotateNMap;
-  std::string resultingRule = "";
-
-  //start from 1 as rorn <reg>, 0 and roln <reg>, 0 are useless
-  for(int i = 1; i < rotateNMap.size(); i++) {
-    std::string currentMapElement = rotateNMapCopy[i];
-    replaceAll(currentMapElement, "?", isrorn ? "r" : "l");
-    replaceAll(currentMapElement, "!", isrorn ? "l" : "r");
-
-    resultingRule += currentMapElement;
-    if(i < rotateNMap.size() - 1) {
-      resultingRule += "\n";
-    }
-  }
-
-  return resultingRule;
 }
 
 std::string handleSpecialCaseMovs(auto instruction) {

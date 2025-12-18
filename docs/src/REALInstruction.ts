@@ -68,7 +68,7 @@ export default class REALInstruction extends Instruction {
     return this.needsFlag;
   }
 
-  async getAmountOfClockCyclesPerExecution(): Promise<{ flagLow: string; flagHigh: string }> {
+  async getAmountOfClockCyclesPerExecution(): Promise<{ flagLow: number; flagHigh: number }> {
     const microinstructions = this.getMicroinstructions();
     let flagLowMicroinstructions: string[];
     let flagHighMicroinstructions: string[];
@@ -81,12 +81,12 @@ export default class REALInstruction extends Instruction {
     }
 
     return {
-      flagLow: REALInstruction.countMicroinstructionsWithoutRSC(flagLowMicroinstructions).toString(),
-      flagHigh: REALInstruction.countMicroinstructionsWithoutRSC(flagHighMicroinstructions).toString(),
+      flagLow: REALInstruction.countMicroinstructionsWithoutRSC(flagLowMicroinstructions),
+      flagHigh: REALInstruction.countMicroinstructionsWithoutRSC(flagHighMicroinstructions),
     };
   }
 
-  static countMicroinstructionsWithoutRSC(microinstructionsArray: string[]) {
+  static countMicroinstructionsWithoutRSC(microinstructionsArray: string[]): number {
     const length = microinstructionsArray.length;
     if (microinstructionsArray[length - 1].includes("RSC")) {
       return length - 1;

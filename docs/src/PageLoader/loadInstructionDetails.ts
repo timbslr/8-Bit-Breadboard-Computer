@@ -1,12 +1,13 @@
 import Formatter from "../Formatter.js";
 import InstructionRepository from "../InstructionRepository.js";
+import REALInstruction from "../REALInstruction.js";
 import TableBuilder from "../TableBuilder.js";
 
 async function createAndFillTables() {
   const sortedInstructions = await InstructionRepository.getSorted();
   for (const instruction of sortedInstructions) {
     const mnemonic = instruction.getMnemonic();
-    const opcode = instruction.isPSEUDO() ? "-" : instruction.getOpcode();
+    const opcode = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode();
     const clobberedRegisters = Formatter.formatClobberedRegisters(await instruction.getClobberedRegisters());
 
     const sizeInROM = await instruction.getByteSizeInROM();

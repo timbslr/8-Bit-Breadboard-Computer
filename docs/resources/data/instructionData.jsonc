@@ -437,20 +437,6 @@
       ]
     },
     {
-      "name": "rotate right by n bits",
-      "mnemonic": "rorn",
-      "type": "PSEUDO",
-      "operands": ["reg", "n"],
-      "mappedInstructions": ["executes \"ror A\" (<n>-1) times and then \"ror <reg>\" once"],
-      "group": "ALU",
-      "indexInGroup": 17,
-      "shortDescription": "<reg> = rotate A right by <n> bits",
-      "longDescription": "",
-      "examples": [
-        //TODO
-      ]
-    },
-    {
       "name": "rotate left",
       "mnemonic": "rol",
       "type": "REAL",
@@ -468,20 +454,6 @@
       "group": "ALU",
       "indexInGroup": 18,
       "shortDescription": "<reg> = rotate A left by one bit",
-      "longDescription": "",
-      "examples": [
-        //TODO
-      ]
-    },
-    {
-      "name": "rotate left by n bits",
-      "mnemonic": "roln",
-      "type": "PSEUDO",
-      "operands": ["reg", "n"],
-      "mappedInstructions": ["executes \"rol A\" (<n>-1) times and then \"rol <reg>\" once"],
-      "group": "ALU",
-      "indexInGroup": 19,
-      "shortDescription": "<reg> = rotate A left by <n> bits",
       "longDescription": "",
       "examples": [
         //TODO

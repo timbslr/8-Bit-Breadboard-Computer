@@ -89,9 +89,9 @@ export default abstract class Instruction {
 
   abstract getModifiedRegisters(): Promise<Set<string>>;
 
-  abstract getAmountOfClockCyclesPerExecution(): Promise<{ flagLow: string; flagHigh: string }>;
+  abstract getAmountOfClockCyclesPerExecution(): Promise<{ flagLow: number; flagHigh: number }>;
 
-  async getByteSizeInROM(): Promise<string> {
+  async getByteSizeInROM(): Promise<number> {
     const executedInstructions = await this.getExecutedInstructions();
     let byteSizeInROM = 0;
 
@@ -103,7 +103,7 @@ export default abstract class Instruction {
       }
     }
 
-    return byteSizeInROM.toString();
+    return byteSizeInROM;
   }
 
   async getClobberedRegisters() {

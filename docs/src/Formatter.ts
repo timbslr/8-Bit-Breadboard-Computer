@@ -6,9 +6,12 @@ type ClockCyclesObject = { flagLow: number; flagHigh: number };
 export default class Formatter {
   static formatNumberOfClockCyclesString(numberOfClockCyclesObject: ClockCyclesObject): string {
     const clockCycles = numberOfClockCyclesObject;
-    if (Number(clockCycles.flagLow) > Number(clockCycles.flagHigh)) {
+    let flagLowString = String(clockCycles.flagHigh);
+    let flagHighString = String(clockCycles.flagLow);
+
+    if (clockCycles.flagLow > clockCycles.flagHigh) {
       //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
-      [clockCycles.flagLow, clockCycles.flagHigh] = [clockCycles.flagHigh, clockCycles.flagLow];
+      [flagLowString, flagHighString] = [flagHighString, flagLowString];
     }
 
     return clockCycles.flagLow === clockCycles.flagHigh
@@ -16,7 +19,7 @@ export default class Formatter {
       : `${clockCycles.flagLow}/${clockCycles.flagHigh}`;
   }
 
-  static formatClobberedRegisters(clobberedRegisters: string[]): string {
+  static formatClobberedRegisters(clobberedRegisters: Set<string>): string {
     const formattedString = [...clobberedRegisters].map((entry) => Formatter.escapeHTML(entry)).join(",<br>");
     return formattedString === "" ? "-" : formattedString;
   }
