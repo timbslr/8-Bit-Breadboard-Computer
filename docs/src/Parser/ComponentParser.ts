@@ -33,7 +33,7 @@ type ComponentType = (typeof COMPONENT_TYPES)[keyof typeof COMPONENT_TYPES];
 type Component = { type: ComponentType; value: string | null };
 
 /**
- * Takes a description for a component (like the one in the BOM-files) and
+ * Takes a description for a component (like the one in the PartList-files) and
  * outputs a unified object containing the type and value of the Component
  * @param {string} componentDescription
  */
@@ -65,10 +65,6 @@ export function parseComponent(componentDescription: string): Component {
   return { type: COMPONENT_TYPES.Other, value: null };
 }
 
-function applyUnitMultiplier<T extends Record<string, number>, U extends keyof T>(
-  value: number,
-  unit: U,
-  unitTable: T
-): number {
+function applyUnitMultiplier<T extends Record<string, number>, U extends keyof T>(value: number, unit: U, unitTable: T): number {
   return value * unitTable[unit];
 }

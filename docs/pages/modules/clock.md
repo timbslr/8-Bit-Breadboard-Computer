@@ -6,12 +6,12 @@ permalink: /modules/clock
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Clock
 
 <br>
-<parts-list src="../resources/BOMs/Clock.csv"></parts-list>
+<part-list src="../resources/PartLists/Clock.csv"></part-list>
 
 ### Schematic
 

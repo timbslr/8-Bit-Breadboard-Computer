@@ -6,12 +6,12 @@ permalink: /modules/memory
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Memory
 
 <br>
-<parts-list src="../resources/BOMs/Memory.csv"></parts-list>
+<part-list src="../resources/PartLists/Memory.csv"></part-list>
 <br>
 
 ### Schematic

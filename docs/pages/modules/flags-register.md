@@ -6,12 +6,12 @@ permalink: /modules/flags-register
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Flags-Register
 
 <br>
-<parts-list src="../resources/BOMs/Flags-Register.csv"></parts-list>
+<part-list src="../resources/PartLists/Flags-Register.csv"></part-list>
 
 ### Schematic
 

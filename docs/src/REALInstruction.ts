@@ -12,14 +12,8 @@ export default class REALInstruction extends Instruction {
       throw new TypeError("Instruction is not of type REAL");
     }
 
-    if (
-      !("opcode" in instructionJSONObject) ||
-      !("microinstructions" in instructionJSONObject) ||
-      !("requiresFlag" in instructionJSONObject)
-    ) {
-      throw new TypeError(
-        `Instruction misses one or more of the following fields: opcode, microinstructions, requiresFlag`
-      );
+    if (!("opcode" in instructionJSONObject) || !("microinstructions" in instructionJSONObject) || !("requiresFlag" in instructionJSONObject)) {
+      throw new TypeError(`Instruction misses one or more of the following fields: opcode, microinstructions, requiresFlag`);
     }
 
     this.opcode = instructionJSONObject.opcode as string;

@@ -6,12 +6,12 @@ permalink: /modules/liquid-crystal-display
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Liquid-Crystal-Display (LCD)
 
 <br>
-<parts-list src="../resources/BOMs/LCD.csv"></parts-list>
+<part-list src="../resources/PartLists/LCD.csv"></part-list>
 <br>
 
 ### Schematic

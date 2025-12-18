@@ -1,5 +1,4 @@
 import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction.js";
-import Statistics from "../Statistics.js";
 import TableBuilder from "../TableBuilder.js";
 import DataProvider from "../DataProvider.js";
 import Formatter from "../Formatter.js";
@@ -115,9 +114,7 @@ async function createOpcodeMap() {
         label = mnemonic;
       }
     } else {
-      console.error(
-        `Invalid register count! The maximum allowed amount of registers per instruction is 2, but it was ${registerCount}.`
-      );
+      console.error(`Invalid register count! The maximum allowed amount of registers per instruction is 2, but it was ${registerCount}.`);
     }
   }
 

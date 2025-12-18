@@ -1,5 +1,5 @@
-const BOMFileParser = {
-  parsePartsListFile(text: string): Map<string, number> {
+const PartListFileParser = {
+  parsePartListFile(text: string): Map<string, number> {
     const map = new Map();
 
     //remove the first line which is the header
@@ -16,11 +16,11 @@ const BOMFileParser = {
   async getContentMapFromFile(srcPath: string): Promise<Map<string, number>> {
     const response = await fetch(srcPath);
     const buffer = await response.arrayBuffer();
-    const decoder = new TextDecoder("utf-16le"); //EasyEDA exports BOMs as Microsoft-Excel-CSV-Files, which are encoded in utf-16le
+    const decoder = new TextDecoder("utf-16le"); //EasyEDA exports PartLists (or in their terms, "BOMs") as Microsoft-Excel-CSV-Files, which are encoded in utf-16le
     const text = decoder.decode(buffer);
 
-    return BOMFileParser.parsePartsListFile(text.trim());
+    return PartListFileParser.parsePartListFile(text.trim());
   },
 };
 
-export default BOMFileParser;
+export default PartListFileParser;

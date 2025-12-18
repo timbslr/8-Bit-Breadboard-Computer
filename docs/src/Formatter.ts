@@ -30,10 +30,7 @@ export default class Formatter {
       "\n": "<br>",
     };
 
-    return Object.entries(replacements).reduce(
-      (replacedText, [key, value]) => replacedText.replaceAll(key, value),
-      text
-    );
+    return Object.entries(replacements).reduce((replacedText, [key, value]) => replacedText.replaceAll(key, value), text);
   }
 
   static appendHTMLBar(text: string) {

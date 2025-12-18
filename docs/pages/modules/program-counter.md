@@ -6,7 +6,7 @@ permalink: /modules/program-counter
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Program Counter (PC)
 
@@ -15,7 +15,7 @@ Every time an opcode or operand is fetched, the program counter is incremented i
 
 It is also possible to load the program counter with values from the bus, which allows jumps (direct or conditional) to other memory locations.
 <br>
-<parts-list src="../resources/BOMs/PC.csv"></parts-list>
+<part-list src="../resources/PartLists/PC.csv"></part-list>
 <br>
 
 ### Schematic

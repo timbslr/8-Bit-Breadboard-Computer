@@ -1,12 +1,12 @@
 ---
-title: Parts List
+title: Part List
 layout: default
-permalink: /parts-list
+permalink: /part-list
 nav_order: 6
 ---
 
-<script type="module" src="./dist/PartsList.js"></script>
+<script type="module" src="./dist/PartList.js"></script>
 
 Here is a complete list of all the parts needed for building this project:
 
-<parts-list src="ALL"></parts-list>
+<part-list src="ALL"></part-list>

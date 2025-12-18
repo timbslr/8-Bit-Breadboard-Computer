@@ -6,7 +6,7 @@ permalink: /modules/stack-pointer
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Stack Pointer (SP)
 
@@ -15,7 +15,7 @@ For simplicity, I chose the stack to grow up instead of down, which means that t
 
 The stack is only active in RAM, that's why the most significant bit is manually tied to HIGH (which means that the Stack Pointer always refers to an address in RAM). The msb cannot be overwritten by a value loaded from the bus.
 <br>
-<parts-list src="../resources/BOMs/SP.csv"></parts-list>
+<part-list src="../resources/PartLists/SP.csv"></part-list>
 <br>
 
 ### Schematic

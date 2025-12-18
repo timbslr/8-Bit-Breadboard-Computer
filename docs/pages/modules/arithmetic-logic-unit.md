@@ -6,7 +6,7 @@ permalink: /modules/arithmetic-logic-unit
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Arithmetic Logic Unit (ALU)
 
@@ -91,7 +91,7 @@ The overflow flag is always set if the sign of the A-Register and the TMP-Regist
 <br>
 \*We also want the overflow flag to be valid for subtraction, so the msb of the A-Register is actually compared with the output of the XOR between the msb of the TMP-Register and ALU_SRC.
 <br>
-<parts-list src="../resources/BOMs/ALU.csv"></parts-list>
+<part-list src="../resources/PartLists/ALU.csv"></part-list>
 
 ### Schematic
 

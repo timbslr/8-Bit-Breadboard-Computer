@@ -26,9 +26,7 @@ async function createAndFillTables() {
 function createTableRowsFromProperties(moduleProperties) {
   const rows = [];
   moduleProperties.forEach((controlBit) => {
-    const abbreviation = controlBit.isActiveHigh
-      ? controlBit.abbreviation
-      : Formatter.appendHTMLBar(controlBit.abbreviation);
+    const abbreviation = controlBit.isActiveHigh ? controlBit.abbreviation : Formatter.appendHTMLBar(controlBit.abbreviation);
     const synchronousCellContent = controlBit.isSynchronous ? "s" : "a";
     rows.push([abbreviation, controlBit.name, synchronousCellContent, controlBit.description]);
   });

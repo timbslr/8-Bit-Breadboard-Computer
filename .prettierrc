@@ -13,15 +13,9 @@
       }
     },
     {
-      "files": "*.js",
-      "options": {
-        "printWidth": 120
-      }
-    },
-    {
       "files": "*.ts",
       "options": {
-        "printWidth": 120
+        "printWidth": 150
       }
     }
   ]

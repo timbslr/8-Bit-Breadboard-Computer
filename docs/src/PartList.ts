@@ -2,25 +2,25 @@ import ComponentComparator from "./Comparators/ComponentComparator.js";
 import DataProvider from "./DataProvider.js";
 import TableBuilder from "./TableBuilder.js";
 
-export class PartsList extends HTMLElement {
+export class PartList extends HTMLElement {
   async connectedCallback() {
     const srcPath = this.getAttribute("src");
     if (!srcPath) {
-      throw new TypeError("SourcePath of PartsList must be specified!");
+      throw new TypeError("SourcePath of PartList must be specified!");
     }
 
-    const partsListMap = await DataProvider.getBOMFromFile(srcPath);
+    const partListMap = await DataProvider.getPartListFromFile(srcPath);
 
     this.appendChild(this.getDescriptionHeader());
 
-    const partsListTable = new TableBuilder()
+    const partListTable = new TableBuilder()
       .headers(["Quantity", "Part Name"])
-      .addRows(Array.from(partsListMap.entries()).map(([partName, quantity]) => [quantity, partName]))
+      .addRows(Array.from(partListMap.entries()).map(([partName, quantity]) => [String(quantity), partName]))
       .sortByColumn("Part Name", ComponentComparator.compare)
       .textAlign(["center", "left"])
       .build();
 
-    this.appendChild(partsListTable);
+    this.appendChild(partListTable);
   }
 
   getDescriptionHeader() {
@@ -30,4 +30,4 @@ export class PartsList extends HTMLElement {
   }
 }
 
-customElements.define("parts-list", PartsList);
+customElements.define("part-list", PartList);

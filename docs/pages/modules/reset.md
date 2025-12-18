@@ -6,12 +6,12 @@ permalink: /modules/reset
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Controller
 
 <br>
-<parts-list src="../resources/BOMs/Reset.csv"></parts-list>
+<part-list src="../resources/PartLists/Reset.csv"></part-list>
 
 ### Schematic
 

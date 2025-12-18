@@ -6,7 +6,7 @@ permalink: /modules/x-register
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## X-Register
 
@@ -21,7 +21,7 @@ One problem with these up/down counters is, that they load data asynchronously w
 All other registers load data on the rising edge of the CLK. In contrast, the up/down counters of this register don't have a dedicated CLK signal for loading data from the bus, they only have the load pin which goes active on the falling edge of CLK (because the controller works with an inverted CLK). While the load pin is active, data is latched into the counters. <br>
 The reason that this approach works nevertheless is that the output enable signals of all other registers are asynchronous as well. So each register is already outputting its content to the bus on the falling clock edge, and the X-Register can latch it shortly after that.
 <br>
-<parts-list src="../resources/BOMs/X-Register.csv"></parts-list>
+<part-list src="../resources/PartLists/X-Register.csv"></part-list>
 <br>
 
 ### Schematic

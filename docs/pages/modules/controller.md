@@ -6,12 +6,12 @@ permalink: /modules/controller
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartsList.js"></script>
+<script type="module" src="../dist/PartList.js"></script>
 
 ## Controller
 
 <br>
-<parts-list src="../resources/BOMs/Controller.csv"></parts-list>
+<part-list src="../resources/PartLists/Controller.csv"></part-list>
 
 ### Schematic
 
