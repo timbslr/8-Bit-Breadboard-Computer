@@ -6,17 +6,15 @@ type ClockCyclesObject = { flagLow: number; flagHigh: number };
 export default class Formatter {
   static formatNumberOfClockCyclesString(numberOfClockCyclesObject: ClockCyclesObject): string {
     const clockCycles = numberOfClockCyclesObject;
-    let flagLowString = String(clockCycles.flagHigh);
-    let flagHighString = String(clockCycles.flagLow);
+    let flagLowString = String(clockCycles.flagLow);
+    let flagHighString = String(clockCycles.flagHigh);
 
     if (clockCycles.flagLow > clockCycles.flagHigh) {
       //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
       [flagLowString, flagHighString] = [flagHighString, flagLowString];
     }
 
-    return clockCycles.flagLow === clockCycles.flagHigh
-      ? String(clockCycles.flagLow)
-      : `${clockCycles.flagLow}/${clockCycles.flagHigh}`;
+    return flagLowString === flagHighString ? flagLowString : `${flagLowString}/${flagHighString}`;
   }
 
   static formatClobberedRegisters(clobberedRegisters: Set<string>): string {
