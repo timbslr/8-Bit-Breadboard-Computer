@@ -1390,9 +1390,35 @@
     {
       "name": "branch if less than unsigned",
       "mnemonic": "bltu",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": ["addr"],
-      "mappedInstructions": ["bcc <addr>"],
+      "requiresFlag": true,
+      "opcode": "00100010",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ]
+      },
       "group": "BR-JMP",
       "indexInGroup": 7,
       "shortDescription": "branch if A < TMP (unsigned)",
@@ -1580,9 +1606,35 @@
     {
       "name": "branch if greater or equal unsigned",
       "mnemonic": "bgeu",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": ["addr"],
-      "mappedInstructions": ["bcs <addr>"],
+      "requiresFlag": true,
+      "opcode": "00100011",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it into PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "IE_F"], //normal subtraction to check if the computer should branch or not
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ]
+      },
       "group": "BR-JMP",
       "indexInGroup": 15,
       "shortDescription": "branch if A >= TMP (unsigned)",
