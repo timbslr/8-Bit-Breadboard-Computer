@@ -1,7 +1,7 @@
 ---
 title: TMP-Register
 layout: default
-nav_order: 14
+nav_order: 17
 permalink: /modules/tmp-register
 parent: Modules
 ---

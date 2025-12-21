@@ -1,7 +1,7 @@
 ---
 title: X-Register
 layout: default
-nav_order: 15
+nav_order: 18
 permalink: /modules/x-register
 parent: Modules
 ---

@@ -1,7 +1,7 @@
 ---
 title: Program Counter (PC)
 layout: default
-nav_order: 12
+nav_order: 13
 permalink: /modules/program-counter
 parent: Modules
 ---
