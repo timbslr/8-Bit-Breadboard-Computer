@@ -37,11 +37,9 @@ export default class Formatter {
     return `<span style="text-decoration: overline;"> ${text} </span>`;
   }
 
-  static decorateMnemonicWithLink(mnemonic: string, linkLabel?: string, linkTitle?: string, redirectLink?: string) {
-    const label = linkLabel || mnemonic;
+  static decorateTextWithLink(text: string, redirectLink: string, linkTitle?: string) {
     const title = linkTitle ? `title="${linkTitle}` : "";
-    const link = redirectLink || `./details#${mnemonic}`;
-    return `<a href="${link}" ${title}">${label}</a>`;
+    return `<a href="${redirectLink}" ${title}">${text}</a>`;
   }
 
   static joinMnemonicWithOperands(mnemonic: string, operands: string[]) {
@@ -55,7 +53,7 @@ export default class Formatter {
         const mnemonic = Instruction.extractMnemonicFromInstructionString(instruction);
         //if the mnemonic is valid, add a link to it
         if (await InstructionRepository.isMnemonicValid(mnemonic)) {
-          instruction = instruction.replace(mnemonic, Formatter.decorateMnemonicWithLink(mnemonic, mnemonic));
+          instruction = instruction.replace(mnemonic, Formatter.decorateTextWithLink(mnemonic, `./details#${mnemonic}`));
         }
 
         return instruction;
@@ -63,5 +61,10 @@ export default class Formatter {
     );
 
     return decoratedInstructions.join(lineDelimiter);
+  }
+
+  static formatOriginListWithLinks(originList: Set<string>) {
+    const listItems = Array.from(originList).map((entry) => "<li>" + entry.replace(".csv", "") + "</li>");
+    return `<ul> ${listItems.join(" ")} </ul>`;
   }
 }

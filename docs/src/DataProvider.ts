@@ -42,20 +42,21 @@ export default class DataProvider {
     return this.controlBits;
   }
 
-  static async getPartListFromFile(filePath: string): Promise<Map<string, number>> {
+  static async getPartListFromFile(filePath: string): Promise<Map<string, { quantity: number; originList?: Set<string> }>> {
     if (filePath === "ALL") {
-      let contentMap = new Map();
+      let contentMap: Map<string, { quantity: number; originList: Set<string> }> = new Map();
       const files: string[] = await this.getObjectFromJSONFile(PARTS_LIST_FILES_PATH);
       const promises = files.map(async (filePath) => {
         const fileSpecificMap = await PartListFileParser.getContentMapFromFile(PARTS_LIST_FOLDER_PATH + filePath);
-        contentMap.concatBySum(fileSpecificMap);
+        contentMap.concatPartMap(new Map(Array.from(fileSpecificMap, ([key, value]) => [key, { quantity: value, originList: new Set([filePath]) }])));
       });
 
       await Promise.all(promises); //wait until all Promises are resolved, which means that the contentMap is filled completely
       return contentMap;
     }
 
-    return await PartListFileParser.getContentMapFromFile(filePath);
+    const contentMapFromFile = await PartListFileParser.getContentMapFromFile(filePath);
+    return new Map(Array.from(contentMapFromFile, ([key, value]) => [key, { quantity: value }])); //originList not necessary as it is the same for every entry
   }
 
   private static async getObjectFromJSONFile(filePath: string) {

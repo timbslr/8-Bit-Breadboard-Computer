@@ -41,7 +41,7 @@ async function fillOpcodeMatrix() {
       const mnemonic = label.split("<br>")[0];
       let linkTitle = `0x${opcodeHex}: ${label}`.replace("<br>", " "); //replace <br> between mnemonic and arguments with space
       linkTitle = linkTitle.replaceAll("<br>", ""); //remove all <br> that are left
-      currentCell.innerHTML = Formatter.decorateMnemonicWithLink(mnemonic, label, linkTitle);
+      currentCell.innerHTML = Formatter.decorateTextWithLink(label, `./details#${mnemonic}`, linkTitle);
     }
   }
 }

@@ -5,14 +5,14 @@ type Table = {
     textAlign?: TextAlignment[];
     firstColumnMinWidth?: string;
   };
-  id?: string;
+  id: string;
   amountOfColumns: number;
 };
 
-type TextAlignment = "left" | "center" | "right";
+export type TextAlignment = "left" | "center" | "right";
 
 export default class TableBuilder {
-  private table: Table = { headers: [], rows: [], style: {}, amountOfColumns: 0 };
+  private table: Table = { headers: [], rows: [], style: {}, id: "table", amountOfColumns: 0 };
 
   headers(headers: string[]): TableBuilder {
     this.table.headers = headers;
@@ -72,9 +72,14 @@ export default class TableBuilder {
     const thead = document.createElement("thead");
     const headerRow = document.createElement("tr");
 
-    this.table.headers.forEach((headerContent) => {
+    if (this.table.id) {
+      table.id = this.table.id;
+    }
+
+    this.table.headers.forEach((headerContent, columnIndex) => {
       const header = document.createElement("th");
       header.innerHTML = headerContent;
+      header.classList.add(`${this.table.id}-col${columnIndex}`);
       headerRow.appendChild(header);
     });
 
@@ -88,6 +93,7 @@ export default class TableBuilder {
       rowContents.forEach((cellContent, columnIndex) => {
         const cell = document.createElement("td");
         cell.innerHTML = cellContent;
+        cell.classList.add(`${this.table.id}-col${columnIndex}`);
 
         if (this.table.style.textAlign) {
           cell.style.textAlign = this.table.style.textAlign[columnIndex];
@@ -104,10 +110,6 @@ export default class TableBuilder {
     });
 
     table.appendChild(tbody);
-
-    if (this.table.id) {
-      table.id = this.table.id;
-    }
 
     return this.#surroundWithTableWrapperDiv(table);
   }

@@ -49,7 +49,7 @@ async function createTableRows(instructions) {
     }
     const mnemonic = instruction.getMnemonic();
 
-    const mnemonicString = Formatter.decorateMnemonicWithLink(mnemonic, instruction.isPSEUDO() ? `*${mnemonic}` : mnemonic);
+    const mnemonicString = Formatter.decorateTextWithLink(instruction.isPSEUDO() ? `*${mnemonic}` : mnemonic, `./details#${mnemonic}`);
 
     const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, instruction.getOperands()));
 
@@ -66,7 +66,7 @@ async function createPseudoInstructionRows(pseudoInstructions) {
   const rows = [];
   for (const pseudoInstruction of pseudoInstructions) {
     const mnemonic = pseudoInstruction.getMnemonic();
-    const mnemonicString = Formatter.decorateMnemonicWithLink(mnemonic, pseudoInstruction.isPSEUDO() ? `*${mnemonic}` : mnemonic);
+    const mnemonicString = Formatter.decorateTextWithLink(`*${mnemonic}`, `./details#${mnemonic}`);
     const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, pseudoInstruction.getOperands()));
     const mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(pseudoInstruction.getMappedInstructions());
 
