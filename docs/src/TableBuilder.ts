@@ -46,8 +46,11 @@ export default class TableBuilder {
     return this;
   }
 
+  /**
+   * Sets the id of the table. All spaces of the parameter-string will be replaced by "-".
+   */
   id(id: string) {
-    this.table.id = id;
+    this.table.id = id.replaceAll(" ", "-");
     return this;
   }
 
