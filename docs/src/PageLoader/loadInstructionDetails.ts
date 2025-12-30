@@ -33,16 +33,20 @@ async function createAndFillTables() {
       .id(`${mnemonic}-table`)
       .build();
 
-    const mainContent = document.getElementById("main-content"); //the section for the pages main content
+    const mainContent = document.getElementById("main-content") as HTMLElement; //the section for the pages main content
 
-    const tableDescription = document.createElement("h4");
-    tableDescription.id = mnemonic;
-    tableDescription.innerHTML = `${mnemonic} &ndash; ${instruction.getName()}`;
-    mainContent.appendChild(tableDescription);
+    const instructionSection = document.createElement("div");
 
+    const tableDescriptionHeader = document.createElement("h4");
+    tableDescriptionHeader.id = mnemonic;
+    tableDescriptionHeader.innerHTML = `${mnemonic} &ndash; ${instruction.getName()}`;
+    instructionSection.appendChild(tableDescriptionHeader);
+
+    instructionSection.appendChild(table);
     const lineBreak = document.createElement("br");
-    mainContent.appendChild(lineBreak);
-    mainContent.appendChild(table, lineBreak.nextSibling);
+    instructionSection.appendChild(lineBreak);
+
+    mainContent.appendChild(instructionSection);
   }
 
   scrollToHeaderIfNecessary(); //scroll header into view if the url contains a hash linking to it

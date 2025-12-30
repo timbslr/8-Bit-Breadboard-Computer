@@ -3,11 +3,11 @@ import Formatter from "../Formatter.js";
 import DataProvider from "../DataProvider.js";
 
 async function createAndFillTables() {
-  let controlBits = await DataProvider.getControlBits();
-  controlBits = Object.groupBy(controlBits, (controlBits) => controlBits.associatedModule); //group by associated module
-  const mainContent = document.getElementById("main-content");
+  const controlBits = await DataProvider.getControlBits();
+  const groupedControlBits = Object.groupBy(controlBits, (controlBits) => controlBits.associatedModule); //group by associated module
+  const mainContent = document.getElementById("main-content") as HTMLElement;
 
-  Object.entries(controlBits).forEach(([groupName, moduleProperties]) => {
+  Object.entries(groupedControlBits).forEach(([groupName, moduleProperties]) => {
     const table = new TableBuilder()
       .headers(["Abbreviation", "Name", "s/a", "Description"])
       .addRows(createTableRowsFromProperties(moduleProperties))

@@ -1,11 +1,14 @@
 import Formatter from "../Formatter.js";
+import Instruction from "../Instruction.js";
 import InstructionRepository from "../InstructionRepository.js";
+import PSEUDOInstruction from "../PSEUDOInstruction.js";
+import REALInstruction from "../REALInstruction.js";
 import TableBuilder from "../TableBuilder.js";
 
 async function fillOverviewTables() {
   const groupedInstructions = await InstructionRepository.getGrouped();
 
-  let pseudoInstructions = [];
+  let pseudoInstructions: PSEUDOInstruction[] = [];
 
   //sort each group by indexInGroup and add to table
   for (const sameGroupInstructions of Object.values(groupedInstructions)) {
@@ -20,15 +23,15 @@ async function fillOverviewTables() {
       .id(`${group}-table`)
       .build();
 
-    const placeholder = document.querySelector(`#placeholder-${group}-table`);
-    placeholder.parentNode.insertBefore(table, placeholder);
+    const placeholder = document.querySelector(`#placeholder-${group}-table`) as Element;
+    placeholder.parentNode?.insertBefore(table, placeholder);
     placeholder.remove();
 
     pseudoInstructions = pseudoInstructions.concat(pseudoInstructionsInGroup);
   }
 
   //addEntriesToTable("pseudo-instructions-table", pseudoInstructions, ["mnemonic", "instruction", "mappedInstructions"]);
-  const placeholder = document.querySelector(`#placeholder-pseudo-instructions-table`);
+  const placeholder = document.querySelector(`#placeholder-pseudo-instructions-table`) as Element;
   const pseudoInstructionRows = await createPseudoInstructionRows(pseudoInstructions);
   const table = new TableBuilder()
     .headers(["Mnemonic", "Instruction", "Mapped Instructions"])
@@ -36,11 +39,11 @@ async function fillOverviewTables() {
     .textAlign(["center", "center", "left"])
     .id(`pseudo-instruction-table`)
     .build();
-  placeholder.parentNode.insertBefore(table, placeholder);
+  placeholder.parentNode?.insertBefore(table, placeholder);
   placeholder.remove();
 }
 
-async function createTableRows(instructions) {
+async function createTableRows(instructions: Instruction[]) {
   const pseudoInstructionsInGroup = [];
   const rows = [];
   for (const instruction of instructions) {
@@ -55,14 +58,14 @@ async function createTableRows(instructions) {
 
     const shortDescription = Formatter.escapeHTML(instruction.getShortDescription());
 
-    const opcode = instruction.isPSEUDO() ? "-" : instruction.getOpcode();
+    const opcode = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode();
     rows.push([opcode, mnemonicString, instructionString, shortDescription]);
   }
 
   return { rows, pseudoInstructionsInGroup };
 }
 
-async function createPseudoInstructionRows(pseudoInstructions) {
+async function createPseudoInstructionRows(pseudoInstructions: PSEUDOInstruction[]) {
   const rows = [];
   for (const pseudoInstruction of pseudoInstructions) {
     const mnemonic = pseudoInstruction.getMnemonic();

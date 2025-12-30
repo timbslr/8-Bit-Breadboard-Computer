@@ -31,6 +31,8 @@ export const COMPONENT_TYPES = {
 
 type ComponentType = (typeof COMPONENT_TYPES)[keyof typeof COMPONENT_TYPES];
 type Component = { type: ComponentType; value: string | null };
+type ResistorUnit = "Ω" | "kΩ" | "MΩ";
+type CapacitorUnit = "F" | "mF" | "µF" | "uF" | "nF" | "pF";
 
 /**
  * Takes a description for a component (like the one in the PartList-files) and
@@ -43,13 +45,13 @@ export function parseComponent(componentDescription: string): Component {
   if ((match = componentDescription.match(RESISTOR_REGEX))) {
     return {
       type: COMPONENT_TYPES.RESISTOR,
-      value: applyUnitMultiplier(Number(match[1]), match[2], RESISTOR_UNIT_MULTIPLIERS).toString(),
+      value: applyUnitMultiplier(Number(match[1]), match[2] as ResistorUnit, RESISTOR_UNIT_MULTIPLIERS).toString(),
     };
   }
   if ((match = componentDescription.match(CAPACITOR_REGEX))) {
     return {
       type: COMPONENT_TYPES.CAPACITOR,
-      value: applyUnitMultiplier(Number(match[1]), match[2], CAPACITOR_UNIT_MULTIPLIERS).toString(),
+      value: applyUnitMultiplier(Number(match[1]), match[2] as CapacitorUnit, CAPACITOR_UNIT_MULTIPLIERS).toString(),
     };
   }
   if ((match = componentDescription.match(IC7400_REGEX))) {
