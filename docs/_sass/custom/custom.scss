@@ -1,0 +1,21 @@
+.site-logo {
+  background-position: center center;
+}
+
+.site-title {
+  margin-top: 4vh;
+  display: block;
+  width: 100%;
+  height: 150%;
+}
+
+.site-button[href*="github.com"]::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5em;
+  vertical-align: middle;
+  background-image: url("../../resources/icons/github.svg");
+  background-size: contain;
+  background-position: center;
+}
