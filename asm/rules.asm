@@ -85,6 +85,7 @@
 	outlcd {lcdreg: lcdregister}, {reg: register}  => 0b01001 @ lcdreg @ reg
 	outlcdi {lcdreg: lcdregister}, {imm: i8}       => 0b0100011 @ lcdreg @ imm
 	lcdrd {lcdreg: lcdregister}, {reg: register}   => 0b01011 @ lcdreg @ reg
+	rxrd {reg: register}                           => 0b010100 @ reg
 	nop                                            => 0b00000000
 	hlt                                            => 0b00000001
 	call {addr: u16}                               => asm{ 
@@ -125,6 +126,8 @@
 	bnc {addr: u16}                                => 0b01000001 @ le(addr)
 	bvs {addr: u16}                                => 0b01100000 @ le(addr)
 	bvc {addr: u16}                                => 0b01100001 @ le(addr)
+	brxrdys {addr: u16}                            => 0b11111100 @ le(addr)
+	brxrdyc {addr: u16}                            => 0b11111101 @ le(addr)
 }
 
 #bank ROM

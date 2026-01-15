@@ -23,14 +23,14 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
 
 | Color/Opcode range |                Available flag (combination)                |
 | :----------------: | :--------------------------------------------------------: |
-|      000xxxxx      |                             ZF                             |
-|      001xxxxx      |                             CF                             |
-|      010xxxxx      |                             NF                             |
-|      011xxxxx      |                             VF                             |
+|      000xxxxx      |                    ZF (= ALU Zero-Flag)                    |
+|      001xxxxx      |                   CF (= ALU Carry-Flag)                    |
+|      010xxxxx      |                  NF (= ALU Negative-Flag)                  |
+|      011xxxxx      |                  VF (= ALU Overflow-Flag)                  |
 |      100xxxxx      |                       NF &oplus; VF                        |
 |      101xxxxx      |                  (NF &oplus; VF) &or; ZF                   |
 |      110xxxxx      | <span style="text-decoration: overline;">CF</span> &or; ZF |
-|      111xxxxx      |                 <i> not assigned yet </i>                  |
+|      111xxxxx      |                         SER_RX_RDY                         |
 
 <style>
  :root {

@@ -1086,12 +1086,35 @@
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["IE_<reg>", "LCD_READ", "LCD_<lcdreg>", "LCD_E"], //TODO Microinstructions => not correct as data is only available at the falling clock edge
+        ["IE_<reg>", "LCD_READ", "LCD_<lcdreg>", "LCD_E"],
         ["RSC"]
       ],
       "group": "I-O",
       "indexInGroup": 4,
       "shortDescription": "Reads from the LCD (either from CTRL or DATA register, depending on <lcdreg>) into the given register",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
+      "name": "serial rx read",
+      "mnemonic": "rxrd",
+      "type": "REAL",
+      "operands": ["reg"],
+      "requiresFlag": false,
+      "opcode": "010100RR",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["IE_<reg>", "OE_SER_RX"],
+        ["SER_RX_CONS"], // tell the rx module that the received byte has been consumed, which resets the SER_RX_RDY flag
+        ["RSC"]
+      ],
+      "group": "I-O",
+      "indexInGroup": 5,
+      "shortDescription": "Moves the byte from the rx shift-register of the serial interface module into one of the standard registers and resets the SER_RX_RDY flag",
       "longDescription": "",
       "examples": [
         //TODO
@@ -2064,6 +2087,82 @@
       "group": "BR-JMP",
       "indexInGroup": 26,
       "shortDescription": "branch if VF is not set",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
+      "name": "branch if serial-rx-ready set",
+      "mnemonic": "brxrdys",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "11111100",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 27,
+      "shortDescription": "branch if serial-rx-ready flag is set",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
+      "name": "branch if serial-rx-ready clear",
+      "mnemonic": "brxrdyc",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "11111101",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 28,
+      "shortDescription": "branch if serial-rx-ready flag is not set",
       "longDescription": "",
       "examples": [
         //TODO
