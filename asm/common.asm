@@ -8,7 +8,7 @@ lcd_init:
   call lcd_wait
   outlcdi CTRL, %00111000 ; Function set:             8-bit display interface, 2-line display, 5x8 dots
   call lcd_wait
-  outlcdi CTRL, %00001100 ; Display on/off control:   display on, cursor off, cursor blinking off
+  outlcdi CTRL, %00001111 ; Display on/off control:   display on, cursor on, cursor blinking on
   call lcd_wait
   outlcdi CTRL, %00000110 ; Entry mode set:           move cursor from left to right, no display shift
 
