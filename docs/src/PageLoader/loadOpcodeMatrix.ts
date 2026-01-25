@@ -1,8 +1,11 @@
-import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction.js";
+import Instruction, { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction/Instruction.js";
 import TableBuilder from "../TableBuilder.js";
 import DataProvider from "../DataProvider.js";
 import Formatter from "../Formatter.js";
-import PSEUDOInstruction from "../PSEUDOInstruction.js";
+import PSEUDOInstruction from "../Instruction/PSEUDOInstruction.js";
+import REALInstruction from "../Instruction/REALInstruction.js";
+
+type MovsDataEntry = { secondNibble: string; from: string; to: string };
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
@@ -13,19 +16,19 @@ function createOpcodeMatrixTableCells() {
     .addRows(
       Array(16)
         .fill("") //turn sparse array into an actual array, otherwise .map() doesn't behave as expected
-        .map((_, index) => [`${index.toString(16).toUpperCase()}-`, ...Array(16).fill("")]) //creates 16 rows, each has an opcode nibble followed by 16 empty cells
+        .map((_, index) => [`${index.toString(16).toUpperCase()}-`, ...Array(16).fill("")]), //creates 16 rows, each has an opcode nibble followed by 16 empty cells
     )
     .firstColumnMinWidth("30px")
     .id("opcode-table")
     .textAlign(Array(17).fill("center"))
     .build();
 
-  placeholder.parentNode.insertBefore(table, placeholder);
-  placeholder.remove();
+  placeholder?.parentNode?.insertBefore(table, placeholder);
+  placeholder?.remove();
 }
 
 async function fillOpcodeMatrix() {
-  const table = document.getElementById("opcode-table");
+  const table = document.getElementById("opcode-table") as HTMLTableElement;
   const opcodeMap = await createOpcodeMap(); //stores all opcodes in binary mapped to their corresponding labels
 
   for (let i = 0; i < 256; i++) {
@@ -33,7 +36,7 @@ async function fillOpcodeMatrix() {
     const opcodeHex = i.toString(16).padStart(2, "0").toUpperCase();
     const row = parseInt(opcodeHex[0], 16);
     const col = parseInt(opcodeHex[1], 16);
-    const label = opcodeMap[opcodeBinary];
+    const label = opcodeMap.get(opcodeBinary);
     const currentCell = table.rows[row + 1].cells[col + 1];
 
     //if the label exists/the opcode is used, put it into the corresponding cell
@@ -46,9 +49,9 @@ async function fillOpcodeMatrix() {
   }
 }
 
-async function createOpcodeMap() {
+async function createOpcodeMap(): Promise<Map<string, string>> {
   let instructions = await DataProvider.getInstructions();
-  const opcodeMap = {};
+  const opcodeMap = new Map();
 
   for (const instruction of instructions) {
     //skip pseudo instructions as they don't have an opcode
@@ -57,18 +60,18 @@ async function createOpcodeMap() {
       continue;
     }
 
-    const originalOpcode = instruction.getOpcode();
+    const originalOpcode = (instruction as REALInstruction).getOpcode().getOriginalString();
 
     if (mnemonic === "movs") {
-      const opcodeMapForMovSpecial = await getOpcodeMapForMoveSpecial(instruction);
+      const opcodeMapForMovSpecial = await getOpcodeMapForMoveSpecial(instruction as REALInstruction);
       opcodeMapForMovSpecial.forEach(({ opcode, label }) => {
-        opcodeMap[opcode] = label;
+        opcodeMap.set(opcode, label);
       });
       continue;
     }
 
     if (originalOpcode.length !== 8) {
-      console.error(`Opcode length is not 8: ${originalOpcode}`);
+      throw new Error(`Opcode length is not 8: ${originalOpcode}`);
     }
 
     const registerCount = countCharsInString(originalOpcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
@@ -79,11 +82,11 @@ async function createOpcodeMap() {
         for (let i = 0; i < 2; i++) {
           let opcode = `${originalOpcode.replaceAll("L", i.toString(2))}`;
           label += `<br>&lt;imm&gt;<br>&rarr;${LCDREGISTER_LOOKUP[i]}`;
-          opcodeMap[opcode] = label;
+          opcodeMap.set(opcode, label);
           label = mnemonic; //reset label for next iteration
         }
       } else {
-        opcodeMap[originalOpcode] = mnemonic;
+        opcodeMap.set(originalOpcode, mnemonic);
       }
     } else if (registerCount == 1) {
       let label = mnemonic;
@@ -99,7 +102,7 @@ async function createOpcodeMap() {
           } else {
             label += `<br>&rarr;${REGISTER_LOOKUP[j]}`;
           }
-          opcodeMap[opcode] = label;
+          opcodeMap.set(opcode, label);
           label = mnemonic; //reset label for next iteration
         }
       }
@@ -110,26 +113,26 @@ async function createOpcodeMap() {
         const upperRegisterIndex = (i >> 2) & 0b11;
         const lowerRegisterIndex = i & 0b11;
         label += `<br>${REGISTER_LOOKUP[upperRegisterIndex]}&rarr;${REGISTER_LOOKUP[lowerRegisterIndex]}`;
-        opcodeMap[opcode] = label;
+        opcodeMap.set(opcode, label);
         label = mnemonic;
       }
     } else {
-      console.error(`Invalid register count! The maximum allowed amount of registers per instruction is 2, but it was ${registerCount}.`);
+      throw new Error(`Invalid register count! The maximum allowed amount of registers per instruction is 2, but it was ${registerCount}.`);
     }
   }
 
   return opcodeMap;
 }
 
-async function getOpcodeMapForMoveSpecial(instruction) {
-  const opcode = instruction.getOpcode();
-  if (countCharsInString(opcode, "R") != 4) {
-    console.error("R-count in movs opcode should be 4!");
+async function getOpcodeMapForMoveSpecial(instruction: REALInstruction): Promise<[{ opcode: string; label: string }]> {
+  const opcodeString = instruction.getOpcode().getOriginalString();
+  if (countCharsInString(opcodeString, "R") != 4) {
+    throw new Error("R-count in movs opcode should be 4!");
   }
-  const firstNibble = opcode.substring(0, 4);
+  const firstNibble = opcodeString.substring(0, 4);
   const response = await fetch("../resources/data/movsData.json");
   const movsData = await response.json();
-  return movsData.map((entry) => ({
+  return movsData.map((entry: MovsDataEntry) => ({
     opcode: `${firstNibble}${entry.secondNibble}`,
     label: `movs<br>${entry.from}&rarr;${entry.to}`,
   }));

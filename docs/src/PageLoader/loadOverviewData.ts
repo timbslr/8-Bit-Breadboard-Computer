@@ -1,8 +1,8 @@
 import Formatter from "../Formatter.js";
-import Instruction from "../Instruction.js";
-import InstructionRepository from "../InstructionRepository.js";
-import PSEUDOInstruction from "../PSEUDOInstruction.js";
-import REALInstruction from "../REALInstruction.js";
+import Instruction from "../Instruction/Instruction.js";
+import InstructionRepository from "../Instruction/InstructionRepository.js";
+import PSEUDOInstruction from "../Instruction/PSEUDOInstruction.js";
+import REALInstruction from "../Instruction/REALInstruction.js";
 import TableBuilder from "../TableBuilder.js";
 
 async function fillOverviewTables() {
@@ -12,6 +12,11 @@ async function fillOverviewTables() {
 
   //sort each group by indexInGroup and add to table
   for (const sameGroupInstructions of Object.values(groupedInstructions)) {
+    //currently for ts only
+    if (!sameGroupInstructions) {
+      continue;
+    }
+
     sameGroupInstructions.sort((instr1, instr2) => instr1.getIndexInGroup() - instr2.getIndexInGroup()); //sort in ascending alphabetical order
     const group = sameGroupInstructions[0].getGroup();
     const { rows, pseudoInstructionsInGroup } = await createTableRows(sameGroupInstructions);
@@ -27,7 +32,7 @@ async function fillOverviewTables() {
     placeholder.parentNode?.insertBefore(table, placeholder);
     placeholder.remove();
 
-    pseudoInstructions = pseudoInstructions.concat(pseudoInstructionsInGroup);
+    pseudoInstructions = pseudoInstructions.concat(pseudoInstructionsInGroup as PSEUDOInstruction[]);
   }
 
   //addEntriesToTable("pseudo-instructions-table", pseudoInstructions, ["mnemonic", "instruction", "mappedInstructions"]);
@@ -54,11 +59,11 @@ async function createTableRows(instructions: Instruction[]) {
 
     const mnemonicString = Formatter.decorateTextWithLink(instruction.isPSEUDO() ? `*${mnemonic}` : mnemonic, `./details#${mnemonic}`);
 
-    const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, instruction.getOperands()));
+    const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, instruction.getAbstractOperands()));
 
     const shortDescription = Formatter.escapeHTML(instruction.getShortDescription());
 
-    const opcode = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode();
+    const opcode = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode().getOriginalString();
     rows.push([opcode, mnemonicString, instructionString, shortDescription]);
   }
 
@@ -70,8 +75,12 @@ async function createPseudoInstructionRows(pseudoInstructions: PSEUDOInstruction
   for (const pseudoInstruction of pseudoInstructions) {
     const mnemonic = pseudoInstruction.getMnemonic();
     const mnemonicString = Formatter.decorateTextWithLink(`*${mnemonic}`, `./details#${mnemonic}`);
-    const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, pseudoInstruction.getOperands()));
-    const mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(pseudoInstruction.getMappedInstructions());
+    const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, pseudoInstruction.getAbstractOperands()));
+    const mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(
+      pseudoInstruction.getMappedInstructions().map((instr) => {
+        return instr.getInstanceString();
+      }),
+    );
 
     rows.push([mnemonicString, instructionString, mappedInstructionString]);
   }

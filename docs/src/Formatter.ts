@@ -1,22 +1,7 @@
-import Instruction from "./Instruction.js";
-import InstructionRepository from "./InstructionRepository.js";
-
-type ClockCyclesObject = { flagLow: number; flagHigh: number };
+import Instruction from "./Instruction/Instruction.js";
+import InstructionRepository from "./Instruction/InstructionRepository.js";
 
 export default class Formatter {
-  static formatNumberOfClockCyclesString(numberOfClockCyclesObject: ClockCyclesObject): string {
-    const clockCycles = numberOfClockCyclesObject;
-    let flagLowString = String(clockCycles.flagLow);
-    let flagHighString = String(clockCycles.flagHigh);
-
-    if (clockCycles.flagLow > clockCycles.flagHigh) {
-      //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
-      [flagLowString, flagHighString] = [flagHighString, flagLowString];
-    }
-
-    return flagLowString === flagHighString ? flagLowString : `${flagLowString}/${flagHighString}`;
-  }
-
   static formatClobberedRegisters(clobberedRegisters: Set<string>): string {
     const formattedString = [...clobberedRegisters].map((entry) => Formatter.escapeHTML(entry)).join(",<br>");
     return formattedString === "" ? "-" : formattedString;
@@ -57,7 +42,7 @@ export default class Formatter {
         }
 
         return instruction;
-      })
+      }),
     );
 
     return decoratedInstructions.join(lineDelimiter);

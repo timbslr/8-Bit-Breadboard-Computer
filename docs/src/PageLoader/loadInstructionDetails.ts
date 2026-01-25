@@ -1,33 +1,31 @@
 import Formatter from "../Formatter.js";
-import InstructionRepository from "../InstructionRepository.js";
-import REALInstruction from "../REALInstruction.js";
+import InstructionRepository from "../Instruction/InstructionRepository.js";
+import REALInstruction from "../Instruction/REALInstruction.js";
+import { InstructionClockCyclesStatistic } from "../Statistics/InstructionClockCyclesStatistic.js";
+import { InstructionMemorySizeStatistic } from "../Statistics/InstructionMemorySizeStatistic.js";
 import TableBuilder from "../TableBuilder.js";
 
 async function createAndFillTables() {
   const sortedInstructions = await InstructionRepository.getSorted();
   for (const instruction of sortedInstructions) {
     const mnemonic = instruction.getMnemonic();
-    const opcode = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode();
+    const opcode = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode().getOriginalString();
     const clobberedRegisters = Formatter.formatClobberedRegisters(await instruction.getClobberedRegisters());
 
-    const sizeInROM = await instruction.getByteSizeInROM();
-    let sizeInROMString = `${sizeInROM} Byte`;
-    if (sizeInROM !== 1) {
-      sizeInROMString += "s"; //s for Bytes
-    }
+    const memSizeStat = new InstructionMemorySizeStatistic(instruction);
+    const sizeInROMString = memSizeStat.formatted();
 
-    const numberOfClockCycles = await instruction.getAmountOfClockCyclesPerExecution();
-    const numberOfClockCyclesString = Formatter.formatNumberOfClockCyclesString(numberOfClockCycles);
+    const clockCyclesStat = new InstructionClockCyclesStatistic(instruction);
 
     const table = new TableBuilder()
-      .headers(["Instruction Type", "Group", "Opcode", "Clobbered Registers", "Size in ROM", "Number of Clock Cycles"])
+      .headers(["Instruction Type", "Group", "Opcode", "Clobbered Registers", memSizeStat.name, clockCyclesStat.name])
       .addRow([
         instruction.isPSEUDO() ? "PSEUDO" : "REAL",
         instruction.getGroup(),
         opcode,
         clobberedRegisters,
         sizeInROMString,
-        numberOfClockCyclesString,
+        clockCyclesStat.formatted(),
       ])
       .textAlign(["center", "center", "center", "center", "center", "center"])
       .id(`${mnemonic}-table`)
