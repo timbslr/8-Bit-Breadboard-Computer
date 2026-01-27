@@ -1,4 +1,5 @@
 import { COMPONENT_TYPES, parseComponent } from "../Parser/ComponentParser.js";
+import { Comparator } from "./Comparator.js";
 
 const TYPE_RANKING = [
   COMPONENT_TYPES.RESISTOR,
@@ -9,8 +10,8 @@ const TYPE_RANKING = [
   COMPONENT_TYPES.Other,
 ]; //smaller index means that it appears before the others
 
-export default class ComponentComparator {
-  static compare(componentA: string, componentB: string): number {
+export default class ComponentComparator implements Comparator<string> {
+  compare(componentA: string, componentB: string): number {
     const unifiedComponentA = parseComponent(componentA);
     const unifiedComponentB = parseComponent(componentB);
 

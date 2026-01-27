@@ -1,6 +1,6 @@
 import { parseJSONC } from "./Parser/JSONCParser.js";
 import PartListFileParser from "./Parser/PartListFileParser.js";
-import "./MapExtension.js";
+import "./Extensions/MapExtension.js";
 
 import Instruction from "./Instruction/Instruction.js";
 import { ControlBit } from "./types/ControlBit.js";

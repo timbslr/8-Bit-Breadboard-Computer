@@ -1,5 +1,6 @@
 import REALInstruction from "./REALInstruction.js";
-import { AbstractOperand, InstructionGroup, InstructionType, InstructionProperties, Example } from "./InstructionTypes.js";
+import { InstructionGroup, InstructionType, InstructionProperties, Example } from "./InstructionTypes.js";
+import { Operand } from "./Operand.js";
 
 export const REGISTER_LOOKUP = ["A", "B", "X", "TMP"];
 export const LCDREGISTER_LOOKUP = ["CTRL", "DATA"];
@@ -9,7 +10,7 @@ export default abstract class Instruction {
   private name: string;
   private mnemonic: string;
   private type: InstructionType;
-  private abstractOperands: AbstractOperand[];
+  private operands: Operand[];
   private group: InstructionGroup;
   private indexInGroup: number;
   private shortDescription: string;
@@ -20,7 +21,7 @@ export default abstract class Instruction {
     this.name = props.name;
     this.mnemonic = props.mnemonic;
     this.type = props.type;
-    this.abstractOperands = props.abstractOperands;
+    this.operands = props.operands;
     this.group = props.group;
     this.indexInGroup = props.indexInGroup;
     this.shortDescription = props.shortDescription;
@@ -33,7 +34,7 @@ export default abstract class Instruction {
   }
 
   isPSEUDO(): boolean {
-    return this.type === "PSEUDO";
+    return this.type === InstructionType.PSEUDO;
   }
 
   getMnemonic(): string {
@@ -48,8 +49,8 @@ export default abstract class Instruction {
     return this.indexInGroup;
   }
 
-  getAbstractOperands(): AbstractOperand[] {
-    return this.abstractOperands;
+  getOperands(): Operand[] {
+    return this.operands;
   }
 
   getShortDescription(): string {
@@ -60,8 +61,24 @@ export default abstract class Instruction {
     return this.longDescription;
   }
 
+  getExamples(): Example[] {
+    return this.examples;
+  }
+
   static extractMnemonicFromInstructionString(instructionString: string) {
     return instructionString.split(" ")[0].trim();
+  }
+
+  static extractOperandsFromInstructionString(instructionString: string) {
+    const parts = instructionString.split(/ (.+)/); //split at first space (between the mnemonic and the first operand)
+    if (parts.length < 2) {
+      return []; //no operands present
+    }
+
+    return parts[1]
+      .split(",")
+      .map((operand) => operand.trim())
+      .filter((operand) => operand !== ""); //remove empty strings if there are any
   }
 
   abstract getExecutedInstructions(): REALInstruction[];

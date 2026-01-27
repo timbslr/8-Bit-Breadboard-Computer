@@ -1,3 +1,5 @@
+import { Comparator } from "./Comparators/Comparator.js";
+
 type Table = {
   headers: string[];
   rows: string[][];
@@ -59,14 +61,14 @@ export default class TableBuilder {
     return this;
   }
 
-  sortByColumn(columnName: string, compareFunction: (a: string, b: string) => number) {
+  sortByColumn(columnName: string, comparator: Comparator<string>) {
     const columnIndex = this.table.headers.indexOf(columnName);
 
     if (columnIndex === -1) {
       throw new ReferenceError(`Column ${columnName} does not exist on table with id ${this.table.id}`);
     }
 
-    this.table.rows.sort((rowA, rowB) => compareFunction(rowA[columnIndex], rowB[columnIndex]));
+    this.table.rows.sort((rowA, rowB) => comparator.compare(rowA[columnIndex], rowB[columnIndex]));
     return this;
   }
 

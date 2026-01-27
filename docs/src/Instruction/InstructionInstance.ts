@@ -1,26 +1,30 @@
 import Instruction from "./Instruction.js";
-import InstructionRepository from "./InstructionRepository.js";
-import { Operand } from "./Operand.js";
+import { OperandInstance } from "./OperandInstance.js";
 
 /**
  * This class represents an actual executable instance of an instruction, like: "addi B, 10"
  */
 export class InstructionInstance {
   private readonly definition: Instruction;
-  private readonly operands: Operand[];
-  private readonly instanceString: string;
+  private readonly operands: OperandInstance[] = [];
 
-  constructor(definition: Instruction, operands: Operand[]);
+  constructor(definition: Instruction, operands: OperandInstance[]);
   constructor(definition: Instruction, instructionInstanceString: string);
-  constructor(definition: Instruction, arg2: Operand[] | string) {
+  constructor(definition: Instruction, arg2: OperandInstance[] | string) {
     this.definition = definition;
     if (Array.isArray(arg2)) {
       this.operands = arg2;
-      const operandString = this.operands.join(", ");
-      this.instanceString = this.definition.getMnemonic() + " " + operandString;
     } else {
-      this.operands = [new Operand()]; //TODO
-      this.instanceString = arg2;
+      const operandInstances = Instruction.extractOperandsFromInstructionString(arg2);
+      const operands = definition.getOperands();
+
+      if (operandInstances.length !== operands.length) {
+        throw new Error("Operand lengths not matching!");
+      }
+
+      for (let i = 0; i < operands.length; i++) {
+        this.operands.push(new OperandInstance(operands[i].getName(), operandInstances[i]));
+      }
     }
   }
 
@@ -28,11 +32,12 @@ export class InstructionInstance {
     return this.definition;
   }
 
-  getOperands(): Operand[] {
+  getOperands(): OperandInstance[] {
     return this.operands;
   }
 
-  getInstanceString(): string {
-    return this.instanceString;
+  instanceString(): string {
+    const operandString = this.operands.join(", ");
+    return this.definition.getMnemonic() + " " + operandString;
   }
 }

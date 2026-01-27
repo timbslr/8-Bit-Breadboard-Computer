@@ -24,7 +24,7 @@ export default class PSEUDOInstruction extends Instruction {
 
     for (const mappedInstruction of this.getMappedInstructions()) {
       let match;
-      let mappedInstructionString = mappedInstruction.getInstanceString();
+      let mappedInstructionString = mappedInstruction.instanceString();
       while ((match = REGISTER_REGEX.exec(mappedInstructionString))) {
         const register = match[1];
         modifiedRegisters.add(register);

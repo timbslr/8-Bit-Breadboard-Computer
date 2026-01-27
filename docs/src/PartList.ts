@@ -34,7 +34,7 @@ export class PartList extends HTMLElement {
     const partListTable = new TableBuilder()
       .headers(headers)
       .addRows(rows)
-      .sortByColumn("Part Name", ComponentComparator.compare)
+      .sortByColumn("Part Name", new ComponentComparator())
       .textAlign(textAlignments)
       .id("part-list-table")
       .build();

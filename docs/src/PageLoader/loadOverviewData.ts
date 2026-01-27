@@ -28,9 +28,9 @@ async function fillOverviewTables() {
       .id(`${group}-table`)
       .build();
 
-    const placeholder = document.querySelector(`#placeholder-${group}-table`) as Element;
-    placeholder.parentNode?.insertBefore(table, placeholder);
-    placeholder.remove();
+    const placeholder = document.querySelector(`#placeholder-${group}-table`);
+    placeholder?.parentNode?.insertBefore(table, placeholder);
+    placeholder?.remove();
 
     pseudoInstructions = pseudoInstructions.concat(pseudoInstructionsInGroup as PSEUDOInstruction[]);
   }
@@ -59,7 +59,12 @@ async function createTableRows(instructions: Instruction[]) {
 
     const mnemonicString = Formatter.decorateTextWithLink(instruction.isPSEUDO() ? `*${mnemonic}` : mnemonic, `./details#${mnemonic}`);
 
-    const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, instruction.getAbstractOperands()));
+    const instructionString = Formatter.escapeHTML(
+      Formatter.joinMnemonicWithOperands(
+        mnemonic,
+        instruction.getOperands().map((operand) => operand.getName()),
+      ),
+    );
 
     const shortDescription = Formatter.escapeHTML(instruction.getShortDescription());
 
@@ -75,10 +80,15 @@ async function createPseudoInstructionRows(pseudoInstructions: PSEUDOInstruction
   for (const pseudoInstruction of pseudoInstructions) {
     const mnemonic = pseudoInstruction.getMnemonic();
     const mnemonicString = Formatter.decorateTextWithLink(`*${mnemonic}`, `./details#${mnemonic}`);
-    const instructionString = Formatter.escapeHTML(Formatter.joinMnemonicWithOperands(mnemonic, pseudoInstruction.getAbstractOperands()));
+    const instructionString = Formatter.escapeHTML(
+      Formatter.joinMnemonicWithOperands(
+        mnemonic,
+        pseudoInstruction.getOperands().map((operand) => operand.getName()),
+      ),
+    );
     const mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(
       pseudoInstruction.getMappedInstructions().map((instr) => {
-        return instr.getInstanceString();
+        return instr.instanceString();
       }),
     );
 

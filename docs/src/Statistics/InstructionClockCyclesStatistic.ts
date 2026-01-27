@@ -19,18 +19,18 @@ export class InstructionClockCyclesStatistic implements InstructionStatistic<Fla
   }
 
   private valueForPSEUDOInstruction(): FlagDependentNumber {
-    let numberOfClockCycles = { flagLow: 0, flagHigh: 0 }; //may differ if flag is low or high
+    let clockCycles = { flagLow: 0, flagHigh: 0 }; //may differ if flag is low or high
 
     for (const mappedInstruction of (this.instruction as PSEUDOInstruction).getMappedInstructions()) {
       const stat = new InstructionClockCyclesStatistic(mappedInstruction.getDefinition());
-      const clockCyclesForMappedInstruction = stat.value();
-      numberOfClockCycles = {
-        flagLow: numberOfClockCycles.flagLow + clockCyclesForMappedInstruction.flagLow,
-        flagHigh: numberOfClockCycles.flagHigh + clockCyclesForMappedInstruction.flagHigh,
+      const currentClockCycles = stat.value();
+      clockCycles = {
+        flagLow: clockCycles.flagLow + currentClockCycles.flagLow,
+        flagHigh: clockCycles.flagHigh + currentClockCycles.flagHigh,
       };
     }
 
-    return numberOfClockCycles;
+    return clockCycles;
   }
 
   private valueForREALInstruction(): FlagDependentNumber {
@@ -52,7 +52,7 @@ export class InstructionClockCyclesStatistic implements InstructionStatistic<Fla
     let high = clockCycles.flagHigh;
 
     if (low > high) {
-      //the smaller clock cycle count should be displayed first, followed by the bigger one if they are not equal
+      //the smaller clock cycle count should be displayed first, followed by the bigger one
       [low, high] = [high, low];
     }
 
