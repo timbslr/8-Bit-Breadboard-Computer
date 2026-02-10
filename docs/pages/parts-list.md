@@ -1,8 +1,8 @@
 ---
-title: Part List
+title: Parts List
 layout: default
-permalink: /part-list
-nav_order: 6
+permalink: /parts-list
+nav_order: 7
 ---
 
 <link rel="stylesheet" href="./styles/switch.css">

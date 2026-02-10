@@ -2,7 +2,7 @@
 title: Instruction Set
 layout: default
 permalink: /instruction-set/overview
-nav_order: 2
+nav_order: 5
 ---
 
 :point_right: Click to switch representation:
