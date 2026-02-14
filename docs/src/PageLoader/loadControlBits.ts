@@ -17,7 +17,7 @@ async function createAndFillTables() {
       .build();
 
     const tableDescription = document.createElement("h2");
-    tableDescription.innerHTML = groupName;
+    tableDescription.textContent = groupName;
     mainContent.appendChild(tableDescription);
 
     mainContent.appendChild(table);

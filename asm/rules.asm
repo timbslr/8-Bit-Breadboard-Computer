@@ -36,11 +36,11 @@
 	andi {reg: register}, {imm: i8}                => asm{ li TMP, {imm} } @ asm{ and {reg} }
 	or {reg: register}                             => 0b110111 @ reg
 	ori {reg: register}, {imm: i8}                 => asm{ li TMP, {imm} } @ asm{ or {reg} }
-	xor {reg: register}                            => 0b111000 @ reg
+	xor {reg: register}                            => 0b101100 @ reg
 	xori {reg: register}, {imm: i8}                => asm{ li TMP, {imm} } @ asm{ xor {reg} }
 	not {reg: register}                            => 0b111001 @ reg
 	neg {reg: register}                            => asm{ not A } @ asm{ addi {reg}, 1 }
-	shl {reg: register}                            => 0b111010 @ reg
+	shl {reg: register}                            => 0b110010 @ reg
 	slr {reg: register}                            => 0b111011 @ reg
 	sar {reg: register}                            => 0b111100 @ reg
 	ror {reg: register}                            => 0b111101 @ reg
@@ -86,6 +86,8 @@
 	outlcdi {lcdreg: lcdregister}, {imm: i8}       => 0b0100011 @ lcdreg @ imm
 	lcdrd {lcdreg: lcdregister}, {reg: register}   => 0b01011 @ lcdreg @ reg
 	rxrd {reg: register}                           => 0b010100 @ reg
+	txsend {reg: register}                         => 0b010101 @ reg
+	txsendi {imm: i8}                              => 0b01000010 @ imm
 	nop                                            => 0b00000000
 	hlt                                            => 0b00000001
 	call {addr: u16}                               => asm{ 
@@ -126,8 +128,10 @@
 	bnc {addr: u16}                                => 0b01000001 @ le(addr)
 	bvs {addr: u16}                                => 0b01100000 @ le(addr)
 	bvc {addr: u16}                                => 0b01100001 @ le(addr)
-	brxrdys {addr: u16}                            => 0b11111100 @ le(addr)
-	brxrdyc {addr: u16}                            => 0b11111101 @ le(addr)
+	brxrdys {addr: u16}                            => 0b11100000 @ le(addr)
+	brxrdyc {addr: u16}                            => 0b11100001 @ le(addr)
+	btxrdys {addr: u16}                            => 0b11101000 @ le(addr)
+	btxrdyc {addr: u16}                            => 0b11101001 @ le(addr)
 }
 
 #bank ROM

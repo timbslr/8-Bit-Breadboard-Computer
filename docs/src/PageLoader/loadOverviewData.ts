@@ -55,9 +55,9 @@ async function createTableRows(instructions: Instruction[]) {
     if (instruction.isPSEUDO()) {
       pseudoInstructionsInGroup.push(instruction);
     }
-    const mnemonic = instruction.getMnemonic();
 
-    const mnemonicString = Formatter.decorateTextWithLink(instruction.isPSEUDO() ? `*${mnemonic}` : mnemonic, `./details#${mnemonic}`);
+    const mnemonic = instruction.getMnemonic();
+    const mnemonicStringWithLink = Formatter.decorateTextWithLink(instruction.isPSEUDO() ? `*${mnemonic}` : mnemonic, `./details#${mnemonic}`);
 
     const instructionString = Formatter.escapeHTML(
       Formatter.joinMnemonicWithOperands(
@@ -66,10 +66,10 @@ async function createTableRows(instructions: Instruction[]) {
       ),
     );
 
+    const opcodeString = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode().getOriginalString();
     const shortDescription = Formatter.escapeHTML(instruction.getShortDescription());
 
-    const opcode = instruction.isPSEUDO() ? "-" : (instruction as REALInstruction).getOpcode().getOriginalString();
-    rows.push([opcode, mnemonicString, instructionString, shortDescription]);
+    rows.push([opcodeString, mnemonicStringWithLink, instructionString, shortDescription]);
   }
 
   return { rows, pseudoInstructionsInGroup };

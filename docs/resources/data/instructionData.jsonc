@@ -276,7 +276,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "111000RR",
+      "opcode": "101100RR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -350,7 +350,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "111010RR",
+      "opcode": "110010RR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -1121,6 +1121,52 @@
       ]
     },
     {
+      "name": "serial tx send",
+      "mnemonic": "txsend",
+      "type": "REAL",
+      "operands": ["reg"],
+      "requiresFlag": false,
+      "opcode": "010101RR",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_<reg>", "SER_RX_SEND"],
+        ["RSC"]
+      ],
+      "group": "I-O",
+      "indexInGroup": 6,
+      "shortDescription": "TODO",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
+      "name": "serial tx send immediate",
+      "mnemonic": "txsendi",
+      "type": "REAL",
+      "operands": ["imm"],
+      "requiresFlag": false,
+      "opcode": "01000010",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //                ──┐
+        ["OE_PC_L", "IE_MAR_L"], //                  ├──> Fetch Operand (= immediate) and send it to the lcd by enabling write, selecting the specified LCD-Register (DATA or CONTROL) and creating a short pulse at the enable-line
+        ["MEM_EN_IO", "SER_RX_SEND", "INC_PC"], // ──┘
+        ["RSC"]
+      ],
+      "group": "I-O",
+      "indexInGroup": 6,
+      "shortDescription": "TestTODO",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
       "name": "no operation",
       "mnemonic": "nop",
       "type": "REAL",
@@ -1241,7 +1287,7 @@
         ["RSC"]
       ],
       "group": "BR-JMP",
-      "indexInGroup": 0,
+      "indexInGroup": 1,
       "shortDescription": "PC_L = BUF, PC_H = TMP",
       "longDescription": "",
       "examples": [
@@ -1281,7 +1327,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 5,
+      "indexInGroup": 2,
       "shortDescription": "branch if A == TMP",
       "longDescription": "",
       "examples": [
@@ -1295,7 +1341,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "beq <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 2,
+      "indexInGroup": 3,
       "shortDescription": "branch if A == <imm>",
       "longDescription": "",
       "examples": [
@@ -1335,7 +1381,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 5,
+      "indexInGroup": 4,
       "shortDescription": "branch if A == TMP",
       "longDescription": "",
       "examples": [
@@ -1349,7 +1395,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "bne <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 4,
+      "indexInGroup": 5,
       "shortDescription": "branch if A != <imm>",
       "longDescription": "",
       "examples": [
@@ -1389,7 +1435,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 5,
+      "indexInGroup": 6,
       "shortDescription": "branch if A < TMP (signed)",
       "longDescription": "",
       "examples": [
@@ -1403,7 +1449,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "blt <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 6,
+      "indexInGroup": 7,
       "shortDescription": "branch if A < <imm> (signed)",
       "longDescription": "",
       "examples": [
@@ -1443,7 +1489,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 7,
+      "indexInGroup": 8,
       "shortDescription": "branch if A < TMP (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1457,7 +1503,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "bltu <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 8,
+      "indexInGroup": 9,
       "shortDescription": "branch if A < <imm> (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1497,7 +1543,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 9,
+      "indexInGroup": 10,
       "shortDescription": "branch if A <= TMP (signed)",
       "longDescription": "",
       "examples": [
@@ -1511,7 +1557,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "ble <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 10,
+      "indexInGroup": 11,
       "shortDescription": "branch if A <= <imm> (signed)",
       "longDescription": "",
       "examples": [
@@ -1551,7 +1597,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 11,
+      "indexInGroup": 12,
       "shortDescription": "branch if A <= TMP (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1565,7 +1611,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "bleu <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 12,
+      "indexInGroup": 13,
       "shortDescription": "branch if A <= <imm> (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1605,7 +1651,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 13,
+      "indexInGroup": 14,
       "shortDescription": "branch if A >= TMP (signed)",
       "longDescription": "",
       "examples": [
@@ -1619,7 +1665,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "bge <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 14,
+      "indexInGroup": 15,
       "shortDescription": "branch if A >= <imm> (signed)",
       "longDescription": "",
       "examples": [
@@ -1659,7 +1705,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 15,
+      "indexInGroup": 16,
       "shortDescription": "branch if A >= TMP (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1673,7 +1719,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "bgeu <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 16,
+      "indexInGroup": 17,
       "shortDescription": "branch if A >= <imm> (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1713,7 +1759,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 17,
+      "indexInGroup": 18,
       "shortDescription": "branch if A > TMP (signed)",
       "longDescription": "",
       "examples": [
@@ -1727,7 +1773,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "bgt <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 18,
+      "indexInGroup": 19,
       "shortDescription": "branch if A > <imm> (signed)",
       "longDescription": "",
       "examples": [
@@ -1767,7 +1813,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 19,
+      "indexInGroup": 20,
       "shortDescription": "branch if A > TMP (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1781,7 +1827,7 @@
       "operands": ["imm", "addr"],
       "mappedInstructions": ["li TMP, <imm>", "bgtu <addr>"],
       "group": "BR-JMP",
-      "indexInGroup": 20,
+      "indexInGroup": 21,
       "shortDescription": "branch if A > <imm> (unsigned)",
       "longDescription": "",
       "examples": [
@@ -1819,7 +1865,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 1,
+      "indexInGroup": 22,
       "shortDescription": "branch if branch if ZF is set",
       "longDescription": "",
       "examples": [
@@ -1857,7 +1903,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 3,
+      "indexInGroup": 23,
       "shortDescription": "branch if ZF is not set",
       "longDescription": "",
       "examples": [
@@ -1895,7 +1941,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 23,
+      "indexInGroup": 24,
       "shortDescription": "branch if CF is set",
       "longDescription": "",
       "examples": [
@@ -1933,7 +1979,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 24,
+      "indexInGroup": 25,
       "shortDescription": "branch if CF is not set",
       "longDescription": "",
       "examples": [
@@ -1971,7 +2017,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 21,
+      "indexInGroup": 26,
       "shortDescription": "branch if NF is set",
       "longDescription": "",
       "examples": [
@@ -2009,7 +2055,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 22,
+      "indexInGroup": 27,
       "shortDescription": "branch if NF is not set",
       "longDescription": "",
       "examples": [
@@ -2047,7 +2093,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 25,
+      "indexInGroup": 28,
       "shortDescription": "branch if VF is set",
       "longDescription": "",
       "examples": [
@@ -2085,7 +2131,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 26,
+      "indexInGroup": 29,
       "shortDescription": "branch if VF is not set",
       "longDescription": "",
       "examples": [
@@ -2098,7 +2144,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "11111100",
+      "opcode": "11100000",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -2123,7 +2169,7 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 27,
+      "indexInGroup": 30,
       "shortDescription": "branch if serial-rx-ready flag is set",
       "longDescription": "",
       "examples": [
@@ -2136,7 +2182,7 @@
       "type": "REAL",
       "operands": ["addr"],
       "requiresFlag": true,
-      "opcode": "11111101",
+      "opcode": "11100001",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -2161,8 +2207,84 @@
         ]
       },
       "group": "BR-JMP",
-      "indexInGroup": 28,
+      "indexInGroup": 31,
       "shortDescription": "branch if serial-rx-ready flag is not set",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
+      "name": "branch if serial-tx-ready set",
+      "mnemonic": "btxrdys",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "11101000",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 32,
+      "shortDescription": "branch if serial-tx-ready flag is set",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
+      "name": "branch if serial-tx-ready clear",
+      "mnemonic": "btxrdyc",
+      "type": "REAL",
+      "operands": ["addr"],
+      "requiresFlag": true,
+      "opcode": "11101001",
+      "microinstructions": {
+        "0": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //           ──┐
+          ["OE_PC_L", "IE_MAR_L"], //             ├──> Branch occurs: Fetch first Operand (= low byte of the address to jump to) and move it into the buffer
+          ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_PC_H", "IE_MAR_H"], //  ──┐
+          ["OE_PC_L", "IE_MAR_L"], //    ├──> Fetch second Operand (= high byte of the address to jump to) and move it to PC_H
+          ["MEM_EN_IO", "IE_PC_H"], // ──┘
+          ["OE_BUF", "IE_PC_L"], //move BUF to PC_L
+          ["RSC"]
+        ],
+        "1": [
+          ["OE_PC_H", "IE_MAR_H"], //          ──┐
+          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["INC_PC"], //  ──┐
+          ["INC_PC"], //  ──┴──> skip the two address bytes as there is no branch
+          ["RSC"]
+        ]
+      },
+      "group": "BR-JMP",
+      "indexInGroup": 33,
+      "shortDescription": "branch if serial-tx-ready flag is not set",
       "longDescription": "",
       "examples": [
         //TODO

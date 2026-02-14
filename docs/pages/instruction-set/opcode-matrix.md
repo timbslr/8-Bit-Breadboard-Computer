@@ -30,7 +30,10 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
 |      100xxxxx      |                       NF &oplus; VF                        |
 |      101xxxxx      |                  (NF &oplus; VF) &or; ZF                   |
 |      110xxxxx      | <span style="text-decoration: overline;">CF</span> &or; ZF |
-|      111xxxxx      |                         SER_RX_RDY                         |
+|      11100xxx      |                         SER_RX_RDY                         |
+|      11101xxx      |                         SER_TX_RDY                         |
+|      11110xxx      |                     _Not assigned yet_                     |
+|      11111xxx      |                     _Not assigned yet_                     |
 
 <style>
  :root {
@@ -39,9 +42,12 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
    --color3: #0055ff60;
    --color4: #09ff0060;
    --color5: #7a521b60;
-   --color6: #ff00ff60;
+   --color6: #fb5cc860;
    --color7: #00ddff60;
    --color8: #ff910060;
+   --color9: #b700ff60;
+   --color10: #7e7e7e60;
+   --color11: #b0df2460;
    --matrix-hover-color: #ffffff;
  }
 
@@ -127,13 +133,27 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
   background-color: var(--color7);
  }
 
- #opcode-table tr:nth-child(15) td,
- #opcode-table tr:nth-child(16) td,
+ #opcode-table tr:nth-child(15) td:nth-child(n+2):nth-child(-n+9),
  #table2 tr:nth-child(8) td:first-child {
   background-color: var(--color8);
  }
 
- #opcode-table td:not(:first-child):hover {
+  #opcode-table tr:nth-child(15) td:nth-child(n+10):nth-child(-n+17),
+ #table2 tr:nth-child(9) td:first-child {
+  background-color: var(--color9);
+ }
+
+  #opcode-table tr:nth-child(16) td:nth-child(n+2):nth-child(-n+9),
+ #table2 tr:nth-child(10) td:first-child {
+  background-color: var(--color10);
+ }
+
+  #opcode-table tr:nth-child(16) td:nth-child(n+10):nth-child(-n+17),
+ #table2 tr:nth-child(11) td:first-child {
+  background-color: var(--color11);
+ }
+
+ #opcode-table tr:nth-child(n) td:not(:first-child):hover {
   background-color: var(--matrix-hover-color);
  }
 
