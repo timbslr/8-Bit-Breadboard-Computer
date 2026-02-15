@@ -86,7 +86,7 @@ export default abstract class Instruction {
   abstract getModifiedRegisters(): Set<string>;
 
   getClobberedRegisters() {
-    const nonClobberedRegisters = ["PC_L", "PC_H", "MAR_L", "MAR_H", "IR", "SP_L", "SP_H", "F", "7SD", "<reg>", "BUF"];
+    const nonClobberedRegisters = ["PC_L", "PC_H", "MAR_L", "MAR_H", "IR", "SP_L", "SP_H", "F", "7SD", "<reg>", "regd", "regsd", "BUF"];
     const modifiedRegisterArray = [...this.getModifiedRegisters()];
     return new Set(modifiedRegisterArray.filter((register) => !nonClobberedRegisters.includes(register)));
   }
