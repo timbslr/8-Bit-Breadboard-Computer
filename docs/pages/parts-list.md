@@ -5,8 +5,8 @@ permalink: /parts-list
 nav_order: 7
 ---
 
-<link rel="stylesheet" href="./styles/switch.css">
-<script type="module" src="./dist/PartList.js"></script>
+<link rel="stylesheet" href="{{ site.baseurl }}/styles/switch.css">
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ---
 

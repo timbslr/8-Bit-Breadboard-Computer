@@ -6,7 +6,7 @@ permalink: /modules/reset
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## Reset
 
@@ -19,9 +19,9 @@ The obvious reason is that we may want to run our program multiple times in a ro
 The more important reason however is that the reset after each power-up is actually essential for the correct operation of the computer: When it first gets power, all registers contain random values instead of clean zeros. With a reset after power-up, we bring the computer into a known state, so all computations will end in the same result later.
 
 <br>
-<part-list src="../resources/PartLists/Reset.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/Reset.csv"></part-list>
 
 ### Schematic
 
 <br>
-<img src="../resources/Wiring Diagrams/Reset.svg" alt="Reset schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/Reset.svg" alt="Reset schematic" style="width:100%; height:auto;">

@@ -10,7 +10,7 @@ nav_order: 0
 Welcome to the documentation of my 8-Bit breadboard computer! Here you will find everything from the overall structure of the build, schematics, explanation of the modules, the instruction set and so much more. Have fun digging into the technical specifications of this project!
 <br>
 <br>
-![Image of the 8-Bit Breadboard Computer](./resources/images/Breadboard Computer Top Down.jpg)
+![Image of the 8-Bit Breadboard Computer]({{ site.baseurl }}/resources/images/Breadboard Computer Top Down.jpg)
 <br>
 <br>
 
@@ -21,18 +21,18 @@ There is one exception: With 8 bits, you wouldn't be able to write bigger progra
 
 The project uses different colors for wires and LEDs. This makes determining the functionality of a cable or the affiliation of an LED to a module much easier, especially during debugging the circuits.
 
-|                              LED/Wire Color                               | Functionality                                             |
-| :-----------------------------------------------------------------------: | :-------------------------------------------------------- |
-| ![Yellow LED Icon](./resources/icons/LEDs/yellowLED.svg) <br> 220 &Omega; | 4-Bit value                                               |
-|   ![Blue LED Icon](./resources/icons/LEDs/blueLED.svg) <br> 680 &Omega;   | 8-Bit value, only for the bus                             |
-|    ![Red LED Icon](./resources/icons/LEDs/redLED.svg) <br> 470 &Omega;    | 8-Bit value, everything except the bus                    |
-| ![Green LED Icon](./resources/icons/LEDs/greenLED.svg) <br> 2200 &Omega;  | 16-Bit value                                              |
-|          ![Red Wire Icon](./resources/icons/Wires//redWire.svg)           | +5V                                                       |
-|         ![Black Wire Icon](./resources/icons/Wires/blackWire.svg)         | GND                                                       |
-|         ![Green Wire Icon](./resources/icons/Wires/greenWire.svg)         | Internal module connections                               |
-|        ![Yellow Wire Icon](./resources/icons/Wires/yellowWire.svg)        | CLK + Internal module connections\*                       |
-|          ![Blue Wire Icon](./resources/icons/Wires/blueWire.svg)          | Direct connection to the bus                              |
-|         ![White Wire Icon](./resources/icons/Wires/whiteWire.svg)         | Control line, connected directly to the controller        |
-|         ![Brown Wire Icon](./resources/icons/Wires/brownWire.svg)         | Reset line + Control line + Internal module connections\* |
+|                                       LED/Wire Color                                       | Functionality                                             |
+| :----------------------------------------------------------------------------------------: | :-------------------------------------------------------- |
+| ![Yellow LED Icon]({{ site.baseurl }}/resources/icons/LEDs/yellowLED.svg) <br> 220 &Omega; | 4-Bit value                                               |
+|   ![Blue LED Icon]({{ site.baseurl }}/resources/icons/LEDs/blueLED.svg) <br> 680 &Omega;   | 8-Bit value, only for the bus                             |
+|    ![Red LED Icon]({{ site.baseurl }}/resources/icons/LEDs/redLED.svg) <br> 470 &Omega;    | 8-Bit value, everything except the bus                    |
+| ![Green LED Icon]({{ site.baseurl }}/resources/icons/LEDs/greenLED.svg) <br> 2200 &Omega;  | 16-Bit value                                              |
+|          ![Red Wire Icon]({{ site.baseurl }}/resources/icons/Wires//redWire.svg)           | +5V                                                       |
+|         ![Black Wire Icon]({{ site.baseurl }}/resources/icons/Wires/blackWire.svg)         | GND                                                       |
+|         ![Green Wire Icon]({{ site.baseurl }}/resources/icons/Wires/greenWire.svg)         | Internal module connections                               |
+|        ![Yellow Wire Icon]({{ site.baseurl }}/resources/icons/Wires/yellowWire.svg)        | CLK + Internal module connections\*                       |
+|          ![Blue Wire Icon]({{ site.baseurl }}/resources/icons/Wires/blueWire.svg)          | Direct connection to the bus                              |
+|         ![White Wire Icon]({{ site.baseurl }}/resources/icons/Wires/whiteWire.svg)         | Control line, connected directly to the controller        |
+|         ![Brown Wire Icon]({{ site.baseurl }}/resources/icons/Wires/brownWire.svg)         | Reset line + Control line + Internal module connections\* |
 
 \*At some point, I ran out of correct colored wires, that's why some wire colors are occupied more than once.

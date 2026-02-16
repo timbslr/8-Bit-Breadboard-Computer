@@ -6,7 +6,7 @@ permalink: /modules/arithmetic-logic-unit
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## Arithmetic Logic Unit (ALU)
 
@@ -29,7 +29,7 @@ But as always, there's something in between: I didn't want to go with option 1 b
 But I didn't want to use a single chip for the ALU either, as this is primarily a learning project for me. I want to have fun building and explore different options for the same solution. In the end, I settled on the following approach with this structure:
 <br>
 <br>
-<img src="../resources/Wiring Diagrams/ALU_page_1.svg" alt="ALU overview" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/ALU_page_1.svg" alt="ALU overview" style="width:100%; height:auto;">
 <br>
 As you can see, my ALU-design has two sections: An adder for addition and subtraction, and two EEPROM's, which handle all the logic operations. <br>
 
@@ -91,9 +91,9 @@ The overflow flag is always set if the sign of the A-Register and the TMP-Regist
 <br>
 \*We also want the overflow flag to be valid for subtraction, so the msb of the A-Register is actually compared with the output of the XOR between the msb of the TMP-Register and ALU_SRC.
 <br>
-<part-list src="../resources/PartLists/ALU.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/ALU.csv"></part-list>
 
 ### Schematic
 
 <br>
-<img src="../resources/Wiring Diagrams/ALU_page_2.svg" alt="ALU schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/ALU_page_2.svg" alt="ALU schematic" style="width:100%; height:auto;">

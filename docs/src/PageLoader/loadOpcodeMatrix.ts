@@ -130,7 +130,7 @@ async function getOpcodeMapForMoveSpecial(instruction: REALInstruction): Promise
     throw new Error("R-count in movs opcode should be 4!");
   }
   const firstNibble = opcodeString.substring(0, 4);
-  const response = await fetch("../resources/data/movsData.json");
+  const response = await fetch(`${window.BASE_URL}/resources/data/movsData.json`);
   const movsData = await response.json();
   return movsData.map((entry: MovsDataEntry) => ({
     opcode: `${firstNibble}${entry.secondNibble}`,

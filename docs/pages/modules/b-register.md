@@ -6,7 +6,7 @@ permalink: /modules/b-register
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## B-Register
 
@@ -16,9 +16,9 @@ Technically, the 4-bit register chips even have a three-state output, so an extr
 
 An asynchronous input provides the ability to reset the registers to zero, the CLK-input provides a synchronization for loading data from the bus (on the rising CLK edge). On the other hand, outputting data from the register to the bus is asynchronous, as the bus transceiver outputs data immediately after it's Output Enable signal goes low.
 <br>
-<part-list src="../resources/PartLists/B-Register.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/B-Register.csv"></part-list>
 
 ### Schematic
 
 <br>
-<img src="../resources/Wiring Diagrams/B-Register.svg" alt="B-Register schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/B-Register.svg" alt="B-Register schematic" style="width:100%; height:auto;">

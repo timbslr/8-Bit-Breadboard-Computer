@@ -6,7 +6,7 @@ permalink: /modules/controller
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## Controller
 
@@ -16,7 +16,7 @@ The controller consists of a few submodules:
 
 ### Controller EEPROMs
 
-The brain of the controller itself are four 28C64B EEPROMs, each containing 64KiB of data. They store all the instructions defined in the [instructionData.jsonc](../resources/data/instructionData.jsonc) file and set their outputs based on 13 input bits in total:
+The brain of the controller itself are four 28C64B EEPROMs, each containing 64KiB of data. They store all the instructions defined in the [instructionData.jsonc]({{ site.baseurl }}/resources/data/instructionData.jsonc) file and set their outputs based on 13 input bits in total:
 
 <ul>
   <li> 4 bits for the <a href="#4-bit-step-counter">step counter</a> </li>
@@ -36,7 +36,7 @@ That's because the first three steps are the same for every instruction: They in
 ### 8-Bit Opcode
 
 I really wanted support for a full width 8-bit opcode. With the [optimization on the flag input](#flag-multiplexer) I was able to achieve this as there were eight address lines/inputs left on the controller EEPROMs.
-This means my computer supports a total of 256 different instructions (although not all opcodes are occupied at the moment), whose definitions you can look up [here](../instruction-set/overview).
+This means my computer supports a total of 256 different instructions (although not all opcodes are occupied at the moment), whose definitions you can look up [here]({{ site.baseurl }}/instruction-set/overview).
 
 ### Flag Multiplexer
 
@@ -45,7 +45,7 @@ So the naive approach is to use four of the controller EEPROMs address pins/inpu
 Unfortunately, there was only one address line left on these EEPROMs (12/13 are already used for the 4-bit step counter and the 8-bit opcode), so i had to came up with a solution to that problem.
 <br>
 In fact, every instruction uses at most one (combination) of the flags above, so I'm able to introduce a multiplexer and some combinatorial logic to route always only one flag to the controller.
-The three upper bits of the opcodes are fed into the control lines of that multiplexer, which means that theres a [range of opcodes](../instruction-set/opcode-matrix#table2) where a specific flag (combination) is available.
+The three upper bits of the opcodes are fed into the control lines of that multiplexer, which means that theres a [range of opcodes]({{ site.baseurl }}/instruction-set/opcode-matrix#table2) where a specific flag (combination) is available.
 If you define an instruction, you must ensure that, if the instruction needs a specific flag, its opcode lies within the range where that needed flag is available.
 
 ### Control Line Decoders
@@ -72,9 +72,9 @@ When wired up correctly, this circuit dampens all spikes shorter than a given ti
 You can see many of these resistor-capacitor pairs spread across many control lines to prevent those spikes from reaching the modules.
 
 <br>
-<part-list src="../resources/PartLists/Controller.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/Controller.csv"></part-list>
 
 ### Schematic
 
 <br>
-<img src="../resources/Wiring Diagrams/Controller.svg" alt="Controller schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/Controller.svg" alt="Controller schematic" style="width:100%; height:auto;">

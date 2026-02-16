@@ -26,4 +26,4 @@ nav_exclude: true
   }
 </style>
 
-<script type="module" src="../dist/PageLoader/loadInstructionDetails.js">
+<script type="module" src="{{ site.baseurl }}/dist/PageLoader/loadInstructionDetails.js">

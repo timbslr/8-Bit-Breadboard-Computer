@@ -5,7 +5,7 @@ permalink: /key-characteristics
 nav_order: 2
 ---
 
-<script type="module" src="./dist/PageLoader/loadKeyCharacteristics.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PageLoader/loadKeyCharacteristics.js"></script>
 
 ## Key Characteristics
 
