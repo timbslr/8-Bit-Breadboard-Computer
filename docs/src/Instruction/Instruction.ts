@@ -83,7 +83,7 @@ export default abstract class Instruction {
 
   abstract getExecutedInstructions(): REALInstruction[];
 
-  abstract getModifiedRegisters(): Set<string>;
+  abstract getModifiedRegisters(): Set<string>; //TODO X-Register not showing up? (see e.g. clobbered registers for incm)
 
   getClobberedRegisters() {
     const nonClobberedRegisters = ["PC_L", "PC_H", "MAR_L", "MAR_H", "IR", "SP_L", "SP_H", "F", "7SD", "<reg>", "regd", "regsd", "BUF"];
