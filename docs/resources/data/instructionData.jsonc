@@ -5,419 +5,336 @@
       "name": "add",
       "mnemonic": "add",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "110100RR",
+      "opcode": "11010000",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_<reg>", "IE_F"], //calculate addition and output to register (works in one step because addition and subtraction is fast)
+        ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_A", "IE_F"], //calculate addition and output to register (works in one step because addition and subtraction is fast)
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 0,
-      "shortDescription": "<reg> = A + TMP",
+      "shortDescription": "A = A + TMP",
       "longDescription": "The ADD instruction computes an addition on the A and B registers. These two operands are fixed and cannot be changed. What can be changed is the register in which the result is saved, it is specified as an operand of the instruction. After computation, the corresponding flags are set.",
-      "examples": [
-        {
-          "prerequisites": [
-            { "register": "A", "value": 40 },
-            { "register": "TMP", "value": 2 }
-          ],
-          "code": ["add B"],
-          "result": [{ "register": "B", "value": 42 }]
-        },
-        {
-          "prerequisites": [
-            { "register": "A", "value": 2 },
-            { "register": "TMP", "value": -4 }
-          ],
-          "code": ["add X"],
-          "result": [{ "register": "X", "value": -2 }]
-        },
-        {
-          "prerequisites": [
-            { "register": "A", "value": -42 },
-            { "register": "TMP", "value": -8 }
-          ],
-          "code": ["add A"],
-          "result": [{ "register": "A", "value": -50 }]
-        }
-      ]
+      "examples": []
     },
     {
       "name": "add with immediate",
       "mnemonic": "addi",
       "type": "PSEUDO",
-      "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "add <reg>"],
+      "operands": ["imm"],
+      "mappedInstructions": ["li TMP, <imm>", "add"],
       "group": "ALU",
       "indexInGroup": 1,
-      "shortDescription": "<reg> = A + <imm>",
+      "shortDescription": "A = A + <imm>",
       "longDescription": "The ADDI instruction adds the specified immediate value to the A register. Internally, the instruction first loads the immediate into the TMP register and then performs a normal addition, which means that the TMP register will be overwritten by this instruction. Finally, the corresponding flags are set.",
-      "examples": [
-        {
-          "prerequisites": [{ "register": "A", "value": 8 }],
-          "code": ["addi TMP, -8"],
-          "result": [{ "register": "TMP", "value": 0 }]
-        },
-        {
-          "prerequisites": [{ "register": "A", "value": -42 }],
-          "code": ["addi A, 60"],
-          "result": [{ "register": "A", "value": 18 }]
-        }
-      ]
+      "examples": []
     },
     {
       "name": "add with carry",
       "mnemonic": "addc",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": true,
-      "opcode": "001001RR",
+      "opcode": "00100100",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_<reg>", "IE_F"], //if there's no carry, compute a normal addition
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_A", "IE_F"], //if there's no carry, compute a normal addition
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_<reg>", "IE_F"], //if there is a carry, add it to the result via ALU_CIN (Carry In)
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_A", "IE_F"], //if there is a carry, add it to the result via ALU_CIN (Carry In)
           ["RSC"]
         ]
       },
       "group": "ALU",
       "indexInGroup": 2,
-      "shortDescription": "<reg> = A + TMP + CF",
+      "shortDescription": "A = A + TMP + CF",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "add with carry and immediate",
       "mnemonic": "addci",
       "type": "PSEUDO",
-      "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "addc <reg>"],
+      "operands": ["imm"],
+      "mappedInstructions": ["li TMP, <imm>", "addc"],
       "group": "ALU",
       "indexInGroup": 2,
-      "shortDescription": "<reg> = A + <imm> + CF",
+      "shortDescription": "A = A + <imm> + CF",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "subtract",
       "mnemonic": "sub",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "110101RR",
+      "opcode": "11010100",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_<reg>", "IE_F"], //calculate subtraction and output to register (works in one step because addition and subtraction is fast)
+        ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_A", "IE_F"], //calculate subtraction and output to register (works in one step because addition and subtraction is fast)
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 3,
-      "shortDescription": "<reg> = A - TMP",
+      "shortDescription": "A = A - TMP",
       "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [
-            { "register": "A", "value": 100 },
-            { "register": "TMP", "value": 30 }
-          ],
-          "code": ["sub B"],
-          "result": [{ "register": "B", "value": 70 }]
-        },
-        {
-          "prerequisites": [
-            { "register": "A", "value": 100 },
-            { "register": "TMP", "value": 30 }
-          ],
-          "code": ["sub B"],
-          "result": [{ "register": "B", "value": 70 }]
-        }
-      ]
+      "examples": []
     },
     {
       "name": "subtract with carry",
       "mnemonic": "subc",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": true,
-      "opcode": "001010RR",
+      "opcode": "00101000",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_<reg>", "IE_F"], //if carry is zero, a borrow occurred --> compute subtraction without ALU_CIN, resulting in decrementing the result by one
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_A", "IE_F"], //if carry is zero, a borrow occurred --> compute subtraction without ALU_CIN, resulting in decrementing the result by one
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_<reg>", "IE_F"], //if the carry is one, no borrow occurred --> adding ALU_CIN results in a normal subtraction
+          ["ALU_SRC_ARI", "ALU_AOP_SUB", "ALU_CIN", "OE_ALU", "IE_A", "IE_F"], //if the carry is one, no borrow occurred --> adding ALU_CIN results in a normal subtraction
           ["RSC"]
         ]
       },
       "group": "ALU",
       "indexInGroup": 4,
-      "shortDescription": "<reg> = A - TMP - (1-CF)",
+      "shortDescription": "A = A - TMP - (1-CF)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "subtract with carry and immediate",
       "mnemonic": "subci",
       "type": "PSEUDO",
-      "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "subc <reg>"],
+      "operands": ["imm"],
+      "mappedInstructions": ["li TMP, <imm>", "subc"],
       "group": "ALU",
       "indexInGroup": 2,
-      "shortDescription": "<reg> = A - <imm> - (1-CF)",
+      "shortDescription": "A = A - <imm> - (1-CF)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "logic \"and\"",
       "mnemonic": "and",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "110110RR",
+      "opcode": "11011000",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_AND"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_AND", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_AND", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 5,
-      "shortDescription": "<reg> = A & TMP",
+      "shortDescription": "A = A & TMP",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "logic \"and\" with immediate",
       "mnemonic": "andi",
       "type": "PSEUDO",
-      "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "and <reg>"],
+      "operands": ["imm"],
+      "mappedInstructions": ["li TMP, <imm>", "and"],
       "group": "ALU",
       "indexInGroup": 6,
-      "shortDescription": "<reg> = A & <imm>",
+      "shortDescription": "A = A & <imm>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "logic \"or\"",
       "mnemonic": "or",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "110111RR",
+      "opcode": "11011100",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_OR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_OR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_OR", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 7,
-      "shortDescription": "<reg> = A | TMP",
+      "shortDescription": "A = A | TMP",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "logic \"or\" with immediate",
       "mnemonic": "ori",
       "type": "PSEUDO",
-      "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "or <reg>"],
+      "operands": ["imm"],
+      "mappedInstructions": ["li TMP, <imm>", "or"],
       "group": "ALU",
       "indexInGroup": 8,
-      "shortDescription": "<reg> = A | <imm>",
+      "shortDescription": "A = A | <imm>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "logic \"exclusive or\"",
       "mnemonic": "xor",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "101100RR",
+      "opcode": "10110000",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_XOR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_XOR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_XOR", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 9,
-      "shortDescription": "<reg> = A ^ TMP",
+      "shortDescription": "A = A ^ TMP",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "logic \"exclusive or\" with immediate",
       "mnemonic": "xori",
       "type": "PSEUDO",
-      "operands": ["reg", "imm"],
-      "mappedInstructions": ["li TMP, <imm>", "xor <reg>"],
+      "operands": ["imm"],
+      "mappedInstructions": ["li TMP, <imm>", "xor"],
       "group": "ALU",
       "indexInGroup": 10,
-      "shortDescription": "<reg> = A ^ <imm>",
+      "shortDescription": "A = A ^ <imm>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "logic \"not\"",
       "mnemonic": "not",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "111001RR",
+      "opcode": "11100100",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_NOT"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_NOT", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_NOT", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 11,
-      "shortDescription": "<reg> = ~A",
+      "shortDescription": "A = ~A",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "negate",
       "mnemonic": "neg",
       "type": "PSEUDO",
-      "operands": ["reg"],
-      "mappedInstructions": ["not A", "addi <reg>, 1"],
+      "operands": [],
+      "mappedInstructions": ["not", "addi 1"],
       "group": "ALU",
       "indexInGroup": 12,
-      "shortDescription": "<reg> = ~A + 1",
+      "shortDescription": "A = ~A + 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "shift left",
       "mnemonic": "shl",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "110010RR",
+      "opcode": "11001000",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["OE_A", "IE_TMP"],
-        ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 13,
-      "shortDescription": "<reg> = A << 1 (zero-extended)",
+      "shortDescription": "A = A << 1 (zero-extended)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "shift logic right",
       "mnemonic": "slr",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "111011RR",
+      "opcode": "11101100",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_SLR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_SLR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_SLR", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 14,
-      "shortDescription": "<reg> = A >> 1 (zero-extended)",
+      "shortDescription": "A = A >> 1 (zero-extended)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "shift arithmetic right",
       "mnemonic": "sar",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
-      "opcode": "111100RR",
+      "opcode": "11110000",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_SAR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_SAR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_SAR", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 15,
-      "shortDescription": "<reg> = A >> 1 (sign-extended)",
+      "shortDescription": "A = A >> 1 (sign-extended)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "rotate right",
       "mnemonic": "ror",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
       "opcode": "111101RR",
       "microinstructions": [
@@ -425,22 +342,20 @@
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_ROR"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_ROR", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_ROR", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 16,
-      "shortDescription": "<reg> = rotate A right by one bit",
+      "shortDescription": "A = rotate A right by one bit",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "rotate left",
       "mnemonic": "rol",
       "type": "REAL",
-      "operands": ["reg"],
+      "operands": [],
       "requiresFlag": false,
       "opcode": "111110RR",
       "microinstructions": [
@@ -448,16 +363,14 @@
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
         ["ALU_SRC_BIT", "ALU_BOP_ROL"], //compute the result beforehand as logic operations are too slow to be executed in a single microinstruction
-        ["ALU_SRC_BIT", "ALU_BOP_ROL", "OE_ALU", "IE_<reg>", "IE_F"], //let the ALU control signals unchanged and output result to register
+        ["ALU_SRC_BIT", "ALU_BOP_ROL", "OE_ALU", "IE_A", "IE_F"], //let the ALU control signals unchanged and output result to register
         ["RSC"]
       ],
       "group": "ALU",
       "indexInGroup": 18,
-      "shortDescription": "<reg> = rotate A left by one bit",
+      "shortDescription": "A = rotate A left by one bit",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "clear",
@@ -469,9 +382,7 @@
       "indexInGroup": 0,
       "shortDescription": "<reg> = 0",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "move",
@@ -491,9 +402,7 @@
       "indexInGroup": 1,
       "shortDescription": "<regd> = <regs>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "move special",
@@ -513,9 +422,7 @@
       "indexInGroup": 1,
       "shortDescription": "<regsd> = <regss>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "load",
@@ -542,9 +449,7 @@
       "indexInGroup": 3,
       "shortDescription": "<reg> = mem[<addr>]",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "load with offset",
@@ -593,9 +498,7 @@
       "indexInGroup": 4,
       "shortDescription": "<reg> = mem[<addr> + X]",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "store",
@@ -622,9 +525,7 @@
       "indexInGroup": 5,
       "shortDescription": "mem[<addr>] = <reg>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "store with offset",
@@ -673,9 +574,7 @@
       "indexInGroup": 6,
       "shortDescription": "mem[<addr> + X] = <reg>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "load from stack",
@@ -696,10 +595,8 @@
       "group": "REG-MEM",
       "indexInGroup": 7,
       "shortDescription": "<reg> = mem[SP]",
-      "longDescription": "TODO: microinstructions",
-      "examples": [
-        //TODO
-      ]
+      "longDescription": "",
+      "examples": []
     },
     {
       "name": "store to stack",
@@ -721,9 +618,7 @@
       "indexInGroup": 8,
       "shortDescription": "mem[SP] = <reg>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "load immediate",
@@ -745,9 +640,7 @@
       "indexInGroup": 9,
       "shortDescription": "<reg> = <imm>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "push to stack",
@@ -759,9 +652,7 @@
       "indexInGroup": 10,
       "shortDescription": "mem[SP] = <reg>\nSP = SP + 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "pop from stack",
@@ -773,9 +664,7 @@
       "indexInGroup": 11,
       "shortDescription": "SP = SP - 1\n<reg> = mem[SP]",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "peek at stack",
@@ -787,9 +676,7 @@
       "indexInGroup": 12,
       "shortDescription": "<reg> = mem[SP]",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "increment X-Register",
@@ -809,9 +696,7 @@
       "indexInGroup": 13,
       "shortDescription": "X= X + 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "increment stack-pointer",
@@ -847,9 +732,7 @@
       "indexInGroup": 14,
       "shortDescription": "SP = SP + 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "increment value in memory",
@@ -861,9 +744,7 @@
       "indexInGroup": 15,
       "shortDescription": "mem[<addr>] = mem[<addr>] + 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "decrement X-Register",
@@ -883,9 +764,7 @@
       "indexInGroup": 16,
       "shortDescription": "X = X - 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "decrement stack-pointer",
@@ -921,9 +800,7 @@
       "indexInGroup": 14,
       "shortDescription": "SP = SP - 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "decrement value in memory",
@@ -935,9 +812,7 @@
       "indexInGroup": 18,
       "shortDescription": "mem[<addr>] = mem[<addr>] - 1",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "output to 7-segment display",
@@ -957,9 +832,7 @@
       "indexInGroup": 0,
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "set 7-segment display signed mode",
@@ -979,9 +852,7 @@
       "indexInGroup": 0,
       "shortDescription": "Sets the 7-segment display into signed mode (values -128 to 127)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "set 7-segment display unsigned mode",
@@ -1001,9 +872,7 @@
       "indexInGroup": 0,
       "shortDescription": "Sets the 7-segment display into unsigned mode (values 0 to 255)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "output immediate to 7-segment display",
@@ -1025,9 +894,7 @@
       "indexInGroup": 1,
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "output to lcd",
@@ -1047,9 +914,7 @@
       "indexInGroup": 2,
       "shortDescription": "Outputs the value in the given register to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "output immediate to lcd",
@@ -1071,9 +936,7 @@
       "indexInGroup": 3,
       "shortDescription": "Outputs an immediate to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "lcd read",
@@ -1093,9 +956,7 @@
       "indexInGroup": 4,
       "shortDescription": "Reads from the LCD (either from CTRL or DATA register, depending on <lcdreg>) into the given register",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "serial rx read",
@@ -1116,9 +977,7 @@
       "indexInGroup": 5,
       "shortDescription": "Moves the byte from the rx shift-register of the serial interface module into one of the standard registers and resets the SER_RX_RDY flag",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "serial tx send",
@@ -1136,11 +995,9 @@
       ],
       "group": "I-O",
       "indexInGroup": 6,
-      "shortDescription": "TODO",
+      "shortDescription": "",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "serial tx send immediate",
@@ -1160,11 +1017,9 @@
       ],
       "group": "I-O",
       "indexInGroup": 6,
-      "shortDescription": "TestTODO",
+      "shortDescription": "",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "no operation",
@@ -1181,11 +1036,9 @@
       ],
       "group": "SYS",
       "indexInGroup": 0,
-      "shortDescription": "Does nothing for clock cycles",
+      "shortDescription": "Does nothing for 3 clock cycles",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "halt",
@@ -1205,9 +1058,7 @@
       "indexInGroup": 1,
       "shortDescription": "Halts the entire computer. This instruction is called at the end of a program.",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "call subroutine",
@@ -1225,9 +1076,7 @@
       "indexInGroup": 2,
       "shortDescription": "Calls the subroutine placed at the given address",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "return from subroutine",
@@ -1239,9 +1088,7 @@
       "indexInGroup": 3,
       "shortDescription": "Returns from a function call",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "jump",
@@ -1267,9 +1114,7 @@
       "indexInGroup": 0,
       "shortDescription": "PC = <addr>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "jump register",
@@ -1282,17 +1127,15 @@
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_BUF", "IE_PC_L"], //          ──┐
-        ["OE_TMP", "IE_PC_H"], //            ──┴──> Set PC to values in BUF- and TMP-Register (low and high address byte)
+        ["OE_A", "IE_PC_L"], //          ──┐
+        ["OE_TMP", "IE_PC_H"], //        ──┴──> Set PC to values in A- and TMP-Register (low and high address byte)
         ["RSC"]
       ],
       "group": "BR-JMP",
       "indexInGroup": 1,
-      "shortDescription": "PC_L = BUF, PC_H = TMP",
+      "shortDescription": "PC_L = A, PC_H = TMP",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if equal",
@@ -1330,9 +1173,7 @@
       "indexInGroup": 2,
       "shortDescription": "branch if A == TMP",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if equal to immediate",
@@ -1344,9 +1185,7 @@
       "indexInGroup": 3,
       "shortDescription": "branch if A == <imm>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if not equal",
@@ -1384,9 +1223,7 @@
       "indexInGroup": 4,
       "shortDescription": "branch if A == TMP",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if not equal to immediate",
@@ -1398,9 +1235,7 @@
       "indexInGroup": 5,
       "shortDescription": "branch if A != <imm>",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less than",
@@ -1438,9 +1273,7 @@
       "indexInGroup": 6,
       "shortDescription": "branch if A < TMP (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less than immediate",
@@ -1452,9 +1285,7 @@
       "indexInGroup": 7,
       "shortDescription": "branch if A < <imm> (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less than unsigned",
@@ -1492,9 +1323,7 @@
       "indexInGroup": 8,
       "shortDescription": "branch if A < TMP (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less than immediate unsigned",
@@ -1506,9 +1335,7 @@
       "indexInGroup": 9,
       "shortDescription": "branch if A < <imm> (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less or equal",
@@ -1546,9 +1373,7 @@
       "indexInGroup": 10,
       "shortDescription": "branch if A <= TMP (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less or equal immediate",
@@ -1560,9 +1385,7 @@
       "indexInGroup": 11,
       "shortDescription": "branch if A <= <imm> (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less or equal unsigned",
@@ -1600,9 +1423,7 @@
       "indexInGroup": 12,
       "shortDescription": "branch if A <= TMP (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if less or equal immediate unsigned",
@@ -1614,9 +1435,7 @@
       "indexInGroup": 13,
       "shortDescription": "branch if A <= <imm> (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater or equal",
@@ -1654,9 +1473,7 @@
       "indexInGroup": 14,
       "shortDescription": "branch if A >= TMP (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater or equal immediate",
@@ -1668,9 +1485,7 @@
       "indexInGroup": 15,
       "shortDescription": "branch if A >= <imm> (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater or equal unsigned",
@@ -1708,9 +1523,7 @@
       "indexInGroup": 16,
       "shortDescription": "branch if A >= TMP (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater or equal immediate unsigned",
@@ -1722,9 +1535,7 @@
       "indexInGroup": 17,
       "shortDescription": "branch if A >= <imm> (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater than",
@@ -1762,9 +1573,7 @@
       "indexInGroup": 18,
       "shortDescription": "branch if A > TMP (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater than immediate",
@@ -1776,9 +1585,7 @@
       "indexInGroup": 19,
       "shortDescription": "branch if A > <imm> (signed)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater than unsigned",
@@ -1816,9 +1623,7 @@
       "indexInGroup": 20,
       "shortDescription": "branch if A > TMP (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if greater than immediate unsigned",
@@ -1830,9 +1635,7 @@
       "indexInGroup": 21,
       "shortDescription": "branch if A > <imm> (unsigned)",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if zero set",
@@ -1868,9 +1671,7 @@
       "indexInGroup": 22,
       "shortDescription": "branch if branch if ZF is set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if zero clear",
@@ -1906,9 +1707,7 @@
       "indexInGroup": 23,
       "shortDescription": "branch if ZF is not set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if carry set",
@@ -1944,9 +1743,7 @@
       "indexInGroup": 24,
       "shortDescription": "branch if CF is set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if carry clear",
@@ -1982,9 +1779,7 @@
       "indexInGroup": 25,
       "shortDescription": "branch if CF is not set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if negative set",
@@ -2020,9 +1815,7 @@
       "indexInGroup": 26,
       "shortDescription": "branch if NF is set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if negative clear",
@@ -2058,9 +1851,7 @@
       "indexInGroup": 27,
       "shortDescription": "branch if NF is not set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if overflow set",
@@ -2096,9 +1887,7 @@
       "indexInGroup": 28,
       "shortDescription": "branch if VF is set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if overflow clear",
@@ -2134,9 +1923,7 @@
       "indexInGroup": 29,
       "shortDescription": "branch if VF is not set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if serial-rx-ready set",
@@ -2172,9 +1959,7 @@
       "indexInGroup": 30,
       "shortDescription": "branch if serial-rx-ready flag is set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if serial-rx-ready clear",
@@ -2210,9 +1995,7 @@
       "indexInGroup": 31,
       "shortDescription": "branch if serial-rx-ready flag is not set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if serial-tx-ready set",
@@ -2248,9 +2031,7 @@
       "indexInGroup": 32,
       "shortDescription": "branch if serial-tx-ready flag is set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     },
     {
       "name": "branch if serial-tx-ready clear",
@@ -2286,9 +2067,7 @@
       "indexInGroup": 33,
       "shortDescription": "branch if serial-tx-ready flag is not set",
       "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "examples": []
     }
   ]
 }
