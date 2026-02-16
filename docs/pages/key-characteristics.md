@@ -17,7 +17,7 @@ nav_order: 2
         <tr> <td>Architecture</td> <td>Von-Neumann</td> </tr>
         <tr> <td>Opcode size</td> <td>8-bit</td> </tr>
         <tr> <td>Amount of instructions</td> <td id="amount-of-instructions">Loading...</td> </tr>
-        <tr> <td>ØCPI</td> <td>//TODO</td> </tr>
+        <tr> <td>&empty;CPI</td> <td id="average-cpi">Loading...</td> </tr>
         <tr> <td>Data width</td> <td>8 bit</td> </tr>
         <tr> <td>Address width</td> <td>16 bit</td> </tr>
         <tr> <td>Program Counter width</td> <td>16 bit</td> </tr>
