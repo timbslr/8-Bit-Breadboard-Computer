@@ -40,7 +40,7 @@ nav_order: 2
         <tr> <td>Frequency</td> <td>1MHz</td> </tr>
         <tr> <td>Power Consumption</td> <td>~ 700mA</td> </tr>
         <tr> <td></td> <td></td> </tr>
-        <tr> <td>Amount of ICs</td> <td>//TODO</td> </tr>
+        <tr> <td>Amount of ICs</td> <td id="amount-of-ics">Loading...</td> </tr>
         <tr> <td>Amount of Breadboards</td> <td>18</td> </tr>
         <tr> <td>Logic Family</td> <td>TTL</td> </tr>
         <tr> <td>V_CC</td> <td>5V</td> </tr>

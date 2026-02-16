@@ -30,7 +30,7 @@ export const COMPONENT_TYPES = {
 };
 
 type ComponentType = (typeof COMPONENT_TYPES)[keyof typeof COMPONENT_TYPES];
-type Component = { type: ComponentType; value: string | null };
+export type Component = { type: ComponentType; value: string | null };
 type ResistorUnit = "Ω" | "kΩ" | "MΩ";
 type CapacitorUnit = "F" | "mF" | "µF" | "uF" | "nF" | "pF";
 
