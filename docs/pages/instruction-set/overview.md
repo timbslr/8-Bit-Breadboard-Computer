@@ -68,4 +68,4 @@ Here is a list of all pseudo-instructions that were mentioned in the tables abov
 
 <div id="placeholder-pseudo-instructions-table"></div>
 
-<script type="module" src="../dist/PageLoader/loadOverviewData.js">
+<script type="module" src="{{ site.baseurl }}/dist/PageLoader/loadOverviewData.js">

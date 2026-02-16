@@ -7,13 +7,12 @@ import { ControlBit } from "./types/ControlBit.js";
 import { InstructionParser } from "./Instruction/InstructionParser.js";
 import { JSONInstruction } from "./Instruction/InstructionTypes.js";
 
-const INSTRUCTION_FILE_PATH = "../resources/data/instructionData.jsonc";
-const CONTROL_BITS_FILE_PATH = "./resources/data/controlBits.json";
-const PARTS_LIST_FOLDER_PATH = "./resources/PartLists/";
-const PARTS_LIST_FILES_PATH = "./resources/PartLists/files.json";
+const INSTRUCTION_FILE_PATH = `${window.BASE_URL}/resources/data/instructionData.jsonc`;
+const CONTROL_BITS_FILE_PATH = `${window.BASE_URL}/resources/data/controlBits.json`;
+const PARTS_LIST_FOLDER_PATH = `${window.BASE_URL}/resources/PartLists/`;
+const PARTS_LIST_FILES_PATH = `${window.BASE_URL}/resources/PartLists/files.json`;
 
 export default class DataProvider {
-  private static jsonInstructions: JSONInstruction[];
   private static instructions: Instruction[];
   private static controlBits: ControlBit[];
 

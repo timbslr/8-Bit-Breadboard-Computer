@@ -6,7 +6,7 @@ permalink: /modules/memory-address-register
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## Memory-Address-Register (MAR)
 
@@ -16,9 +16,9 @@ After that, the full 16-bit address is ready to be used for a memory access.
 
 The most significant bit has an additional role in memory access: It controls whether the ROM (msb = 0) or RAM (msb = 1) is accessed by enabling one of the two and disabling the other.
 <br>
-<part-list src="../resources/PartLists/MAR.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/MAR.csv"></part-list>
 <br>
 
 ### Schematic
 
-<img src="../resources/Wiring Diagrams/MAR.svg" alt="MAR schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/MAR.svg" alt="MAR schematic" style="width:100%; height:auto;">

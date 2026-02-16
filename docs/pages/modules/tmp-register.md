@@ -6,7 +6,7 @@ permalink: /modules/tmp-register
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## Temporary-Register (TMP)
 
@@ -21,9 +21,9 @@ The TMP-Register's specialty is that it is the second operand of the ALU, which 
 {: .warning}
 Be careful when storing values into the TMP-Register. It is meant for temporary values only and may be overwritten by many other instructions (e.g. immediate-type ALU-instructions). If you store values here, ensure they aren’t overwritten unexpectedly, so handle this register with care.
 <br>
-<part-list src="../resources/PartLists/TMP-Register.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/TMP-Register.csv"></part-list>
 <br>
 
 ### Schematic
 
-<img src="../resources/Wiring Diagrams/TMP-Register.svg" alt="TMP-Register schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/TMP-Register.svg" alt="TMP-Register schematic" style="width:100%; height:auto;">

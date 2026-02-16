@@ -6,7 +6,7 @@ permalink: /modules/7-segment-display
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## 7-Segment Display
 
@@ -27,9 +27,9 @@ The Dual J-K-Flip-Flop and the 2-to-4 line decoder control which digit is active
 
 In summary, the 555 timer allows the 2-bit counter to cycle so quickly through the digits, that the human eye does not recognize single digits put perceives a complete image instead. The EEPROM decodes this input along with the number to be displayed and the current representation bit (decimal or hexadecimal). The decoder then outputs the correct signals for the active digit, while the 2-to-4 line decoder enables the corresponding digit of the display.
 <br>
-<part-list src="../resources/PartLists/7-Segment Display.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/7-Segment Display.csv"></part-list>
 
 ### Schematic
 
 <br>
-<img src="../resources/Wiring Diagrams/7 Segment Display.svg" alt="7-Segment Display schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/7 Segment Display.svg" alt="7-Segment Display schematic" style="width:100%; height:auto;">

@@ -5,6 +5,8 @@ permalink: /key-characteristics
 nav_order: 2
 ---
 
+<script type="module" src="{{ site.baseurl }}/dist/PageLoader/loadKeyCharacteristics.js"></script>
+
 ## Key Characteristics
 
 <div id="outer-container">
@@ -14,7 +16,7 @@ nav_order: 2
         <tr> <td>CPU type</td> <td>Multi-cycle processor</td> </tr>
         <tr> <td>Architecture</td> <td>Von-Neumann</td> </tr>
         <tr> <td>Opcode size</td> <td>8-bit</td> </tr>
-        <tr> <td>Amount of instructions</td> <td>//TODO</td> </tr>
+        <tr> <td>Amount of instructions</td> <td id="amount-of-instructions">Loading...</td> </tr>
         <tr> <td>ØCPI</td> <td>//TODO</td> </tr>
         <tr> <td>Data width</td> <td>8 bit</td> </tr>
         <tr> <td>Address width</td> <td>16 bit</td> </tr>

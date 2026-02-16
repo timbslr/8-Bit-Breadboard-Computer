@@ -167,4 +167,4 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
  }
 </style>
 
-<script type="module" src="../dist/PageLoader/loadOpcodeMatrix.js">
+<script type="module" src="{{ site.baseurl }}/dist/PageLoader/loadOpcodeMatrix.js">

@@ -6,14 +6,14 @@ permalink: /modules/memory
 parent: Modules
 ---
 
-<script type="module" src="../dist/PartList.js"></script>
+<script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## Memory
 
 <br>
-<part-list src="../resources/PartLists/Memory.csv"></part-list>
+<part-list src="{{ site.baseurl }}/resources/PartLists/Memory.csv"></part-list>
 <br>
 
 ### Schematic
 
-<img src="../resources/Wiring Diagrams/Memory.svg" alt="Memory schematic" style="width:100%; height:auto;">
+<img src="{{ site.baseurl }}/resources/Wiring Diagrams/Memory.svg" alt="Memory schematic" style="width:100%; height:auto;">
