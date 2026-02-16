@@ -1,9 +1,8 @@
 import Instruction from "../Instruction/Instruction.js";
 import REALInstruction from "../Instruction/REALInstruction.js";
-import { InstructionCountStatistic } from "./InstructionCountStatistic.js";
-import { InstructionStatistic } from "./InstructionStatistic.js";
+import { Statistic } from "./Statistic.js";
 
-export class AverageCPIStatistic implements InstructionStatistic<number> {
+export class AverageCPIStatistic implements Statistic<number> {
   readonly name = "Average CPI";
   private readonly amountOfREALInstructions;
 

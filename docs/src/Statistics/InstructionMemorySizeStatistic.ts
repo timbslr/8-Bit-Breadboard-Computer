@@ -1,8 +1,8 @@
 import Instruction from "../Instruction/Instruction.js";
-import { InstructionStatistic } from "./InstructionStatistic.js";
+import { Statistic } from "./Statistic.js";
 import "../Extensions/ArrayExtension.js";
 
-export class InstructionMemorySizeStatistic implements InstructionStatistic<number> {
+export class InstructionMemorySizeStatistic implements Statistic<number> {
   readonly name = "Size in Memory";
 
   constructor(private instruction: Instruction) {}
