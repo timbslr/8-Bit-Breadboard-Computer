@@ -13,7 +13,7 @@ nav_order: 2
   <div id="inner-container">
     <table> 
       <tbody> 
-        <tr> <td>CPU Type</td> <td>Multi-cycle processor</td> </tr>
+        <tr> <td>CPU Type</td> <td>Multi-Cycle Processor</td> </tr>
         <tr> <td>Architecture</td> <td>Von-Neumann</td> </tr>
         <tr> <td>Frequency</td> <td>1MHz</td> </tr>
         <tr> <td>Endianness</td> <td>Little Endian</td> </tr>
