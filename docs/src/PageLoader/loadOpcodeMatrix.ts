@@ -53,6 +53,15 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
   let instructions = await DataProvider.getInstructions();
   const opcodeMap = new Map();
 
+  const setOpcodeMap = (binaryOpcode: string, label: string) => {
+    if (opcodeMap.has(binaryOpcode) && opcodeMap.get(binaryOpcode) !== label) {
+      throw new Error(
+        `Opcode ${binaryOpcode} already exists (Existing key: ${opcodeMap.get(binaryOpcode)}) and would be overwritten by this assignment (New key: ${label})! Check the ISA-specification to resolve the overlap!`,
+      );
+    }
+    opcodeMap.set(binaryOpcode, label);
+  };
+
   for (const instruction of instructions) {
     //skip pseudo instructions as they don't have an opcode
     const mnemonic = instruction.getMnemonic();
@@ -65,7 +74,7 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
     if (mnemonic === "movs") {
       const opcodeMapForMovSpecial = await getOpcodeMapForMoveSpecial(instruction as REALInstruction);
       opcodeMapForMovSpecial.forEach(({ opcode, label }) => {
-        opcodeMap.set(opcode, label);
+        setOpcodeMap(opcode, label);
       });
       continue;
     }
@@ -82,11 +91,11 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
         for (let i = 0; i < 2; i++) {
           let opcode = `${originalOpcode.replaceAll("L", i.toString(2))}`;
           label += `<br>&lt;imm&gt;<br>&rarr;${LCDREGISTER_LOOKUP[i]}`;
-          opcodeMap.set(opcode, label);
+          setOpcodeMap(opcode, label);
           label = mnemonic; //reset label for next iteration
         }
       } else {
-        opcodeMap.set(originalOpcode, mnemonic);
+        setOpcodeMap(originalOpcode, mnemonic);
       }
     } else if (registerCount == 1) {
       let label = mnemonic;
@@ -102,7 +111,7 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
           } else {
             label += `<br>&rarr;${REGISTER_LOOKUP[j]}`;
           }
-          opcodeMap.set(opcode, label);
+          setOpcodeMap(opcode, label);
           label = mnemonic; //reset label for next iteration
         }
       }
@@ -113,7 +122,7 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
         const upperRegisterIndex = (i >> 2) & 0b11;
         const lowerRegisterIndex = i & 0b11;
         label += `<br>${REGISTER_LOOKUP[upperRegisterIndex]}&rarr;${REGISTER_LOOKUP[lowerRegisterIndex]}`;
-        opcodeMap.set(opcode, label);
+        setOpcodeMap(opcode, label);
         label = mnemonic;
       }
     } else {
