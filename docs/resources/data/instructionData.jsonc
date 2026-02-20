@@ -814,6 +814,28 @@
       ]
     },
     {
+      "name": "increment Y-Register",
+      "mnemonic": "incy",
+      "type": "REAL",
+      "operands": [],
+      "requiresFlag": false,
+      "opcode": "01100110",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["INC_Y"], //increment the Y-Register
+        ["RSC"]
+      ],
+      "group": "REG-MEM",
+      "indexInGroup": 13,
+      "shortDescription": "Y = Y + 1",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
       "name": "increment stack-pointer",
       "mnemonic": "incsp",
       "type": "REAL",
@@ -882,6 +904,28 @@
       "group": "REG-MEM",
       "indexInGroup": 16,
       "shortDescription": "X = X - 1",
+      "longDescription": "",
+      "examples": [
+        //TODO
+      ]
+    },
+    {
+      "name": "decrement Y-Register",
+      "mnemonic": "decy",
+      "type": "REAL",
+      "operands": [],
+      "requiresFlag": false,
+      "opcode": "01100111",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["DEC_Y"], //decrement the X-Register
+        ["RSC"]
+      ],
+      "group": "REG-MEM",
+      "indexInGroup": 16,
+      "shortDescription": "Y = Y - 1",
       "longDescription": "",
       "examples": [
         //TODO
