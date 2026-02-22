@@ -1,7 +1,7 @@
 description: An 8-Bit computer built completely on breadboards
 theme: just-the-docs #url: https://just-the-docs.github.io
-favicon_ico: "{{ site.baseurl }}/resources/icons/favicon.png"
-logo: "{{ site.baseurl }}/resources/icons/logo.png"
+favicon_ico: "/resources/icons/favicon.png"
+logo: "/resources/icons/logo.png"
 
 aux_links:
   View Project on GitHub: https://github.com/CodingFactoryT/8-Bit-Breadboard-Computer

@@ -15,13 +15,16 @@ uint32_t instructions[2][256][16] = {};  // initialize everything with zero
 // 16 = amount of microsteps (0 - 15)
 
 
-//  |                                CTRL1                                                   |                              CTRL2                              |                                         CTRL3                               |                                    CTRL4
-//  |   msb                                                                         lsb      |    msb                                                   lsb    |   msb                                                                 lsb   |   msb                                                               lsb  |      
-//  |    7         6         5         4         3           2            1          0       |     7        6      5       4      3      2       1       0     |    7         6          5          4         3        2        1       0    |    7         6         5         4        3        2         1       0   |
-//  |   RSC     IE_MUX_D  IE_MUX_C  IE_MUX_B  IE_MUX_A  #SER_RX_SEND  #7SD_UM  SER_RX_CONS   |            INC_PC  #IE_F  7SD_SM  IE_X  LCD_RS  LCD_E  LCD_RW   | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP         | OE_MUX_D  OE_MUX_C  OE_MUX_B  OE_MUX_A   HALT   #MEM_EN_IO  INC_X  DEC_X |
-const uint32_t defaultPattern = 0b00000010'00110000'10000000'00000100;
+//  |                                CTRL1                                                   |                              CTRL2                                  |                                         CTRL3                               |                                    CTRL4
+//  |   msb                                                                         lsb      |    msb                                                        lsb   |   msb                                                                 lsb   |   msb                                                                  lsb       |      
+//  |    7         6         5         4         3           2            1          0       |     7        6            5     4       3      2       1       0    |    7         6          5          4         3        2        1       0    |    7         6         5         4        3        2         1          0        |
+//  |   RSC     IE_DEC_D  IE_DEC_C  IE_DEC_B  IE_DEC_A  #SER_RX_SEND  #7SD_UM  SER_RX_CONS   |           #MEM_EN_IO  #IE_F  #7SD_SM        LCD_RS  LCD_E  LCD_RW   | #MEM_WE  ALU_BOP_2  ALU_BOP_1  ALU_BOP_0  ALU_SRC  ALU_CIN  ALU_AOP         | OE_DEC_D  OE_DEC_C  OE_DEC_B  OE_DEC_A   HALT  CNT_DEC_C  CNT_DEC_B  CNT_DEC_A   |
+const uint32_t defaultPattern = 0b00000010'01110000'10000000'00000000;
 
 const uint32_t RSC         = 0b10000000'00000000'00000000'00000000;
+
+const uint32_t IE_Y        = 0b00010000'00000000'00000000'00000000;
+const uint32_t IE_X        = 0b00011000'00000000'00000000'00000000;
 const uint32_t IE_TMP      = 0b00100000'00000000'00000000'00000000;
 const uint32_t IE_PC_L     = 0b00101000'00000000'00000000'00000000;
 const uint32_t IE_7SD      = 0b00110000'00000000'00000000'00000000;
@@ -34,14 +37,14 @@ const uint32_t IE_BUF      = 0b01100000'00000000'00000000'00000000;
 const uint32_t IE_A        = 0b01101000'00000000'00000000'00000000;
 const uint32_t IE_MAR_L    = 0b01110000'00000000'00000000'00000000;
 const uint32_t IE_B        = 0b01111000'00000000'00000000'00000000;
-const uint32_t SEVENSD_SM  = 0b00000000'00010000'00000000'00000000; // signed mode
+
+const uint32_t SER_RX_SEND = 0b00000100'00000000'00000000'00000000;
 const uint32_t SEVENSD_UM  = 0b00000010'00000000'00000000'00000000; // unsigned mode
 const uint32_t SER_RX_CONS = 0b00000001'00000000'00000000'00000000; // the received byte was consumed
-const uint32_t SER_RX_SEND = 0b00000100'00000000'00000000'00000000;
-
-const uint32_t INC_PC      = 0b00000000'01000000'00000000'00000000;
+const uint32_t MEM_EN_IO   = 0b00000000'01000000'00000000'00000000;
 const uint32_t IE_F        = 0b00000000'00100000'00000000'00000000;
-const uint32_t IE_X        = 0b00000000'00001000'00000000'00000000;
+const uint32_t SEVENSD_SM  = 0b00000000'00010000'00000000'00000000; // signed mode
+
 const uint32_t LCD_CTRL    = 0b00000000'00000000'00000000'00000000;
 const uint32_t LCD_DATA    = 0b00000000'00000100'00000000'00000000;
 const uint32_t LCD_E       = 0b00000000'00000010'00000000'00000000;
@@ -63,6 +66,7 @@ const uint32_t ALU_CIN     = 0b00000000'00000000'00000100'00000000;
 const uint32_t ALU_AOP_ADD = 0b00000000'00000000'00000000'00000000;
 const uint32_t ALU_AOP_SUB = 0b00000000'00000000'00000010'00000000;
 
+const uint32_t OE_Y        = 0b00000000'00000000'00000000'01000000;
 const uint32_t OE_SER_RX   = 0b00000000'00000000'00000000'00110000;
 const uint32_t OE_X        = 0b00000000'00000000'00000000'01000000;
 const uint32_t OE_ALU      = 0b00000000'00000000'00000000'01010000;
@@ -78,9 +82,15 @@ const uint32_t OE_IR       = 0b00000000'00000000'00000000'11100000;
 const uint32_t OE_BUF      = 0b00000000'00000000'00000000'11110000;
 
 const uint32_t HALT        = 0b00000000'00000000'00000000'00001000;
-const uint32_t MEM_EN_IO   = 0b00000000'00000000'00000000'00000100;
+
+const uint32_t INC_PC      = 0b00000000'00000000'00000000'00000001; // decoder makes it active low, gets inverted to make it active high again (TODO: check if it also works if it is active low)
 const uint32_t INC_X       = 0b00000000'00000000'00000000'00000010;
-const uint32_t DEC_X       = 0b00000000'00000000'00000000'00000001;
+const uint32_t DEC_X       = 0b00000000'00000000'00000000'00000011;
+const uint32_t INC_Y       = 0b00000000'00000000'00000000'00000100;
+const uint32_t DEC_Y       = 0b00000000'00000000'00000000'00000101;
+const uint32_t INC_SP      = 0b00000000'00000000'00000000'00000110;
+const uint32_t DEC_SP      = 0b00000000'00000000'00000000'00000111;
+
 
 std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"IE_MAR_H",    IE_MAR_H},
@@ -92,10 +102,10 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"IE_SP_L",     IE_SP_L},
   {"IE_BUF",      IE_BUF},
   {"IE_MAR_L",    IE_MAR_L},
-  {"INC_PC",      INC_PC},
   {"IE_F",        IE_F},
   {"IE_B",        IE_B},
   {"IE_X",        IE_X},
+  {"IE_Y",        IE_Y},
   {"LCD_CTRL",    LCD_CTRL},
   {"LCD_DATA",    LCD_DATA},
   {"LCD_E",       LCD_E},
@@ -124,6 +134,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"HALT",        HALT},
   {"OE_SER_RX",   OE_SER_RX},
   {"OE_X",        OE_X},
+  {"OE_Y",        OE_Y},
   {"OE_ALU",      OE_ALU},
   {"OE_PC_L",     OE_PC_L},
   {"OE_PC_H",     OE_PC_H},
@@ -138,7 +149,12 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"IE_TMP",      IE_TMP},
   {"MEM_EN_IO",   MEM_EN_IO},
   {"INC_X",       INC_X},
-  {"DEC_X",       DEC_X}
+  {"DEC_X",       DEC_X},
+  {"INC_Y",       INC_Y},
+  {"DEC_Y",       DEC_Y},
+  {"INC_SP",      INC_SP},
+  {"DEC_SP",      DEC_SP},
+  {"INC_PC",      INC_PC},
 };
 
 std::string registers[] = {"A", "B", "X", "TMP"};

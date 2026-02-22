@@ -1,11 +1,11 @@
 import Instruction from "../Instruction/Instruction.js";
 import PSEUDOInstruction from "../Instruction/PSEUDOInstruction.js";
 import REALInstruction from "../Instruction/REALInstruction.js";
-import { InstructionStatistic } from "./InstructionStatistic.js";
+import { Statistic } from "./Statistic.js";
 
 type FlagDependentNumber = { flagLow: number; flagHigh: number };
 
-export class InstructionClockCyclesStatistic implements InstructionStatistic<FlagDependentNumber> {
+export class InstructionClockCyclesStatistic implements Statistic<FlagDependentNumber> {
   readonly name = "Clock Cycles per Execution";
 
   constructor(private instruction: Instruction) {}
