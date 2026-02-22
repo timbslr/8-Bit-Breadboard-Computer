@@ -336,7 +336,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "111101RR",
+      "opcode": "11110100",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -357,7 +357,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "111110RR",
+      "opcode": "11111000",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -577,50 +577,6 @@
       "examples": []
     },
     {
-      "name": "load from stack",
-      "mnemonic": "lds",
-      "type": "REAL",
-      "operands": ["reg"],
-      "requiresFlag": false,
-      "opcode": "101110RR",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"], //          ──┐
-        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
-        ["OE_SP_L", "IE_MAR_L"], // ──┘
-        ["MEM_EN_IO", "IE_<reg>"], //read from memory at current SP address and move the value into the specified register
-        ["RSC"]
-      ],
-      "group": "REG-MEM",
-      "indexInGroup": 7,
-      "shortDescription": "<reg> = mem[SP]",
-      "longDescription": "",
-      "examples": []
-    },
-    {
-      "name": "store to stack",
-      "mnemonic": "sts",
-      "type": "REAL",
-      "operands": ["reg"],
-      "requiresFlag": false,
-      "opcode": "101111RR",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"], //          ──┐
-        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
-        ["OE_SP_L", "IE_MAR_L"], // ──┘
-        ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store value from given register into memory at address of SP
-        ["RSC"]
-      ],
-      "group": "REG-MEM",
-      "indexInGroup": 8,
-      "shortDescription": "mem[SP] = <reg>",
-      "longDescription": "",
-      "examples": []
-    },
-    {
       "name": "load immediate",
       "mnemonic": "li",
       "type": "REAL",
@@ -645,9 +601,19 @@
     {
       "name": "push to stack",
       "mnemonic": "push",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": ["reg"],
-      "mappedInstructions": ["sts <reg>", "incsp"],
+      "requiresFlag": false,
+      "opcode": "10111100",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
+        ["OE_SP_L", "IE_MAR_L"], // ──┘
+        ["MEM_EN_IO", "MEM_WE", "OE_<reg>", "INC_SP"], //store value from given register into memory at address of SP, increment SP
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 10,
       "shortDescription": "mem[SP] = <reg>\nSP = SP + 1",
@@ -657,9 +623,20 @@
     {
       "name": "pop from stack",
       "mnemonic": "pop",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": ["reg"],
-      "mappedInstructions": ["decsp", "lds <reg>"],
+      "requiresFlag": false,
+      "opcode": "10111101",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["DEC_SP"],
+        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
+        ["OE_SP_L", "IE_MAR_L"], // ──┘
+        ["MEM_EN_IO", "IE_<reg>"], //read from memory at current SP address and move the value into the specified register
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 11,
       "shortDescription": "SP = SP - 1\n<reg> = mem[SP]",
@@ -669,9 +646,20 @@
     {
       "name": "peek at stack",
       "mnemonic": "peek",
-      "type": "PSEUDO",
+      "type": "REAL",
+      "requiresFlag": false,
+      "opcode": "10111110",
       "operands": ["reg"],
-      "mappedInstructions": ["pop <reg>", "incsp"],
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["DEC_SP"], // decrement SP to access the top element
+        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
+        ["OE_SP_L", "IE_MAR_L"], // ──┘
+        ["MEM_EN_IO", "IE_<reg>", "INC_SP"], //read from memory at current SP address and move the value into the specified register, increment SP again => only peek, not pop
+        ["RSC"]
+      ],
       "group": "REG-MEM",
       "indexInGroup": 12,
       "shortDescription": "<reg> = mem[SP]",
@@ -719,42 +707,6 @@
       "examples": [
         //TODO
       ]
-    },
-    {
-      "name": "increment stack-pointer",
-      "mnemonic": "incsp",
-      "type": "REAL",
-      "operands": [],
-      "requiresFlag": true,
-      "opcode": "00110000",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
-          ["IE_TMP"], //set TMP-Register to 0 (works because of pull-down resistors on the bus)
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_SP_L", "IE_F"], //add one to SP_L by using ALU_CIN as the source for a "1"
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
-          ["IE_TMP"], //set TMP-Register to 0 (works because of pull-down resistors on the bus)
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_SP_L", "IE_F"], //add one to SP_L by using ALU_CIN as the source for a "1"
-          ["OE_SP_H", "IE_A"], //move SP_H to A-Register
-          ["IE_TMP"], //set TMP-Register to 0 (works because of pull-down resistors on the bus)
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_SP_H", "IE_F"], //add one to SP_H as carry occurred
-          ["RSC"]
-        ]
-      },
-      "group": "REG-MEM",
-      "indexInGroup": 14,
-      "shortDescription": "SP = SP + 1",
-      "longDescription": "",
-      "examples": []
     },
     {
       "name": "increment value in memory",
@@ -809,42 +761,6 @@
       "examples": [
         //TODO
       ]
-    },
-    {
-      "name": "decrement stack-pointer",
-      "mnemonic": "decsp",
-      "type": "REAL",
-      "operands": [],
-      "requiresFlag": true,
-      "opcode": "00110001",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
-          ["IE_TMP"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_L", "IE_F"], //without an ALU_CIN, its automatically an addition with -1
-          ["OE_SP_H", "IE_A"],
-          ["IE_TMP"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_H", "IE_F"],
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_SP_L", "IE_A"], //move SP_L to A-Register
-          ["IE_TMP"],
-          ["ALU_SRC_ARI", "ALU_AOP_SUB", "OE_ALU", "IE_SP_L", "IE_F"], //without an ALU_CIN, its automatically an addition with -1
-          ["RSC"]
-        ]
-      },
-      "group": "REG-MEM",
-      "indexInGroup": 14,
-      "shortDescription": "SP = SP - 1",
-      "longDescription": "",
-      "examples": []
     },
     {
       "name": "decrement value in memory",
@@ -1125,9 +1041,26 @@
     {
       "name": "return from subroutine",
       "mnemonic": "ret",
-      "type": "PSEUDO",
+      "type": "REAL",
       "operands": [],
-      "mappedInstructions": ["pop TMP", "movs BUF, TMP", "pop TMP", "jmpr"],
+      "requiresFlag": false,
+      "opcode": "00010100",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["DEC_SP"], //                       ──┐
+        ["OE_SP_H", "IE_MAR_H"], //            ├──> pop TMP
+        ["OE_SP_L", "IE_MAR_L"], //            │
+        ["MEM_EN_IO", "IE_TMP"], //          ──┘
+        ["DEC_SP"], //                       ──┐
+        ["OE_SP_H", "IE_MAR_H"], //            ├──> pop A
+        ["OE_SP_L", "IE_MAR_L"], //            │
+        ["MEM_EN_IO", "IE_A"], //            ──┘
+        ["OE_A", "IE_PC_H"], //              ──┐
+        ["OE_TMP", "IE_PC_L"], //            ──┴──> jmpr
+        ["RSC"]
+      ],
       "group": "SYS",
       "indexInGroup": 3,
       "shortDescription": "Returns from a function call",
@@ -1171,8 +1104,8 @@
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_A", "IE_PC_L"], //          ──┐
-        ["OE_TMP", "IE_PC_H"], //        ──┴──> Set PC to values in A- and TMP-Register (low and high address byte)
+        ["OE_A", "IE_PC_H"], //          ──┐
+        ["OE_TMP", "IE_PC_L"], //        ──┴──> Set PC to values in A- and TMP-Register (high and low address byte)
         ["RSC"]
       ],
       "group": "BR-JMP",

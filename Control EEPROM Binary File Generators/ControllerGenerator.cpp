@@ -28,8 +28,6 @@ const uint32_t IE_X        = 0b00011000'00000000'00000000'00000000;
 const uint32_t IE_TMP      = 0b00100000'00000000'00000000'00000000;
 const uint32_t IE_PC_L     = 0b00101000'00000000'00000000'00000000;
 const uint32_t IE_7SD      = 0b00110000'00000000'00000000'00000000;
-const uint32_t IE_SP_L     = 0b00111000'00000000'00000000'00000000;
-const uint32_t IE_SP_H     = 0b01000000'00000000'00000000'00000000;
 const uint32_t IE_PC_H     = 0b01001000'00000000'00000000'00000000;
 const uint32_t IE_MAR_H    = 0b01010000'00000000'00000000'00000000;
 const uint32_t IE_IR       = 0b01011000'00000000'00000000'00000000;
@@ -98,8 +96,6 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"IE_PC_L",     IE_PC_L},
   {"RSC",         RSC},
   {"IE_A",        IE_A},
-  {"IE_SP_H",     IE_SP_H},
-  {"IE_SP_L",     IE_SP_L},
   {"IE_BUF",      IE_BUF},
   {"IE_MAR_L",    IE_MAR_L},
   {"IE_F",        IE_F},
