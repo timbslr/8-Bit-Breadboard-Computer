@@ -18,7 +18,7 @@
       "group": "ALU",
       "indexInGroup": 0,
       "shortDescription": "A = A + TMP",
-      "longDescription": "The ADD instruction computes an addition on the A and B registers. These two operands are fixed and cannot be changed. What can be changed is the register in which the result is saved, it is specified as an operand of the instruction. After computation, the corresponding flags are set.",
+      "longDescription": "",
       "examples": []
     },
     {
@@ -30,7 +30,7 @@
       "group": "ALU",
       "indexInGroup": 1,
       "shortDescription": "A = A + <imm>",
-      "longDescription": "The ADDI instruction adds the specified immediate value to the A register. Internally, the instruction first loads the immediate into the TMP register and then performs a normal addition, which means that the TMP register will be overwritten by this instruction. Finally, the corresponding flags are set.",
+      "longDescription": "",
       "examples": []
     },
     {
