@@ -162,7 +162,8 @@
           },
           "shortDescription": {
             "type": "string",
-            "minLength": 5
+            "minLength": 3,
+            "maxLength": 32
           },
           "longDescription": {
             "type": "string",
