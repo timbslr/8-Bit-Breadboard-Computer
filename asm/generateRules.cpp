@@ -4,26 +4,21 @@
 
 using json = nlohmann::json;
 
-#define REGISTER_ARGUMENT(specifier)  ("{" specifier ": register}") //uses string literal concatenation
-#define LCDREGISTER_ARGUMENT(specifier)  ("{" specifier ": lcdregister}") //uses string literal concatenation
+#define REGISTER_ARGUMENT(specifier)  ("{" specifier ": register}")
+#define LCDREGISTER_ARGUMENT(specifier)  ("{" specifier ": lcdregister}")
 #define IMMEDIATE_ARGUMENT(specifier) ("{" specifier ": i8}")
 #define ADDRESS_ARGUMENT(specifier)   ("{" specifier ": u16}")
 
-const std::vector<std::string> rotateNMap = {
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 0 => asm{ }",
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 1 => asm{ ro? {reg} }",
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 2 => asm{ ro? A } @ asm{ ro? {reg} }",
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 3 => asm{ ro? A } @ asm{ ro? A } @ asm{ ro? {reg} }",
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 4 => asm{ ro? A } @ asm{ ro? A } @ asm{ ro? A } @ asm{ ro? {reg} }",
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 5 => asm{ ro! A } @ asm{ ro! A } @ asm{ ro! {reg} }",
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 6 => asm{ ro! A } @ asm{ ro! {reg} }",
-  std::string("ro?n ") + REGISTER_ARGUMENT("reg") + ", 7 => asm{ ro! {reg} }", 
-};
-
 std::string generateRule(auto instruction);
-std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions);
 std::string handleSpecialCaseMovs(auto instruction);
+std::vector<std::string> generateLeftSideOperands(std::vector<std::string> operands);
+std::vector<std::string> generateRightSideOperands(std::vector<std::string> operands);
+std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions);
+std::string formatRules(std::vector<std::string> rules, int maxIndexOfAssignOperator);
+void writeRulesToFile(std::string filePath, std::string templatePath, std::string rulesString);
+std::string concatVectorElements(std::vector<std::string> v, std::string delimiter);
 void replaceAll(std::string &str, const std::string &from, const std::string &to);
+
 
 int main() {
   std::ifstream jsonFile("../docs/resources/data/instructionData.jsonc");
@@ -35,9 +30,7 @@ int main() {
     auto currentInstruction = instructionsJsonArray[i];
     std::string currentRule = generateRule(currentInstruction);
     int indexOfAssignOperator = currentRule.find("=>");
-    if(maxIndexOfAssignOperator < indexOfAssignOperator) {
-      maxIndexOfAssignOperator = indexOfAssignOperator;
-    }
+    maxIndexOfAssignOperator = std::max(indexOfAssignOperator, maxIndexOfAssignOperator);
 
     if(currentInstruction.contains("opcode")) {
       std::string opcode = currentInstruction["opcode"];
@@ -53,142 +46,42 @@ int main() {
     }
   }
 
-  //Format rules
-  std::string rulesString = "";
-  int rulesSize = rules.size();
-  for(int i = 0; i < rulesSize; i++) {
-    std::string currentRule = rules.at(i);
-    int indexOfAssignOperator = currentRule.find("=>");
-    if(indexOfAssignOperator == std::string::npos) {
-      rulesString += "\t\t\t" + currentRule + "\n";
-      continue;
-    }
-    while(indexOfAssignOperator < maxIndexOfAssignOperator + 1) {
-      currentRule.insert(indexOfAssignOperator, " ");
-      indexOfAssignOperator++;
-    }
-    rulesString += "\t" + currentRule;
-    if(i < rulesSize - 1) {
-      rulesString += "\n";
-    }
-  }
+  std::string rulesString = formatRules(rules, maxIndexOfAssignOperator);
+  writeRulesToFile("rules.asm", "./rulesTemplate.asm", rulesString);
 
-  std::ifstream templateFile("./rulesTemplate.asm");
-  std::string fileContent((std::istreambuf_iterator<char>(templateFile)),std::istreambuf_iterator<char>());
-  replaceAll(fileContent, "\t<RULES>", rulesString);
-
-  std::ofstream outputFileStream("rules.asm");
-  outputFileStream.write(fileContent.c_str(), fileContent.length());
-  outputFileStream.close();
   return 0;
 }
 
 std::string generateRule(auto instruction) {
   std::vector<std::string> operands = instruction["operands"];
-  std::string mnemonic = std::string(instruction["mnemonic"]) + " "; //theres always a space behind the mnemonic, so you can already insert it here 
+  std::string mnemonic = std::string(instruction["mnemonic"]);
   bool isInstructionReal = std::string(instruction["type"]) == "REAL";
-  if(mnemonic == "movs ") {
+  if(mnemonic == "movs") {
     return handleSpecialCaseMovs(instruction);
   }
 
+  std::vector<std::string> leftSideOperands = generateLeftSideOperands(operands);
+  std::string rule = mnemonic + " " + concatVectorElements(leftSideOperands, ", ") + " => ";
+
   if(isInstructionReal) {
-    switch(operands.size()) {
-      case 0: { //no operands => simply map to opcode
-        std::string rule = mnemonic + "=> 0b<opcode>"; //<opcode> will be replaced later with the actual opcode 
-        return rule;
-      }
-      case 1: {
-        if(operands[0] == "reg") {
-          return mnemonic + REGISTER_ARGUMENT("reg") + " => 0b<opcode> @ reg";
-        }
-        if(operands[0] == "imm") {
-          return mnemonic + IMMEDIATE_ARGUMENT("imm") + " => 0b<opcode> @ imm";
-        }
-        if(operands[0] == "addr") {
-          return mnemonic + ADDRESS_ARGUMENT("addr") + " => 0b<opcode> @ le(addr)";
-        }
-        std::cerr << "No operands matched for operand count 1: " << operands[0] << std::endl;
-        break;
-      }
-      case 2: {
-        if(operands[0] == "reg" && operands[1] == "imm") {
-          return mnemonic + REGISTER_ARGUMENT("reg") + ", " + IMMEDIATE_ARGUMENT("imm") + " => 0b<opcode> @ reg @ imm";
-        }
-        if(operands[0] == "regd" && operands[1] == "regs") {
-          return mnemonic + REGISTER_ARGUMENT("regd") + ", " + REGISTER_ARGUMENT("regs") + " => 0b<opcode> @ regs @ regd";
-        }
-        if(operands[0] == "reg" && operands[1] == "addr") {
-          return mnemonic + REGISTER_ARGUMENT("reg") + ", " + ADDRESS_ARGUMENT("addr") + " => 0b<opcode> @ reg @ le(addr)";
-        }
-        if(operands[0] == "imm" && operands[1] == "addr") {
-          return mnemonic + IMMEDIATE_ARGUMENT("imm") + ", " + ADDRESS_ARGUMENT("addr") + " => 0b<opcode> @ imm @ le(addr)";
-        }
-        if(operands[0] == "lcdreg" && operands[1] == "reg") {
-          return mnemonic + LCDREGISTER_ARGUMENT("lcdreg") + ", " + REGISTER_ARGUMENT("reg") + " => 0b<opcode> @ lcdreg @ reg";
-        }
-        if(operands[0] == "lcdreg" && operands[1] == "imm") {
-          return mnemonic + LCDREGISTER_ARGUMENT("lcdreg") + ", " + IMMEDIATE_ARGUMENT("imm") + " => 0b<opcode> @ lcdreg @ imm";
-        }
-        std::cerr << "No operands matched for operand count 2: " << operands[0] << " " << operands[1] << std::endl;
-        break;
-      }
-    };
-  } else {
-    std::vector<std::string> mappedInstructions = instruction["mappedInstructions"];
-    switch(operands.size()) {
-      case 0: {
-        return mnemonic + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
-      }
-      case 1: {
-        if(operands[0] == "reg") {
-          return mnemonic + REGISTER_ARGUMENT("reg") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
-        }
-        if(operands[0] == "addr") {
-          return mnemonic + ADDRESS_ARGUMENT("addr") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
-        }
-        if(operands[0] == "imm") {
-          return mnemonic + IMMEDIATE_ARGUMENT("imm") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
-        }
-        break;
-      }
-      case 2: {
-        if(operands[0] == "reg" && operands[1] == "imm") {
-          return mnemonic + REGISTER_ARGUMENT("reg") + ", " + IMMEDIATE_ARGUMENT("imm") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
-        }
-        if(operands[0] == "imm" && operands[1] == "addr") {
-          return mnemonic + IMMEDIATE_ARGUMENT("imm") + ", " + ADDRESS_ARGUMENT("addr") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
-        }
-        break;
-      }
-    };
-  }
+    rule += "0b<opcode>";
 
-  std::cerr << "Not able to generate customasm-rule for instruction: " + mnemonic << std::endl;
-  return "ERROR";
-}
+    if(operands.size() == 0) return rule;
 
-std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions) {
-  std::string concattedString = "";
-  if(mnemonic == "call ") {  //handle special case call, in this representation of mnemonic, every mnemonic has a space behind its name
-    concattedString = "asm{ \n";
-    for(int i = 0; i < mappedInstructions.size(); i++) {
-      concattedString += mappedInstructions[i] + "\n";
+    std::vector<std::string> rightSideOperands = generateRightSideOperands(operands);
+    if(rightSideOperands.size() == 2 && rightSideOperands[0] == "regd" && rightSideOperands[1] == "regs") { //special case for move //TODO remove special case as it makes no sense, right?
+      rightSideOperands[0] = "regs";  //swap
+      rightSideOperands[1] = "regd";
     }
-    concattedString += "nextInstructionAddress: }";
-    return concattedString;
+
+    rule += " @ " + concatVectorElements(rightSideOperands, " @ ");;
+    return rule;
   }
 
-  for(int i = 0; i < mappedInstructions.size(); i++) {
-    std::string currentInstruction = mappedInstructions[i];
-    replaceAll(currentInstruction, "<", "{");  //replace argument brackets that exist in mapped instructions, customasm need curly braces for that
-    replaceAll(currentInstruction, ">", "}");
-    concattedString += "asm{ " + currentInstruction + " }";
-    if(i != mappedInstructions.size() - 1) {
-      concattedString += " @ ";
-    }
-  }
+  std::vector<std::string> mappedInstructions = instruction["mappedInstructions"];
+  rule += concatPseudoInstructions(mnemonic, mappedInstructions);
 
-  return concattedString;
+  return rule;
 }
 
 std::string handleSpecialCaseMovs(auto instruction) {
@@ -212,6 +105,104 @@ std::string handleSpecialCaseMovs(auto instruction) {
   }
 
   return resultingRule;
+}
+
+std::vector<std::string> generateLeftSideOperands(std::vector<std::string> operands) {
+    std::vector<std::string> leftSideOperands;
+
+    for(int i = 0; i < operands.size(); i++) {
+      std::string operand = operands[i];
+      if(operand == "reg") leftSideOperands.push_back(REGISTER_ARGUMENT("reg"));
+      else if(operand == "imm") leftSideOperands.push_back(IMMEDIATE_ARGUMENT("imm"));
+      else if(operand == "addr") leftSideOperands.push_back(ADDRESS_ARGUMENT("addr"));
+      else if(operand == "regd") leftSideOperands.push_back(REGISTER_ARGUMENT("regd"));
+      else if(operand == "regs") leftSideOperands.push_back(REGISTER_ARGUMENT("regs"));
+      else if(operand == "lcdreg") leftSideOperands.push_back(LCDREGISTER_ARGUMENT("lcdreg"));
+      else std::cerr << "No left side operands matching: " << operand << std::endl;
+    }
+
+    return leftSideOperands;
+}
+
+std::vector<std::string> generateRightSideOperands(std::vector<std::string> operands) {
+    std::vector<std::string> rightSideOperands;
+
+    for(int i = 0; i < operands.size(); i++) {
+      std::string operand = operands[i];
+      if(operand == "addr") rightSideOperands.push_back("le(addr)");
+      else if(operand == "reg" || operand == "regd" || operand == "regs" || operand == "imm" || operand == "lcdreg") rightSideOperands.push_back(operand);
+      else std::cerr << "No right side operands matching: " << operand << std::endl;
+    }
+
+    return rightSideOperands;
+}
+
+std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions) {
+  std::string concattedString = "";
+  if(mnemonic == "call") {  //handle special case call, in this representation of mnemonic, every mnemonic has a space behind its name
+    concattedString = "asm{ \n";
+    for(int i = 0; i < mappedInstructions.size(); i++) {
+      concattedString += mappedInstructions[i] + "\n";
+    }
+    concattedString += "nextInstructionAddress: }";
+    return concattedString;
+  }
+
+  for(int i = 0; i < mappedInstructions.size(); i++) {
+    std::string currentInstruction = mappedInstructions[i];
+    replaceAll(currentInstruction, "<", "{");  //replace argument brackets that exist in mapped instructions, customasm need curly braces for that
+    replaceAll(currentInstruction, ">", "}");
+    concattedString += "asm{ " + currentInstruction + " }";
+    if(i != mappedInstructions.size() - 1) {
+      concattedString += " @ ";
+    }
+  }
+
+  return concattedString;
+}
+
+std::string formatRules(std::vector<std::string> rules, int maxIndexOfAssignOperator) {
+  std::string formattedRulesString = "";
+
+  int rulesSize = rules.size();
+  for(int i = 0; i < rulesSize; i++) {
+    std::string currentRule = rules.at(i);
+    int indexOfAssignOperator = currentRule.find("=>");
+    if(indexOfAssignOperator == std::string::npos) {
+      formattedRulesString += "\t\t\t" + currentRule + "\n";
+      continue;
+    }
+    while(indexOfAssignOperator < maxIndexOfAssignOperator + 1) {
+      currentRule.insert(indexOfAssignOperator, " ");
+      indexOfAssignOperator++;
+    }
+    formattedRulesString += "\t" + currentRule;
+    if(i < rulesSize - 1) {
+      formattedRulesString += "\n";
+    }
+  }
+
+  return formattedRulesString;
+}
+
+void writeRulesToFile(std::string filePath, std::string templatePath, std::string rulesString) {
+  std::ifstream templateFile(templatePath);
+  std::string fileContent((std::istreambuf_iterator<char>(templateFile)),std::istreambuf_iterator<char>());
+  replaceAll(fileContent, "\t<RULES>", rulesString);
+
+  std::ofstream outputFileStream(filePath);
+  outputFileStream.write(fileContent.c_str(), fileContent.length());
+  outputFileStream.close();
+}
+
+std::string concatVectorElements(std::vector<std::string> v, std::string delimiter) {
+  std::string result = "";
+  for(int i = 0; i < v.size(); i++) {
+    if(i != 0) result += delimiter;
+
+    result += v[i];
+  }
+  return result;
 }
 
 void replaceAll(std::string &str, const std::string &from, const std::string &to) {
