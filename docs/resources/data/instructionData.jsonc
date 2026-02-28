@@ -1002,7 +1002,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "10000010",
+      "opcode": "101001RR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -1030,7 +1030,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "10000011",
+      "opcode": "101010RR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -1058,7 +1058,7 @@
       "mnemonic": "peek",
       "type": "REAL",
       "requiresFlag": false,
-      "opcode": "10000100",
+      "opcode": "101011RR",
       "operands": ["reg"],
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
