@@ -14,6 +14,14 @@ nav_exclude: true
 ---
 
 <style>
+  .header {
+    font-weight: 800;
+  }
+
+  .description {
+    color: #646464;
+  }
+
   .highlightedHeader {
     display: inline;
     background-color: yellow;

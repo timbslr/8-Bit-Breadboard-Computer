@@ -14,8 +14,6 @@ export default abstract class Instruction {
   private group: InstructionGroup;
   private indexInGroup: number;
   private shortDescription: string;
-  private longDescription: string;
-  private examples: Example[];
 
   constructor(props: InstructionProperties) {
     this.name = props.name;
@@ -25,8 +23,6 @@ export default abstract class Instruction {
     this.group = props.group;
     this.indexInGroup = props.indexInGroup;
     this.shortDescription = props.shortDescription;
-    this.longDescription = props.longDescription;
-    this.examples = props.examples;
   }
 
   getName(): string {
@@ -55,14 +51,6 @@ export default abstract class Instruction {
 
   getShortDescription(): string {
     return this.shortDescription;
-  }
-
-  getLongDescription(): string {
-    return this.longDescription;
-  }
-
-  getExamples(): Example[] {
-    return this.examples;
   }
 
   static extractMnemonicFromInstructionString(instructionString: string) {

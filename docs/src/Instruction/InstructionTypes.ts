@@ -15,17 +15,14 @@ export type JSONInstruction = {
   group: string;
   indexInGroup: number;
   shortDescription: string;
-  longDescription: string;
-  examples: object[];
 };
 
-export type InstructionProperties = Omit<JSONInstruction, "type" | "operands" | "opcode" | "mappedInstructions" | "group" | "examples"> & {
+export type InstructionProperties = Omit<JSONInstruction, "type" | "operands" | "opcode" | "mappedInstructions" | "group"> & {
   type: InstructionType;
   operands: Operand[];
   opcode?: Opcode;
   mappedInstructions?: InstructionInstance[];
   group: InstructionGroup;
-  examples: Example[];
 };
 
 export type REALInstructionProperties = Required<

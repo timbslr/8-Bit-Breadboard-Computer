@@ -164,11 +164,7 @@
           "shortDescription": {
             "type": "string",
             "minLength": 3,
-            "maxLength": 32
-          },
-          "longDescription": {
-            "type": "string",
-            "minLength": 20
+            "maxLength": 45
           }
         },
         "required": [
@@ -178,8 +174,7 @@
           "operands",
           "group",
           "indexInGroup",
-          "shortDescription",
-          "longDescription"
+          "shortDescription"
         ],
         "additionalProperties": false,
         "allOf": [

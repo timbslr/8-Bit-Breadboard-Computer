@@ -38,8 +38,6 @@ export class InstructionParser {
     const group = instr.group as InstructionGroup;
     const indexInGroup = instr.indexInGroup;
     const shortDescription = instr.shortDescription;
-    const longDescription = instr.longDescription;
-    const examples = instr.examples as Example[];
 
     if (type === InstructionType.PSEUDO) {
       const mappedInstructionStrings = instr.mappedInstructions as string[];
@@ -72,8 +70,6 @@ export class InstructionParser {
         group,
         indexInGroup,
         shortDescription,
-        longDescription,
-        examples,
         mappedInstructions,
       });
     }
@@ -90,8 +86,6 @@ export class InstructionParser {
       group,
       indexInGroup,
       shortDescription,
-      longDescription,
-      examples,
       requiresFlag,
       opcode,
       microinstructions,
