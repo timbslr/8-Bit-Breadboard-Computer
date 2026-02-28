@@ -146,6 +146,9 @@ std::string generateRule(auto instruction) {
         if(operands[0] == "addr") {
           return mnemonic + ADDRESS_ARGUMENT("addr") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
         }
+        if(operands[0] == "imm") {
+          return mnemonic + IMMEDIATE_ARGUMENT("imm") + " => " + concatPseudoInstructions(mnemonic, mappedInstructions);
+        }
         break;
       }
       case 2: {
