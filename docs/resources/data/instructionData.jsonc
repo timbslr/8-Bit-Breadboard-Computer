@@ -18,33 +18,7 @@
       "group": "ALU",
       "indexInGroup": 0,
       "shortDescription": "A = A + TMP",
-      "longDescription": "Computes an addition between the contents of the A- and TMP-Register and stores the result into A. It also updated the flags after the computation.",
-      "examples": [
-        {
-          "prerequisites": [
-            { "register": "A", "value": 1 },
-            { "register": "TMP", "value": 10 }
-          ],
-          "code": ["add"],
-          "result": [{ "register": "A", "value": 11 }]
-        },
-        {
-          "prerequisites": [
-            { "register": "A", "value": -10 },
-            { "register": "TMP", "value": 52 }
-          ],
-          "code": ["add"],
-          "result": [{ "register": "A", "value": 42 }]
-        },
-        {
-          "prerequisites": [
-            { "register": "A", "value": -20 },
-            { "register": "TMP", "value": -52 }
-          ],
-          "code": ["add"],
-          "result": [{ "register": "A", "value": -72 }]
-        }
-      ]
+      "longDescription": "Computes an addition between the contents of the A- and TMP-Register and stores the result into A. It also updated the flags after the computation."
     },
     {
       "name": "add with immediate",
@@ -55,24 +29,7 @@
       "group": "ALU",
       "indexInGroup": 1,
       "shortDescription": "A = A + <imm>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [{ "register": "A", "value": 1 }],
-          "code": ["addi 42"],
-          "result": [{ "register": "A", "value": 43 }]
-        },
-        {
-          "prerequisites": [{ "register": "A", "value": -24 }],
-          "code": ["addi 24"],
-          "result": [{ "register": "A", "value": 0 }]
-        },
-        {
-          "prerequisites": [{ "register": "A", "value": 127 }],
-          "code": ["addi 1"],
-          "result": [{ "register": "A", "value": -128 }]
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "add with carry",
@@ -100,14 +57,7 @@
       "group": "ALU",
       "indexInGroup": 2,
       "shortDescription": "A = A + TMP + CF",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "add with carry and immediate",
@@ -118,14 +68,7 @@
       "group": "ALU",
       "indexInGroup": 2,
       "shortDescription": "A = A + <imm> + CF",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "subtract",
@@ -144,33 +87,7 @@
       "group": "ALU",
       "indexInGroup": 3,
       "shortDescription": "A = A - TMP",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [
-            { "register": "A", "value": 100 },
-            { "register": "TMP", "value": 20 }
-          ],
-          "code": ["sub"],
-          "result": [{ "register": "A", "value": 80 }]
-        },
-        {
-          "prerequisites": [
-            { "register": "A", "value": -1 },
-            { "register": "TMP", "value": -10 }
-          ],
-          "code": ["sub"],
-          "result": [{ "register": "A", "value": 9 }]
-        },
-        {
-          "prerequisites": [
-            { "register": "A", "value": -1 },
-            { "register": "TMP", "value": 1 }
-          ],
-          "code": ["sub"],
-          "result": [{ "register": "A", "value": -2 }]
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "subtract with carry",
@@ -198,14 +115,7 @@
       "group": "ALU",
       "indexInGroup": 4,
       "shortDescription": "A = A - TMP - (1-CF)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "subtract with carry and immediate",
@@ -216,14 +126,7 @@
       "group": "ALU",
       "indexInGroup": 2,
       "shortDescription": "A = A - <imm> - (1-CF)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "logic \"and\"",
@@ -243,14 +146,7 @@
       "group": "ALU",
       "indexInGroup": 5,
       "shortDescription": "A = A & TMP",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "logic \"and\" with immediate",
@@ -261,14 +157,7 @@
       "group": "ALU",
       "indexInGroup": 6,
       "shortDescription": "A = A & <imm>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "logic \"or\"",
@@ -288,14 +177,7 @@
       "group": "ALU",
       "indexInGroup": 7,
       "shortDescription": "A = A | TMP",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "logic \"or\" with immediate",
@@ -306,14 +188,7 @@
       "group": "ALU",
       "indexInGroup": 8,
       "shortDescription": "A = A | <imm>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "logic \"exclusive or\"",
@@ -333,14 +208,7 @@
       "group": "ALU",
       "indexInGroup": 9,
       "shortDescription": "A = A ^ TMP",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "logic \"exclusive or\" with immediate",
@@ -351,14 +219,7 @@
       "group": "ALU",
       "indexInGroup": 10,
       "shortDescription": "A = A ^ <imm>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "logic \"not\"",
@@ -378,14 +239,7 @@
       "group": "ALU",
       "indexInGroup": 11,
       "shortDescription": "A = ~A",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "negate",
@@ -396,14 +250,7 @@
       "group": "ALU",
       "indexInGroup": 12,
       "shortDescription": "A = ~A + 1",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "shift left",
@@ -423,14 +270,7 @@
       "group": "ALU",
       "indexInGroup": 13,
       "shortDescription": "A = A << 1 (zero-extended)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "shift logic right",
@@ -450,14 +290,7 @@
       "group": "ALU",
       "indexInGroup": 14,
       "shortDescription": "A = A >> 1 (zero-extended)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "shift arithmetic right",
@@ -477,14 +310,7 @@
       "group": "ALU",
       "indexInGroup": 15,
       "shortDescription": "A = A >> 1 (sign-extended)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "rotate right",
@@ -504,14 +330,7 @@
       "group": "ALU",
       "indexInGroup": 16,
       "shortDescription": "A = rotate A right by one bit",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "rotate left",
@@ -531,14 +350,7 @@
       "group": "ALU",
       "indexInGroup": 18,
       "shortDescription": "A = rotate A left by one bit",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "clear",
@@ -549,14 +361,7 @@
       "group": "REG-MEM",
       "indexInGroup": 0,
       "shortDescription": "<reg> = 0",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "move",
@@ -575,14 +380,7 @@
       "group": "REG-MEM",
       "indexInGroup": 1,
       "shortDescription": "<regd> = <regs>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "move special",
@@ -601,14 +399,7 @@
       "group": "REG-MEM",
       "indexInGroup": 1,
       "shortDescription": "<regsd> = <regss>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "load",
@@ -634,14 +425,7 @@
       "group": "REG-MEM",
       "indexInGroup": 3,
       "shortDescription": "<reg> = mem[<addr>]",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "load with X-Register offset",
@@ -688,14 +472,7 @@
       "group": "REG-MEM",
       "indexInGroup": 4,
       "shortDescription": "<reg> = mem[<addr> + X]",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "load with Y-Register offset",
@@ -742,8 +519,7 @@
       "group": "REG-MEM",
       "indexInGroup": 5,
       "shortDescription": "<reg> = mem[<addr> + Y]",
-      "longDescription": "",
-      "examples": []
+      "longDescription": ""
     },
     {
       "name": "load stack-pointer relative",
@@ -786,8 +562,7 @@
       "group": "REG-MEM",
       "indexInGroup": 5,
       "shortDescription": "<reg> = mem[SP + <immediate>]",
-      "longDescription": "",
-      "examples": []
+      "longDescription": ""
     },
     {
       "name": "store",
@@ -813,14 +588,7 @@
       "group": "REG-MEM",
       "indexInGroup": 5,
       "shortDescription": "mem[<addr>] = <reg>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "store with X-Register offset",
@@ -867,14 +635,7 @@
       "group": "REG-MEM",
       "indexInGroup": 6,
       "shortDescription": "mem[<addr> + X] = <reg>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "store with Y-Register offset",
@@ -921,8 +682,7 @@
       "group": "REG-MEM",
       "indexInGroup": 7,
       "shortDescription": "mem[<addr> + Y] = <reg>",
-      "longDescription": "",
-      "examples": []
+      "longDescription": ""
     },
     {
       "name": "store stack-pointer relative",
@@ -965,8 +725,7 @@
       "group": "REG-MEM",
       "indexInGroup": 8,
       "shortDescription": "mem[SP + <imm>] = <reg>",
-      "longDescription": "",
-      "examples": []
+      "longDescription": ""
     },
     {
       "name": "load immediate",
@@ -987,14 +746,7 @@
       "group": "REG-MEM",
       "indexInGroup": 9,
       "shortDescription": "<reg> = <imm>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "push to stack",
@@ -1015,14 +767,7 @@
       "group": "REG-MEM",
       "indexInGroup": 10,
       "shortDescription": "mem[SP] = <reg>\nSP = SP + 1",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "pop from stack",
@@ -1044,14 +789,7 @@
       "group": "REG-MEM",
       "indexInGroup": 11,
       "shortDescription": "SP = SP - 1\n<reg> = mem[SP]",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "peek at stack",
@@ -1073,14 +811,7 @@
       "group": "REG-MEM",
       "indexInGroup": 12,
       "shortDescription": "<reg> = mem[SP]",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "increment X-Register",
@@ -1099,14 +830,7 @@
       "group": "REG-MEM",
       "indexInGroup": 13,
       "shortDescription": "X= X + 1",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "increment Y-Register",
@@ -1125,10 +849,7 @@
       "group": "REG-MEM",
       "indexInGroup": 13,
       "shortDescription": "Y = Y + 1",
-      "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "longDescription": ""
     },
     {
       "name": "increment value in memory",
@@ -1139,14 +860,7 @@
       "group": "REG-MEM",
       "indexInGroup": 15,
       "shortDescription": "mem[<addr>] = mem[<addr>] + 1",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "decrement X-Register",
@@ -1165,14 +879,7 @@
       "group": "REG-MEM",
       "indexInGroup": 16,
       "shortDescription": "X = X - 1",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "decrement Y-Register",
@@ -1191,10 +898,7 @@
       "group": "REG-MEM",
       "indexInGroup": 16,
       "shortDescription": "Y = Y - 1",
-      "longDescription": "",
-      "examples": [
-        //TODO
-      ]
+      "longDescription": ""
     },
     {
       "name": "decrement value in memory",
@@ -1205,14 +909,7 @@
       "group": "REG-MEM",
       "indexInGroup": 18,
       "shortDescription": "mem[<addr>] = mem[<addr>] - 1",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "output to 7-segment display",
@@ -1231,14 +928,7 @@
       "group": "I-O",
       "indexInGroup": 0,
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "set 7-segment display signed mode",
@@ -1257,14 +947,7 @@
       "group": "I-O",
       "indexInGroup": 0,
       "shortDescription": "Sets the 7-segment display into signed mode (values -128 to 127)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "set 7-segment display unsigned mode",
@@ -1283,14 +966,7 @@
       "group": "I-O",
       "indexInGroup": 0,
       "shortDescription": "Sets the 7-segment display into unsigned mode (values 0 to 255)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "output immediate to 7-segment display",
@@ -1311,14 +987,7 @@
       "group": "I-O",
       "indexInGroup": 1,
       "shortDescription": "Outputs the value in the given register to the 7-segment display",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "output to lcd",
@@ -1337,14 +1006,7 @@
       "group": "I-O",
       "indexInGroup": 2,
       "shortDescription": "Outputs the value in the given register to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "output immediate to lcd",
@@ -1365,14 +1027,7 @@
       "group": "I-O",
       "indexInGroup": 3,
       "shortDescription": "Outputs an immediate to the LCD (either as CTRL or DATA, depending on <lcdreg>)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "lcd read",
@@ -1391,14 +1046,7 @@
       "group": "I-O",
       "indexInGroup": 4,
       "shortDescription": "<reg> = LCD[<lcdreg>]",
-      "longDescription": "Reads from the LCD (either from CTRL or DATA register, depending on <lcdreg>) into the given register",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Reads from the LCD (either from CTRL or DATA register, depending on <lcdreg>) into the given register"
     },
     {
       "name": "serial rx read",
@@ -1418,14 +1066,7 @@
       "group": "I-O",
       "indexInGroup": 5,
       "shortDescription": "<reg> --> RX",
-      "longDescription": "Moves the byte from the rx shift-register of the serial interface module into one of the standard registers and resets the SER_RX_RDY flag",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Moves the byte from the rx shift-register of the serial interface module into one of the standard registers and resets the SER_RX_RDY flag"
     },
     {
       "name": "serial tx send",
@@ -1444,14 +1085,7 @@
       "group": "I-O",
       "indexInGroup": 6,
       "shortDescription": "TX <-- <reg>",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "serial tx send immediate",
@@ -1472,14 +1106,7 @@
       "group": "I-O",
       "indexInGroup": 6,
       "shortDescription": "",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "no operation",
@@ -1497,14 +1124,7 @@
       "group": "SYS",
       "indexInGroup": 0,
       "shortDescription": "nop for 3 clock cycles",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "halt",
@@ -1523,14 +1143,7 @@
       "group": "SYS",
       "indexInGroup": 1,
       "shortDescription": "Halts CLK",
-      "longDescription": "Halts the entire computer. This instruction is called at the end of a program.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Halts the entire computer. This instruction is called at the end of a program."
     },
     {
       "name": "call subroutine",
@@ -1547,14 +1160,7 @@
       "group": "SYS",
       "indexInGroup": 2,
       "shortDescription": "push(PC+1), PC = addr",
-      "longDescription": "Pushes the return address to the stack (PC_H first, then PC_L) and calls the subroutine placed at the given address.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Pushes the return address to the stack (PC_H first, then PC_L) and calls the subroutine placed at the given address."
     },
     {
       "name": "return from subroutine",
@@ -1582,14 +1188,7 @@
       "group": "SYS",
       "indexInGroup": 3,
       "shortDescription": "",
-      "longDescription": "Returns from a function call by loading the PC with the top most bytes on the stack (pop PC_L first, then pop PC_H).",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Returns from a function call by loading the PC with the top most bytes on the stack (pop PC_L first, then pop PC_H)."
     },
     {
       "name": "jump",
@@ -1614,14 +1213,7 @@
       "group": "BR-JMP",
       "indexInGroup": 0,
       "shortDescription": "PC = <addr>",
-      "longDescription": "Jumps to the given address in code without checking any condition.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Jumps to the given address in code without checking any condition."
     },
     {
       "name": "jump register",
@@ -1641,14 +1233,7 @@
       "group": "BR-JMP",
       "indexInGroup": 1,
       "shortDescription": "PC_H = A, PC_L = TMP",
-      "longDescription": "Used for indirect jumps. PC_H is loaded with the contents of the A-Register and PC_L is loaded from the TMP register.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Used for indirect jumps. PC_H is loaded with the contents of the A-Register and PC_L is loaded from the TMP register."
     },
     {
       "name": "jump indirect",
@@ -1697,8 +1282,7 @@
       "group": "BR-JMP",
       "indexInGroup": 2,
       "shortDescription": "PC_L = mem[<addr>], PC_H = mem[<addr> + 1]",
-      "longDescription": "Keep in mind that the 6502 has a hardware bug in that instruction, that is resolved here",
-      "examples": []
+      "longDescription": "Keep in mind that the 6502 has a hardware bug in that instruction, that is resolved here"
     },
     {
       "name": "branch if equal",
@@ -1735,14 +1319,7 @@
       "group": "BR-JMP",
       "indexInGroup": 2,
       "shortDescription": "branch if A == TMP",
-      "longDescription": "Jumps to the given address if the contents of the A- and TMP-Register are equal by first computing A - TMP and then checking if the zero flag is set.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Jumps to the given address if the contents of the A- and TMP-Register are equal by first computing A - TMP and then checking if the zero flag is set."
     },
     {
       "name": "branch if equal to immediate",
@@ -1753,14 +1330,7 @@
       "group": "BR-JMP",
       "indexInGroup": 3,
       "shortDescription": "branch if A == <imm>",
-      "longDescription": "Jumps to the given address if the content of the A-Register is equal to the given immediate by first loading the immediate into the TMP-Register and then calling beq <addr>.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Jumps to the given address if the content of the A-Register is equal to the given immediate by first loading the immediate into the TMP-Register and then calling beq <addr>."
     },
     {
       "name": "branch if not equal",
@@ -1797,14 +1367,7 @@
       "group": "BR-JMP",
       "indexInGroup": 4,
       "shortDescription": "branch if A == TMP",
-      "longDescription": "Jumps to the given address if the contents of the A- and TMP-Register are not equal by first computing A - TMP and then checking if the zero flag is not set.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Jumps to the given address if the contents of the A- and TMP-Register are not equal by first computing A - TMP and then checking if the zero flag is not set."
     },
     {
       "name": "branch if not equal to immediate",
@@ -1815,14 +1378,7 @@
       "group": "BR-JMP",
       "indexInGroup": 5,
       "shortDescription": "branch if A != <imm>",
-      "longDescription": "Jumps to the given address if the content of the A-Register is not equal to the given immediate by first loading the immediate into the TMP-Register and then calling bneq <addr>.",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": "Jumps to the given address if the content of the A-Register is not equal to the given immediate by first loading the immediate into the TMP-Register and then calling bneq <addr>."
     },
     {
       "name": "branch if less than",
@@ -1859,14 +1415,7 @@
       "group": "BR-JMP",
       "indexInGroup": 6,
       "shortDescription": "branch if A < TMP (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if less than immediate",
@@ -1877,14 +1426,7 @@
       "group": "BR-JMP",
       "indexInGroup": 7,
       "shortDescription": "branch if A < <imm> (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if less than unsigned",
@@ -1921,14 +1463,7 @@
       "group": "BR-JMP",
       "indexInGroup": 8,
       "shortDescription": "branch if A < TMP (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if less than immediate unsigned",
@@ -1939,14 +1474,7 @@
       "group": "BR-JMP",
       "indexInGroup": 9,
       "shortDescription": "branch if A < <imm> (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if less or equal",
@@ -1983,14 +1511,7 @@
       "group": "BR-JMP",
       "indexInGroup": 10,
       "shortDescription": "branch if A <= TMP (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if less or equal immediate",
@@ -2001,14 +1522,7 @@
       "group": "BR-JMP",
       "indexInGroup": 11,
       "shortDescription": "branch if A <= <imm> (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if less or equal unsigned",
@@ -2045,14 +1559,7 @@
       "group": "BR-JMP",
       "indexInGroup": 12,
       "shortDescription": "branch if A <= TMP (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if less or equal immediate unsigned",
@@ -2063,14 +1570,7 @@
       "group": "BR-JMP",
       "indexInGroup": 13,
       "shortDescription": "branch if A <= <imm> (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater or equal",
@@ -2107,14 +1607,7 @@
       "group": "BR-JMP",
       "indexInGroup": 14,
       "shortDescription": "branch if A >= TMP (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater or equal immediate",
@@ -2125,14 +1618,7 @@
       "group": "BR-JMP",
       "indexInGroup": 15,
       "shortDescription": "branch if A >= <imm> (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater or equal unsigned",
@@ -2169,14 +1655,7 @@
       "group": "BR-JMP",
       "indexInGroup": 16,
       "shortDescription": "branch if A >= TMP (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater or equal immediate unsigned",
@@ -2187,14 +1666,7 @@
       "group": "BR-JMP",
       "indexInGroup": 17,
       "shortDescription": "branch if A >= <imm> (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater than",
@@ -2231,14 +1703,7 @@
       "group": "BR-JMP",
       "indexInGroup": 18,
       "shortDescription": "branch if A > TMP (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater than immediate",
@@ -2249,14 +1714,7 @@
       "group": "BR-JMP",
       "indexInGroup": 19,
       "shortDescription": "branch if A > <imm> (signed)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater than unsigned",
@@ -2293,14 +1751,7 @@
       "group": "BR-JMP",
       "indexInGroup": 20,
       "shortDescription": "branch if A > TMP (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if greater than immediate unsigned",
@@ -2311,14 +1762,7 @@
       "group": "BR-JMP",
       "indexInGroup": 21,
       "shortDescription": "branch if A > <imm> (unsigned)",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if zero set",
@@ -2353,14 +1797,7 @@
       "group": "BR-JMP",
       "indexInGroup": 22,
       "shortDescription": "branch if branch if ZF is set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if zero clear",
@@ -2395,14 +1832,7 @@
       "group": "BR-JMP",
       "indexInGroup": 23,
       "shortDescription": "branch if ZF is not set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if carry set",
@@ -2437,14 +1867,7 @@
       "group": "BR-JMP",
       "indexInGroup": 24,
       "shortDescription": "branch if CF is set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if carry clear",
@@ -2479,14 +1902,7 @@
       "group": "BR-JMP",
       "indexInGroup": 25,
       "shortDescription": "branch if CF is not set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if negative set",
@@ -2521,14 +1937,7 @@
       "group": "BR-JMP",
       "indexInGroup": 26,
       "shortDescription": "branch if NF is set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if negative clear",
@@ -2563,14 +1972,7 @@
       "group": "BR-JMP",
       "indexInGroup": 27,
       "shortDescription": "branch if NF is not set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if overflow set",
@@ -2605,14 +2007,7 @@
       "group": "BR-JMP",
       "indexInGroup": 28,
       "shortDescription": "branch if VF is set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if overflow clear",
@@ -2647,14 +2042,7 @@
       "group": "BR-JMP",
       "indexInGroup": 29,
       "shortDescription": "branch if VF is not set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if serial-rx-ready set",
@@ -2689,14 +2077,7 @@
       "group": "BR-JMP",
       "indexInGroup": 30,
       "shortDescription": "branch if serial-rx-ready flag is set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if serial-rx-ready clear",
@@ -2731,14 +2112,7 @@
       "group": "BR-JMP",
       "indexInGroup": 31,
       "shortDescription": "branch if serial-rx-ready flag is not set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if serial-tx-ready set",
@@ -2773,14 +2147,7 @@
       "group": "BR-JMP",
       "indexInGroup": 32,
       "shortDescription": "branch if serial-tx-ready flag is set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     },
     {
       "name": "branch if serial-tx-ready clear",
@@ -2815,14 +2182,7 @@
       "group": "BR-JMP",
       "indexInGroup": 33,
       "shortDescription": "branch if serial-tx-ready flag is not set",
-      "longDescription": "",
-      "examples": [
-        {
-          "prerequisites": [],
-          "code": [],
-          "result": []
-        }
-      ]
+      "longDescription": ""
     }
   ]
 }
