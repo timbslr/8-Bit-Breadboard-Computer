@@ -3,6 +3,7 @@
   "A-Register.csv",
   "ALU.csv",
   "B-Register.csv",
+  "C-Register.csv",
   "BUF-Register.csv",
   "Clock.csv",
   "Controller.csv",
@@ -17,5 +18,6 @@
   "Serial Interface.csv",
   "SP.csv",
   "TMP-Register.csv",
-  "X-Register.csv"
+  "X-Register.csv",
+  "Y-Register.csv"
 ]

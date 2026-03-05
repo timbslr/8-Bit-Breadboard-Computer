@@ -23,6 +23,7 @@ const uint32_t defaultPattern = 0b00000010'01110000'10000000'00000000;
 
 const uint32_t RSC         = 0b10000000'00000000'00000000'00000000;
 
+const uint32_t IE_C        = 0b00001000'00000000'00000000'00000000;
 const uint32_t IE_Y        = 0b00010000'00000000'00000000'00000000;
 const uint32_t IE_X        = 0b00011000'00000000'00000000'00000000;
 const uint32_t IE_TMP      = 0b00100000'00000000'00000000'00000000;
@@ -65,7 +66,8 @@ const uint32_t ALU_CIN     = 0b00000000'00000000'00000100'00000000;
 const uint32_t ALU_AOP_ADD = 0b00000000'00000000'00000000'00000000;
 const uint32_t ALU_AOP_SUB = 0b00000000'00000000'00000010'00000000;
 
-const uint32_t OE_Y        = 0b00000000'00000000'00000000'01000000;
+const uint32_t OE_C        = 0b00000000'00000000'00000000'00010000;
+const uint32_t OE_Y        = 0b00000000'00000000'00000000'00100000;
 const uint32_t OE_SER_RX   = 0b00000000'00000000'00000000'00110000;
 const uint32_t OE_X        = 0b00000000'00000000'00000000'01000000;
 const uint32_t OE_ALU      = 0b00000000'00000000'00000000'01010000;
@@ -103,6 +105,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"IE_B",        IE_B},
   {"IE_X",        IE_X},
   {"IE_Y",        IE_Y},
+  {"IE_C",        IE_C},
   {"LCD_CTRL",    LCD_CTRL},
   {"LCD_DATA",    LCD_DATA},
   {"LCD_E",       LCD_E},
@@ -143,6 +146,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"OE_SP_H",     OE_SP_H},
   {"OE_IR",       OE_IR},
   {"OE_BUF",      OE_BUF},
+  {"OE_C",        OE_C},
   {"IE_TMP",      IE_TMP},
   {"RST_TMP",     RST_TMP},
   {"MEM_EN_IO",   MEM_EN_IO},
