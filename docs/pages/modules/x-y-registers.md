@@ -21,7 +21,6 @@ One problem with these up/down counters is, that they load data asynchronously w
 ### X-Register
 
 <part-list src="{{ site.baseurl }}/resources/PartLists/X-Register.csv"></part-list>
-<br>
 
 ### Schematic
 
@@ -30,7 +29,6 @@ One problem with these up/down counters is, that they load data asynchronously w
 ### Y-Register
 
 <part-list src="{{ site.baseurl }}/resources/PartLists/Y-Register.csv"></part-list>
-<br>
 
 ### Schematic
 
