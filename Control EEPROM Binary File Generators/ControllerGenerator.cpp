@@ -85,7 +85,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
 
   {"HALT",        0b00000000'00000000'00000000'00001000},
 
-  {"INC_PC",      0b00000000'00000000'00000000'00000001}, // decoder makes it active low, get
+  {"INC_PC",      0b00000000'00000000'00000000'00000001}, // decoder makes it active low, inverter makes it active high again
   {"INC_X",       0b00000000'00000000'00000000'00000010},
   {"DEC_X",       0b00000000'00000000'00000000'00000011},
   {"INC_Y",       0b00000000'00000000'00000000'00000100},
@@ -94,7 +94,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"DEC_SP",      0b00000000'00000000'00000000'00000111}
 };
 
-std::string registers[] = {"A", "B", "X", "TMP"};
+std::string registers[] = {"B", "C", "X", "Y"};
 std::string lcdregisters[] = {"CTRL", "DATA"};
 
 void loadInstructions(const char* fileName);

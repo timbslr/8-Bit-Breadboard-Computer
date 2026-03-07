@@ -13,10 +13,10 @@
 }
 
 #subruledef register { ;subruledef prevents the mnemonics from being used as freestanding instructions
-  A   => 0b00
-  B   => 0b01
-  X   => 0b10
-  TMP => 0b11
+  B => 0b00
+  C => 0b01
+  X => 0b10
+  Y => 0b11
 }
 
 #subruledef lcdregister { ;subruledef prevents the mnemonics from being used as freestanding instructions

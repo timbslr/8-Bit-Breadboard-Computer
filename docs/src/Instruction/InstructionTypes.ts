@@ -47,6 +47,6 @@ export enum InstructionType {
 export type MicroInstructions = string[] | { "0": string[]; "1": string[] };
 export type InstructionGroup = "ALU" | "REG-MEM" | "I-O" | "SYS" | "BR-JMP";
 
-export type Register = "PC_L" | "PC_H" | "MAR_L" | "MAR_H" | "IR" | "BUF" | "SP_L" | "SP_H" | "A" | "F" | "TMP" | "B" | "X" | "7SD";
+export type Register = "PC_L" | "PC_H" | "MAR_L" | "MAR_H" | "IR" | "BUF" | "SP_L" | "SP_H" | "F" | "A" | "TMP" | "B" | "C" | "X" | "Y" | "7SD";
 export type LCDInternalRegister = "CTRL" | "DATA";
 export type RegisterState = { register: Register; value: number };
