@@ -24,30 +24,29 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
 | Color/Opcode range |                Available flag (combination)                |
 | :----------------: | :--------------------------------------------------------: |
 |      000xxxxx      |                    ZF (= ALU Zero-Flag)                    |
-|      001xxxxx      |                   CF (= ALU Carry-Flag)                    |
-|      010xxxxx      |                  NF (= ALU Negative-Flag)                  |
+| 001xxxxx, 010xxxxx |                   CF (= ALU Carry-Flag)                    |
 |      011xxxxx      |                  VF (= ALU Overflow-Flag)                  |
 |      100xxxxx      |                       NF &oplus; VF                        |
 |      101xxxxx      |                  (NF &oplus; VF) &or; ZF                   |
 |      110xxxxx      | <span style="text-decoration: overline;">CF</span> &or; ZF |
 |      11100xxx      |                         SER_RX_RDY                         |
 |      11101xxx      |                         SER_TX_RDY                         |
-|      11110xxx      |                     _Not assigned yet_                     |
+|      11110xxx      |                  NF (= ALU Negative-Flag)                  |
 |      11111xxx      |                     _Not assigned yet_                     |
 
 <style>
  :root {
    --color1: #ff000060;
    --color2: #ffe60060;
-   --color3: #0055ff60;
-   --color4: #09ff0060;
+   --color3: #ffe60060;
+   --color4: #0055ff60;
    --color5: #7a521b60;
    --color6: #fb5cc860;
    --color7: #00ddff60;
    --color8: #ff910060;
    --color9: #b700ff60;
    --color10: #7e7e7e60;
-   --color11: #b0df2460;
+   --color11: #09ff0060;
    --matrix-hover-color: #ffffff;
  }
 
@@ -105,51 +104,51 @@ The single flag-input-bit is selected with a 3-to-8 multiplexer from all the ava
 
  #opcode-table tr:nth-child(5) td,
  #opcode-table tr:nth-child(6) td,
- #table2 tr:nth-child(3) td:first-child {
+ #table2 tr:nth-child(2) td:first-child {
   background-color: var(--color3);
  }
 
  #opcode-table tr:nth-child(7) td,
  #opcode-table tr:nth-child(8) td,
- #table2 tr:nth-child(4) td:first-child {
+ #table2 tr:nth-child(3) td:first-child {
   background-color: var(--color4);
  }
 
  #opcode-table tr:nth-child(9) td,
  #opcode-table tr:nth-child(10) td,
- #table2 tr:nth-child(5) td:first-child {
+ #table2 tr:nth-child(4) td:first-child {
   background-color: var(--color5);
  }
 
  #opcode-table tr:nth-child(11) td,
  #opcode-table tr:nth-child(12) td,
- #table2 tr:nth-child(6) td:first-child {
+ #table2 tr:nth-child(5) td:first-child {
   background-color: var(--color6);
  }
 
  #opcode-table tr:nth-child(13) td,
  #opcode-table tr:nth-child(14) td,
- #table2 tr:nth-child(7) td:first-child {
+ #table2 tr:nth-child(6) td:first-child {
   background-color: var(--color7);
  }
 
  #opcode-table tr:nth-child(15) td:nth-child(n+2):nth-child(-n+9),
- #table2 tr:nth-child(8) td:first-child {
+ #table2 tr:nth-child(7) td:first-child {
   background-color: var(--color8);
  }
 
   #opcode-table tr:nth-child(15) td:nth-child(n+10):nth-child(-n+17),
- #table2 tr:nth-child(9) td:first-child {
+ #table2 tr:nth-child(8) td:first-child {
   background-color: var(--color9);
  }
 
   #opcode-table tr:nth-child(16) td:nth-child(n+2):nth-child(-n+9),
- #table2 tr:nth-child(10) td:first-child {
+ #table2 tr:nth-child(9) td:first-child {
   background-color: var(--color10);
  }
 
   #opcode-table tr:nth-child(16) td:nth-child(n+10):nth-child(-n+17),
- #table2 tr:nth-child(11) td:first-child {
+ #table2 tr:nth-child(10) td:first-child {
   background-color: var(--color11);
  }
 
