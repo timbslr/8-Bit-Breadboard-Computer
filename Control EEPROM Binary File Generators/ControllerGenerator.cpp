@@ -98,7 +98,7 @@ std::string registers[] = {"B", "C", "X", "Y"};
 std::string lcdregisters[] = {"CTRL", "DATA"};
 
 void loadInstructions(const char* fileName);
-void handleSpecialCaseMovs(std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits);
+void handleSpecialCaseMov(std::vector<std::vector<std::string>> activeBits);
 void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits);
 std::vector<uint32_t> encodeMicroinstructions(std::vector<std::vector<std::string>> activeBits);
 void storeMicroinstructions(bool flag, std::string opcodeBinaryString, std::vector<uint32_t> outputBitsBasedOnMicroinstruction);
@@ -158,8 +158,8 @@ void loadInstructions(const char* fileName) {
     
     std::string opcodeBinaryString = currentInstruction["opcode"];
 
-    if(currentInstruction["mnemonic"] == "movs") {
-      handleSpecialCaseMovs(opcodeBinaryString, currentInstruction["microinstructions"]);
+    if(currentInstruction["mnemonic"] == "mov") {
+      handleSpecialCaseMov(currentInstruction["microinstructions"]);
       continue;
     }
 
@@ -173,25 +173,22 @@ void loadInstructions(const char* fileName) {
   }
 }
 
-void handleSpecialCaseMovs(std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits) {
-  std::ifstream jsonFile("../docs/resources/data/movsData.json");
-  json movsData = json::parse(jsonFile);
-  std::string firstNibble = opcodeBinaryString;
-  replaceAll(firstNibble, "R", "");
+void handleSpecialCaseMov(std::vector<std::vector<std::string>> activeBits) {
+  std::ifstream jsonFile("../docs/resources/data/movData.json");
+  json movData = json::parse(jsonFile);
 
-  for(int i = 0; i < movsData.size(); i++) {
-    auto currentData = movsData[i];
-    std::string secondNibble = currentData["secondNibble"];
+  for(int i = 0; i < movData.size(); i++) {
+    auto currentData = movData[i];
+    std::string opcode = currentData["opcode"];
     std::string sourceRegister = currentData["from"];
     std::string destinationRegister = currentData["to"];
     std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
-    substituteArgument(activeBitsCopy, "<regss>", sourceRegister);
-    substituteArgument(activeBitsCopy, "<regsd>", destinationRegister);
+    substituteArgument(activeBitsCopy, "<regs>", sourceRegister);
+    substituteArgument(activeBitsCopy, "<regd>", destinationRegister);
 
     const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
-    opcodeBinaryString = firstNibble + secondNibble;
-    storeMicroinstructions(true, opcodeBinaryString, activeBits_bin);
-    storeMicroinstructions(false, opcodeBinaryString, activeBits_bin);
+    storeMicroinstructions(true, opcode, activeBits_bin);
+    storeMicroinstructions(false, opcode, activeBits_bin);
   }
 }
 

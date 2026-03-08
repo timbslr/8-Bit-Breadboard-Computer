@@ -10,7 +10,7 @@ using json = nlohmann::json;
 #define ADDRESS_ARGUMENT(specifier)   ("{" specifier ": u16}")
 
 std::string generateRule(auto instruction);
-std::string handleSpecialCaseMovs(auto instruction);
+std::string handleSpecialCaseMov(auto instruction);
 std::vector<std::string> generateLeftSideOperands(std::vector<std::string> operands);
 std::vector<std::string> generateRightSideOperands(std::vector<std::string> operands);
 std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions);
@@ -56,8 +56,8 @@ std::string generateRule(auto instruction) {
   std::vector<std::string> operands = instruction["operands"];
   std::string mnemonic = std::string(instruction["mnemonic"]);
   bool isInstructionReal = std::string(instruction["type"]) == "REAL";
-  if(mnemonic == "movs") {
-    return handleSpecialCaseMovs(instruction);
+  if(mnemonic == "mov") {
+    return handleSpecialCaseMov(instruction);
   }
 
   std::vector<std::string> leftSideOperands = generateLeftSideOperands(operands);
@@ -69,11 +69,6 @@ std::string generateRule(auto instruction) {
     if(operands.size() == 0) return rule;
 
     std::vector<std::string> rightSideOperands = generateRightSideOperands(operands);
-    if(rightSideOperands.size() == 2 && rightSideOperands[0] == "regd" && rightSideOperands[1] == "regs") { //special case for move //TODO remove special case as it makes no sense, right?
-      rightSideOperands[0] = "regs";  //swap
-      rightSideOperands[1] = "regd";
-    }
-
     rule += " @ " + concatVectorElements(rightSideOperands, " @ ");;
     return rule;
   }
@@ -84,22 +79,20 @@ std::string generateRule(auto instruction) {
   return rule;
 }
 
-std::string handleSpecialCaseMovs(auto instruction) {
-  std::ifstream jsonFile("../docs/resources/data/movsData.json");
-  json movsData = json::parse(jsonFile);
+std::string handleSpecialCaseMov(auto instruction) {
+  std::ifstream jsonFile("../docs/resources/data/movData.json");
+  json movData = json::parse(jsonFile);
   std::string resultingRule = "";
-  std::string firstNibble = instruction["opcode"];
-  replaceAll(firstNibble, "R", "");
 
-  for(int i = 0; i < movsData.size(); i++) {
-    auto currentData = movsData[i];
-    std::string secondNibble = currentData["secondNibble"];
+  for(int i = 0; i < movData.size(); i++) {
+    auto currentData = movData[i];
+    std::string opcode = currentData["opcode"];
     std::string sourceRegister = currentData["from"];
     std::string destinationRegister = currentData["to"];
 
-    resultingRule += "movs " + destinationRegister + ", " + sourceRegister + " => 0b" + firstNibble + secondNibble;
+    resultingRule += "mov " + destinationRegister + ", " + sourceRegister + " => 0b" + opcode;
     
-    if(i < movsData.size() - 1) {
+    if(i < movData.size() - 1) {
       resultingRule += "\n";
     }
   }

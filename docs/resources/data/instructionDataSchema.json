@@ -6,10 +6,8 @@
       "enum": [
         "OE_<reg>",
         "OE_<regs>",
-        "OE_<regss>",
         "IE_<reg>",
         "IE_<regd>",
-        "IE_<regsd>",
         "IE_MAR_L",
         "IE_MAR_H",
         "IE_PC_L",
@@ -126,9 +124,7 @@
                 "addr",
                 "n",
                 "regd",
-                "regs",
-                "regsd",
-                "regss"
+                "regs"
               ]
             }
           },
@@ -137,9 +133,7 @@
           },
           "opcode": {
             "type": "string",
-            "minLength": 8,
-            "maxLength": 8,
-            "pattern": "^(0|1|R|L){8}$"
+            "pattern": "(^(0|1|R|L){8})|FILE$"
           },
           "microinstructions": {},
           "mappedInstructions": {

@@ -262,7 +262,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "11010100",
+      "opcode": "11010001",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -348,7 +348,7 @@
       "type": "REAL",
       "operands": ["regd", "regs"],
       "requiresFlag": false,
-      "opcode": "1001RRRR",
+      "opcode": "FILE", // all opcodes for the move-combinations are loaded from the movData file
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -359,24 +359,6 @@
       "group": "REG-MEM",
       "indexInGroup": 1,
       "shortDescription": "<regd> = <regs>"
-    },
-    {
-      "name": "move special",
-      "mnemonic": "movs",
-      "type": "REAL",
-      "operands": ["regsd", "regss"],
-      "requiresFlag": false,
-      "opcode": "0111RRRR",
-      "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"], //          ──┐
-        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_<regss>", "IE_<regsd>"], //only special combinations of non-standard registers are allowed here, the exact combinations are specified in movsData.json
-        ["RSC"]
-      ],
-      "group": "REG-MEM",
-      "indexInGroup": 1,
-      "shortDescription": "<regsd> = <regss>"
     },
     {
       "name": "load",
@@ -722,7 +704,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "101001RR",
+      "opcode": "100001RR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -742,7 +724,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "101010RR",
+      "opcode": "100101RR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -762,7 +744,7 @@
       "mnemonic": "peek",
       "type": "REAL",
       "requiresFlag": false,
-      "opcode": "101011RR",
+      "opcode": "101001RR",
       "operands": ["reg"],
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -894,7 +876,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "10110000",
+      "opcode": "10100010",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode

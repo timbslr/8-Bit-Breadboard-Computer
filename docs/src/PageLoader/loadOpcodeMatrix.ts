@@ -5,7 +5,7 @@ import Formatter from "../Formatter.js";
 import PSEUDOInstruction from "../Instruction/PSEUDOInstruction.js";
 import REALInstruction from "../Instruction/REALInstruction.js";
 
-type MovsDataEntry = { secondNibble: string; from: string; to: string };
+type MovDataEntry = { opcode: string; from: string; to: string };
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
@@ -71,9 +71,9 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
 
     const originalOpcode = (instruction as REALInstruction).getOpcode().getOriginalString();
 
-    if (mnemonic === "movs") {
-      const opcodeMapForMovSpecial = await getOpcodeMapForMoveSpecial(instruction as REALInstruction);
-      opcodeMapForMovSpecial.forEach(({ opcode, label }) => {
+    if (mnemonic === "mov") {
+      const opcodeMapForMov = await getOpcodeMapForMov(instruction as REALInstruction);
+      opcodeMapForMov.forEach(({ opcode, label }) => {
         setOpcodeMap(opcode, label);
       });
       continue;
@@ -133,17 +133,12 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
   return opcodeMap;
 }
 
-async function getOpcodeMapForMoveSpecial(instruction: REALInstruction): Promise<[{ opcode: string; label: string }]> {
-  const opcodeString = instruction.getOpcode().getOriginalString();
-  if (countCharsInString(opcodeString, "R") != 4) {
-    throw new Error("R-count in movs opcode should be 4!");
-  }
-  const firstNibble = opcodeString.substring(0, 4);
-  const response = await fetch(`${window.BASE_URL}/resources/data/movsData.json`);
-  const movsData = await response.json();
-  return movsData.map((entry: MovsDataEntry) => ({
-    opcode: `${firstNibble}${entry.secondNibble}`,
-    label: `movs<br>${entry.from}&rarr;${entry.to}`,
+async function getOpcodeMapForMov(instruction: REALInstruction): Promise<[{ opcode: string; label: string }]> {
+  const response = await fetch(`${window.BASE_URL}/resources/data/movData.json`);
+  const movData = await response.json();
+  return movData.map((entry: MovDataEntry) => ({
+    opcode: `${entry.opcode}`,
+    label: `mov<br>${entry.from}&rarr;${entry.to}`,
   }));
 }
 

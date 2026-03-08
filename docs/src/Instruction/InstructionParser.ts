@@ -99,7 +99,7 @@ export class InstructionParser {
   }
 
   private validateAbstractOperands(operands: string[]) {
-    const validOperands = ["reg", "regd", "regs", "regsd", "regss", "lcdreg", "imm", "addr"]; //TODO unite with InstructionTypes file
+    const validOperands = ["reg", "regd", "regs", "lcdreg", "imm", "addr"]; //TODO unite with InstructionTypes file
     operands.forEach((operand) => {
       if (!validOperands.includes(operand)) {
         throw new Error(`Invalid abstract operand: ${operand}`);

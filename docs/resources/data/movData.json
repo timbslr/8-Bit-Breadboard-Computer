@@ -1,0 +1,44 @@
+[
+  { "opcode": "10011000", "from": "A", "to": "TMP" },
+  { "opcode": "10011001", "from": "A", "to": "B" },
+  { "opcode": "10011010", "from": "A", "to": "C" },
+  { "opcode": "10011011", "from": "A", "to": "X" },
+  { "opcode": "10011100", "from": "A", "to": "Y" },
+
+  { "opcode": "10101000", "from": "TMP", "to": "A" },
+  { "opcode": "10101001", "from": "TMP", "to": "B" },
+  { "opcode": "10101010", "from": "TMP", "to": "C" },
+  { "opcode": "10101011", "from": "TMP", "to": "X" },
+  { "opcode": "10101100", "from": "TMP", "to": "Y" },
+
+  { "opcode": "10111000", "from": "B", "to": "A" },
+  { "opcode": "10111001", "from": "B", "to": "TMP" },
+  { "opcode": "10111010", "from": "B", "to": "C" },
+  { "opcode": "10111011", "from": "B", "to": "X" },
+  { "opcode": "10111100", "from": "B", "to": "Y" },
+
+  { "opcode": "11001000", "from": "C", "to": "A" },
+  { "opcode": "11001001", "from": "C", "to": "TMP" },
+  { "opcode": "11001010", "from": "C", "to": "B" },
+  { "opcode": "11001011", "from": "C", "to": "X" },
+  { "opcode": "11001100", "from": "C", "to": "Y" },
+
+  { "opcode": "11011000", "from": "X", "to": "A" },
+  { "opcode": "11011001", "from": "X", "to": "TMP" },
+  { "opcode": "11011010", "from": "X", "to": "B" },
+  { "opcode": "11011011", "from": "X", "to": "C" },
+  { "opcode": "11011100", "from": "X", "to": "Y" },
+
+  { "opcode": "10011101", "from": "Y", "to": "A" },
+  { "opcode": "10101101", "from": "Y", "to": "TMP" },
+  { "opcode": "10111101", "from": "Y", "to": "B" },
+  { "opcode": "11001101", "from": "Y", "to": "C" },
+  { "opcode": "11011101", "from": "Y", "to": "X" },
+
+  { "opcode": "10011110", "from": "F", "to": "A" },
+  { "opcode": "10101110", "from": "F", "to": "TMP" },
+  { "opcode": "10111110", "from": "F", "to": "B" },
+  { "opcode": "11001110", "from": "F", "to": "C" },
+  { "opcode": "11011110", "from": "F", "to": "X" },
+  { "opcode": "11101110", "from": "F", "to": "Y" }
+]
