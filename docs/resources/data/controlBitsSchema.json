@@ -24,7 +24,28 @@
           },
           "associatedModule": {
             "type": "string",
-            "pattern": "(7-Segment Display|A-Register|Arithmetic Logic Unit \\(ALU\\)|B-Register|Buffer-Register|Clock|Controller|Flags-Register|Instruction-Register \\(IR\\)|Liquid Crystal Display \\(LCD\\)|Memory-Address-Register \\(MAR\\)|Memory|Program Counter \\(PC\\)|Stack Pointer \\(SP\\)|Temporary-Register \\(TMP-Register\\)|X-Register)"
+            "enum": [
+              "7-Segment Display",
+              "A-Register",
+              "Arithmetic Logic Unit (ALU)",
+              "B-Register",
+              "Buffer-Register",
+              "C-Register",
+              "Clock",
+              "Controller",
+              "Flags-Register",
+              "Instruction-Register (IR)",
+              "Liquid Crystal Display (LCD)",
+              "Memory-Address-Register (MAR)",
+              "Memory",
+              "Program Counter (PC)",
+              "Serial Interface Receiver",
+              "Serial Interface Transmitter",
+              "Stack Pointer (SP)",
+              "Temporary-Register (TMP-Register)",
+              "X-Register",
+              "Y-Register"
+            ]
           },
           "description": {
             "type": "string",

@@ -9,6 +9,24 @@
       "isActiveHigh": false,
       "description": "Enables loading data from the bus to the 7-Segment Display (the data will be displayed immediately)."
     },
+
+    {
+      "name": "Input Enable A-Register",
+      "abbreviation": "IE_A",
+      "isSynchronous": true,
+      "associatedModule": "A-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the A-Register."
+    },
+    {
+      "name": "Output Enable A-Register",
+      "abbreviation": "OE_A",
+      "isSynchronous": false,
+      "associatedModule": "A-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the A-Register to the bus."
+    },
+
     {
       "name": "Output Enable ALU",
       "abbreviation": "OE_ALU",
@@ -49,22 +67,7 @@
       "isActiveHigh": true,
       "description": "Sets the bitwise operation of the ALU:\n000 = AND\n001 = OR\n010 = XOR\n011 = NOT\n100 = SLR\n101 = SAR\n110 = ROR\n111 = ROL"
     },
-    {
-      "name": "Input Enable A-Register",
-      "abbreviation": "IE_A",
-      "isSynchronous": true,
-      "associatedModule": "A-Register",
-      "isActiveHigh": false,
-      "description": "Enables loading data from the bus to the A-Register."
-    },
-    {
-      "name": "Output Enable A-Register",
-      "abbreviation": "OE_A",
-      "isSynchronous": false,
-      "associatedModule": "A-Register",
-      "isActiveHigh": false,
-      "description": "Enables outputting data from the A-Register to the bus."
-    },
+
     {
       "name": "Input Enable B-Register",
       "abbreviation": "IE_B",
@@ -81,6 +84,7 @@
       "isActiveHigh": false,
       "description": "Enables outputting data from the B-Register to the bus."
     },
+
     {
       "name": "Input Enable Buffer-Register",
       "abbreviation": "IE_BUF",
@@ -97,6 +101,24 @@
       "isActiveHigh": false,
       "description": "Enables outputting data from the Buffer-Register to the bus."
     },
+
+    {
+      "name": "Input Enable C-Register",
+      "abbreviation": "IE_C",
+      "isSynchronous": true,
+      "associatedModule": "C-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the C-Register."
+    },
+    {
+      "name": "Output Enable C-Register",
+      "abbreviation": "OE_C",
+      "isSynchronous": false,
+      "associatedModule": "C-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the C-Register to the bus."
+    },
+
     {
       "name": "Halt",
       "abbreviation": "HALT",
@@ -105,6 +127,7 @@
       "isActiveHigh": true,
       "description": "Halts the clock, i.e. the whole computer, until the computer is reset."
     },
+
     {
       "name": "Reset Step Counter",
       "abbreviation": "RSC",
@@ -113,6 +136,7 @@
       "isActiveHigh": true,
       "description": "Resets the steps counter to zero. This microinstruction is executed at the end of each instruction to reduce the number of microsteps per instruction."
     },
+
     {
       "name": "Input Enable Flags-Register",
       "abbreviation": "IE_F",
@@ -129,6 +153,7 @@
       "isActiveHigh": false,
       "description": "Enables outputting data from the Flags-Register to the bus."
     },
+
     {
       "name": "Input Enable Instruction-Register",
       "abbreviation": "IE_IR",
@@ -145,6 +170,7 @@
       "isActiveHigh": false,
       "description": "Enables outputting data from the Instruction-Register to the bus."
     },
+
     {
       "name": "LCD Read/Write",
       "abbreviation": "LCD_RW",
@@ -169,6 +195,7 @@
       "isActiveHigh": true,
       "description": "Writes the data that is currently present at the data pins to the internal selected register."
     },
+
     {
       "name": "Input Enable Memory-Address-Register Low",
       "abbreviation": "IE_MAR_L",
@@ -178,13 +205,14 @@
       "description": "Enables loading data from the bus to the low byte of the MAR."
     },
     {
-      "name": "Output Enable Memory-Address-Register Low",
-      "abbreviation": "OE_MAR_L",
+      "name": "Input Enable Memory-Address-Register High",
+      "abbreviation": "IE_MAR_H",
       "isSynchronous": false,
       "associatedModule": "Memory-Address-Register (MAR)",
       "isActiveHigh": false,
       "description": "Enables loading data from the bus to the high byte of the MAR."
     },
+
     {
       "name": "Memory Write Enable",
       "abbreviation": "MEM_WE",
@@ -201,6 +229,7 @@
       "isActiveHigh": false,
       "description": "Enables data flow between memory and bus (direction depends on MEM_WE)."
     },
+
     {
       "name": "Increment Program Counter",
       "abbreviation": "INC_PC",
@@ -241,6 +270,41 @@
       "isActiveHigh": false,
       "description": "Enables outputting data from the high byte of the PC to the bus."
     },
+
+    {
+      "name": "Output Enable Serial Interface Receiver",
+      "abbreviation": "OE_SER_RX",
+      "isSynchronous": false,
+      "associatedModule": "Serial Interface Receiver",
+      "isActiveHigh": false,
+      "description": "Enables outputting received data from Serial Interface to the bus."
+    },
+    {
+      "name": "Serial RX Consumed",
+      "abbreviation": "SER_RX_CONS",
+      "isSynchronous": true,
+      "associatedModule": "Serial Interface Receiver",
+      "isActiveHigh": true,
+      "description": "Marks the current byte in the Serial Interface Receiver to be consumed --> sets the ready-flag again"
+    },
+    {
+      "name": "Instruction Start",
+      "abbreviation": "INSTR_START",
+      "isSynchronous": true,
+      "associatedModule": "Serial Interface Receiver",
+      "isActiveHigh": true,
+      "description": "A short pulse that gets triggered when a new instruction starts"
+    },
+
+    {
+      "name": "Serial RX Send",
+      "abbreviation": "SER_RX_SEND",
+      "isSynchronous": true,
+      "associatedModule": "Serial Interface Transmitter",
+      "isActiveHigh": true,
+      "description": "Sends the current byte in the Serial Interface Transmitter register out to the Serial Interface"
+    },
+
     {
       "name": "Input Enable Stack Pointer Low",
       "abbreviation": "IE_SP_L",
@@ -273,6 +337,7 @@
       "isActiveHigh": false,
       "description": "Enables outputting data from the high byte of the SP to the bus."
     },
+
     {
       "name": "Input Enable TMP-Register",
       "abbreviation": "IE_TMP",
@@ -289,6 +354,7 @@
       "isActiveHigh": false,
       "description": "Enables outputting data from the TMP-Register to the bus."
     },
+
     {
       "name": "Input Enable X-Register",
       "abbreviation": "IE_X",
@@ -310,7 +376,7 @@
       "abbreviation": "INC_X",
       "isSynchronous": true,
       "associatedModule": "X-Register",
-      "isActiveHigh": true,
+      "isActiveHigh": false,
       "description": "Increments the X-Register if DEC_X is low."
     },
     {
@@ -318,8 +384,41 @@
       "abbreviation": "DEC_X",
       "isSynchronous": true,
       "associatedModule": "X-Register",
-      "isActiveHigh": true,
+      "isActiveHigh": false,
       "description": "Decrements the X-Register if INC_X is low."
+    },
+
+    {
+      "name": "Input Enable Y-Register",
+      "abbreviation": "IE_Y",
+      "isSynchronous": true,
+      "associatedModule": "Y-Register",
+      "isActiveHigh": false,
+      "description": "Enables loading data from the bus to the Y-Register."
+    },
+    {
+      "name": "Output Enable Y-Register",
+      "abbreviation": "OE_Y",
+      "isSynchronous": false,
+      "associatedModule": "Y-Register",
+      "isActiveHigh": false,
+      "description": "Enables outputting data from the Y-Register to the bus."
+    },
+    {
+      "name": "Increment Y-Register",
+      "abbreviation": "INC_Y",
+      "isSynchronous": true,
+      "associatedModule": "Y-Register",
+      "isActiveHigh": false,
+      "description": "Increments the Y-Register if DEC_Y is low."
+    },
+    {
+      "name": "Decrement Y-Register",
+      "abbreviation": "DEC_Y",
+      "isSynchronous": true,
+      "associatedModule": "Y-Register",
+      "isActiveHigh": false,
+      "description": "Decrements the Y-Register if INC_Y is low."
     }
   ]
 }
