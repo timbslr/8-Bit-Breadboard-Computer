@@ -94,8 +94,10 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
   {"DEC_SP",      0b00000000'00000000'00000000'00000111}
 };
 
-std::string registers[] = {"B", "C", "X", "Y"};
-std::string lcdregisters[] = {"CTRL", "DATA"};
+const std::string registers[] = {"A", "TMP", "B", "C", "X", "Y"};
+const std::string lcdregisters[] = {"CTRL", "DATA"};
+const int AMOUNT_OF_REGISTERS = sizeof(registers) / sizeof(registers[0]);
+
 
 void loadInstructions(const char* fileName);
 void handleSpecialCaseMov(std::vector<std::vector<std::string>> activeBits);
@@ -210,9 +212,9 @@ void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<s
       const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);
       storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
     }
-  } else if(registerIndex == 6) { //one register argument
+  } else if(registerIndex == 5) { //one register argument
     for(int i = 0; i < 2; i++) {
-      for(int j = 0; j < 4; j++) {
+      for(int j = 0; j < AMOUNT_OF_REGISTERS; j++) {
         std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
         substituteArgument(activeBitsCopy, "<reg>", registers[j]);
         substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
@@ -230,23 +232,8 @@ void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<s
         storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
       }
     }
-  } else if(registerIndex == 4) { //two register arguments
-    for(int regd = 0; regd < 4; regd++) {
-      for(int regs = 0; regs < 4; regs++) {
-        std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
-        substituteArgument(activeBitsCopy, "<regd>", registers[regd]);
-        substituteArgument(activeBitsCopy, "<regs>", registers[regs]);
-
-        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
-        std::bitset<2> bitsRegs(regs);
-        std::bitset<2> bitsRegd(regd);
-        opcodeBinaryString.replace(4, 2, bitsRegs.to_string()); //substitute arguments in opcode
-        opcodeBinaryString.replace(6, 2, bitsRegd.to_string());
-        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
-      }
-    }
   } else {
-    std::cerr << "Register Index not valid. Should be -1, 4 or 6, but was: " + std::to_string(registerIndex) << std::endl;
+    std::cerr << "Register Index not valid. Should be -1 or 5, but was: " + std::to_string(registerIndex) << std::endl;
   }
 }
 

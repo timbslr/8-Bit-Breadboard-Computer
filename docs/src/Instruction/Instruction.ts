@@ -2,7 +2,7 @@ import REALInstruction from "./REALInstruction.js";
 import { InstructionGroup, InstructionType, InstructionProperties, Example } from "./InstructionTypes.js";
 import { Operand } from "./Operand.js";
 
-export const REGISTER_LOOKUP = ["B", "C", "X", "Y"];
+export const REGISTER_LOOKUP = ["A", "TMP", "B", "C", "X", "Y"];
 export const LCDREGISTER_LOOKUP = ["CTRL", "DATA"];
 export const REGISTER_REGEX = /(PC_L|PC_H|MAR_L|MAR_H|IR|BUF|SP_L|SP_H|A|F|TMP|B|X|7SD)/;
 

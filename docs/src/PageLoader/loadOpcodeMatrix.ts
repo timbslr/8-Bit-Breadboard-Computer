@@ -1,4 +1,4 @@
-import Instruction, { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction/Instruction.js";
+import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction/Instruction.js";
 import TableBuilder from "../TableBuilder.js";
 import DataProvider from "../DataProvider.js";
 import Formatter from "../Formatter.js";
@@ -6,6 +6,8 @@ import PSEUDOInstruction from "../Instruction/PSEUDOInstruction.js";
 import REALInstruction from "../Instruction/REALInstruction.js";
 
 type MovDataEntry = { opcode: string; from: string; to: string };
+const BASE_TWO = 2;
+const BASE_SIXTEEN = 16;
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
@@ -16,7 +18,7 @@ function createOpcodeMatrixTableCells() {
     .addRows(
       Array(16)
         .fill("") //turn sparse array into an actual array, otherwise .map() doesn't behave as expected
-        .map((_, index) => [`${index.toString(16).toUpperCase()}-`, ...Array(16).fill("")]), //creates 16 rows, each has an opcode nibble followed by 16 empty cells
+        .map((_, index) => [`${index.toString(BASE_SIXTEEN).toUpperCase()}-`, ...Array(16).fill("")]), //creates 16 rows, each has an opcode nibble followed by 16 empty cells
     )
     .firstColumnMinWidth("30px")
     .id("opcode-table")
@@ -32,10 +34,10 @@ async function fillOpcodeMatrix() {
   const opcodeMap = await createOpcodeMap(); //stores all opcodes in binary mapped to their corresponding labels
 
   for (let i = 0; i < 256; i++) {
-    const opcodeBinary = i.toString(2).padStart(8, "0");
-    const opcodeHex = i.toString(16).padStart(2, "0").toUpperCase();
-    const row = parseInt(opcodeHex[0], 16);
-    const col = parseInt(opcodeHex[1], 16);
+    const opcodeBinary = i.toString(BASE_TWO).padStart(8, "0");
+    const opcodeHex = i.toString(BASE_SIXTEEN).padStart(2, "0").toUpperCase();
+    const row = parseInt(opcodeHex[0], BASE_SIXTEEN);
+    const col = parseInt(opcodeHex[1], BASE_SIXTEEN);
     const label = opcodeMap.get(opcodeBinary);
     const currentCell = table.rows[row + 1].cells[col + 1];
 
@@ -83,13 +85,13 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
       throw new Error(`Opcode length is not 8: ${originalOpcode}`);
     }
 
-    const registerCount = countCharsInString(originalOpcode, "R") / 2; //2 bits per register in opcode, registerCount is either 0, 1 or 2
+    const registerCount = countCharsInString(originalOpcode, "R") / 3; //3 bits per register in opcode, registerCount is either 0 or 1
     const lcdRegisterCount = countCharsInString(originalOpcode, "L");
     if (registerCount === 0) {
       let label = mnemonic;
       if (lcdRegisterCount > 0) {
-        for (let i = 0; i < 2; i++) {
-          let opcode = `${originalOpcode.replaceAll("L", i.toString(2))}`;
+        for (let i = 0; i < LCDREGISTER_LOOKUP.length; i++) {
+          let opcode = `${originalOpcode.replaceAll("L", i.toString(BASE_TWO))}`;
           label += `<br>&lt;imm&gt;<br>&rarr;${LCDREGISTER_LOOKUP[i]}`;
           setOpcodeMap(opcode, label);
           label = mnemonic; //reset label for next iteration
@@ -102,10 +104,10 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
       const isLCDInstruction = countCharsInString(originalOpcode, "L") > 0;
 
       //outer for-loop is only for the lcd-instructions which contain the L-register arguments
-      for (let i = 0; i < 2; i++) {
-        for (let j = 0; j < 4; j++) {
-          let opcode = `${originalOpcode.replaceAll("L", i.toString(2))}`;
-          opcode = `${opcode.replaceAll("R", "")}${j.toString(2).padStart(2, "0")}`;
+      for (let i = 0; i < LCDREGISTER_LOOKUP.length; i++) {
+        for (let j = 0; j < REGISTER_LOOKUP.length; j++) {
+          let opcode = `${originalOpcode.replaceAll("L", i.toString(BASE_TWO))}`;
+          opcode = `${opcode.replaceAll("R", "")}${j.toString(BASE_TWO).padStart(3, "0")}`;
           if (isLCDInstruction) {
             label += `<br>${REGISTER_LOOKUP[j]}&rarr;${LCDREGISTER_LOOKUP[i]}`;
           } else {
@@ -114,16 +116,6 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
           setOpcodeMap(opcode, label);
           label = mnemonic; //reset label for next iteration
         }
-      }
-    } else if (registerCount == 2) {
-      let label = mnemonic;
-      for (let i = 0; i < 16; i++) {
-        let opcode = `${originalOpcode.replaceAll("R", "")}${i.toString(2).padStart(4, "0")}`;
-        const upperRegisterIndex = (i >> 2) & 0b11;
-        const lowerRegisterIndex = i & 0b11;
-        label += `<br>${REGISTER_LOOKUP[upperRegisterIndex]}&rarr;${REGISTER_LOOKUP[lowerRegisterIndex]}`;
-        setOpcodeMap(opcode, label);
-        label = mnemonic;
       }
     } else {
       throw new Error(`Invalid register count! The maximum allowed amount of registers per instruction is 2, but it was ${registerCount}.`);
