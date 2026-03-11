@@ -18,6 +18,7 @@ std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::stri
 std::string formatRules(std::vector<std::string> rules, int maxIndexOfAssignOperator);
 void writeRulesToFile(std::string filePath, std::string templatePath, std::string rulesString);
 std::string concatVectorElements(std::vector<std::string> v, std::string delimiter);
+std::vector<std::string> sortOperandsBasedOnOpcode(std::vector<std::string> operands, std::string opcode);
 void replaceAll(std::string &str, const std::string &from, const std::string &to);
 
 
@@ -70,6 +71,7 @@ std::string generateRule(auto instruction) {
 
     if(operands.size() == 0) return rule;
 
+    operands = sortOperandsBasedOnOpcode(operands, instruction["opcode"]);
     std::vector<std::string> rightSideOperands = generateRightSideOperands(operands);
     rule += " @ " + concatVectorElements(rightSideOperands, " @ ");;
     return rule;
@@ -122,11 +124,6 @@ std::vector<std::string> generateLeftSideOperands(std::vector<std::string> opera
 
 std::vector<std::string> generateRightSideOperands(std::vector<std::string> operands) {
     std::vector<std::string> rightSideOperands;
-
-    if(operands[0] == "reg" && operands[1] == "idxreg") { //swap because reg has to be at the end of the opcode
-      operands[0] = "idxreg";
-      operands[1] = "reg";
-    }
 
     for(int i = 0; i < operands.size(); i++) {
       std::string operand = operands[i];
@@ -205,6 +202,37 @@ std::string concatVectorElements(std::vector<std::string> v, std::string delimit
     result += v[i];
   }
   return result;
+}
+
+std::unordered_map<char, std::string> opcodeOperandMap = {
+  {'R', "reg"},
+  {'L', "lcdreg"},
+  {'X', "idxreg"}
+};
+
+std::vector<std::string> sortOperandsBasedOnOpcode(std::vector<std::string> operands, std::string opcode) {
+  if(opcode == "FILE") return operands;
+
+  std::vector<std::string> sortedOperands;
+  std::vector<std::string> operandsCopy = operands;
+
+  for(int i = 0; i <= 7; i++) {
+    char currentChar = opcode[i];
+    if(currentChar == '0' || currentChar == '1') continue;
+
+    std::string operand = opcodeOperandMap[currentChar];
+    sortedOperands.push_back(operand);
+    auto it = std::find(operandsCopy.begin(), operandsCopy.end(), operand);
+    if (it != operandsCopy.end()) {
+      operandsCopy.erase(it);
+    }
+    
+    if(currentChar == 'R') i += 2;  //registers come in a packet of 3 R's
+  }
+
+  sortedOperands.insert(sortedOperands.end(), operandsCopy.begin(), operandsCopy.end());  //append all missing operands (that were not specified in the opcode)
+
+  return sortedOperands;
 }
 
 void replaceAll(std::string &str, const std::string &from, const std::string &to) {

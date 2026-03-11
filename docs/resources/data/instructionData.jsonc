@@ -435,7 +435,7 @@
       "name": "load stack-pointer relative",
       "mnemonic": "ldsprel",
       "type": "REAL",
-      "operands": ["imm"],
+      "operands": ["reg", "imm"],
       "requiresFlag": true,
       "opcode": "01010RRR",
       "microinstructions": {
@@ -502,7 +502,7 @@
       "name": "store with offset",
       "mnemonic": "sto",
       "type": "REAL",
-      "operands": ["reg", "addr"],
+      "operands": ["reg", "idxreg", "addr"],
       "requiresFlag": true,
       "opcode": "0100XRRR",
       "microinstructions": {
