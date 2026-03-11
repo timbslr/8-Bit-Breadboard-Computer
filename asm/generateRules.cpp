@@ -6,6 +6,7 @@ using json = nlohmann::json;
 
 #define REGISTER_ARGUMENT(specifier)  ("{" specifier ": register}")
 #define LCDREGISTER_ARGUMENT(specifier)  ("{" specifier ": lcdregister}")
+#define INDXREGISTER_ARGUMENT(specifier) (("{" specifier ": idxregister}"))
 #define IMMEDIATE_ARGUMENT(specifier) ("{" specifier ": i8}")
 #define ADDRESS_ARGUMENT(specifier)   ("{" specifier ": u16}")
 
@@ -111,7 +112,7 @@ std::vector<std::string> generateLeftSideOperands(std::vector<std::string> opera
       else if(operand == "addr") leftSideOperands.push_back(ADDRESS_ARGUMENT("addr"));
       else if(operand == "regd") leftSideOperands.push_back(REGISTER_ARGUMENT("regd"));
       else if(operand == "regs") leftSideOperands.push_back(REGISTER_ARGUMENT("regs"));
-      else if(operand == "idxreg") leftSideOperands.push_back(REGISTER_ARGUMENT("idxreg"));
+      else if(operand == "idxreg") leftSideOperands.push_back(INDXREGISTER_ARGUMENT("idxreg"));
       else if(operand == "lcdreg") leftSideOperands.push_back(LCDREGISTER_ARGUMENT("lcdreg"));
       else std::cerr << "No left side operands matching: " << operand << std::endl;
     }
@@ -126,7 +127,7 @@ std::vector<std::string> generateRightSideOperands(std::vector<std::string> oper
       operands[0] = "idxreg";
       operands[1] = "reg";
     }
-    
+
     for(int i = 0; i < operands.size(); i++) {
       std::string operand = operands[i];
       if(operand == "addr") rightSideOperands.push_back("le(addr)");
