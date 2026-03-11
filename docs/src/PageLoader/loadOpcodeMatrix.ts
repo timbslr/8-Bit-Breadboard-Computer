@@ -110,8 +110,8 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
       for (let i = 0; i < LCDREGISTER_LOOKUP.length; i++) {
         for (let j = 0; j < REGISTER_LOOKUP.length; j++) {
           for (let k = 0; k < INDEX_REGISTER_LOOKUP.length; k++) {
-            let opcode = `${originalOpcode.replaceAll("L", i.toString(BASE_TWO)).replaceAll("X", k.toString(BASE_TWO))}`;
-            opcode = `${opcode.replaceAll("R", "")}${j.toString(BASE_TWO).padStart(3, "0")}`;
+            let opcode = originalOpcode.replaceAll("RRR", j.toString(BASE_TWO).padStart(3, "0"));
+            opcode = `${opcode.replaceAll("L", i.toString(BASE_TWO)).replaceAll("X", k.toString(BASE_TWO))}`;
             if (isIndexRegisterInstruction) {
               label += ` ${INDEX_REGISTER_LOOKUP[k]}`;
             }

@@ -391,7 +391,7 @@
       "type": "REAL",
       "operands": ["reg", "idxreg", "addr"],
       "requiresFlag": true,
-      "opcode": "0011XRRR",
+      "opcode": "0011RRRX",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -504,7 +504,7 @@
       "type": "REAL",
       "operands": ["reg", "idxreg", "addr"],
       "requiresFlag": true,
-      "opcode": "0100XRRR",
+      "opcode": "0100RRRX",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐

@@ -90,10 +90,10 @@
 	mov X, F                                                 => 0b11011110
 	mov Y, F                                                 => 0b11101110
 	ld {reg: register}, {addr: u16}                          => 0b00010 @ reg @ le(addr)
-	ldo {reg: register}, {idxreg: idxregister}, {addr: u16}  => 0b0011 @ idxreg @ reg @ le(addr)
+	ldo {reg: register}, {idxreg: idxregister}, {addr: u16}  => 0b0011 @ reg @ idxreg @ le(addr)
 	ldsprel {reg: register}, {imm: i8}                       => 0b01010 @ reg @ imm
 	st {reg: register}, {addr: u16}                          => 0b00011 @ reg @ le(addr)
-	sto {reg: register}, {idxreg: idxregister}, {addr: u16}  => 0b0100 @ idxreg @ reg @ le(addr)
+	sto {reg: register}, {idxreg: idxregister}, {addr: u16}  => 0b0100 @ reg @ idxreg @ le(addr)
 	stosprel {reg: register}, {addr: u16}                    => 0b01011 @ reg @ le(addr)
 	li {reg: register}, {imm: i8}                            => 0b01101 @ reg @ imm
 	push {reg: register}                                     => 0b10010 @ reg
