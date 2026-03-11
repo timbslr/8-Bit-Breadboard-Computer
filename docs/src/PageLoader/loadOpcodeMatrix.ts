@@ -1,4 +1,4 @@
-import { LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction/Instruction.js";
+import { INDEX_REGISTER_LOOKUP, LCDREGISTER_LOOKUP, REGISTER_LOOKUP } from "../Instruction/Instruction.js";
 import TableBuilder from "../TableBuilder.js";
 import DataProvider from "../DataProvider.js";
 import Formatter from "../Formatter.js";
@@ -71,8 +71,6 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
       continue;
     }
 
-    const originalOpcode = (instruction as REALInstruction).getOpcode().getOriginalString();
-
     if (mnemonic === "mov") {
       const opcodeMapForMov = await getOpcodeMapForMov(instruction as REALInstruction);
       opcodeMapForMov.forEach(({ opcode, label }) => {
@@ -81,40 +79,50 @@ async function createOpcodeMap(): Promise<Map<string, string>> {
       continue;
     }
 
+    const originalOpcode = (instruction as REALInstruction).getOpcode().getOriginalString();
+
     if (originalOpcode.length !== 8) {
       throw new Error(`Opcode length is not 8: ${originalOpcode}`);
     }
 
     const registerCount = countCharsInString(originalOpcode, "R") / 3; //3 bits per register in opcode, registerCount is either 0 or 1
     const lcdRegisterCount = countCharsInString(originalOpcode, "L");
+    const isLCDInstruction = lcdRegisterCount > 0;
+    const isIndexRegisterInstruction = countCharsInString(originalOpcode, "X") > 0;
     if (registerCount === 0) {
       let label = mnemonic;
       if (lcdRegisterCount > 0) {
         for (let i = 0; i < LCDREGISTER_LOOKUP.length; i++) {
-          let opcode = `${originalOpcode.replaceAll("L", i.toString(BASE_TWO))}`;
-          label += `<br>&lt;imm&gt;<br>&rarr;${LCDREGISTER_LOOKUP[i]}`;
-          setOpcodeMap(opcode, label);
-          label = mnemonic; //reset label for next iteration
+          for (let j = 0; j < INDEX_REGISTER_LOOKUP.length; j++) {
+            let opcode = `${originalOpcode.replaceAll("L", i.toString(BASE_TWO)).replaceAll("X", j.toString(BASE_TWO))}`;
+            label += `<br>&lt;imm&gt;<br>&rarr;${LCDREGISTER_LOOKUP[i]}`;
+            setOpcodeMap(opcode, label);
+            label = mnemonic; //reset label for next iteration
+          }
         }
       } else {
         setOpcodeMap(originalOpcode, mnemonic);
       }
     } else if (registerCount == 1) {
       let label = mnemonic;
-      const isLCDInstruction = countCharsInString(originalOpcode, "L") > 0;
 
       //outer for-loop is only for the lcd-instructions which contain the L-register arguments
       for (let i = 0; i < LCDREGISTER_LOOKUP.length; i++) {
         for (let j = 0; j < REGISTER_LOOKUP.length; j++) {
-          let opcode = `${originalOpcode.replaceAll("L", i.toString(BASE_TWO))}`;
-          opcode = `${opcode.replaceAll("R", "")}${j.toString(BASE_TWO).padStart(3, "0")}`;
-          if (isLCDInstruction) {
-            label += `<br>${REGISTER_LOOKUP[j]}&rarr;${LCDREGISTER_LOOKUP[i]}`;
-          } else {
-            label += `<br>&rarr;${REGISTER_LOOKUP[j]}`;
+          for (let k = 0; k < INDEX_REGISTER_LOOKUP.length; k++) {
+            let opcode = `${originalOpcode.replaceAll("L", i.toString(BASE_TWO)).replaceAll("X", k.toString(BASE_TWO))}`;
+            opcode = `${opcode.replaceAll("R", "")}${j.toString(BASE_TWO).padStart(3, "0")}`;
+            if (isIndexRegisterInstruction) {
+              label += ` ${INDEX_REGISTER_LOOKUP[k]}`;
+            }
+            if (isLCDInstruction) {
+              label += `<br>${REGISTER_LOOKUP[j]}&rarr;${LCDREGISTER_LOOKUP[i]}`;
+            } else {
+              label += `<br>&rarr;${REGISTER_LOOKUP[j]}`;
+            }
+            setOpcodeMap(opcode, label);
+            label = mnemonic; //reset label for next iteration
           }
-          setOpcodeMap(opcode, label);
-          label = mnemonic; //reset label for next iteration
         }
       }
     } else {

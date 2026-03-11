@@ -1,7 +1,7 @@
 import { Operand, OperandKind } from "./Operand.js";
 import Instruction from "./Instruction.js";
 import { InstructionInstance } from "./InstructionInstance.js";
-import { Example, InstructionGroup, InstructionType, JSONInstruction, MicroInstructions } from "./InstructionTypes.js";
+import { InstructionGroup, InstructionType, JSONInstruction, MicroInstructions } from "./InstructionTypes.js";
 import { Opcode } from "./Opcode.js";
 import PSEUDOInstruction from "./PSEUDOInstruction.js";
 import REALInstruction from "./REALInstruction.js";
@@ -99,7 +99,7 @@ export class InstructionParser {
   }
 
   private validateAbstractOperands(operands: string[]) {
-    const validOperands = ["reg", "regd", "regs", "lcdreg", "imm", "addr"]; //TODO unite with InstructionTypes file
+    const validOperands = ["reg", "regd", "regs", "idxreg", "lcdreg", "imm", "addr"]; //TODO unite with InstructionTypes file
     operands.forEach((operand) => {
       if (!validOperands.includes(operand)) {
         throw new Error(`Invalid abstract operand: ${operand}`);

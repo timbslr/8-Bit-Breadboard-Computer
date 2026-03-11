@@ -36,6 +36,7 @@ int main() {
       std::string opcode = currentInstruction["opcode"];
       replaceAll(opcode, "R", "");
       replaceAll(opcode, "L", "");
+      replaceAll(opcode, "X", "");
       replaceAll(currentRule, "<opcode>", opcode);
     }
 
@@ -110,6 +111,7 @@ std::vector<std::string> generateLeftSideOperands(std::vector<std::string> opera
       else if(operand == "addr") leftSideOperands.push_back(ADDRESS_ARGUMENT("addr"));
       else if(operand == "regd") leftSideOperands.push_back(REGISTER_ARGUMENT("regd"));
       else if(operand == "regs") leftSideOperands.push_back(REGISTER_ARGUMENT("regs"));
+      else if(operand == "idxreg") leftSideOperands.push_back(REGISTER_ARGUMENT("idxreg"));
       else if(operand == "lcdreg") leftSideOperands.push_back(LCDREGISTER_ARGUMENT("lcdreg"));
       else std::cerr << "No left side operands matching: " << operand << std::endl;
     }
@@ -120,12 +122,18 @@ std::vector<std::string> generateLeftSideOperands(std::vector<std::string> opera
 std::vector<std::string> generateRightSideOperands(std::vector<std::string> operands) {
     std::vector<std::string> rightSideOperands;
 
+    if(operands[0] == "reg" && operands[1] == "idxreg") { //swap because reg has to be at the end of the opcode
+      operands[0] = "idxreg";
+      operands[1] = "reg";
+    }
+    
     for(int i = 0; i < operands.size(); i++) {
       std::string operand = operands[i];
       if(operand == "addr") rightSideOperands.push_back("le(addr)");
-      else if(operand == "reg" || operand == "regd" || operand == "regs" || operand == "imm" || operand == "lcdreg") rightSideOperands.push_back(operand);
+      else if(operand == "reg" || operand == "regd" || operand == "regs" || operand == "idxreg" || operand == "imm" || operand == "lcdreg") rightSideOperands.push_back(operand);
       else std::cerr << "No right side operands matching: " << operand << std::endl;
     }
+
 
     return rightSideOperands;
 }

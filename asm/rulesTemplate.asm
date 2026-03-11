@@ -21,6 +21,11 @@
   Y    => 0b111
 }
 
+#subruledef idxregister { ;subruledef prevents the mnemonics from being used as freestanding instructions
+  X    => 0b0
+  Y    => 0b1
+}
+
 #subruledef lcdregister { ;subruledef prevents the mnemonics from being used as freestanding instructions
   CTRL => 0b0
   DATA => 0b1

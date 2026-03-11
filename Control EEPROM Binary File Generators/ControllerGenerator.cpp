@@ -95,6 +95,7 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
 };
 
 const std::string registers[] = {"A", "TMP", "B", "C", "X", "Y"};
+const std::string indexRegisters[] = {"X", "Y"};
 const std::string lcdregisters[] = {"CTRL", "DATA"};
 const int AMOUNT_OF_REGISTERS = sizeof(registers) / sizeof(registers[0]);
 
@@ -201,35 +202,46 @@ void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<s
   if(registerIndex == std::string::npos) { //no register arguments
     if(lcdRegisterIndex != std::string::npos) {
       for(int i = 0; i < 2; i++) {
-        std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
-        substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
-        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
-        std::bitset<1> lcdbit(i);
-        opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
-        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+        for(int j = 0; j < 2; j++) {
+          std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+          substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
+          substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[j]);
+
+          const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+          std::bitset<1> lcdbit(i);
+          opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
+          storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+        }
       }
     } else {
-      const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);
-      storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+      for(int j = 0; j < 2; j++) {
+        std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+        substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[j]);
+        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);
+        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+      }
     }
   } else if(registerIndex == 5) { //one register argument
     for(int i = 0; i < 2; i++) {
       for(int j = 0; j < AMOUNT_OF_REGISTERS; j++) {
-        std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
-        substituteArgument(activeBitsCopy, "<reg>", registers[j]);
-        substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
-
-        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
-
-        std::bitset<2> bits(j);
-        opcodeBinaryString.replace(6, 2, bits.to_string()); //substitute argument in opcode
-        
-        //if it's an LCD-instruction
-        if(lcdRegisterIndex != std::string::npos) {
-          std::bitset<1> lcdbit(i);
-          opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
+        for(int k = 0; k < 2; k++) {
+          std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+          substituteArgument(activeBitsCopy, "<reg>", registers[j]);
+          substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
+          substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[i]);
+  
+          const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+  
+          std::bitset<2> bits(j);
+          opcodeBinaryString.replace(6, 2, bits.to_string()); //substitute argument in opcode
+          
+          //if it's an LCD-instruction
+          if(lcdRegisterIndex != std::string::npos) {
+            std::bitset<1> lcdbit(i);
+            opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
+          }
+          storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
         }
-        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
       }
     }
   } else {

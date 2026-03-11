@@ -386,12 +386,12 @@
       "shortDescription": "<reg> = mem[<addr>]"
     },
     {
-      "name": "load with X-Register offset",
-      "mnemonic": "ldox",
+      "name": "load with offset",
+      "mnemonic": "ldo",
       "type": "REAL",
-      "operands": ["reg", "addr"],
+      "operands": ["reg", "idxreg", "addr"],
       "requiresFlag": true,
-      "opcode": "00110RRR",
+      "opcode": "0011XRRR",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -400,7 +400,7 @@
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_X", "IE_TMP"], //move X-Register to TMP-Register
+          ["OE_<idxreg>", "IE_TMP"], //move X-Register to TMP-Register
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
           ["OE_PC_H", "IE_MAR_H"], //             ──┐
           ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch second operand (= high byte of address) and move it into MAR_H (--> No Carry occurred, so we can directly move the high byte of the address into MAR_H)
@@ -416,7 +416,7 @@
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_X", "IE_TMP"], //move X-Register to TMP-Register
+          ["OE_<idxreg>", "IE_TMP"], //move X-Register to TMP-Register
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
           ["OE_PC_H", "IE_MAR_H"], //                    ──┐
           ["OE_PC_L", "IE_MAR_L"], //                      ├──> Fetch second operand (= high byte of address) and move it into the A-Register (--> Carry occurred, so we have to increment the high byte of the address)
@@ -429,53 +429,7 @@
       },
       "group": "REG-MEM",
       "indexInGroup": 4,
-      "shortDescription": "<reg> = mem[<addr> + X]"
-    },
-    {
-      "name": "load with Y-Register offset",
-      "mnemonic": "ldoy",
-      "type": "REAL",
-      "operands": ["reg", "addr"],
-      "requiresFlag": true,
-      "opcode": "00111RRR",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_PC_H", "IE_MAR_H"], //         ──┐
-          ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
-          ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_Y", "IE_TMP"], //move Y-Register to TMP-Register
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
-          ["OE_PC_H", "IE_MAR_H"], //             ──┐
-          ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch second operand (= high byte of address) and move it into MAR_H (--> No Carry occurred, so we can directly move the high byte of the address into MAR_H)
-          ["MEM_EN_IO", "IE_MAR_H", "INC_PC"], // ──┘
-          ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "IE_<reg>"], //read from memory at computed address and move the result to the given register
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_PC_H", "IE_MAR_H"], //         ──┐
-          ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
-          ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_Y", "IE_TMP"], //move Y-Register to TMP-Register
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
-          ["OE_PC_H", "IE_MAR_H"], //                    ──┐
-          ["OE_PC_L", "IE_MAR_L"], //                      ├──> Fetch second operand (= high byte of address) and move it into the A-Register (--> Carry occurred, so we have to increment the high byte of the address)
-          ["MEM_EN_IO", "IE_A", "INC_PC", "RST_TMP"], // ──┘ // set TMP to zero (needed in the next step in order to increment)
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_MAR_H"], //add one to the high byte of the address (because a carry occurred)
-          ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "IE_<reg>"], //read from memory at computed address and move the result to the given register
-          ["RSC"]
-        ]
-      },
-      "group": "REG-MEM",
-      "indexInGroup": 5,
-      "shortDescription": "<reg> = mem[<addr> + Y]"
+      "shortDescription": "<reg> = mem[<addr> + <idxreg>]"
     },
     {
       "name": "load stack-pointer relative",
@@ -545,12 +499,12 @@
       "shortDescription": "mem[<addr>] = <reg>"
     },
     {
-      "name": "store with X-Register offset",
-      "mnemonic": "stox",
+      "name": "store with offset",
+      "mnemonic": "sto",
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": true,
-      "opcode": "01000RRR",
+      "opcode": "0100XRRR",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -559,7 +513,7 @@
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_X", "IE_TMP"], //move X-Register to TMP-Register
+          ["OE_<idxreg>", "IE_TMP"], //move X-Register to TMP-Register
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
           ["OE_PC_H", "IE_MAR_H"], //             ──┐
           ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch second operand (= high byte of address) and move it into MAR_H (--> No Carry occurred, so we can directly move the high byte of the address into MAR_H)
@@ -575,7 +529,7 @@
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_X", "IE_TMP"], //move X-Register to TMP-Register
+          ["OE_<idxreg>", "IE_TMP"], //move X-Register to TMP-Register
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
           ["OE_PC_H", "IE_MAR_H"], //                    ──┐
           ["OE_PC_L", "IE_MAR_L"], //                      ├──> Fetch second operand (= high byte of address) and move it into the A-Register (--> Carry occurred, so we have to increment the high byte of the address)
@@ -588,53 +542,7 @@
       },
       "group": "REG-MEM",
       "indexInGroup": 6,
-      "shortDescription": "mem[<addr> + X] = <reg>"
-    },
-    {
-      "name": "store with Y-Register offset",
-      "mnemonic": "stoy",
-      "type": "REAL",
-      "operands": ["reg", "addr"],
-      "requiresFlag": true,
-      "opcode": "01001RRR",
-      "microinstructions": {
-        "0": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_PC_H", "IE_MAR_H"], //         ──┐
-          ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
-          ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_Y", "IE_TMP"], //move Y-Register to TMP-Register
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
-          ["OE_PC_H", "IE_MAR_H"], //             ──┐
-          ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch second operand (= high byte of address) and move it into MAR_H (--> No Carry occurred, so we can directly move the high byte of the address into MAR_H)
-          ["MEM_EN_IO", "IE_MAR_H", "INC_PC"], // ──┘
-          ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store the value of the given register into memory at the computed address
-          ["RSC"]
-        ],
-        "1": [
-          ["OE_PC_H", "IE_MAR_H"], //          ──┐
-          ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-          ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-          ["OE_PC_H", "IE_MAR_H"], //         ──┐
-          ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
-          ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_Y", "IE_TMP"], //move Y-Register to TMP-Register
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
-          ["OE_PC_H", "IE_MAR_H"], //                    ──┐
-          ["OE_PC_L", "IE_MAR_L"], //                      ├──> Fetch second operand (= high byte of address) and move it into the A-Register (--> Carry occurred, so we have to increment the high byte of the address)
-          ["MEM_EN_IO", "IE_A", "INC_PC", "RST_TMP"], // ──┘ // set TMP to zero (needed in the next step in order to increment)
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_MAR_H"], //add one to the high byte of the address (because a carry occurred)
-          ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store the value of the given register into memory at the computed address
-          ["RSC"]
-        ]
-      },
-      "group": "REG-MEM",
-      "indexInGroup": 7,
-      "shortDescription": "mem[<addr> + Y] = <reg>"
+      "shortDescription": "mem[<addr> + <idxreg>] = <reg>"
     },
     {
       "name": "store stack-pointer relative",

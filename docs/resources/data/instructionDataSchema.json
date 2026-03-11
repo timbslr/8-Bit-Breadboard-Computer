@@ -5,6 +5,7 @@
       "type": "string",
       "enum": [
         "OE_<reg>",
+        "OE_<idxreg>",
         "OE_<regs>",
         "IE_<reg>",
         "IE_<regd>",
@@ -119,6 +120,7 @@
               "type": "string",
               "enum": [
                 "reg",
+                "idxreg",
                 "lcdreg",
                 "imm",
                 "addr",
@@ -133,7 +135,7 @@
           },
           "opcode": {
             "type": "string",
-            "pattern": "(^(0|1|R|L){8})|FILE$"
+            "pattern": "(^(0|1|R|L|X){8})|FILE$"
           },
           "microinstructions": {},
           "mappedInstructions": {

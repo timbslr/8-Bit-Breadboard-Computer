@@ -3,6 +3,7 @@ import { InstructionGroup, InstructionType, InstructionProperties, Example } fro
 import { Operand } from "./Operand.js";
 
 export const REGISTER_LOOKUP = ["A", "TMP", "B", "C", "X", "Y"];
+export const INDEX_REGISTER_LOOKUP = ["X", "Y"];
 export const LCDREGISTER_LOOKUP = ["CTRL", "DATA"];
 export const REGISTER_REGEX = /(PC_L|PC_H|MAR_L|MAR_H|IR|BUF|SP_L|SP_H|A|F|TMP|B|X|7SD)/;
 
