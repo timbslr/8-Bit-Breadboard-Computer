@@ -221,14 +221,14 @@ void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<s
         storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
       }
     }
-  } else if(registerIndex == 5) { //one register argument
+  } else if(registerIndex == 4 || registerIndex == 5) { //one register argument
     for(int i = 0; i < 2; i++) {
       for(int j = 0; j < AMOUNT_OF_REGISTERS; j++) {
         for(int k = 0; k < 2; k++) {
           std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
           substituteArgument(activeBitsCopy, "<reg>", registers[j]);
           substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
-          substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[i]);
+          substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[k]);
   
           const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
   
