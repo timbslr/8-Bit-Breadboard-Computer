@@ -97,7 +97,10 @@ std::unordered_map<std::string, uint32_t> controlSignalBitMasks = {
 const std::string registers[] = {"A", "TMP", "B", "C", "X", "Y"};
 const std::string indexRegisters[] = {"X", "Y"};
 const std::string lcdregisters[] = {"CTRL", "DATA"};
+
 const int AMOUNT_OF_REGISTERS = sizeof(registers) / sizeof(registers[0]);
+const int AMOUNT_OF_INDEX_REGISTERS =  sizeof(indexRegisters) / sizeof(indexRegisters[0]);
+const int AMOUNT_OF_LCD_REGISTERS =  sizeof(lcdregisters) / sizeof(lcdregisters[0]);
 
 constexpr unsigned int ceilLog2(unsigned int n, unsigned int p = 0) {
     return (1U << p) >= n ? p : ceilLog2(n, p + 1);
@@ -203,57 +206,29 @@ void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<s
   int registerIndex = opcodeBinaryString.find('R'); //used for checking if the opcode contains register arguments
   int lcdRegisterIndex = opcodeBinaryString.find('L');
 
-  if(registerIndex == std::string::npos) { //no register arguments
-    if(lcdRegisterIndex != std::string::npos) {
-      for(int i = 0; i < 2; i++) {
-        for(int j = 0; j < 2; j++) {
-          std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
-          substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[i]);
-          substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[j]);
-
-          const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
-          std::bitset<1> lcdbit(i);
-          opcodeBinaryString.replace(lcdRegisterIndex, 1, lcdbit.to_string()); //substitute argument in opcode
-          storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
-        }
-      }
-    } else {
-      for(int j = 0; j < 2; j++) {
+  for(int i = 0; i < AMOUNT_OF_REGISTERS; i++) {
+    for(int j = 0; j < AMOUNT_OF_INDEX_REGISTERS; j++) {
+      for(int k = 0; k < AMOUNT_OF_LCD_REGISTERS; k++) {
+        std::string opcodeBinaryStringCopy = opcodeBinaryString;
         std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
+        substituteArgument(activeBitsCopy, "<reg>", registers[i]);
         substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[j]);
-        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBits);
-        storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
+        substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[k]);
+
+        const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
+
+        std::bitset<ceilLog2(AMOUNT_OF_REGISTERS)> registerBits(i);
+        replaceAll(opcodeBinaryStringCopy, "RRR", registerBits.to_string()); //substitute register argument in opcode
+        
+        std::bitset<ceilLog2(AMOUNT_OF_INDEX_REGISTERS)> indexRegisterBits(j);
+        replaceAll(opcodeBinaryStringCopy, "X", indexRegisterBits.to_string()); //substitute index-register argument in opcode
+
+        std::bitset<ceilLog2(AMOUNT_OF_LCD_REGISTERS)> lcdbits(k);
+        replaceAll(opcodeBinaryStringCopy, "L", lcdbits.to_string()); //substitute lcd-register argument in opcode
+        
+        storeMicroinstructions(flag, opcodeBinaryStringCopy, activeBits_bin);
       }
     }
-  } else if(registerIndex == 4 || registerIndex == 5) { //one register argument
-    const int AMOUNT_OF_INDEX_REGISTERS = 2;
-    const int AMOUNT_OF_LCD_REGISTERS = 2;
-
-    for(int i = 0; i < AMOUNT_OF_REGISTERS; i++) {
-      for(int j = 0; j < AMOUNT_OF_INDEX_REGISTERS; j++) {
-        for(int k = 0; k < AMOUNT_OF_LCD_REGISTERS; k++) {
-          std::vector<std::vector<std::string>> activeBitsCopy = activeBits;
-          substituteArgument(activeBitsCopy, "<reg>", registers[i]);
-          substituteArgument(activeBitsCopy, "<idxreg>", indexRegisters[j]);
-          substituteArgument(activeBitsCopy, "<lcdreg>", lcdregisters[k]);
-  
-          const std::vector<uint32_t> activeBits_bin = encodeMicroinstructions(activeBitsCopy);
-  
-          std::bitset<ceilLog2(AMOUNT_OF_REGISTERS)> registerBits(i);
-          replaceAll(opcodeBinaryString, "RRR", registerBits.to_string()); //substitute register argument in opcode
-          
-          std::bitset<ceilLog2(AMOUNT_OF_LCD_REGISTERS)> indexRegisterBits(j);
-          replaceAll(opcodeBinaryString, "X", indexRegisterBits.to_string()); //substitute index-register argument in opcode
-
-          std::bitset<ceilLog2(AMOUNT_OF_LCD_REGISTERS)> lcdbits(k);
-          replaceAll(opcodeBinaryString, "L", lcdbits.to_string()); //substitute lcd-register argument in opcode
-          
-          storeMicroinstructions(flag, opcodeBinaryString, activeBits_bin);
-        }
-      }
-    }
-  } else {
-    std::cerr << "Register Index not valid. Should be -1 or 5, but was: " + std::to_string(registerIndex) << std::endl;
   }
 }
 
