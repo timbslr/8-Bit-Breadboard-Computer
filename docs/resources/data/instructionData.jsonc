@@ -391,7 +391,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": true,
-      "opcode": "01011RRR",
+      "opcode": "00110RRR",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -550,7 +550,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": true,
-      "opcode": "01001RRR",
+      "opcode": "01000RRR",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -596,7 +596,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": true,
-      "opcode": "00101RRR",
+      "opcode": "01001RRR",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -642,7 +642,7 @@
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": true,
-      "opcode": "01000RRR",
+      "opcode": "01011RRR",
       "microinstructions": {
         "0": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
@@ -858,7 +858,7 @@
       "type": "REAL",
       "operands": ["reg"],
       "requiresFlag": false,
-      "opcode": "00110RRR",
+      "opcode": "00101RRR",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -912,7 +912,7 @@
       "type": "REAL",
       "operands": ["imm"],
       "requiresFlag": false,
-      "opcode": "00110111",
+      "opcode": "00101111",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
