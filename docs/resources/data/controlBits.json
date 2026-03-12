@@ -306,14 +306,6 @@
     },
 
     {
-      "name": "Input Enable Stack Pointer Low",
-      "abbreviation": "IE_SP_L",
-      "isSynchronous": true,
-      "associatedModule": "Stack Pointer (SP)",
-      "isActiveHigh": false,
-      "description": "Enables loading data from the bus to the low byte of the SP."
-    },
-    {
       "name": "Output Enable Stack Pointer Low",
       "abbreviation": "OE_SP_L",
       "isSynchronous": false,
@@ -322,20 +314,28 @@
       "description": "Enables outputting data from the low byte of the SP to the bus."
     },
     {
-      "name": "Input Enable Stack Pointer High",
-      "abbreviation": "IE_SP_H",
-      "isSynchronous": true,
-      "associatedModule": "Stack Pointer (SP)",
-      "isActiveHigh": false,
-      "description": "Enables loading data from the bus to the high byte of the SP."
-    },
-    {
       "name": "Output Enable Stack Pointer High",
       "abbreviation": "OE_SP_H",
       "isSynchronous": false,
       "associatedModule": "Stack Pointer (SP)",
       "isActiveHigh": false,
       "description": "Enables outputting data from the high byte of the SP to the bus."
+    },
+    {
+      "name": "Increment Stack Pointer",
+      "abbreviation": "INC_SP",
+      "isSynchronous": false,
+      "associatedModule": "Stack Pointer (SP)",
+      "isActiveHigh": false,
+      "description": "Increments the stack pointer (SP = SP + 1)"
+    },
+    {
+      "name": "Decrement Stack Pointer",
+      "abbreviation": "DEC_SP",
+      "isSynchronous": false,
+      "associatedModule": "Stack Pointer (SP)",
+      "isActiveHigh": false,
+      "description": "Decrements the stack pointer (SP = SP - 1)"
     },
 
     {
