@@ -1072,7 +1072,7 @@
       "name": "jump indirect",
       "mnemonic": "jmpind",
       "type": "REAL",
-      "operands": [],
+      "operands": ["addr"],
       "requiresFlag": true,
       "opcode": "00100110",
       "microinstructions": {
