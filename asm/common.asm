@@ -14,15 +14,15 @@ lcd_init:
 
 ; waits until the busy flag is 0
 lcd_wait: 
-  lcdrd CTRL, A
-  andi A, %10000000
+  lcdrda CTRL
+  andi %10000000
   beqi %10000000, lcd_wait
   ret
 
 ; outputs a character stored in the B-Register to the lcd 
 print_char:
-  lcdrd CTRL, A
-  andi A, %10000000
+  lcdrda CTRL
+  andi %10000000
   beqi %10000000, print_char ; waits until the busy flag is zero (inlined lcd_wait for more efficiency)
   outlcd DATA, B ; then output the character to the lcd
   ret

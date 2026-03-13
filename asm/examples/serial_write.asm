@@ -9,7 +9,7 @@ STRING_ADDR = 0x6000
 loop:
   mov A, X
   bgei 56, end; bgeiu broken? //TODO fix
-  ldo B, STRING_ADDR
+  ldo B, X, STRING_ADDR
 rdy_wait:
   btxrdyc rdy_wait
   txsend B
