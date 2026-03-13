@@ -94,7 +94,7 @@
 	ldsprel {reg: register}, {imm: i8}                       => 0b01010 @ reg @ imm
 	st {reg: register}, {addr: u16}                          => 0b00011 @ reg @ le(addr)
 	sto {reg: register}, {idxreg: idxregister}, {addr: u16}  => 0b0100 @ reg @ idxreg @ le(addr)
-	stosprel {reg: register}, {addr: u16}                    => 0b01011 @ reg @ le(addr)
+	stsprel {reg: register}, {addr: u16}                     => 0b01011 @ reg @ le(addr)
 	li {reg: register}, {imm: i8}                            => 0b01101 @ reg @ imm
 	push {reg: register}                                     => 0b10010 @ reg
 	pop {reg: register}                                      => 0b10100 @ reg
@@ -127,7 +127,7 @@
 	ret                                                      => 0b00000111
 	jmp {addr: u16}                                          => 0b00000101 @ le(addr)
 	jmpr                                                     => 0b00000110
-	jmpind                                                   => 0b00100110
+	jmpind {addr: u16}                                       => 0b00100110 @ le(addr)
 	beq {addr: u16}                                          => 0b00001010 @ le(addr)
 	beqi {imm: i8}, {addr: u16}                              => asm{ li TMP, {imm} } @ asm{ beq {addr} }
 	bne {addr: u16}                                          => 0b00001011 @ le(addr)
@@ -160,6 +160,12 @@
 	brxrdyc {addr: u16}                                      => 0b11100001 @ le(addr)
 	btxrdys {addr: u16}                                      => 0b11101000 @ le(addr)
 	btxrdyc {addr: u16}                                      => 0b11101001 @ le(addr)
+	ld {reg: register}, {idxreg: idxregister}[{addr: u16}]   => asm{ ldo {reg}, {idxreg}, {addr}  } 
+	st {reg: register}, {idxreg: idxregister}[{addr: u16}]   => asm{ sto {reg}, {idxreg}, {addr}  } 
+	ld {reg: register}, {imm: i8}[SP]                        => asm{ ldsprel {reg}, {imm} } 
+	st {reg: register}, {imm: i8}[SP]                        => asm{ stsprel {reg}, {imm} } 
+	jmp [A, TMP]                                             => asm{ jmpr } 
+	jmp ({addr: u16})                                        => asm{ jmpind {addr} }
 }
 
 #bank ROM

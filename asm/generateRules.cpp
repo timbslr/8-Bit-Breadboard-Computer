@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <format>
 #include "../lib/json.hpp"
 
 using json = nlohmann::json;
@@ -18,8 +19,8 @@ std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::stri
 std::string formatRules(std::vector<std::string> rules, int maxIndexOfAssignOperator);
 void writeRulesToFile(std::string filePath, std::string templatePath, std::string rulesString);
 std::string concatVectorElements(std::vector<std::string> v, std::string delimiter);
+std::vector<std::string> generateSyntacticSugarRules(std::unordered_map<std::string, std::string> opcodes);
 void replaceAll(std::string &str, const std::string &from, const std::string &to);
-
 
 int main() {
   std::ifstream jsonFile("../docs/resources/data/instructionData.jsonc");
@@ -27,6 +28,8 @@ int main() {
   std::vector<std::string> rules;
 
   int maxIndexOfAssignOperator = -1;
+  std::unordered_map<std::string, std::string> opcodes;
+
   for(int i = 0; i < instructionsJsonArray.size(); i++) {
     auto currentInstruction = instructionsJsonArray[i];
     std::string currentRule = generateRule(currentInstruction);
@@ -39,6 +42,7 @@ int main() {
       replaceAll(opcode, "L", "");
       replaceAll(opcode, "X", "");
       replaceAll(currentRule, "<opcode>", opcode);
+      opcodes[currentInstruction["mnemonic"]] = opcode;
     }
 
     std::stringstream ss(currentRule);
@@ -47,6 +51,9 @@ int main() {
       rules.push_back(singleRuleString);
     }
   }
+
+  std::vector<std::string> syntacticSugarRules = generateSyntacticSugarRules(opcodes);
+  rules.insert(rules.end(), syntacticSugarRules.begin(), syntacticSugarRules.end());
 
   std::string rulesString = formatRules(rules, maxIndexOfAssignOperator);
   writeRulesToFile("rules.asm", "./rulesTemplate.asm", rulesString);
@@ -202,11 +209,21 @@ std::string concatVectorElements(std::vector<std::string> v, std::string delimit
   return result;
 }
 
-std::unordered_map<char, std::string> opcodeOperandMap = {
-  {'R', "reg"},
-  {'L', "lcdreg"},
-  {'X', "idxreg"}
-};
+std::vector<std::string> generateSyntacticSugarRules(std::unordered_map<std::string, std::string> opcodes) {
+  std::vector<std::string> syntacticSugarRules;
+  //syntacticSugarRules.push_back("\n  ; Syntactic Sugar Rules:");
+  syntacticSugarRules.push_back(std::format("ld {}, {}[{}] => asm{{ ldo {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
+  syntacticSugarRules.push_back(std::format("st {}, {}[{}] => asm{{ sto {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
+  
+  syntacticSugarRules.push_back(std::format("ld {}, {}[SP] => asm{{ ldsprel {{reg}}, {{imm}} }} ", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")));
+  syntacticSugarRules.push_back(std::format("st {}, {}[SP] => asm{{ stsprel {{reg}}, {{imm}} }} ", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")));
+
+  syntacticSugarRules.push_back("jmp [A, TMP] => asm{ jmpr } ");
+  syntacticSugarRules.push_back(std::format("jmp ({}) => asm{{ jmpind {{addr}} }}", ADDRESS_ARGUMENT("addr")));
+
+  return syntacticSugarRules;
+}
+
 
 void replaceAll(std::string &str, const std::string &from, const std::string &to) {
   int pos = 0;
