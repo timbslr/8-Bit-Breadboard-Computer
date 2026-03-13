@@ -546,7 +546,7 @@
     },
     {
       "name": "store stack-pointer relative",
-      "mnemonic": "stosprel",
+      "mnemonic": "stsprel",
       "type": "REAL",
       "operands": ["reg", "addr"],
       "requiresFlag": true,
