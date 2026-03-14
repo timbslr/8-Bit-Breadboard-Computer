@@ -35,6 +35,9 @@
   { "opcode": "11001101", "from": "Y", "to": "C" },
   { "opcode": "11011101", "from": "Y", "to": "X" },
 
+  { "opcode": "10101111", "from": "A", "to": "BUF" },
+  { "opcode": "10111111", "from": "BUF", "to": "TMP" },
+
   { "opcode": "10011110", "from": "F", "to": "A" },
   { "opcode": "10101110", "from": "F", "to": "TMP" },
   { "opcode": "10111110", "from": "F", "to": "B" },

@@ -4,6 +4,7 @@
 #include "../lib/json.hpp"
 
 using json = nlohmann::json;
+using namespace std;
 
 #define REGISTER_ARGUMENT(specifier)  ("{" specifier ": register}")
 #define LCDREGISTER_ARGUMENT(specifier)  ("{" specifier ": lcdregister}")
@@ -11,33 +12,39 @@ using json = nlohmann::json;
 #define IMMEDIATE_ARGUMENT(specifier) ("{" specifier ": i8}")
 #define ADDRESS_ARGUMENT(specifier)   ("{" specifier ": u16}")
 
-std::string generateRule(auto instruction);
-std::string handleSpecialCaseMov(auto instruction);
-std::vector<std::string> generateLeftSideOperands(std::vector<std::string> operands);
-std::vector<std::string> generateRightSideOperands(std::vector<std::string> operands);
-std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions);
-std::string formatRules(std::vector<std::string> rules, int maxIndexOfAssignOperator);
-void writeRulesToFile(std::string filePath, std::string templatePath, std::string rulesString);
-std::string concatVectorElements(std::vector<std::string> v, std::string delimiter);
-std::vector<std::string> generateSyntacticSugarRules(std::unordered_map<std::string, std::string> opcodes);
-void replaceAll(std::string &str, const std::string &from, const std::string &to);
+const string registers[] = {"A", "TMP", "B", "C", "X", "Y"};
+
+string generateRule(auto instruction);
+string handleSpecialCaseMov(auto instruction);
+vector<string> generateLeftSideOperands(vector<string> operands);
+vector<string> generateRightSideOperands(vector<string> operands);
+string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions);
+string formatRules(vector<string> rules, int maxIndexOfAssignOperator);
+void writeRulesToFile(string filePath, string templatePath, string rulesString);
+string concatVectorElements(vector<string> v, string delimiter);
+vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes);
+string generateBinaryInstructionSyntacticSugarRule(const string& mnemonic, const string& destination, const string& operand1, const string& operand2);
+string generateUnaryInstructionSyntacticSugarRule(const string& mnemonic, const string& destination, const string& operand);
+string movIfNeeded(const string& destination, const string& source);
+void removeEmptyStrings(vector<string>& v);
+void replaceAll(string &str, const string &from, const string &to);
 
 int main() {
-  std::ifstream jsonFile("../docs/resources/data/instructionData.jsonc");
+  ifstream jsonFile("../docs/resources/data/instructionData.jsonc");
   json instructionsJsonArray = json::parse(jsonFile, nullptr, true, true)["instructions"];
-  std::vector<std::string> rules;
+  vector<string> rules;
 
   int maxIndexOfAssignOperator = -1;
-  std::unordered_map<std::string, std::string> opcodes;
+  unordered_map<string, string> opcodes;
 
   for(int i = 0; i < instructionsJsonArray.size(); i++) {
     auto currentInstruction = instructionsJsonArray[i];
-    std::string currentRule = generateRule(currentInstruction);
+    string currentRule = generateRule(currentInstruction);
     int indexOfAssignOperator = currentRule.find("=>");
-    maxIndexOfAssignOperator = std::max(indexOfAssignOperator, maxIndexOfAssignOperator);
+    maxIndexOfAssignOperator = max(indexOfAssignOperator, maxIndexOfAssignOperator);
 
     if(currentInstruction.contains("opcode")) {
-      std::string opcode = currentInstruction["opcode"];
+      string opcode = currentInstruction["opcode"];
       replaceAll(opcode, "R", "");
       replaceAll(opcode, "L", "");
       replaceAll(opcode, "X", "");
@@ -45,59 +52,59 @@ int main() {
       opcodes[currentInstruction["mnemonic"]] = opcode;
     }
 
-    std::stringstream ss(currentRule);
-    std::string singleRuleString;
-    while(std::getline(ss, singleRuleString, '\n')) {
+    stringstream ss(currentRule);
+    string singleRuleString;
+    while(getline(ss, singleRuleString, '\n')) {
       rules.push_back(singleRuleString);
     }
   }
 
-  std::vector<std::string> syntacticSugarRules = generateSyntacticSugarRules(opcodes);
+  vector<string> syntacticSugarRules = generateSyntacticSugarRules(opcodes);
   rules.insert(rules.end(), syntacticSugarRules.begin(), syntacticSugarRules.end());
 
-  std::string rulesString = formatRules(rules, maxIndexOfAssignOperator);
+  string rulesString = formatRules(rules, maxIndexOfAssignOperator);
   writeRulesToFile("rules.asm", "./rulesTemplate.asm", rulesString);
 
   return 0;
 }
 
-std::string generateRule(auto instruction) {
-  std::vector<std::string> operands = instruction["operands"];
-  std::string mnemonic = std::string(instruction["mnemonic"]);
-  bool isInstructionReal = std::string(instruction["type"]) == "REAL";
+string generateRule(auto instruction) {
+  vector<string> operands = instruction["operands"];
+  string mnemonic = string(instruction["mnemonic"]);
+  bool isInstructionReal = string(instruction["type"]) == "REAL";
   if(mnemonic == "mov") {
     return handleSpecialCaseMov(instruction);
   }
 
-  std::vector<std::string> leftSideOperands = generateLeftSideOperands(operands);
-  std::string rule = mnemonic + " " + concatVectorElements(leftSideOperands, ", ") + " => ";
+  vector<string> leftSideOperands = generateLeftSideOperands(operands);
+  string rule = mnemonic + " " + concatVectorElements(leftSideOperands, ", ") + " => ";
 
   if(isInstructionReal) {
     rule += "0b<opcode>";
 
     if(operands.size() == 0) return rule;
 
-    std::vector<std::string> rightSideOperands = generateRightSideOperands(operands);
+    vector<string> rightSideOperands = generateRightSideOperands(operands);
     rule += " @ " + concatVectorElements(rightSideOperands, " @ ");;
     return rule;
   }
 
-  std::vector<std::string> mappedInstructions = instruction["mappedInstructions"];
+  vector<string> mappedInstructions = instruction["mappedInstructions"];
   rule += concatPseudoInstructions(mnemonic, mappedInstructions);
 
   return rule;
 }
 
-std::string handleSpecialCaseMov(auto instruction) {
-  std::ifstream jsonFile("../docs/resources/data/movData.json");
+string handleSpecialCaseMov(auto instruction) {
+  ifstream jsonFile("../docs/resources/data/movData.json");
   json movData = json::parse(jsonFile);
-  std::string resultingRule = "";
+  string resultingRule = "";
 
   for(int i = 0; i < movData.size(); i++) {
     auto currentData = movData[i];
-    std::string opcode = currentData["opcode"];
-    std::string sourceRegister = currentData["from"];
-    std::string destinationRegister = currentData["to"];
+    string opcode = currentData["opcode"];
+    string sourceRegister = currentData["from"];
+    string destinationRegister = currentData["to"];
 
     resultingRule += "mov " + destinationRegister + ", " + sourceRegister + " => 0b" + opcode;
     
@@ -109,11 +116,11 @@ std::string handleSpecialCaseMov(auto instruction) {
   return resultingRule;
 }
 
-std::vector<std::string> generateLeftSideOperands(std::vector<std::string> operands) {
-    std::vector<std::string> leftSideOperands;
+vector<string> generateLeftSideOperands(vector<string> operands) {
+    vector<string> leftSideOperands;
 
     for(int i = 0; i < operands.size(); i++) {
-      std::string operand = operands[i];
+      string operand = operands[i];
       if(operand == "reg") leftSideOperands.push_back(REGISTER_ARGUMENT("reg"));
       else if(operand == "imm") leftSideOperands.push_back(IMMEDIATE_ARGUMENT("imm"));
       else if(operand == "addr") leftSideOperands.push_back(ADDRESS_ARGUMENT("addr"));
@@ -121,28 +128,28 @@ std::vector<std::string> generateLeftSideOperands(std::vector<std::string> opera
       else if(operand == "regs") leftSideOperands.push_back(REGISTER_ARGUMENT("regs"));
       else if(operand == "idxreg") leftSideOperands.push_back(INDXREGISTER_ARGUMENT("idxreg"));
       else if(operand == "lcdreg") leftSideOperands.push_back(LCDREGISTER_ARGUMENT("lcdreg"));
-      else std::cerr << "No left side operands matching: " << operand << std::endl;
+      else cerr << "No left side operands matching: " << operand << endl;
     }
 
     return leftSideOperands;
 }
 
-std::vector<std::string> generateRightSideOperands(std::vector<std::string> operands) {
-    std::vector<std::string> rightSideOperands;
+vector<string> generateRightSideOperands(vector<string> operands) {
+    vector<string> rightSideOperands;
 
     for(int i = 0; i < operands.size(); i++) {
-      std::string operand = operands[i];
+      string operand = operands[i];
       if(operand == "addr") rightSideOperands.push_back("le(addr)");
       else if(operand == "reg" || operand == "regd" || operand == "regs" || operand == "idxreg" || operand == "imm" || operand == "lcdreg") rightSideOperands.push_back(operand);
-      else std::cerr << "No right side operands matching: " << operand << std::endl;
+      else cerr << "No right side operands matching: " << operand << endl;
     }
 
 
     return rightSideOperands;
 }
 
-std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::string> mappedInstructions) {
-  std::string concattedString = "";
+string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions) {
+  string concattedString = "";
   if(mnemonic == "call") {  //handle special case call, in this representation of mnemonic, every mnemonic has a space behind its name
     concattedString = "asm{ \n";
     for(int i = 0; i < mappedInstructions.size(); i++) {
@@ -153,7 +160,7 @@ std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::stri
   }
 
   for(int i = 0; i < mappedInstructions.size(); i++) {
-    std::string currentInstruction = mappedInstructions[i];
+    string currentInstruction = mappedInstructions[i];
     replaceAll(currentInstruction, "<", "{");  //replace argument brackets that exist in mapped instructions, customasm need curly braces for that
     replaceAll(currentInstruction, ">", "}");
     concattedString += "asm{ " + currentInstruction + " }";
@@ -165,14 +172,14 @@ std::string concatPseudoInstructions(std::string mnemonic, std::vector<std::stri
   return concattedString;
 }
 
-std::string formatRules(std::vector<std::string> rules, int maxIndexOfAssignOperator) {
-  std::string formattedRulesString = "";
+string formatRules(vector<string> rules, int maxIndexOfAssignOperator) {
+  string formattedRulesString = "";
 
   int rulesSize = rules.size();
   for(int i = 0; i < rulesSize; i++) {
-    std::string currentRule = rules.at(i);
+    string currentRule = rules.at(i);
     int indexOfAssignOperator = currentRule.find("=>");
-    if(indexOfAssignOperator == std::string::npos) {
+    if(indexOfAssignOperator == string::npos) {
       formattedRulesString += "\t\t\t" + currentRule + "\n";
       continue;
     }
@@ -189,18 +196,18 @@ std::string formatRules(std::vector<std::string> rules, int maxIndexOfAssignOper
   return formattedRulesString;
 }
 
-void writeRulesToFile(std::string filePath, std::string templatePath, std::string rulesString) {
-  std::ifstream templateFile(templatePath);
-  std::string fileContent((std::istreambuf_iterator<char>(templateFile)),std::istreambuf_iterator<char>());
+void writeRulesToFile(string filePath, string templatePath, string rulesString) {
+  ifstream templateFile(templatePath);
+  string fileContent((istreambuf_iterator<char>(templateFile)),istreambuf_iterator<char>());
   replaceAll(fileContent, "\t<RULES>", rulesString);
 
-  std::ofstream outputFileStream(filePath);
+  ofstream outputFileStream(filePath);
   outputFileStream.write(fileContent.c_str(), fileContent.length());
   outputFileStream.close();
 }
 
-std::string concatVectorElements(std::vector<std::string> v, std::string delimiter) {
-  std::string result = "";
+string concatVectorElements(vector<string> v, string delimiter) {
+  string result = "";
   for(int i = 0; i < v.size(); i++) {
     if(i != 0) result += delimiter;
 
@@ -209,25 +216,99 @@ std::string concatVectorElements(std::vector<std::string> v, std::string delimit
   return result;
 }
 
-std::vector<std::string> generateSyntacticSugarRules(std::unordered_map<std::string, std::string> opcodes) {
-  std::vector<std::string> syntacticSugarRules;
+vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes) {
+  vector<string> syntacticSugarRules;
   //syntacticSugarRules.push_back("\n  ; Syntactic Sugar Rules:");
-  syntacticSugarRules.push_back(std::format("ld {}, {}[{}] => asm{{ ldo {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
-  syntacticSugarRules.push_back(std::format("st {}, {}[{}] => asm{{ sto {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
+  syntacticSugarRules.push_back(format("ld {}, {}[{}] => asm{{ ldo {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
+  syntacticSugarRules.push_back(format("st {}, {}[{}] => asm{{ sto {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
   
-  syntacticSugarRules.push_back(std::format("ld {}, {}[SP] => asm{{ ldsprel {{reg}}, {{imm}} }} ", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")));
-  syntacticSugarRules.push_back(std::format("st {}, {}[SP] => asm{{ stsprel {{reg}}, {{imm}} }} ", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")));
+  syntacticSugarRules.push_back(format("ld {}, {}[SP] => asm{{ ldsprel {{reg}}, {{imm}} }} ", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")));
+  syntacticSugarRules.push_back(format("st {}, {}[SP] => asm{{ stsprel {{reg}}, {{imm}} }} ", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")));
 
   syntacticSugarRules.push_back("jmp [A, TMP] => asm{ jmpr } ");
-  syntacticSugarRules.push_back(std::format("jmp ({}) => asm{{ jmpind {{addr}} }}", ADDRESS_ARGUMENT("addr")));
+  syntacticSugarRules.push_back(format("jmp ({}) => asm{{ jmpind {{addr}} }}", ADDRESS_ARGUMENT("addr")));
+
+  const string binaryALUInstructions[] = {"add", "addc", "sub", "subc", "and", "or", "xor"};
+  const string unaryALUInstructions[] = {"addi", "addci", "subci", "andi", "ori", "xori", "not", "negate", "shl", "slr", "sar", "ror", "rol"};
+
+  for(const string& mnemonic : binaryALUInstructions) {
+    for(const string& destination : registers) {
+      for(const string& operand1 : registers) {
+        for(const string& operand2 : registers) {
+          string rule = generateBinaryInstructionSyntacticSugarRule(mnemonic, destination, operand1, operand2);
+          syntacticSugarRules.push_back(rule);
+        }
+      }
+    }
+  }
+
+  for(const string& mnemonic : unaryALUInstructions) {
+    for(const string& destination : registers) {
+      for(const string& operand : registers) {
+        string rule = generateUnaryInstructionSyntacticSugarRule(mnemonic, destination, operand);
+        syntacticSugarRules.push_back(rule);
+      }
+    }
+  }
 
   return syntacticSugarRules;
 }
 
+string generateBinaryInstructionSyntacticSugarRule(const string& mnemonic, const string& destination, const string& operand1, const string& operand2) {
+  string rule = format("{} {}, {}, {} => ", mnemonic, destination, operand1, operand2); 
+  vector<string> mappedInstructions;
 
-void replaceAll(std::string &str, const std::string &from, const std::string &to) {
+  if(operand1 == "TMP" && operand2 == "A" && mnemonic == "sub") {
+      //swap two operands for sub
+      mappedInstructions.push_back("asm{ mov BUF, A }");   // BUF = A
+      mappedInstructions.push_back("asm{ mov A, TMP }");   // A = TMP
+      mappedInstructions.push_back("asm{ mov TMP, BUF }"); // TMP = BUF
+  } else {
+    mappedInstructions.push_back(movIfNeeded("A", operand1));
+    mappedInstructions.push_back(movIfNeeded("TMP", operand2));
+  }
+
+  mappedInstructions.push_back(format("asm{{ {} }}", mnemonic));
+  mappedInstructions.push_back(movIfNeeded(destination, "A"));
+
+  removeEmptyStrings(mappedInstructions);
+  return rule + concatVectorElements(mappedInstructions, " @ ");
+}
+
+string generateUnaryInstructionSyntacticSugarRule(const string& mnemonic, const string& destination, const string& operand) {
+  const bool isImmediateInstruction = mnemonic.back() == 'i';
+  string rule;
+  vector<string> mappedInstructions;
+
+  if(isImmediateInstruction) {
+    rule = format("{} {}, {}, {} => ", mnemonic, destination, operand, IMMEDIATE_ARGUMENT("imm"));
+  }  else {
+    rule = format("{} {}, {} => ", mnemonic, destination, operand);
+  }
+  
+  mappedInstructions.push_back(movIfNeeded("A", operand));
+  if(isImmediateInstruction) {
+    mappedInstructions.push_back(format("asm{{ {} {{imm}} }}", mnemonic));
+  } else {
+    mappedInstructions.push_back(format("asm{{ {} }}", mnemonic));
+  }
+  mappedInstructions.push_back(movIfNeeded(destination, "A"));
+
+  removeEmptyStrings(mappedInstructions);
+  return rule + concatVectorElements(mappedInstructions, " @ ");
+}
+
+string movIfNeeded(const string& destination, const string& source) {
+  return destination == source ? "" : format("asm{{ mov {}, {} }}", destination, source);
+}
+
+void removeEmptyStrings(vector<string>& v) {
+  erase_if(v, [](const string& str) {return str.empty();});
+}
+
+void replaceAll(string &str, const string &from, const string &to) {
   int pos = 0;
-  while ((pos = str.find(from, pos)) != std::string::npos) {
+  while ((pos = str.find(from, pos)) != string::npos) {
     str.replace(pos, from.length(), to);
     pos += to.length();
   }
