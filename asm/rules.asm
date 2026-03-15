@@ -162,6 +162,12 @@
 	brxrdyc {addr: u16}                                      => 0b11100001 @ le(addr)
 	btxrdys {addr: u16}                                      => 0b11101000 @ le(addr)
 	btxrdyc {addr: u16}                                      => 0b11101001 @ le(addr)
+			
+
+
+
+
+  ; Syntactic Sugar Rules:
 	ld {reg: register}, {idxreg: idxregister}[{addr: u16}]   => asm{ ldo {reg}, {idxreg}, {addr}  } 
 	st {reg: register}, {idxreg: idxregister}[{addr: u16}]   => asm{ sto {reg}, {idxreg}, {addr}  } 
 	ld {reg: register}, {imm: i8}[SP]                        => asm{ ldsprel {reg}, {imm} } 

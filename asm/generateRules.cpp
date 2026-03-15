@@ -218,7 +218,7 @@ string concatVectorElements(vector<string> v, string delimiter) {
 
 vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes) {
   vector<string> syntacticSugarRules;
-  //syntacticSugarRules.push_back("\n  ; Syntactic Sugar Rules:");
+  syntacticSugarRules.push_back("\n\n\n\n\n  ; Syntactic Sugar Rules:");
   syntacticSugarRules.push_back(format("ld {}, {}[{}] => asm{{ ldo {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
   syntacticSugarRules.push_back(format("st {}, {}[{}] => asm{{ sto {{reg}}, {{idxreg}}, {{addr}}  }} ", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")));
   
