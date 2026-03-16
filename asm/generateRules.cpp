@@ -13,9 +13,18 @@ using namespace std;
 #define ADDRESS_ARGUMENT(specifier)   ("{" specifier ": u16}")
 
 const string registers[] = {"A", "TMP", "B", "C", "X", "Y"};
+const map<string, string> registerBinMap = {
+  {"A",   "0b000"},
+  {"TMP", "0b001"},
+  {"B",   "0b010"},
+  {"C",   "0b011"},
+  {"X",   "0b100"},
+  {"Y",   "0b101"},
+};
 
 string generateRule(auto instruction);
 string handleSpecialCaseMov(auto instruction);
+string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule);
 vector<string> generateLeftSideOperands(vector<string> operands);
 vector<string> generateRightSideOperands(vector<string> operands);
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions);
@@ -24,7 +33,7 @@ void writeRulesToFile(string filePath, string templatePath, string rulesString);
 string concatVectorElements(vector<string> v, string delimiter);
 vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes);
 string generateBinaryInstructionSyntacticSugarRule(const string& mnemonic, const string& destination, const string& operand1, const string& operand2);
-string generateUnaryInstructionSyntacticSugarRule(const string& mnemonic, const string& destination, const string& operand);
+string generateUnaryInstructionSyntacticSugarRule(const string& mnemonic, bool isImmediateInstruction, const string& destination, const string& operand);
 string movIfNeeded(const string& destination, const string& source);
 void removeEmptyStrings(vector<string>& v);
 void replaceAll(string &str, const string &from, const string &to);
@@ -99,6 +108,7 @@ string handleSpecialCaseMov(auto instruction) {
   ifstream jsonFile("../docs/resources/data/movData.json");
   json movData = json::parse(jsonFile);
   string resultingRule = "";
+  map<string, map<string, string>> dataForRegdRegsMovRule;
 
   for(int i = 0; i < movData.size(); i++) {
     auto currentData = movData[i];
@@ -106,6 +116,15 @@ string handleSpecialCaseMov(auto instruction) {
     string sourceRegister = currentData["from"];
     string destinationRegister = currentData["to"];
 
+    bool containsSourceRegister = std::find(std::begin(registers), std::end(registers), sourceRegister) != std::end(registers);
+    bool containsDestinationRegister = std::find(std::begin(registers), std::end(registers), destinationRegister) != std::end(registers);
+    if(containsSourceRegister && containsDestinationRegister) {
+      //if the destination and source are of type "register", they'll be later added as part of a general mov rule for general registers
+      dataForRegdRegsMovRule[destinationRegister][sourceRegister] = opcode;
+      continue;
+    }
+
+    // else it's a special rule and it's handled separately (e.g. a mov from the Flags-Register)
     resultingRule += "mov " + destinationRegister + ", " + sourceRegister + " => 0b" + opcode;
     
     if(i < movData.size() - 1) {
@@ -113,7 +132,27 @@ string handleSpecialCaseMov(auto instruction) {
     }
   }
 
+  resultingRule += generateRegdRegsMovRule(dataForRegdRegsMovRule);
   return resultingRule;
+}
+
+//dataForRegdRegsMovRule is grouped by destination
+string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule) {
+    string rule = format("\nmov {}, {} =>\n{{\n", REGISTER_ARGUMENT("regd"), string(REGISTER_ARGUMENT("regs")));
+    rule += "\tregd == regs ? 0b00000000`8 : ; emit a nop so this instruction also becomes 4 bytes long and the assembler can choose the more specific rule with less bytes\n";
+
+    for (const auto& [regd, value] : dataForRegdRegsMovRule) {
+        rule += format("\tregd == {} ? (\n", registerBinMap.at(regd));
+        for (const auto& [regs, opcode] : value) {
+            rule += format("\t\tregs == {} ? 0b{}`8 :\n", registerBinMap.at(regs), opcode);
+        }
+        rule += "\t\tassert(false, \"Invalid mov combination found!\")\n";
+        rule += "\t) :\n";
+    }
+
+    rule += "\tassert(false, \"Invalid mov combination found!\")\n";
+    rule += "}\n";
+    return rule;
 }
 
 vector<string> generateLeftSideOperands(vector<string> operands) {
@@ -232,6 +271,9 @@ vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes
   const string unaryALUInstructions[] = {"addi", "addci", "subci", "andi", "ori", "xori", "not", "negate", "shl", "slr", "sar", "ror", "rol"};
 
   for(const string& mnemonic : binaryALUInstructions) {
+    if(!mnemonic.starts_with("sub")) {
+      syntacticSugarRules.push_back(format("{} {}, {}, {} => asm{{ mov A, {{reg2}} }} @ asm{{ mov TMP, {{reg3}} }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }}", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"), REGISTER_ARGUMENT("reg3"), mnemonic));
+    }
     for(const string& destination : registers) {
       for(const string& operand1 : registers) {
         for(const string& operand2 : registers) {
@@ -243,14 +285,22 @@ vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes
   }
 
   for(const string& mnemonic : unaryALUInstructions) {
+    const bool isImmediateInstruction = mnemonic.back() == 'i';
+    if(isImmediateInstruction) {
+      syntacticSugarRules.push_back(format("{} {}, {}, {} => asm{{ mov A, {{reg2}} }} @ asm{{ {} {{imm}} }} @ asm{{ mov {{reg1}}, A }}", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"), IMMEDIATE_ARGUMENT("imm"), mnemonic));
+    }  else {
+      syntacticSugarRules.push_back(format("{} {}, {} => asm{{ mov A, {{reg2}} }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }}", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"), mnemonic));
+    }
+
     for(const string& destination : registers) {
       for(const string& operand : registers) {
-        string rule = generateUnaryInstructionSyntacticSugarRule(mnemonic, destination, operand);
+        string rule = generateUnaryInstructionSyntacticSugarRule(mnemonic, isImmediateInstruction, destination, operand);
         syntacticSugarRules.push_back(rule);
       }
     }
   }
 
+  removeEmptyStrings(syntacticSugarRules);
   return syntacticSugarRules;
 }
 
@@ -258,7 +308,7 @@ string generateBinaryInstructionSyntacticSugarRule(const string& mnemonic, const
   string rule = format("{} {}, {}, {} => ", mnemonic, destination, operand1, operand2); 
   vector<string> mappedInstructions;
 
-  if(operand1 == "TMP" && operand2 == "A" && mnemonic == "sub") {
+  if(operand1 == "TMP" && operand2 == "A" && mnemonic.starts_with("sub")) {
       //swap two operands for sub
       mappedInstructions.push_back("asm{ mov BUF, A }");   // BUF = A
       mappedInstructions.push_back("asm{ mov A, TMP }");   // A = TMP
@@ -272,11 +322,11 @@ string generateBinaryInstructionSyntacticSugarRule(const string& mnemonic, const
   mappedInstructions.push_back(movIfNeeded(destination, "A"));
 
   removeEmptyStrings(mappedInstructions);
-  return rule + concatVectorElements(mappedInstructions, " @ ");
+  rule += concatVectorElements(mappedInstructions, " @ ");
+  return mappedInstructions.size() == 4 ? "" : rule;
 }
 
-string generateUnaryInstructionSyntacticSugarRule(const string& mnemonic, const string& destination, const string& operand) {
-  const bool isImmediateInstruction = mnemonic.back() == 'i';
+string generateUnaryInstructionSyntacticSugarRule(const string& mnemonic, bool isImmediateInstruction, const string& destination, const string& operand) {
   string rule;
   vector<string> mappedInstructions;
 
@@ -295,7 +345,8 @@ string generateUnaryInstructionSyntacticSugarRule(const string& mnemonic, const 
   mappedInstructions.push_back(movIfNeeded(destination, "A"));
 
   removeEmptyStrings(mappedInstructions);
-  return rule + concatVectorElements(mappedInstructions, " @ ");
+  rule += concatVectorElements(mappedInstructions, " @ ");
+  return mappedInstructions.size() == 3 ? "" : rule;
 }
 
 string movIfNeeded(const string& destination, const string& source) {

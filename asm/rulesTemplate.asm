@@ -17,8 +17,8 @@
   TMP  => 0b001
   B    => 0b010
   C    => 0b011
-  X    => 0b110
-  Y    => 0b111
+  X    => 0b100
+  Y    => 0b101
 }
 
 #subruledef idxregister { ;subruledef prevents the mnemonics from being used as freestanding instructions
