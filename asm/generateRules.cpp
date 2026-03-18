@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <format>
+#include <unordered_set>
 #include "../lib/json.hpp"
 
 using json = nlohmann::json;
@@ -21,33 +22,39 @@ const map<string, string> registerBinMap = {
   {"X",   "0b100"},
   {"Y",   "0b101"},
 };
+const unordered_map<string, string> leftSideOperandsMap = {
+  {"reg", REGISTER_ARGUMENT("reg")},
+  {"regd", REGISTER_ARGUMENT("regd")},
+  {"regs", REGISTER_ARGUMENT("regs")},
+  {"idxreg", INDXREGISTER_ARGUMENT("idxreg")},
+  {"lcdreg", LCDREGISTER_ARGUMENT("lcdreg")},
+  {"imm", IMMEDIATE_ARGUMENT("imm")},
+  {"addr", ADDRESS_ARGUMENT("addr")}
+};
 
+json getJSONFromFile(string filePath);
 string generateRule(auto instruction);
 string handleSpecialCaseMov(auto instruction);
 string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule);
 vector<string> generateLeftSideOperands(vector<string> operands);
 vector<string> generateRightSideOperands(vector<string> operands);
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions);
-string formatRules(vector<string> rules, int maxIndexOfAssignOperator);
+string formatRules(vector<string> rules);
 void writeRulesToFile(string filePath, string templatePath, string rulesString);
 string concatVectorElements(vector<string> v, string delimiter);
 vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes);
-void removeEmptyStrings(vector<string>& v);
 void replaceAll(string &str, const string &from, const string &to);
 
 int main() {
-  ifstream jsonFile("../docs/resources/data/instructionData.jsonc");
-  json instructionsJsonArray = json::parse(jsonFile, nullptr, true, true)["instructions"];
+  json instructions = getJSONFromFile("../docs/resources/data/instructionData.jsonc")["instructions"];
   vector<string> rules;
 
   int maxIndexOfAssignOperator = -1;
   unordered_map<string, string> opcodes;
 
-  for(int i = 0; i < instructionsJsonArray.size(); i++) {
-    auto currentInstruction = instructionsJsonArray[i];
+  for(int i = 0; i < instructions.size(); i++) {
+    auto currentInstruction = instructions[i];
     string currentRule = generateRule(currentInstruction);
-    int indexOfAssignOperator = currentRule.find("=>");
-    maxIndexOfAssignOperator = max(indexOfAssignOperator, maxIndexOfAssignOperator);
 
     if(currentInstruction.contains("opcode")) {
       string opcode = currentInstruction["opcode"];
@@ -68,10 +75,15 @@ int main() {
   vector<string> syntacticSugarRules = generateSyntacticSugarRules(opcodes);
   rules.insert(rules.end(), syntacticSugarRules.begin(), syntacticSugarRules.end());
 
-  string rulesString = formatRules(rules, maxIndexOfAssignOperator);
+  string rulesString = formatRules(rules);
   writeRulesToFile("rules.asm", "./rulesTemplate.asm", rulesString);
 
   return 0;
+}
+
+json getJSONFromFile(string filePath) {
+  ifstream jsonFile(filePath);
+  return json::parse(jsonFile, nullptr, true, true);
 }
 
 string generateRule(auto instruction) {
@@ -83,7 +95,7 @@ string generateRule(auto instruction) {
   }
 
   vector<string> leftSideOperands = generateLeftSideOperands(operands);
-  string rule = mnemonic + " " + concatVectorElements(leftSideOperands, ", ") + " => ";
+  string rule = format("{} {} => ", mnemonic, concatVectorElements(leftSideOperands, ", "));
 
   if(isInstructionReal) {
     rule += "0b<opcode>";
@@ -102,19 +114,17 @@ string generateRule(auto instruction) {
 }
 
 string handleSpecialCaseMov(auto instruction) {
-  ifstream jsonFile("../docs/resources/data/movData.json");
-  json movData = json::parse(jsonFile);
-  string resultingRule = "";
+  json movData = getJSONFromFile("../docs/resources/data/movData.json");
+  vector<string> movRules;
   map<string, map<string, string>> dataForRegdRegsMovRule;
 
-  for(int i = 0; i < movData.size(); i++) {
-    auto currentData = movData[i];
+  for(const auto currentData : movData) {
     string opcode = currentData["opcode"];
     string sourceRegister = currentData["from"];
     string destinationRegister = currentData["to"];
 
-    bool containsSourceRegister = std::find(std::begin(registers), std::end(registers), sourceRegister) != std::end(registers);
-    bool containsDestinationRegister = std::find(std::begin(registers), std::end(registers), destinationRegister) != std::end(registers);
+    bool containsSourceRegister = find(begin(registers), end(registers), sourceRegister) != end(registers);
+    bool containsDestinationRegister = find(begin(registers), end(registers), destinationRegister) != end(registers);
     if(containsSourceRegister && containsDestinationRegister) {
       //if the destination and source are of type "register", they'll be later added as part of a general mov rule for general registers
       dataForRegdRegsMovRule[destinationRegister][sourceRegister] = opcode;
@@ -122,29 +132,25 @@ string handleSpecialCaseMov(auto instruction) {
     }
 
     // else it's a special rule and it's handled separately (e.g. a mov from the Flags-Register)
-    resultingRule += "mov " + destinationRegister + ", " + sourceRegister + " => 0b" + opcode;
-    
-    if(i < movData.size() - 1) {
-      resultingRule += "\n";
-    }
+    movRules.push_back(format("mov {}, {} => 0b{}", destinationRegister, sourceRegister, opcode));
   }
 
-  resultingRule += generateRegdRegsMovRule(dataForRegdRegsMovRule);
-  return resultingRule;
+  movRules.push_back(generateRegdRegsMovRule(dataForRegdRegsMovRule));
+  return concatVectorElements(movRules, "\n");
 }
 
-//dataForRegdRegsMovRule is grouped by destination
+// dataForRegdRegsMovRule is grouped by destination
 string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule) {
-    string rule = format("\nmov {}, {} =>\n{{\n", REGISTER_ARGUMENT("regd"), string(REGISTER_ARGUMENT("regs")));
+    string rule = format("mov {}, {} =>\n{{\n", REGISTER_ARGUMENT("regd"), string(REGISTER_ARGUMENT("regs")));
     rule += "\tregd == regs ? 0b0`0 : ; optimization: if registers are the same, don't emit an instruction\n";
 
     for (const auto& [regd, value] : dataForRegdRegsMovRule) {
-        rule += format("\tregd == {} ? (\n", registerBinMap.at(regd));
-        for (const auto& [regs, opcode] : value) {
-            rule += format("\t\tregs == {} ? 0b{}`8 :\n", registerBinMap.at(regs), opcode);
-        }
-        rule += "\t\tassert(false, \"Invalid mov combination found!\")\n";
-        rule += "\t) :\n";
+      rule += format("\tregd == {} ? (\n", registerBinMap.at(regd));
+      for (const auto& [regs, opcode] : value) {
+          rule += format("\t\tregs == {} ? 0b{}`8 :\n", registerBinMap.at(regs), opcode);
+      }
+      rule += "\t\tassert(false, \"Invalid mov combination found!\")\n";
+      rule += "\t) :\n";
     }
 
     rule += "\tassert(false, \"Invalid mov combination found!\")\n";
@@ -155,81 +161,68 @@ string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsM
 vector<string> generateLeftSideOperands(vector<string> operands) {
     vector<string> leftSideOperands;
 
-    for(int i = 0; i < operands.size(); i++) {
-      string operand = operands[i];
-      if(operand == "reg") leftSideOperands.push_back(REGISTER_ARGUMENT("reg"));
-      else if(operand == "imm") leftSideOperands.push_back(IMMEDIATE_ARGUMENT("imm"));
-      else if(operand == "addr") leftSideOperands.push_back(ADDRESS_ARGUMENT("addr"));
-      else if(operand == "regd") leftSideOperands.push_back(REGISTER_ARGUMENT("regd"));
-      else if(operand == "regs") leftSideOperands.push_back(REGISTER_ARGUMENT("regs"));
-      else if(operand == "idxreg") leftSideOperands.push_back(INDXREGISTER_ARGUMENT("idxreg"));
-      else if(operand == "lcdreg") leftSideOperands.push_back(LCDREGISTER_ARGUMENT("lcdreg"));
-      else cerr << "No left side operands matching: " << operand << endl;
+    for(const string& operand : operands) {
+      auto it = leftSideOperandsMap.find(operand);
+      if(it != leftSideOperandsMap.end()) {
+        leftSideOperands.push_back(it->second);
+      } else {
+        cerr << "No left side operands matching: " << operand << endl;
+      }
     }
 
     return leftSideOperands;
 }
 
 vector<string> generateRightSideOperands(vector<string> operands) {
-    vector<string> rightSideOperands;
+  vector<string> rightSideOperands;
 
-    for(int i = 0; i < operands.size(); i++) {
-      string operand = operands[i];
-      if(operand == "addr") rightSideOperands.push_back("le(addr)");
-      else if(operand == "reg" || operand == "regd" || operand == "regs" || operand == "idxreg" || operand == "imm" || operand == "lcdreg") rightSideOperands.push_back(operand);
-      else cerr << "No right side operands matching: " << operand << endl;
-    }
+  for(const string& operand : operands) {
+    rightSideOperands.push_back(operand == "addr" ? "le(addr)" : operand);
+  }
 
-
-    return rightSideOperands;
+  return rightSideOperands;
 }
 
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions) {
-  string concattedString = "";
   if(mnemonic == "call") {  //handle special case call, in this representation of mnemonic, every mnemonic has a space behind its name
-    concattedString = "asm{ \n";
-    for(int i = 0; i < mappedInstructions.size(); i++) {
-      concattedString += mappedInstructions[i] + "\n";
-    }
-    concattedString += "nextInstructionAddress: }";
-    return concattedString;
+    mappedInstructions.push_back("nextInstructionAddress:");
+    return "\nasm{\n\t" + concatVectorElements(mappedInstructions, "\n\t") + "\n}";
   }
 
-  for(int i = 0; i < mappedInstructions.size(); i++) {
-    string currentInstruction = mappedInstructions[i];
-    replaceAll(currentInstruction, "<", "{");  //replace argument brackets that exist in mapped instructions, customasm need curly braces for that
-    replaceAll(currentInstruction, ">", "}");
-    concattedString += "asm{ " + currentInstruction + " }";
-    if(i != mappedInstructions.size() - 1) {
-      concattedString += " @ ";
-    }
+  for(string& instr : mappedInstructions) {
+    replaceAll(instr, "<", "{");  //replace argument brackets that exist in mapped instructions, customasm needs curly braces for that
+    replaceAll(instr, ">", "}");
+    instr = "asm{ " + instr + " }";
   }
 
-  return concattedString;
+  return concatVectorElements(mappedInstructions, " @ ");
 }
 
-string formatRules(vector<string> rules, int maxIndexOfAssignOperator) {
-  string formattedRulesString = "";
+string formatRules(vector<string> rules) {  
+  const string ASSIGN_LINE_PREFIX = "\t";
+  const string NO_ASSIGN_LINE_PREFIX = "\t\t";
 
-  int rulesSize = rules.size();
-  for(int i = 0; i < rulesSize; i++) {
-    string currentRule = rules.at(i);
-    int indexOfAssignOperator = currentRule.find("=>");
-    if(indexOfAssignOperator == string::npos) {
-      formattedRulesString += "\t\t\t" + currentRule + "\n";
-      continue;
-    }
-    while(indexOfAssignOperator < maxIndexOfAssignOperator + 1) {
-      currentRule.insert(indexOfAssignOperator, " ");
-      indexOfAssignOperator++;
-    }
-    formattedRulesString += "\t" + currentRule;
-    if(i < rulesSize - 1) {
-      formattedRulesString += "\n";
+  size_t maxIndexOfAssignOperator = 0;
+  for(const string& rule : rules) {
+    size_t indexOfAssignOperator = rule.find("=>");
+    if(indexOfAssignOperator != string::npos) {
+      maxIndexOfAssignOperator = max(maxIndexOfAssignOperator, indexOfAssignOperator);
     }
   }
 
-  return formattedRulesString;
+  for(string& rule : rules) {
+    size_t indexOfAssignOperator = rule.find("=>");
+    if(indexOfAssignOperator == string::npos) {
+      rule.insert(0, NO_ASSIGN_LINE_PREFIX);
+      continue;
+    }
+
+    size_t alignmentPadding = maxIndexOfAssignOperator - indexOfAssignOperator;
+    rule.insert(indexOfAssignOperator, alignmentPadding, ' ');
+    rule.insert(0, ASSIGN_LINE_PREFIX);
+  }
+
+  return concatVectorElements(rules, "\n");
 }
 
 void writeRulesToFile(string filePath, string templatePath, string rulesString) {
@@ -269,11 +262,11 @@ vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes
 
   for(const string& mnemonic : binaryALUInstructions) {
     string subRule = format(R"({} {}, {}, {} => 
-      {{
-        reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-        asm{{ mov BUF, {{reg3}} }} @ asm{{ mov A, {{reg2}} }} @ asm{{ mov TMP, BUF }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }} : ; so cache it in the BUF-Register
-        asm{{ mov A, {{reg2}} }} @ asm{{ mov TMP, {{reg3}} }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }}
-      }})", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"), REGISTER_ARGUMENT("reg3"), mnemonic, mnemonic);
+    {{
+      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+      asm{{ mov BUF, {{reg3}} }} @ asm{{ mov A, {{reg2}} }} @ asm{{ mov TMP, BUF }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }} : ; so cache it in the BUF-Register
+      asm{{ mov A, {{reg2}} }} @ asm{{ mov TMP, {{reg3}} }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }}
+    }})", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"), REGISTER_ARGUMENT("reg3"), mnemonic, mnemonic);
 
     syntacticSugarRules.push_back(subRule);
   }
@@ -288,12 +281,7 @@ vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes
     continue;
   }
 
-  removeEmptyStrings(syntacticSugarRules);
   return syntacticSugarRules;
-}
-
-void removeEmptyStrings(vector<string>& v) {
-  erase_if(v, [](const string& str) {return str.empty();});
 }
 
 void replaceAll(string &str, const string &from, const string &to) {
