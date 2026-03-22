@@ -33,12 +33,14 @@ const unordered_map<string, string> leftSideOperandsMap = {
 };
 
 json getJSONFromFile(string filePath);
-string generateRule(auto instruction);
-string handleSpecialCaseMov(auto instruction);
+string generateRule(json& instruction);
+string stripOpcode(string opcode);
+string handleSpecialCaseMov(json& instruction);
 string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule);
 vector<string> generateLeftSideOperands(vector<string> operands);
 vector<string> generateRightSideOperands(vector<string> operands);
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions);
+string escapeForCustomAsm(string s);
 string formatRules(vector<string> rules);
 void writeRulesToFile(string filePath, string templatePath, string rulesString);
 string concatVectorElements(vector<string> v, string delimiter);
@@ -48,21 +50,15 @@ void replaceAll(string &str, const string &from, const string &to);
 int main() {
   json instructions = getJSONFromFile("../docs/resources/data/instructionData.jsonc")["instructions"];
   vector<string> rules;
-
-  int maxIndexOfAssignOperator = -1;
   unordered_map<string, string> opcodes;
 
-  for(int i = 0; i < instructions.size(); i++) {
-    auto currentInstruction = instructions[i];
-    string currentRule = generateRule(currentInstruction);
+  for(json& instruction : instructions) {
+    string currentRule = generateRule(instruction);
+    bool isInstructionReal = string(instruction["type"]) == "REAL";
 
-    if(currentInstruction.contains("opcode")) {
-      string opcode = currentInstruction["opcode"];
-      replaceAll(opcode, "R", "");
-      replaceAll(opcode, "L", "");
-      replaceAll(opcode, "X", "");
-      replaceAll(currentRule, "<opcode>", opcode);
-      opcodes[currentInstruction["mnemonic"]] = opcode;
+    if(isInstructionReal) {
+      string opcode = instruction["opcode"];
+      opcodes[instruction["mnemonic"]] = stripOpcode(opcode);
     }
 
     stringstream ss(currentRule);
@@ -86,9 +82,9 @@ json getJSONFromFile(string filePath) {
   return json::parse(jsonFile, nullptr, true, true);
 }
 
-string generateRule(auto instruction) {
-  vector<string> operands = instruction["operands"];
+string generateRule(json& instruction) {
   string mnemonic = string(instruction["mnemonic"]);
+  vector<string> operands = instruction["operands"];
   bool isInstructionReal = string(instruction["type"]) == "REAL";
   if(mnemonic == "mov") {
     return handleSpecialCaseMov(instruction);
@@ -98,27 +94,34 @@ string generateRule(auto instruction) {
   string rule = format("{} {} => ", mnemonic, concatVectorElements(leftSideOperands, ", "));
 
   if(isInstructionReal) {
-    rule += "0b<opcode>";
+    string opcode = instruction["opcode"];
+    rule += "0b" + stripOpcode(opcode);
 
     if(operands.size() == 0) return rule;
 
     vector<string> rightSideOperands = generateRightSideOperands(operands);
-    rule += " @ " + concatVectorElements(rightSideOperands, " @ ");;
-    return rule;
+    rule += " @ " + concatVectorElements(rightSideOperands, " @ ");
+  } else {
+    vector<string> mappedInstructions = instruction["mappedInstructions"];
+    rule += concatPseudoInstructions(mnemonic, mappedInstructions);
   }
-
-  vector<string> mappedInstructions = instruction["mappedInstructions"];
-  rule += concatPseudoInstructions(mnemonic, mappedInstructions);
 
   return rule;
 }
 
-string handleSpecialCaseMov(auto instruction) {
+string stripOpcode(string opcode) {
+  replaceAll(opcode, "R", "");
+  replaceAll(opcode, "L", "");
+  replaceAll(opcode, "X", "");
+  return opcode;
+}
+
+string handleSpecialCaseMov(json& instruction) {
   json movData = getJSONFromFile("../docs/resources/data/movData.json");
   vector<string> movRules;
   map<string, map<string, string>> dataForRegdRegsMovRule;
 
-  for(const auto currentData : movData) {
+  for(const json& currentData : movData) {
     string opcode = currentData["opcode"];
     string sourceRegister = currentData["from"];
     string destinationRegister = currentData["to"];
@@ -184,18 +187,22 @@ vector<string> generateRightSideOperands(vector<string> operands) {
 }
 
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions) {
-  if(mnemonic == "call") {  //handle special case call, in this representation of mnemonic, every mnemonic has a space behind its name
+  if(mnemonic == "call") {
     mappedInstructions.push_back("nextInstructionAddress:");
     return "\nasm{\n\t" + concatVectorElements(mappedInstructions, "\n\t") + "\n}";
   }
 
   for(string& instr : mappedInstructions) {
-    replaceAll(instr, "<", "{");  //replace argument brackets that exist in mapped instructions, customasm needs curly braces for that
-    replaceAll(instr, ">", "}");
-    instr = "asm{ " + instr + " }";
+    instr = "asm{ " + escapeForCustomAsm(instr) + " }";
   }
 
   return concatVectorElements(mappedInstructions, " @ ");
+}
+
+string escapeForCustomAsm(string s) {
+  replaceAll(s, "<", "{");  //replace argument brackets that exist in mapped instructions, customasm needs curly braces for that
+  replaceAll(s, ">", "}");
+  return s;
 }
 
 string formatRules(vector<string> rules) {  
@@ -284,7 +291,7 @@ vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes
   return syntacticSugarRules;
 }
 
-void replaceAll(string &str, const string &from, const string &to) {
+void replaceAll(string& str, const string& from, const string& to) {
   int pos = 0;
   while ((pos = str.find(from, pos)) != string::npos) {
     str.replace(pos, from.length(), to);
