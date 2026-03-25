@@ -8,6 +8,7 @@ import REALInstruction from "../Instruction/REALInstruction.js";
 type MovDataEntry = { opcode: string; from: string; to: string };
 const BASE_TWO = 2;
 const BASE_SIXTEEN = 16;
+const opcodeMap = new Map();
 
 function createOpcodeMatrixTableCells() {
   const placeholder = document.getElementById("placeholder-opcode-table");
@@ -52,8 +53,8 @@ async function fillOpcodeMatrix() {
 }
 
 async function createOpcodeMap(): Promise<Map<string, string>> {
+  opcodeMap.clear();
   let instructions = await DataProvider.getInstructions();
-  const opcodeMap = new Map();
 
   const setOpcodeMap = (binaryOpcode: string, label: string) => {
     if (opcodeMap.has(binaryOpcode) && opcodeMap.get(binaryOpcode) !== label) {
@@ -145,6 +146,33 @@ async function getOpcodeMapForMov(instruction: REALInstruction): Promise<[{ opco
 function countCharsInString(string: string, char: string) {
   return [...string].filter((c) => c === char).length;
 }
+
+function copyOpcodeMap() {
+  let entries = new Array(256).fill(`"INVALID"`);
+  console.log(opcodeMap);
+  opcodeMap.forEach((value, key) => {
+    const index = parseInt(key, 2);
+    entries[index] = `"${value}"`;
+  });
+  const clipboardString = entries.join(",\n").replaceAll("<br>", " ").replaceAll("&rarr;", "->").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+
+  const icon = document.getElementById("copy-button-icon") as HTMLImageElement;
+  navigator.clipboard
+    .writeText(clipboardString)
+    .then(() => {
+      const originalIcon = icon.src;
+      console.log(originalIcon);
+      icon.src = originalIcon + "/../check.svg";
+      setTimeout(() => {
+        icon.src = originalIcon;
+      }, 1500);
+    })
+    .catch((err) => {
+      console.error("Failed to copy text: ", err);
+    });
+}
+// Expose function to global scope
+(window as any).copyOpcodeMap = copyOpcodeMap;
 
 createOpcodeMatrixTableCells();
 fillOpcodeMatrix();

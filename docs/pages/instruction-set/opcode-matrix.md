@@ -13,6 +13,12 @@ nav_exclude: true
 
 ---
 
+<div style="text-align: right;">
+<button class="btn" onclick="copyOpcodeMap()">
+  <img id="copy-button-icon" src="{{ site.baseurl }}/resources/icons/content-copy.svg" alt="Content Copy Icon" style="width:20px; height:20px; vertical-align: middle;">
+</button>
+</div>
+
 <div id="placeholder-opcode-table"></div>
 
 Each opcode has an associated color which represents the flag (combination) that is available to that opcode.
