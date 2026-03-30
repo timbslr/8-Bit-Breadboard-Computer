@@ -289,15 +289,12 @@ void loop() {
 
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.setTextSize(2);
   display.println(buffer);
 
-  display.setTextSize(1);
   printOpcodeHex(opcode);
   printOpcodeBin(opcode);
 
   display.display();
-  delay(100);
 }
 
 byte readByte() {
