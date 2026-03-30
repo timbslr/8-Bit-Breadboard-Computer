@@ -203,9 +203,6 @@ void handleSpecialCaseMov(std::vector<std::vector<std::string>> activeBits) {
 
 // Only works if each operand type (e.g. register) occurs at most once in the opcode/instruction operand list
 void processInstruction(bool flag, std::string opcodeBinaryString, std::vector<std::vector<std::string>> activeBits) {
-  int registerIndex = opcodeBinaryString.find('R'); //used for checking if the opcode contains register arguments
-  int lcdRegisterIndex = opcodeBinaryString.find('L');
-
   for(int i = 0; i < AMOUNT_OF_REGISTERS; i++) {
     for(int j = 0; j < AMOUNT_OF_INDEX_REGISTERS; j++) {
       for(int k = 0; k < AMOUNT_OF_LCD_REGISTERS; k++) {
