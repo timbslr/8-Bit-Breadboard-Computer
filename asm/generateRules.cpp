@@ -38,7 +38,8 @@ string stripOpcode(string opcode);
 string handleSpecialCaseMov(json& instruction);
 string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule);
 vector<string> generateLeftSideOperands(vector<string> operands);
-vector<string> generateRightSideOperands(vector<string> operands);
+vector<string> generateRightSideOperands(string opcode, vector<string> operands);
+string createBinString(vector<bool> binPieces);
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions);
 string escapeForCustomAsm(string s);
 string formatRules(vector<string> rules);
@@ -95,12 +96,15 @@ string generateRule(json& instruction) {
 
   if(isInstructionReal) {
     string opcode = instruction["opcode"];
-    rule += "0b" + stripOpcode(opcode);
+    vector<string> rightSideOperands = generateRightSideOperands(opcode, operands);
 
-    if(operands.size() == 0) return rule;
+    //remove empty strings
+    rightSideOperands.erase(
+      remove(rightSideOperands.begin(), rightSideOperands.end(), ""),
+      rightSideOperands.end()
+    );
 
-    vector<string> rightSideOperands = generateRightSideOperands(operands);
-    rule += " @ " + concatVectorElements(rightSideOperands, " @ ");
+    rule += concatVectorElements(rightSideOperands, " @ ");
   } else {
     vector<string> mappedInstructions = instruction["mappedInstructions"];
     rule += concatPseudoInstructions(mnemonic, mappedInstructions);
@@ -176,14 +180,64 @@ vector<string> generateLeftSideOperands(vector<string> operands) {
     return leftSideOperands;
 }
 
-vector<string> generateRightSideOperands(vector<string> operands) {
+vector<string> generateRightSideOperands(string opcode, vector<string> operands) {
   vector<string> rightSideOperands;
+  
+  int currentOperandIndex = 0;
+  vector<bool> currentOpcodePieces;
 
-  for(const string& operand : operands) {
+  //append operands that occur in the opcode
+  for(int i = 0; i < opcode.size(); i++) {
+    char c = opcode[i];
+    if(c == '0' || c == '1') {
+      currentOpcodePieces.push_back(c == '1');
+      continue;
+    }
+
+    rightSideOperands.push_back(createBinString(currentOpcodePieces));
+    currentOpcodePieces.clear();
+    switch(c) {
+      case 'L': 
+        rightSideOperands.push_back("lcdreg");
+        break;
+      case 'X': 
+        rightSideOperands.push_back("idxreg");
+        break;
+      case 'R': 
+        rightSideOperands.push_back("reg");
+        i += 2;
+        break;
+      default: 
+        cerr << "Found invalid symbol in opcode: " << c << endl;
+        break;
+    }
+    currentOperandIndex++;
+  }
+
+  if(currentOpcodePieces.size() > 0) {
+    rightSideOperands.push_back(createBinString(currentOpcodePieces));
+  }
+  
+  //append rest of operands
+  for(int i = currentOperandIndex; i < operands.size(); i++) {
+    string operand = operands[i];
     rightSideOperands.push_back(operand == "addr" ? "le(addr)" : operand);
   }
 
   return rightSideOperands;
+}
+
+string createBinString(vector<bool> binPieces) {
+  if(binPieces.size() == 0) {
+    return "";
+  }
+
+  string binString = "0b";
+  for(bool b : binPieces) {
+    binString += to_string(b);
+  }
+
+  return binString;
 }
 
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions) {

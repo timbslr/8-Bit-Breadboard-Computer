@@ -135,8 +135,8 @@
 	s7sdum                                                    => 0b00000011
 	out7sdi {imm: i8}                                         => 0b00101111 @ imm
 	outlcd {lcdreg: lcdregister}, {reg: register}             => 0b1000 @ lcdreg @ reg
-	outlcdi {lcdreg: lcdregister}, {imm: i8}                  => 0b1000111 @ lcdreg @ imm
-	lcdrda {lcdreg: lcdregister}                              => 0b1000110 @ lcdreg
+	outlcdi {lcdreg: lcdregister}, {imm: i8}                  => 0b1000 @ lcdreg @ 0b111 @ imm
+	lcdrda {lcdreg: lcdregister}                              => 0b1000 @ lcdreg @ 0b110
 	rxrd {reg: register}                                      => 0b01110 @ reg
 	txsend {reg: register}                                    => 0b01111 @ reg
 	txsendi {imm: i8}                                         => 0b01111111 @ imm
