@@ -7,7 +7,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "11010000",
+      "opcode": "11000011",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -72,7 +72,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "11010010",
+      "opcode": "11000101",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -262,7 +262,7 @@
       "type": "REAL",
       "operands": [],
       "requiresFlag": false,
-      "opcode": "11010001",
+      "opcode": "11000100",
       "microinstructions": [
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
@@ -432,6 +432,26 @@
       "shortDescription": "<reg> = mem[<addr> + <idxreg>]"
     },
     {
+      "name": "load indirect register",
+      "mnemonic": "ldindr",
+      "type": "REAL",
+      "operands": ["reg"],
+      "requiresFlag": false,
+      "opcode": "11010RRR",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_A", "IE_MAR_H"],
+        ["OE_TMP", "IE_MAR_L"],
+        ["MEM_EN_IO", "IE_<reg>"],
+        ["RSC"]
+      ],
+      "group": "REG-MEM",
+      "indexInGroup": 6,
+      "shortDescription": "<reg> = mem[A << 8 | TMP]"
+    },
+    {
       "name": "load stack-pointer relative",
       "mnemonic": "ldsprel",
       "type": "REAL",
@@ -543,6 +563,26 @@
       "group": "REG-MEM",
       "indexInGroup": 6,
       "shortDescription": "mem[<addr> + <idxreg>] = <reg>"
+    },
+    {
+      "name": "store indirect register",
+      "mnemonic": "stindr",
+      "type": "REAL",
+      "operands": ["reg"],
+      "requiresFlag": false,
+      "opcode": "11111RRR",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_A", "IE_MAR_H"],
+        ["OE_TMP", "IE_MAR_L"],
+        ["MEM_EN_IO", "MEM_WE", "OE_<reg>"],
+        ["RSC"]
+      ],
+      "group": "REG-MEM",
+      "indexInGroup": 6,
+      "shortDescription": "mem[A << 8 | TMP] = <reg>"
     },
     {
       "name": "store stack-pointer relative",
@@ -709,7 +749,7 @@
       "mnemonic": "incm",
       "type": "PSEUDO",
       "operands": ["addr"],
-      "mappedInstructions": ["ld X, <addr>", "incx", "st X, <addr>"],
+      "mappedInstructions": ["ld A, <addr>", "addi 1", "st A, <addr>"],
       "group": "REG-MEM",
       "indexInGroup": 15,
       "shortDescription": "mem[<addr>] = mem[<addr>] + 1"
@@ -755,7 +795,7 @@
       "mnemonic": "decm",
       "type": "PSEUDO",
       "operands": ["addr"],
-      "mappedInstructions": ["ld X, <addr>", "decx", "st X, <addr>"],
+      "mappedInstructions": ["ld A, <addr>", "addi -1", "st A, <addr>"],
       "group": "REG-MEM",
       "indexInGroup": 18,
       "shortDescription": "mem[<addr>] = mem[<addr>] - 1"
