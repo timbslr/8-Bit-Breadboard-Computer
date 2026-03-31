@@ -32,11 +32,11 @@
 }
 
 #ruledef {
-	add                                                       => 0b11010000
+	add                                                       => 0b11000011
 	addi {imm: i8}                                            => asm{ li TMP, {imm} } @ asm{ add }
 	addc                                                      => 0b00100100
 	addci {imm: i8}                                           => asm{ li TMP, {imm} } @ asm{ addc }
-	sub                                                       => 0b11010010
+	sub                                                       => 0b11000101
 	subc                                                      => 0b00100101
 	subci {imm: i8}                                           => asm{ li TMP, {imm} } @ asm{ subc }
 	and                                                       => 0b11100010
@@ -48,7 +48,7 @@
 	not                                                       => 0b11100100
 	neg                                                       => asm{ not } @ asm{ addi 1 }
 	shl                                                       => 0b11110010
-	slr                                                       => 0b11010001
+	slr                                                       => 0b11000100
 	sar                                                       => 0b11110000
 	ror                                                       => 0b11110100
 	rol                                                       => 0b11110001
@@ -116,9 +116,11 @@
 		}
 	ld {reg: register}, {addr: u16}                           => 0b00010 @ reg @ le(addr)
 	ldo {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0011 @ reg @ idxreg @ le(addr)
+	ldindr {reg: register}                                    => 0b11010 @ reg
 	ldsprel {reg: register}, {imm: i8}                        => 0b01010 @ reg @ imm
 	st {reg: register}, {addr: u16}                           => 0b00011 @ reg @ le(addr)
 	sto {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0100 @ reg @ idxreg @ le(addr)
+	stindr {reg: register}                                    => 0b11111 @ reg
 	stsprel {reg: register}, {addr: u16}                      => 0b01011 @ reg @ le(addr)
 	li {reg: register}, {imm: i8}                             => 0b01101 @ reg @ imm
 	push {reg: register}                                      => 0b10010 @ reg
@@ -126,10 +128,10 @@
 	peek {reg: register}                                      => 0b10110 @ reg
 	incx                                                      => 0b01100100
 	incy                                                      => 0b01100110
-	incm {addr: u16}                                          => asm{ ld X, {addr} } @ asm{ incx } @ asm{ st X, {addr} }
+	incm {addr: u16}                                          => asm{ ld A, {addr} } @ asm{ addi 1 } @ asm{ st A, {addr} }
 	decx                                                      => 0b01100101
 	decy                                                      => 0b01100111
-	decm {addr: u16}                                          => asm{ ld X, {addr} } @ asm{ decx } @ asm{ st X, {addr} }
+	decm {addr: u16}                                          => asm{ ld A, {addr} } @ asm{ addi -1 } @ asm{ st A, {addr} }
 	out7sd {reg: register}                                    => 0b00101 @ reg
 	s7sdsm                                                    => 0b11000010
 	s7sdum                                                    => 0b00000011
