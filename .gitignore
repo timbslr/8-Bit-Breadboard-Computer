@@ -3,6 +3,7 @@ Schematics/8-Bit Breadboard Computer Schematics_backup
 asm/a.exe
 asm/test.asm
 asm/test.bin
+asm/examples/wozmon.asm
 Control EEPROM Binary File Generators/a.exe
 notes.txt
 bin/compareBin.py

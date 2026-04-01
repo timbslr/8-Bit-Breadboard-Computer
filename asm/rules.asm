@@ -13,12 +13,12 @@
 }
 
 #subruledef register { ;subruledef prevents the mnemonics from being used as freestanding instructions
-  A    => 0b000
-  TMP  => 0b001
-  B    => 0b010
-  C    => 0b011
-  X    => 0b100
-  Y    => 0b101
+	A    => 0b000
+	B    => 0b010
+	C    => 0b011
+	TMP  => 0b001
+	X    => 0b100
+	Y    => 0b101
 }
 
 #subruledef idxregister { ;subruledef prevents the mnemonics from being used as freestanding instructions
@@ -61,7 +61,7 @@
 	mov C, F                                                  => 0b11001110
 	mov X, F                                                  => 0b11011110
 	mov Y, F                                                  => 0b11101110
-	mov {regd: register}, {regs: register}                    =>
+	mov {regd: register}, {regs: register}                    => 
 		{
 			regd == regs ? 0b0`0 : ; optimization: if registers are the same, don't emit an instruction
 			regd == 0b000 ? (
@@ -189,12 +189,12 @@
 	brxrdyc {addr: u16}                                       => 0b11100001 @ le(addr)
 	btxrdys {addr: u16}                                       => 0b11101000 @ le(addr)
 	btxrdyc {addr: u16}                                       => 0b11101001 @ le(addr)
-		
+
 	; Syntactic Sugar Rules:
-	ld {reg: register}, {idxreg: idxregister}[{addr: u16}]    => asm{ ldo {reg}, {idxreg}, {addr}  } 
-	st {reg: register}, {idxreg: idxregister}[{addr: u16}]    => asm{ sto {reg}, {idxreg}, {addr}  } 
-	ld {reg: register}, {imm: i8}[SP]                         => asm{ ldsprel {reg}, {imm} } 
-	st {reg: register}, {imm: i8}[SP]                         => asm{ stsprel {reg}, {imm} } 
+	ld {reg: register}, {idxreg: idxregister}[{addr: u16}]    => asm{ ldo {reg}, {idxreg}, {addr} }
+	st {reg: register}, {idxreg: idxregister}[{addr: u16}]    => asm{ sto {reg}, {idxreg}, {addr} }
+	ld {reg: register}, {imm: i8}[SP]                         => asm{ ldsprel {reg}, {imm} }
+	st {reg: register}, {imm: i8}[SP]                         => asm{ stsprel {reg}, {imm} }
 	jmp [A, TMP]                                              => asm{ jmpr } 
 	jmp ({addr: u16})                                         => asm{ jmpind {addr} }
 	add {reg1: register}, {reg2: register}, {reg3: register}  => 
