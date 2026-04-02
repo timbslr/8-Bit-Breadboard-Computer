@@ -37,3 +37,14 @@ void replaceAll(string& str, const string& from, const string& to) {
     pos += to.length();
   }
 }
+
+string repeat(string_view str, size_t count) {
+  string result = "";
+  result.reserve(str.size() * count);
+
+  for(int i = 0; i < count; i++) {
+    result += str;
+  }
+
+  return result;
+}

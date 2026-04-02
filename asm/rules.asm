@@ -189,7 +189,7 @@
 	brxrdyc {addr: u16}                                       => 0b11100001 @ le(addr)
 	btxrdys {addr: u16}                                       => 0b11101000 @ le(addr)
 	btxrdyc {addr: u16}                                       => 0b11101001 @ le(addr)
-
+	
 	; Syntactic Sugar Rules:
 	ld {reg: register}, {idxreg: idxregister}[{addr: u16}]    => asm{ ldo {reg}, {idxreg}, {addr} }
 	st {reg: register}, {idxreg: idxregister}[{addr: u16}]    => asm{ sto {reg}, {idxreg}, {addr} }
@@ -198,47 +198,47 @@
 	jmp [A, TMP]                                              => asm{ jmpr } 
 	jmp ({addr: u16})                                         => asm{ jmpind {addr} }
 	add {reg1: register}, {reg2: register}, {reg3: register}  => 
-    {
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ add } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
-      asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ add } @ asm{ mov {reg1}, A }
-    }
+		{
+			reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+			asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ add } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
+			asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ add } @ asm{ mov {reg1}, A }
+		}
 	addc {reg1: register}, {reg2: register}, {reg3: register} => 
-    {
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ addc } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
-      asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ addc } @ asm{ mov {reg1}, A }
-    }
+		{
+			reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+			asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ addc } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
+			asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ addc } @ asm{ mov {reg1}, A }
+		}
 	sub {reg1: register}, {reg2: register}, {reg3: register}  => 
-    {
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ sub } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
-      asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ sub } @ asm{ mov {reg1}, A }
-    }
+		{
+			reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+			asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ sub } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
+			asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ sub } @ asm{ mov {reg1}, A }
+		}
 	subc {reg1: register}, {reg2: register}, {reg3: register} => 
-    {
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ subc } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
-      asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ subc } @ asm{ mov {reg1}, A }
-    }
+		{
+			reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+			asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ subc } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
+			asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ subc } @ asm{ mov {reg1}, A }
+		}
 	and {reg1: register}, {reg2: register}, {reg3: register}  => 
-    {
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ and } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
-      asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ and } @ asm{ mov {reg1}, A }
-    }
+		{
+			reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+			asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ and } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
+			asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ and } @ asm{ mov {reg1}, A }
+		}
 	or {reg1: register}, {reg2: register}, {reg3: register}   => 
-    {
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ or } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
-      asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ or } @ asm{ mov {reg1}, A }
-    }
+		{
+			reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+			asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ or } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
+			asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ or } @ asm{ mov {reg1}, A }
+		}
 	xor {reg1: register}, {reg2: register}, {reg3: register}  => 
-    {
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ xor } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
-      asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ xor } @ asm{ mov {reg1}, A }
-    }
+		{
+			reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
+			asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ xor } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register
+			asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ xor } @ asm{ mov {reg1}, A }
+		}
 	addi {reg1: register}, {reg2: register}, {imm: i8}        => asm{ mov A, {reg2} } @ asm{ addi {imm} } @ asm{ mov {reg1}, A }
 	addci {reg1: register}, {reg2: register}, {imm: i8}       => asm{ mov A, {reg2} } @ asm{ addci {imm} } @ asm{ mov {reg1}, A }
 	subci {reg1: register}, {reg2: register}, {imm: i8}       => asm{ mov A, {reg2} } @ asm{ subci {imm} } @ asm{ mov {reg1}, A }

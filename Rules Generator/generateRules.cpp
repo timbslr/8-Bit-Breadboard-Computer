@@ -1,5 +1,6 @@
 #include <format>
 #include <unordered_set>
+#include "./RuleBuilder.cpp"
 #include "../lib/fileUtils.cpp"
 #include "../lib/utils.cpp"
 #include "../lib/json.hpp"
@@ -33,67 +34,60 @@ const unordered_map<string, string> leftSideOperandsMap = {
 };
 
 const int ASSIGN_OPERATOR_INDEX = 57;
+RuleBuilder rb(ASSIGN_OPERATOR_INDEX);
+const string RULES_FILE_PATH = "../asm/rules.asm";
 
-string generateRule(json& instruction);
+void appendRule(json& instruction);
 string stripOpcode(string opcode);
-string handleSpecialCaseMov(json& instruction);
-string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule);
+void appendMovRules(json& instruction);
+void appendTernaryPartOfMovRule(map<string, map<string, string>> dataForRegdRegsMovRule);
 vector<string> generateLeftSideOperands(vector<string> operands);
 vector<string> generateRightSideOperands(string opcode, vector<string> operands);
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions);
 string escapeForCustomAsm(string s);
-vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes);
-string createFormattedRule(string leftSide, string rightSide);
+void appendSyntacticSugarRules(unordered_map<string, string> opcodes);
 
 int main() {
   json instructions = getJSONFromFile("../docs/resources/data/instructionData.jsonc")["instructions"];
-  vector<string> rules;
   unordered_map<string, string> opcodes;
 
+  rb.indent(1);
   for(json& instruction : instructions) {
-    string currentRule = generateRule(instruction);
+    appendRule(instruction);
     bool isInstructionReal = string(instruction["type"]) == "REAL";
 
     if(isInstructionReal) {
       string opcode = instruction["opcode"];
       opcodes[instruction["mnemonic"]] = stripOpcode(opcode);
     }
-
-    stringstream ss(currentRule);
-    string singleRuleString;
-    while(getline(ss, singleRuleString, '\n')) {
-      rules.push_back(singleRuleString);
-    }
   }
 
-  vector<string> syntacticSugarRules = generateSyntacticSugarRules(opcodes);
-  rules.insert(rules.end(), syntacticSugarRules.begin(), syntacticSugarRules.end());
+  appendSyntacticSugarRules(opcodes);
 
-  string rulesString = concatVectorElements(rules, "\n");
-
-  duplicateFile("rulesTemplate.asm", "rules.asm");
-  replaceAllInFile("rules.asm", "\t<RULES>" , rulesString);
+  duplicateFile("rulesTemplate.asm", RULES_FILE_PATH);
+  replaceAllInFile(RULES_FILE_PATH, "\t<RULES>" , rb.build());
 
   string registerBinMapString = "";
   for (const auto& [reg, bin] : registerBinMap) {
     registerBinMapString += format("\t{:<4} => {}\n", reg, bin);
   }
   registerBinMapString.pop_back();  //remove last \n
-  replaceAllInFile("rules.asm", "\t<REGISTER_BIN_MAP>", registerBinMapString);
+  replaceAllInFile(RULES_FILE_PATH, "\t<REGISTER_BIN_MAP>", registerBinMapString);
 
   return 0;
 }
 
-string generateRule(json& instruction) {
+void appendRule(json& instruction) {
   string mnemonic = string(instruction["mnemonic"]);
   vector<string> operands = instruction["operands"];
   bool isInstructionReal = string(instruction["type"]) == "REAL";
   if(mnemonic == "mov") {
-    return handleSpecialCaseMov(instruction);
+    appendMovRules(instruction);
+    return;
   }
 
   vector<string> leftSideOperands = generateLeftSideOperands(operands);
-  string rule = createFormattedRule(mnemonic + " " + concatVectorElements(leftSideOperands, ", "), "");
+  rb.partialRuleHeader(mnemonic + " " + concatVectorElements(leftSideOperands, ", "));
 
   if(isInstructionReal) {
     string opcode = instruction["opcode"];
@@ -105,13 +99,11 @@ string generateRule(json& instruction) {
       rightSideOperands.end()
     );
 
-    rule += concatVectorElements(rightSideOperands, " @ ");
+    rb.endLine(concatVectorElements(rightSideOperands, " @ "));
   } else {
     vector<string> mappedInstructions = instruction["mappedInstructions"];
-    rule += concatPseudoInstructions(mnemonic, mappedInstructions);
+    rb.endLine(concatPseudoInstructions(mnemonic, mappedInstructions));
   }
-
-  return rule;
 }
 
 string stripOpcode(string opcode) {
@@ -121,7 +113,7 @@ string stripOpcode(string opcode) {
   return opcode;
 }
 
-string handleSpecialCaseMov(json& instruction) {
+void appendMovRules(json& instruction) {
   json movData = getJSONFromFile("../docs/resources/data/movData.json");
   vector<string> movRules;
   map<string, map<string, string>> dataForRegdRegsMovRule;
@@ -140,30 +132,31 @@ string handleSpecialCaseMov(json& instruction) {
     }
 
     // else it's a special rule and it's handled separately (e.g. a mov from the Flags-Register)
-    movRules.push_back(createFormattedRule(format("mov {}, {}", destinationRegister, sourceRegister), "0b" + opcode));
+    rb.ruleHeader(format("mov {}, {}", destinationRegister, sourceRegister), "0b" + opcode);
   }
-
-  movRules.push_back(generateRegdRegsMovRule(dataForRegdRegsMovRule));
-  return concatVectorElements(movRules, "\n");
+  
+  appendTernaryPartOfMovRule(dataForRegdRegsMovRule);
 }
 
 // dataForRegdRegsMovRule is grouped by destination
-string generateRegdRegsMovRule(map<string, map<string, string>> dataForRegdRegsMovRule) {
-  string rule = createFormattedRule(format("mov {}, {}", REGISTER_ARGUMENT("regd"), REGISTER_ARGUMENT("regs")), "\n\t\t{\n");
-  rule += "\t\t\tregd == regs ? 0b0`0 : ; optimization: if registers are the same, don't emit an instruction\n";
+void appendTernaryPartOfMovRule(map<string, map<string, string>> dataForRegdRegsMovRule) {
+  rb.ruleHeader(format("mov {}, {}", REGISTER_ARGUMENT("regd"), REGISTER_ARGUMENT("regs")), "");
+  rb.openScope();
+  rb.line("regd == regs ? 0b0`0 : ; optimization: if registers are the same, don't emit an instruction");
 
   for (const auto& [regd, value] : dataForRegdRegsMovRule) {
-    rule += format("\t\t\tregd == {} ? (\n", registerBinMap.at(regd));
+    rb.line(format("regd == {} ? (", registerBinMap.at(regd)));
+    rb.indent(1);
     for (const auto& [regs, opcode] : value) {
-        rule += format("\t\t\t\tregs == {} ? 0b{}`8 :\n", registerBinMap.at(regs), opcode);
+      rb.line(format("regs == {} ? 0b{}`8 :", registerBinMap.at(regs), opcode));
     }
-    rule += "\t\t\t\tassert(false, \"Invalid mov combination found!\")\n";
-    rule += "\t\t\t) :\n";
+    rb.line("assert(false, \"Invalid mov combination found!\")");
+    rb.indent(-1);
+    rb.line(") :");
   }
 
-  rule += "\t\t\tassert(false, \"Invalid mov combination found!\")\n";
-  rule += "\t\t}\n";
-  return rule;
+  rb.line("assert(false, \"Invalid mov combination found!\")");
+  rb.closeScope();
 }
 
 vector<string> generateLeftSideOperands(vector<string> operands) {
@@ -230,8 +223,16 @@ vector<string> generateRightSideOperands(string opcode, vector<string> operands)
 
 string concatPseudoInstructions(string mnemonic, vector<string> mappedInstructions) {
   if(mnemonic == "call") {
-    mappedInstructions.push_back("nextInstructionAddress:");
-    return "\n\t\tasm{\n\t\t\t" + concatVectorElements(mappedInstructions, "\n\t\t\t") + "\n\t\t}";
+    RuleBuilder localRb;
+    localRb.endLine();
+    localRb.indent(1);
+    localRb.openScope("asm");
+    for(const string& s : mappedInstructions) {
+      localRb.line(s);
+    }
+    localRb.line("nextInstructionAddress:");
+    localRb.closeScope();
+    return localRb.build();
   }
 
   for(string& instr : mappedInstructions) {
@@ -247,51 +248,40 @@ string escapeForCustomAsm(string s) {
   return s;
 }
 
-vector<string> generateSyntacticSugarRules(unordered_map<string, string> opcodes) {
-  vector<string> syntacticSugarRules;
-  syntacticSugarRules.push_back("\n\t; Syntactic Sugar Rules:");
-  syntacticSugarRules.push_back(createFormattedRule(format("ld {}, {}[{}]", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")), "asm{ ldo {reg}, {idxreg}, {addr} }"));
-  
-  syntacticSugarRules.push_back(createFormattedRule(format("st {}, {}[{}]", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")), "asm{ sto {reg}, {idxreg}, {addr} }"));
-  syntacticSugarRules.push_back(createFormattedRule(format("ld {}, {}[SP]", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")), "asm{ ldsprel {reg}, {imm} }"));
-  syntacticSugarRules.push_back(createFormattedRule(format("st {}, {}[SP]", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")), "asm{ stsprel {reg}, {imm} }"));
-
-  syntacticSugarRules.push_back(createFormattedRule("jmp [A, TMP]", "asm{ jmpr } "));
-  syntacticSugarRules.push_back(createFormattedRule(format("jmp ({})", ADDRESS_ARGUMENT("addr")), "asm{ jmpind {addr} }"));
+void appendSyntacticSugarRules(unordered_map<string, string> opcodes) {
+  rb.line("\n\t; Syntactic Sugar Rules:");
+  rb.ruleHeader(format("ld {}, {}[{}]", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")), "asm{ ldo {reg}, {idxreg}, {addr} }");
+  rb.ruleHeader(format("st {}, {}[{}]", REGISTER_ARGUMENT("reg"), INDXREGISTER_ARGUMENT("idxreg"), ADDRESS_ARGUMENT("addr")), "asm{ sto {reg}, {idxreg}, {addr} }");
+  rb.ruleHeader(format("ld {}, {}[SP]", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")), "asm{ ldsprel {reg}, {imm} }");
+  rb.ruleHeader(format("st {}, {}[SP]", REGISTER_ARGUMENT("reg"), IMMEDIATE_ARGUMENT("imm")), "asm{ stsprel {reg}, {imm} }");
+  rb.ruleHeader("jmp [A, TMP]", "asm{ jmpr } ");
+  rb.ruleHeader(format("jmp ({})", ADDRESS_ARGUMENT("addr")), "asm{ jmpind {addr} }");
 
   const string binaryALUInstructions[] = {"add", "addc", "sub", "subc", "and", "or", "xor"};
   const string unaryALUInstructions[] = {"addi", "addci", "subci", "andi", "ori", "xori", "not", "negate", "shl", "slr", "sar", "ror", "rol"};
 
   for(const string& mnemonic : binaryALUInstructions) {
     string leftSide = format("{} {}, {}, {}", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"), REGISTER_ARGUMENT("reg3"));
-
-    string rightSide = format(R"(
-    {{
-      reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read
-      asm{{ mov BUF, {{reg3}} }} @ asm{{ mov A, {{reg2}} }} @ asm{{ mov TMP, BUF }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }} : ; so cache it in the BUF-Register
-      asm{{ mov A, {{reg2}} }} @ asm{{ mov TMP, {{reg3}} }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }}
-    }})", mnemonic, mnemonic);
-
-    syntacticSugarRules.push_back(createFormattedRule(leftSide, rightSide));
+    rb.partialRuleHeader(leftSide);
+    rb.endLine();
+    rb.openScope();
+    rb.line("reg3 == 0b000 && reg2 != 0b000 ?  ; if reg3 is A (and reg2 is not A), it would be overwritten before the value can be read");
+    rb.line("asm{ mov BUF, {reg3} } @ asm{ mov A, {reg2} } @ asm{ mov TMP, BUF } @ asm{ " + mnemonic + " } @ asm{ mov {reg1}, A } : ; so cache it in the BUF-Register");
+    rb.line("asm{ mov A, {reg2} } @ asm{ mov TMP, {reg3} } @ asm{ " + mnemonic + " } @ asm{ mov {reg1}, A }");
+    rb.closeScope();
   }
 
   for(const string& mnemonic : unaryALUInstructions) {
     const bool isImmediateInstruction = mnemonic.back() == 'i';
     if(isImmediateInstruction) {
       string leftSide = format("{} {}, {}, {}", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"), IMMEDIATE_ARGUMENT("imm"));
-      string rightSide = format("asm{{ mov A, {{reg2}} }} @ asm{{ {} {{imm}} }} @ asm{{ mov {{reg1}}, A }}", mnemonic);
-      syntacticSugarRules.push_back(createFormattedRule(leftSide, rightSide));
+      string rightSide = "asm{ mov A, {reg2} } @ asm{ " + mnemonic + " {imm} } @ asm{ mov {reg1}, A }";
+      rb.ruleHeader(leftSide, rightSide);
     }  else {
       string leftSide = format("{} {}, {}", mnemonic, REGISTER_ARGUMENT("reg1"), REGISTER_ARGUMENT("reg2"));
-      string rightSide = format("asm{{ mov A, {{reg2}} }} @ asm{{ {} }} @ asm{{ mov {{reg1}}, A }}", mnemonic);
-      syntacticSugarRules.push_back(createFormattedRule(leftSide, rightSide));
+      string rightSide = "asm{ mov A, {reg2} } @ asm{ " + mnemonic + " } @ asm{ mov {reg1}, A }";
+      rb.ruleHeader(leftSide, rightSide);
     }
     continue;
   }
-
-  return syntacticSugarRules;
-}
-
-string createFormattedRule(string leftSide, string rightSide) {
-  return format("\t{:<{}} => {}", leftSide, ASSIGN_OPERATOR_INDEX, rightSide);
 }

@@ -1,6 +1,6 @@
 .vscode
 Schematics/8-Bit Breadboard Computer Schematics_backup
-asm/a.exe
+Rules Generator/a.exe
 asm/test.asm
 asm/test.bin
 asm/examples/wozmon.asm

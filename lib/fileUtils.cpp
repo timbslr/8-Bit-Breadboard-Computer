@@ -24,7 +24,7 @@ void duplicateFile(string originalFilePath, string duplicatedFilePath) {
     fs::remove(duplicatedFilePath);
   }
 
-  fs::copy_file("./rulesTemplate.asm", "./rules.asm");
+  fs::copy_file(originalFilePath, duplicatedFilePath);
 }
 
 string readFileContent(string filePath) {
