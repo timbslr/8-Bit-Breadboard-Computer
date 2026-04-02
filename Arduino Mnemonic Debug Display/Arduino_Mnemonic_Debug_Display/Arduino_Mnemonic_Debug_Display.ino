@@ -8,7 +8,7 @@
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire);
 
-const int INSTRUCTION_REGISTER_PINS[] = {2, 3, 4, 5, 6, 7, 8, 9};
+const int INSTRUCTION_REGISTER_PINS[] = {9, 8, 7, 6, 5, 4, 3, 2};
 char buffer[32];
 
 const char opcodeMap[256][32] PROGMEM = {
@@ -207,9 +207,9 @@ const char opcodeMap[256][32] PROGMEM = {
 "bleu",
 "bgtu",
 "s7sdsm",
-"INVALID",
-"INVALID",
-"INVALID",
+"add",
+"slr",
+"sub",
 "INVALID",
 "INVALID",
 "mov C->A",
@@ -220,12 +220,12 @@ const char opcodeMap[256][32] PROGMEM = {
 "mov Y->C",
 "mov F->C",
 "INVALID",
-"add",
-"slr",
-"sub",
-"INVALID",
-"INVALID",
-"INVALID",
+"ldindr ->A",
+"ldindr ->TMP",
+"ldindr ->B",
+"ldindr ->C",
+"ldindr ->X",
+"ldindr ->Y",
 "INVALID",
 "INVALID",
 "mov X->A",
@@ -260,12 +260,12 @@ const char opcodeMap[256][32] PROGMEM = {
 "bns",
 "bnc",
 "INVALID",
-"INVALID",
-"INVALID",
-"INVALID",
-"INVALID",
-"INVALID",
-"INVALID",
+"stindr ->A",
+"stindr ->TMP",
+"stindr ->B",
+"stindr ->C",
+"stindr ->X",
+"stindr ->Y",
 "INVALID",
 "INVALID"
 };
