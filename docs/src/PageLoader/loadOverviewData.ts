@@ -86,11 +86,15 @@ async function createPseudoInstructionRows(pseudoInstructions: PSEUDOInstruction
         pseudoInstruction.getOperands().map((operand) => operand.getName()),
       ),
     );
-    const mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(
+    let mappedInstructionString = await Formatter.joinAndDecorateMappedInstructionsWithLink(
       pseudoInstruction.getMappedInstructions().map((instr) => {
         return instr.instanceString();
       }),
     );
+
+    if (mnemonic == "call") {
+      mappedInstructionString += "<br>nextInstructionAddress:";
+    }
 
     rows.push([mnemonicString, instructionString, mappedInstructionString]);
   }

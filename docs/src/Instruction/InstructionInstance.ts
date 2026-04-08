@@ -37,7 +37,7 @@ export class InstructionInstance {
   }
 
   instanceString(): string {
-    const operandString = this.operands.join(", ");
+    const operandString = this.operands.map((operand) => operand.getValue()).join(", ");
     return this.definition.getMnemonic() + " " + operandString;
   }
 }
