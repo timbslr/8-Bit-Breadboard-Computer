@@ -17,6 +17,9 @@ Technically, the 4-bit register chips even have a three-state output, so an extr
 An asynchronous input provides the ability to reset the registers to zero, the CLK-input provides a synchronization for loading data from the bus (on the rising CLK edge). On the other hand, outputting data from the register to the bus is asynchronous, as the bus transceiver outputs data immediately after it's Output Enable signal goes low. <br>
 
 The A-Register's specialty is that it is the first operand of the ALU, which means whenever you want to computer something with the ALU, no matter if it's a unary or binary operation, you have to store the first operands value in this register.
+
+{: .warning}
+Be careful when storing values into the A-Register as its contents may be overwritten by some instructions. If you store values here, ensure they aren’t overwritten unexpectedly, or store them in the safe B-, C-, X- or Y-Register.
 <br>
 <part-list src="{{ site.baseurl }}/resources/PartLists/A-Register.csv"></part-list>
 
