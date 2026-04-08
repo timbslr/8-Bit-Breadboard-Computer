@@ -1,6 +1,28 @@
 import Instruction from "./Instruction/Instruction.js";
 import InstructionRepository from "./Instruction/InstructionRepository.js";
 
+const csvNameToMarkdownName = new Map<string, string>([
+  ["7-Segment Display", "7-segment-display"],
+  ["A-Register", "a-register"],
+  ["ALU", "arithmetic-logic-unit"],
+  ["B-Register", "b-c-registers"],
+  ["BUF-Register", "buffer-register"],
+  ["C-Register", "b-c-registers"],
+  ["Clock", "clock"],
+  ["Controller", "controller"],
+  ["Flags-Register", "flags-register"],
+  ["IR", "instruction-register"],
+  ["LCD", "liquid-crystal-display"],
+  ["MAR", "memory-address-register"],
+  ["Memory", "memory"],
+  ["PC", "program-counter"],
+  ["Reset", "reset"],
+  ["Serial Interface", "serial-interface"],
+  ["SP", "stack-pointer"],
+  ["TMP-Register", "tmp-register"],
+  ["X-Register", "x-y-registers"],
+  ["Y-Register", "x-y-registers"],
+]);
 export default class Formatter {
   static formatClobberedRegisters(clobberedRegisters: Set<string>): string {
     const formattedString = [...clobberedRegisters].map((entry) => Formatter.escapeHTML(entry)).join(",<br>");
@@ -49,7 +71,15 @@ export default class Formatter {
   }
 
   static formatOriginListWithLinks(originList: Set<string>) {
-    const listItems = Array.from(originList).map((entry) => "<li>" + entry.replace(".csv", "") + "</li>");
+    const listItems = Array.from(originList).map((entry) => {
+      const entryFileName = entry.replace(".csv", "");
+      const markdownFileName = csvNameToMarkdownName.get(entryFileName);
+      if (markdownFileName) {
+        return `<li> <a href="./modules/${markdownFileName}"> ${entryFileName} </a> </li>`;
+      }
+      return `<li> ${entryFileName} </li>`;
+    });
+
     return `<ul> ${listItems.join(" ")} </ul>`;
   }
 }
