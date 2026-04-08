@@ -6,9 +6,6 @@ permalink: /modules/serial-interface
 parent: Modules
 ---
 
-{: .note }
-This module is work in progress and has not been completed yet. This is the reason why it doesn't appear in the hardware overview yet.
-
 <script type="module" src="{{ site.baseurl }}/dist/PartList.js"></script>
 
 ## Serial Interface
