@@ -1,0 +1,19 @@
+{
+  "signal": [
+    { "name": "CLK", "wave": "10...1...0" },
+    {},
+    { "name": "LCD_RS", "wave": "==.......=" },
+    { "name": "LCD_RW", "wave": "==.......=" },
+    {},
+    { "name": "LCD_E", "wave": "01.......0" },
+    { "name": "E", "wave": "01...0...." },
+    {},
+    {
+      "name": "BUS",
+      "wave": "x2.......x",
+      "data": ["DATA"]
+    }
+  ]
+}
+
+//https://wavedrom.com/editor.html?%7Bsignal%3A%20%5B%0A%20%20%7Bname%3A%20%27CLK%27%2C%20wave%3A%20%2710...1...0%27%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7Bname%3A%20%27LCD_RS%27%2C%20wave%3A%20%27%3D%3D.......%3D%27%7D%2C%0A%20%20%7Bname%3A%20%27LCD_RW%27%2C%20wave%3A%20%27%3D%3D.......%3D%27%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7Bname%3A%20%27LCD_E%27%2C%20wave%3A%20%2701.......0%27%7D%2C%0A%20%20%7Bname%3A%20%27E%27%2C%20wave%3A%20%2701...0....%27%7D%2C%0A%20%20%7B%7D%2C%0A%20%20%7Bname%3A%20%27BUS%27%2C%20wave%3A%20%27x2.......x%27%2C%20data%3A%20%5B%27DATA%27%5D%7D%2C%0A%5D%7D%0A
