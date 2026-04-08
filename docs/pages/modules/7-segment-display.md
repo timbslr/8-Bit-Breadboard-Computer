@@ -18,7 +18,7 @@ According to the CAT28C16API's datasheet (the EEPROM I used), the chip has a tot
 One of these features is the multiplexing of the display's digits: The EEPROM has only eight I/O pins, meaning that no more than one digit can be controlled at once. In order to represent all possible numbers (-128 to 127), we need a minimum number of four digits on the display (one for the negative sign and three for any three-digit number).
 The solution for displaying four digits simultaneously is multiplexing:
 <br>
-Only one of the four digits is active at the same time, but the module cycles through the digits so quickly, that the human eye recognizes it as if all digits were shown at the same time. In order to decode which of the 4 digits is active at the moment, the decoder/EEPROM needs an additional two bits. The last address bit available is used for switching the lookup-table between the normal decimal representation and a hexadecimal one.
+Only one of the four digits is active at the same time, but the module cycles through the digits so quickly, that the human eye recognizes it as if all digits were shown at the same time. In order to decode which of the 4 digits is active at the moment, the decoder/EEPROM needs an additional two bits. The last address-bit available is used for switching the lookup-table between the normal decimal representation and a hexadecimal one.
 
 Three chips of the module's schematic have not been described in the upper section yet.
 The first one is a 555 timer chip, which controls the speed of the multiplexing, meaning how quickly it cycles through the digits.

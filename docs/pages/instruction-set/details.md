@@ -8,7 +8,7 @@ nav_exclude: true
 :point_right: Click to switch representation:
 
 [Instruction Set Overview](./overview){: .btn .btn-outline}
-[OpCode Matrix](./opcode-matrix){: .btn .btn-outline}
+[Opcode Matrix](./opcode-matrix){: .btn .btn-outline}
 [Instruction Details](./details){: .btn .btn-green}
 
 ---

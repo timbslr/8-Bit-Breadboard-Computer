@@ -10,7 +10,7 @@ parent: Modules
 
 ## Reset
 
-The reset module basically consists of a single button and a not gate which allows to send an active low or an active high reset signal to all other modules after the button was pressed (which you should do after every power-up, or when you just want to rerun your program).
+The reset module basically consists of a single button and a not gate which allows sending an active low or an active high reset signal to all other modules after the button was pressed (which you should do after every power-up, or when you just want to rerun your program).
 
 ### Why do we even need a reset signal at all?
 

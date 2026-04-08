@@ -15,7 +15,7 @@ Although I now had access to most of the parts, I still didn't know how such an 
 - micro-architecture (comparing the single-cycle, multi-cycle and the pipeline processor)
 - microinstructions
 
-and so much more, which I don't want to go into detail here as it goes way beyond the scope of this project. Overall, it was an awesome lecture, in which I was able to gain much new knowledge in that area. In the end, I had a good understanding of how these computers operate and what the different micro-steps are to execute a single instruction.
+But were much more topics, which I don't want to go into detail here as it goes way beyond the scope of this project. Overall, it was an awesome lecture, in which I was able to gain much new knowledge in that area. In the end, I had a good understanding of how these computers operate and what the different micro-steps are to execute a single instruction.
 
 With the new gained knowledge, I started my research what it takes to build an 8-Bit breadboard computer like the one from Ben Eater. I re-watched some of the old videos, searched the [Ben Eater subreddit](https://www.reddit.com/r/beneater/) for tips and tricks during building and found people improving upon Ben's design. In the end, I settled onto two key points:
 

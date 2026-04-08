@@ -8,7 +8,7 @@ nav_order: 5
 :point_right: Click to switch representation:
 
 [Instruction Set Overview](./overview){: .btn .btn-green}
-[OpCode Matrix](./opcode-matrix){: .btn .btn-outline}
+[Opcode Matrix](./opcode-matrix){: .btn .btn-outline}
 [Instruction Details](./details){: .btn .btn-outline}
 
 ---

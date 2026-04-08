@@ -42,10 +42,10 @@ This means my computer supports a total of 256 different instructions (although 
 
 The computer supports the four most common flags coming from the ALU: Zero, Negative, Carry and Overflow.
 So the naive approach is to use four of the controller EEPROMs address pins/inputs in order to input all flag (combination) to the controller.
-Unfortunately, there was only one address line left on these EEPROMs (12/13 are already used for the 4-bit step counter and the 8-bit opcode), so i had to came up with a solution to that problem.
+Unfortunately, there was only one address line left on these EEPROMs (12/13 are already used for the 4-bit step counter and the 8-bit opcode), so I had to come up with a solution to that problem.
 <br>
 In fact, every instruction uses at most one (combination) of the flags above, so I'm able to introduce a multiplexer and some combinatorial logic to route always only one flag to the controller.
-The three upper bits of the opcodes are fed into the control lines of that multiplexer, which means that theres a [range of opcodes]({{ site.baseurl }}/instruction-set/opcode-matrix#table2) where a specific flag (combination) is available.
+The three upper bits of the opcodes are fed into the control lines of that multiplexer, which means that there's a [range of opcodes]({{ site.baseurl }}/instruction-set/opcode-matrix#table2) where a specific flag (combination) is available.
 If you define an instruction, you must ensure that, if the instruction needs a specific flag, its opcode lies within the range where that needed flag is available.
 
 ### Control Line Decoders
@@ -59,12 +59,12 @@ If you think about it, many control lines aren't active at the same time: At mos
 That enables me to introduce two 4-to-16 bit decoders to the circuit, one for most of the input enable (IE) control lines and one for the output enable (OE) control lines.
 The control bits of the decoders are connected to four outputs of the control EEPROMs each, but in return, I get 16 new control lines per EEPROM, resulting in a total of 3\*8+2\*16 = 56 control lines that I have available to control all of my modules.
 
-### Annoying behaviour of the 28C64B
+### Annoying behavior of the 28C64B
 
-The 28C64B EEPROMs have an annoying behaviour: When their address/input lines change, their outputs are undefined for a short period of time, until the correct value for the next input is loaded and the outputs stabilize again.
+The 28C64B EEPROMs have an annoying behavior: When their address/input lines change, their outputs are undefined for a short period of time, until the correct value for the next input is loaded, and the outputs stabilize again.
 For some control lines, that's not an issue, because they are only read on the rising edge of the clock signal (like most input enable (IE) lines for example).
-But for some others, this results in a misbehaviour of the module and thus the entire computer. The issue is that during this undefined time period, there may be a spike on a control line.
-On the other hand, some modules are very sensitive to such spikes. As an example, have a look at the INC_X control line: As soon as there is a short spike on that line, the register increments. But if that spike occurs unintentionally, the register may increment without you specifying this in your assembly code.
+But for some others, this results in a misbehavior of the module and thus the entire computer. The issue is that during this undefined time period, there may be a spike on a control line.
+On the other hand, some modules are very sensitive to such spikes. As an example, take a look at the INC_X control line: As soon as there is a short spike on that line, the register increments. But if that spike occurs unintentionally, the register may increment without you specifying this in your assembly code.
 That's why you must avoid these spikes on some control lines at all cost.
 <br>
 The solution is a simple circuit called a ["low pass filter"](https://en.wikipedia.org/wiki/Low-pass_filter), consisting of just a single resistor and a capacitor.
