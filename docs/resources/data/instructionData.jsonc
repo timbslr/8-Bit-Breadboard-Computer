@@ -993,19 +993,17 @@
       "requiresFlag": false,
       "opcode": "00000111",
       "microinstructions": [
-        ["OE_PC_H", "IE_MAR_H"], //          ──┐
-        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
-        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["DEC_SP"], //                       ──┐
-        ["OE_SP_H", "IE_MAR_H"], //            ├──> pop TMP
-        ["OE_SP_L", "IE_MAR_L"], //            │
-        ["MEM_EN_IO", "IE_TMP"], //          ──┘
-        ["DEC_SP"], //                       ──┐
-        ["OE_SP_H", "IE_MAR_H"], //            ├──> pop A
-        ["OE_SP_L", "IE_MAR_L"], //            │
-        ["MEM_EN_IO", "IE_A"], //            ──┘
-        ["OE_A", "IE_PC_H"], //              ──┐
-        ["OE_TMP", "IE_PC_L"], //            ──┴──> jmpr
+        ["OE_PC_H", "IE_MAR_H"], //           ──┐
+        ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], //  ──┘
+        ["DEC_SP"], //                        ──┐
+        ["OE_SP_H", "IE_MAR_H"], //             ├──> pop BUF
+        ["OE_SP_L", "IE_MAR_L"], //             │
+        ["MEM_EN_IO", "IE_BUF", "DEC_SP"], // ──┘
+        ["OE_SP_H", "IE_MAR_H"], //           ──┐
+        ["OE_SP_L", "IE_MAR_L"], //             ├──> pop PC_H
+        ["MEM_EN_IO", "IE_PC_H"], //          ──┘
+        ["OE_BUF", "IE_PC_L"],
         ["RSC"]
       ],
       "group": "SYS",

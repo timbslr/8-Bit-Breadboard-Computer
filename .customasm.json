@@ -7,10 +7,6 @@
       "clobberedRegisters": ["TMP"]
     },
     {
-      "mnemonic": "ret",
-      "clobberedRegisters": ["A", "TMP"]
-    },
-    {
       "mnemonic": "decm",
       "clobberedRegisters": ["A", "TMP"]
     },
