@@ -12,6 +12,15 @@ async function createAndFillTables() {
   const descriptionElements = await getDescriptions(sortedInstructions.map((instruction) => instruction.getMnemonic()));
 
   for (const instruction of sortedInstructions) {
+    // print clobbered registers for the entry in .customasm.json
+    /* if (instruction.getClobberedRegisters().size > 0) {
+      console.log(
+        `{ "mnemonic": "${instruction.getMnemonic()}", "clobberedRegisters": [${Array.from(instruction.getClobberedRegisters())
+          .map((reg) => `"${reg}"`)
+          .join(", ")}] },`,
+      );
+    } */
+
     const instructionDetailSection = createHTMLInstructionDetailSection(
       instruction,
       descriptionElements.get(instruction.getMnemonic()) as HTMLElement,

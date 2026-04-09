@@ -25,6 +25,7 @@ export default class PSEUDOInstruction extends Instruction {
     for (const mappedInstruction of this.getMappedInstructions()) {
       let match;
       let mappedInstructionString = mappedInstruction.instanceString();
+      mappedInstructionString = mappedInstructionString.replaceAll("nextInstructionAddress", ""); //prevents "call" from including "A" as modified
       while ((match = REGISTER_REGEX.exec(mappedInstructionString))) {
         const register = match[1];
         modifiedRegisters.add(register);

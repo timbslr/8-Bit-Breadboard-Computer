@@ -1,3 +1,42 @@
 {
-  "ruleDefinitions": ["./asm/rules.asm"]
+  "ruleDefinitions": ["./asm/rules.asm"],
+  "showClobberedRegisters": true,
+  "clobberedRegisterInstructions": [
+    {
+      "mnemonic": "call",
+      "clobberedRegisters": ["TMP"]
+    },
+    {
+      "mnemonic": "ret",
+      "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "decm",
+      "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "incm",
+      "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "jmpind",
+      "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "ldo",
+      "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "ldsprel",
+      "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "sto",
+      "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "stsprel",
+      "clobberedRegisters": ["A", "TMP"]
+    }
+  ]
 }

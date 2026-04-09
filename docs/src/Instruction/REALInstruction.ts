@@ -45,6 +45,10 @@ export default class REALInstruction extends Instruction {
           if ((match = /IE_(.*)|li (\w+),/.exec(controlString))) {
             modifiedRegisters.add(match[1]);
           }
+
+          if (controlString.includes("RST_TMP")) {
+            modifiedRegisters.add("TMP");
+          }
         }
       }
     }
