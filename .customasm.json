@@ -28,11 +28,11 @@
     },
     {
       "mnemonic": "sto",
-      "clobberedRegisters": ["A", "TMP"]
+      "clobberedRegisters": ["A", "C", "TMP"]
     },
     {
       "mnemonic": "stsprel",
-      "clobberedRegisters": ["A", "TMP"]
+      "clobberedRegisters": ["A", "C", "TMP"]
     },
     {
       "mnemonic": "shl",

@@ -503,33 +503,35 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_<reg>", "IE_C"], //save the source-register in the C-Register, otherwise, this instructions wouldn't allow the A- and TMP-Register as source //TODO check what happens if source is C => OE_C, IE_C
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_<idxreg>", "IE_TMP"], //move X-Register to TMP-Register
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
+          ["OE_<idxreg>", "IE_TMP"], //move X- or Y-Register to TMP-Register
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X- or Y-Register) and move result into Buffer-Register
           ["OE_PC_H", "IE_MAR_H"], //             ──┐
           ["OE_PC_L", "IE_MAR_L"], //               ├──> Fetch second operand (= high byte of address) and move it into MAR_H (--> No Carry occurred, so we can directly move the high byte of the address into MAR_H)
           ["MEM_EN_IO", "IE_MAR_H", "INC_PC"], // ──┘
           ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store the value of the given register into memory at the computed address
+          ["MEM_EN_IO", "MEM_WE", "OE_C"], //store the value of the given register into memory at the computed address
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_<reg>", "IE_C"], //save the source-register in the C-Register, otherwise, this instructions wouldn't allow the A- and TMP-Register as source //TODO check what happens if source is C => OE_C, IE_C
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_<idxreg>", "IE_TMP"], //move X-Register to TMP-Register
-          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X-Register) and move result into Buffer-Register
+          ["OE_<idxreg>", "IE_TMP"], //move X- or Y-Register to TMP-Register
+          ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (stored in the X- or Y-Register) and move result into Buffer-Register
           ["OE_PC_H", "IE_MAR_H"], //                    ──┐
           ["OE_PC_L", "IE_MAR_L"], //                      ├──> Fetch second operand (= high byte of address) and move it into the A-Register (--> Carry occurred, so we have to increment the high byte of the address)
           ["MEM_EN_IO", "IE_A", "INC_PC", "RST_TMP"], // ──┘ // set TMP to zero (needed in the next step in order to increment)
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_MAR_H"], //add one to the high byte of the address (because a carry occurred)
           ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store the value of the given register into memory at the computed address
+          ["MEM_EN_IO", "MEM_WE", "OE_C"], //store the value of the given register into memory at the computed address
           ["RSC"]
         ]
       },
@@ -567,6 +569,7 @@
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_<reg>", "IE_C"], //save the source-register in the C-Register, otherwise, this instructions wouldn't allow the A- and TMP-Register as source //TODO check what happens if source is C => OE_C, IE_C
           ["OE_SP_L", "IE_A"], //move SP_L to A-Register
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch operand (= immediate) and move it into the TMP-Register
@@ -574,13 +577,14 @@
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "OE_ALU", "IE_BUF", "IE_F"], //add the low byte of the address to the offset (= immediate) and move result into Buffer-Register
           ["OE_SP_H", "IE_MAR_H"], // Move SP_H into MAR_H (--> No Carry occurred, so we can directly move the high byte of the address into MAR_H)
           ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store the value of the given register into memory at the computed address
+          ["MEM_EN_IO", "MEM_WE", "OE_C"], //store the value of the given register into memory at the computed address
           ["RSC"]
         ],
         "1": [
           ["OE_PC_H", "IE_MAR_H"], //          ──┐
           ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
           ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+          ["OE_<reg>", "IE_C"], //save the source-register in the C-Register, otherwise, this instructions wouldn't allow the A- and TMP-Register as source //TODO check what happens if source is C => OE_C, IE_C
           ["OE_SP_L", "IE_A"], //move SP_L to A-Register
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch operand (= immediate) and move it into the TMP-Register
@@ -589,7 +593,7 @@
           ["OE_SP_H", "IE_A", "RST_TMP"], // Move SP_H into the A-Register (--> Carry occurred, so we have to increment the high byte of the address), set TMP to zero (needed in the next step in order to increment)
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_MAR_H"], //add one to the high byte of the address (because a carry occurred)
           ["OE_BUF", "IE_MAR_L"], //computed address is now in MAR
-          ["MEM_EN_IO", "MEM_WE", "OE_<reg>"], //store the value of the given register into memory at the computed address
+          ["MEM_EN_IO", "MEM_WE", "OE_C"], //store the value of the given register into memory at the computed address
           ["RSC"]
         ]
       },

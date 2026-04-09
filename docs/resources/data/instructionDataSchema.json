@@ -28,6 +28,8 @@
         "RST_TMP",
         "IE_B",
         "OE_B",
+        "IE_C",
+        "OE_C",
         "IE_X",
         "OE_X",
         "INC_X",
