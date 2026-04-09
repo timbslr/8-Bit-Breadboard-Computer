@@ -1065,10 +1065,10 @@
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_A", "IE_MAR_L"],
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch second operand (= high byte of address) and move it into the BUF-Register
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_A", "IE_MAR_L"],
           ["OE_BUF", "IE_MAR_H"],
           ["MEM_EN_IO", "IE_PC_L", "RST_TMP"], //read from memory at read address and move the result into PC_L --> that's the final low byte of the address to be read, also resets TMP to zero for the next increment
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_MAR_L", "IE_F"], // increment addr_L and move the result into MAR_L
@@ -1082,10 +1082,10 @@
           ["OE_PC_H", "IE_MAR_H"], //         ──┐
           ["OE_PC_L", "IE_MAR_L"], //           ├──> Fetch first operand (= low byte of address) and move it into the A-Register
           ["MEM_EN_IO", "IE_A", "INC_PC"], // ──┘
-          ["OE_A", "IE_MAR_L"],
           ["OE_PC_H", "IE_MAR_H"], //           ──┐
           ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch second operand (= high byte of address) and move it into the BUF-Register
           ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+          ["OE_A", "IE_MAR_L"],
           ["OE_BUF", "IE_MAR_H"],
           ["MEM_EN_IO", "IE_PC_L", "RST_TMP"], //read from memory at read address and move the result into PC_L --> that's the final low byte of the address to be read, also resets TMP to zero for the next increment
           ["ALU_SRC_ARI", "ALU_AOP_ADD", "ALU_CIN", "OE_ALU", "IE_MAR_L", "IE_F"], // increment addr_L and move the result into MAR_L
