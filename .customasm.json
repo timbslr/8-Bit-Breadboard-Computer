@@ -33,6 +33,10 @@
     {
       "mnemonic": "stsprel",
       "clobberedRegisters": ["A", "TMP"]
+    },
+    {
+      "mnemonic": "shl",
+      "clobberedRegisters": ["TMP"]
     }
   ]
 }
