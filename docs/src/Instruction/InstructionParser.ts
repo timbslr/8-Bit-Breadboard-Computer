@@ -36,7 +36,6 @@ export class InstructionParser {
     const abstractOperands = instr.operands.map((operand) => new Operand(operand as OperandKind));
 
     const group = instr.group as InstructionGroup;
-    const indexInGroup = instr.indexInGroup;
     const shortDescription = instr.shortDescription;
 
     if (type === InstructionType.PSEUDO) {
@@ -68,7 +67,6 @@ export class InstructionParser {
         type: InstructionType.PSEUDO,
         operands: abstractOperands,
         group,
-        indexInGroup,
         shortDescription,
         mappedInstructions,
       });
@@ -84,7 +82,6 @@ export class InstructionParser {
       type: InstructionType.REAL,
       operands: abstractOperands,
       group,
-      indexInGroup,
       shortDescription,
       requiresFlag,
       opcode,

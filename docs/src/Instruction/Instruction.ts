@@ -13,7 +13,6 @@ export default abstract class Instruction {
   private type: InstructionType;
   private operands: Operand[];
   private group: InstructionGroup;
-  private indexInGroup: number;
   private shortDescription: string;
 
   constructor(props: InstructionProperties) {
@@ -22,7 +21,6 @@ export default abstract class Instruction {
     this.type = props.type;
     this.operands = props.operands;
     this.group = props.group;
-    this.indexInGroup = props.indexInGroup;
     this.shortDescription = props.shortDescription;
   }
 
@@ -40,10 +38,6 @@ export default abstract class Instruction {
 
   getGroup(): string {
     return this.group;
-  }
-
-  getIndexInGroup(): number {
-    return this.indexInGroup;
   }
 
   getOperands(): Operand[] {

@@ -10,14 +10,7 @@ async function fillOverviewTables() {
 
   let pseudoInstructions: PSEUDOInstruction[] = [];
 
-  //sort each group by indexInGroup and add to table
-  for (const sameGroupInstructions of Object.values(groupedInstructions)) {
-    //currently for ts only
-    if (!sameGroupInstructions) {
-      continue;
-    }
-
-    sameGroupInstructions.sort((instr1, instr2) => instr1.getIndexInGroup() - instr2.getIndexInGroup()); //sort in ascending alphabetical order
+  for (const sameGroupInstructions of Object.values(groupedInstructions) as Instruction[][]) {
     const group = sameGroupInstructions[0].getGroup();
     const { rows, pseudoInstructionsInGroup } = await createTableRows(sameGroupInstructions);
 

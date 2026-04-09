@@ -156,9 +156,6 @@
               "BR-JMP"
             ]
           },
-          "indexInGroup": {
-            "type": "number"
-          },
           "shortDescription": {
             "type": "string",
             "minLength": 3,
@@ -171,7 +168,6 @@
           "type",
           "operands",
           "group",
-          "indexInGroup",
           "shortDescription"
         ],
         "additionalProperties": false,

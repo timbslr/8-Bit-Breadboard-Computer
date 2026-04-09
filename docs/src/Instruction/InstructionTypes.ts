@@ -13,7 +13,6 @@ export type JSONInstruction = {
   microinstructions?: MicroInstructions;
   mappedInstructions?: string[];
   group: string;
-  indexInGroup: number;
   shortDescription: string;
 };
 
