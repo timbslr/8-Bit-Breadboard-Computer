@@ -8,7 +8,7 @@
 	KEYCODE_BACKSLASH = 0x5C
 	
 START:
-	ld A, KEYCODE_BACKSLASH      ; Optional: show initial prompt
+	li A, KEYCODE_BACKSLASH      ; Optional: show initial prompt
 	call ECHO
 	
 MAIN_LOOP:
@@ -23,7 +23,9 @@ READ_CHAR:
 	jmp MAIN_LOOP
 HANDLE_CHAR:
 	beqi KEYCODE_BACKSPACE, BACKSPACE_HANDLER
+	push A
 	sto A, Y, IN                 ; Store typed char
+	pop A
 	call ECHO                    ; Echo typed char
 	incy                         ; Advance buffer index
 	jmp READ_CHAR
