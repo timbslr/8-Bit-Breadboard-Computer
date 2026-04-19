@@ -18,5 +18,3 @@ rdy_wait:
 	
 end:
 	hlt
-	
-	#include "common.asm"

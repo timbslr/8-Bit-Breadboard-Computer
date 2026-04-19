@@ -52,11 +52,11 @@ loop:
 	mov A, X
 	bgei 14, end
 	ldo B, X, STRING_ADDR
-	call print_char
+	call lcd_print_char
 	incx
 	jmp loop
 	
 end:
 	hlt
 	
-	#include "common.asm"
+	#include ".\\lib\\lcd.asm"

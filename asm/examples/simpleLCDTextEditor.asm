@@ -1,11 +1,11 @@
-	; * 
+	;* 
 	This is a simple text - editor program for the lcd that uses the serial interface receiver for text input
-Besides the standard ASCII - characters, the following special keys have been implemented:
- - Backspace: Deletes the last character
- - Enter: toggles between the two rows
- - Tab: prints two spaces
- - Escape: clears the screen
-	 *                           ;
+	Besides the standard ASCII - characters, the following special keys have been implemented:
+		- Backspace: Deletes the last character
+		- Enter: toggles between the two rows
+		- Tab: prints two spaces
+		- Escape: clears the screen
+	*;
 	
 	#include "rules.asm"
 	
@@ -47,8 +47,8 @@ else:
 not_enter:
 	bnei KEYCODE_TAB, not_tab
 	li B, 0x20                   ; space
-	call print_char              ; tab = 2 spaces
-	call print_char
+	call lcd_print_char          ; tab = 2 spaces
+	call lcd_print_char
 	jmp loop
 	
 not_tab:
@@ -59,9 +59,9 @@ not_tab:
 	
 not_esc:
 	mov B, A                     ; print_char needs the value to be in the B - Register
-	call print_char
+	call lcd_print_char
 	jmp loop
 	
 	hlt
-	
-	#include "common.asm"
+
+#include ".\\lib\\lcd.asm"

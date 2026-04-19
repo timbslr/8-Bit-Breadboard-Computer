@@ -79,6 +79,16 @@ NEXTCHAR:
 	bnei KEYCODE_CR, NOTCR       ; Was the Key equal to Enter? No
 	
 	; enter was pressed and the command should be executed. By now, all typed characters are in the text buffer (IN)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	li Y, 0xFF                   ; Reset text index. (its incremented a few lines below, so it effectively initializes to 0)
 	
 	; Initialize A and X register to zero
@@ -89,7 +99,7 @@ SETBLOCK:
 	shl
 	
 SETSTOR:
-	shl                          ; Leaves $74 if setting STOR mode. (turns 3A (the character value of a colon into 74))
+	shl                          ; Leaves $74 if setting STOR mode. (turns 3A (the character value of a colon) into 74))
 	st A, MODE                   ; $00 = XAM, $74 = STOR, $B8 = BLOK XAM.
 	
 BLANK_SKIP:
