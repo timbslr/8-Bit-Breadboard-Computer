@@ -418,13 +418,13 @@
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_A", "IE_MAR_H"],
-        ["OE_TMP", "IE_MAR_L"],
+        ["OE_X", "IE_MAR_H"],
+        ["OE_Y", "IE_MAR_L"],
         ["MEM_EN_IO", "IE_<reg>"],
         ["RSC"]
       ],
       "group": "REG-MEM",
-      "shortDescription": "<reg> = mem[A << 8 | TMP]"
+      "shortDescription": "<reg> = mem[X << 8 | Y]"
     },
     {
       "name": "load stack-pointer relative",
@@ -549,19 +549,19 @@
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_A", "IE_MAR_H"],
-        ["OE_TMP", "IE_MAR_L"],
+        ["OE_X", "IE_MAR_H"],
+        ["OE_Y", "IE_MAR_L"],
         ["MEM_EN_IO", "MEM_WE", "OE_<reg>"],
         ["RSC"]
       ],
       "group": "REG-MEM",
-      "shortDescription": "mem[A << 8 | TMP] = <reg>"
+      "shortDescription": "mem[X << 8 | Y] = <reg>"
     },
     {
       "name": "store stack-pointer relative",
       "mnemonic": "stsprel",
       "type": "REAL",
-      "operands": ["reg", "addr"],
+      "operands": ["reg", "imm"],
       "requiresFlag": true,
       "opcode": "01011RRR",
       "microinstructions": {
@@ -871,7 +871,7 @@
       "shortDescription": "LCD[<lcdreg>] = <imm>"
     },
     {
-      "name": "lcd read into A-Register",
+      "name": "lcd read into A-Register", // TODO read into any register possible?
       "mnemonic": "lcdrda",
       "type": "REAL",
       "operands": ["lcdreg"],
@@ -1047,12 +1047,12 @@
         ["OE_PC_H", "IE_MAR_H"], //          ──┐
         ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
         ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
-        ["OE_A", "IE_PC_H"], //          ──┐
-        ["OE_TMP", "IE_PC_L"], //        ──┴──> Set PC to values in A- and TMP-Register (high and low address byte)
+        ["OE_X", "IE_PC_H"], //          ──┐
+        ["OE_Y", "IE_PC_L"], //          ──┴──> Set PC to values in X- and Y-Register (high and low address byte)
         ["RSC"]
       ],
       "group": "BR-JMP",
-      "shortDescription": "PC_H = A, PC_L = TMP"
+      "shortDescription": "PC_H = X, PC_L = Y"
     },
     {
       "name": "jump indirect",
