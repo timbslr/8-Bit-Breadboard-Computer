@@ -639,6 +639,28 @@
       "shortDescription": "mem[SP] = <reg>\nSP = SP + 1"
     },
     {
+      "name": "push immediate to stack",
+      "mnemonic": "pushi",
+      "type": "REAL",
+      "operands": ["imm"],
+      "requiresFlag": false,
+      "opcode": "10110111",
+      "microinstructions": [
+        ["OE_PC_H", "IE_MAR_H"], //          ──┐
+        ["OE_PC_L", "IE_MAR_L"], //            ├──> Fetch Opcode
+        ["MEM_EN_IO", "IE_IR", "INC_PC"], // ──┘
+        ["OE_PC_H", "IE_MAR_H"], //           ──┐
+        ["OE_PC_L", "IE_MAR_L"], //             ├──> Fetch operand (= immediate) and move it into the BUF-Register
+        ["MEM_EN_IO", "IE_BUF", "INC_PC"], // ──┘
+        ["OE_SP_H", "IE_MAR_H"], // ──┬──> Move SP into MAR
+        ["OE_SP_L", "IE_MAR_L"], // ──┘
+        ["MEM_EN_IO", "MEM_WE", "OE_BUF", "INC_SP"], //store value from BUF into memory at address of SP, increment SP
+        ["RSC"]
+      ],
+      "group": "REG-MEM",
+      "shortDescription": "mem[SP] = <imm>\nSP = SP + 1"
+    },
+    {
       "name": "pop from stack",
       "mnemonic": "pop",
       "type": "REAL",
@@ -980,14 +1002,12 @@
       "type": "PSEUDO",
       "operands": ["addr"],
       "mappedInstructions": [
-        "li TMP, nextInstructionAddress[15:8]",
-        "push TMP",
-        "li TMP, nextInstructionAddress[7:0]",
-        "push TMP",
+        "pushi nextInstructionAddress[15:8]",
+        "pushi nextInstructionAddress[7:0]",
         "jmp {addr}"
       ],
       "group": "SYS",
-      "shortDescription": "push(PC+1), PC = addr"
+      "shortDescription": "push(retAddr), PC = addr"
     },
     {
       "name": "return from subroutine",

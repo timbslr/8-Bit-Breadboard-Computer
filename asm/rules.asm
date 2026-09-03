@@ -121,9 +121,10 @@
 	st {reg: register}, {addr: u16}                           => 0b00011 @ reg @ le(addr)
 	sto {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0100 @ reg @ idxreg @ le(addr)
 	stindr {reg: register}                                    => 0b11111 @ reg
-	stsprel {reg: register}, {addr: u16}                      => 0b01011 @ reg @ le(addr)
+	stsprel {reg: register}, {imm: i8}                        => 0b01011 @ reg @ imm
 	li {reg: register}, {imm: i8}                             => 0b01101 @ reg @ imm
 	push {reg: register}                                      => 0b10010 @ reg
+	pushi {imm: i8}                                           => 0b10110111 @ imm
 	pop {reg: register}                                       => 0b10100 @ reg
 	peek {reg: register}                                      => 0b10110 @ reg
 	incx                                                      => 0b01100100
@@ -146,10 +147,8 @@
 	hlt                                                       => 0b00000001
 	call {addr: u16}                                          => 
 		asm{
-			li TMP, nextInstructionAddress[15:8]
-			push TMP
-			li TMP, nextInstructionAddress[7:0]
-			push TMP
+			pushi nextInstructionAddress[15:8]
+			pushi nextInstructionAddress[7:0]
 			jmp {addr}
 			nextInstructionAddress:
 		}
