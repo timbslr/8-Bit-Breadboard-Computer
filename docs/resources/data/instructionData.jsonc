@@ -427,8 +427,8 @@
       "shortDescription": "<reg> = mem[X << 8 | Y]"
     },
     {
-      "name": "load stack-pointer relative",
-      "mnemonic": "ldsprel",
+      "name": "load stack-pointer relative unsigned",
+      "mnemonic": "ldsprelu",
       "type": "REAL",
       "operands": ["reg", "imm"],
       "requiresFlag": true,
@@ -558,8 +558,8 @@
       "shortDescription": "mem[X << 8 | Y] = <reg>"
     },
     {
-      "name": "store stack-pointer relative",
-      "mnemonic": "stsprel",
+      "name": "store stack-pointer relative unsigned",
+      "mnemonic": "stsprelu",
       "type": "REAL",
       "operands": ["reg", "imm"],
       "requiresFlag": true,

@@ -23,7 +23,7 @@ The project uses different colors for wires and LEDs. This makes determining the
 
 |                                       LED/Wire Color                                       | Functionality                                             |
 | :----------------------------------------------------------------------------------------: | :-------------------------------------------------------- |
-| ![Yellow LED Icon]({{ site.baseurl }}/resources/icons/LEDs/yellowLED.svg) <br> 220 &Omega; | 4-Bit value                                               |
+| ![Yellow LED Icon]({{ site.baseurl }}/resources/icons/LEDs/yellowLED.svg) <br> 470 &Omega; | 4-Bit value                                               |
 |   ![Blue LED Icon]({{ site.baseurl }}/resources/icons/LEDs/blueLED.svg) <br> 680 &Omega;   | 8-Bit value, only for the bus                             |
 |    ![Red LED Icon]({{ site.baseurl }}/resources/icons/LEDs/redLED.svg) <br> 470 &Omega;    | 8-Bit value, everything except the bus                    |
 | ![Green LED Icon]({{ site.baseurl }}/resources/icons/LEDs/greenLED.svg) <br> 2200 &Omega;  | 16-Bit value                                              |

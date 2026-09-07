@@ -117,11 +117,11 @@
 	ld {reg: register}, {addr: u16}                           => 0b00010 @ reg @ le(addr)
 	ldo {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0011 @ reg @ idxreg @ le(addr)
 	ldindr {reg: register}                                    => 0b11010 @ reg
-	ldsprel {reg: register}, {imm: i8}                        => 0b01010 @ reg @ imm
+	ldsprelu {reg: register}, {imm: i8}                       => 0b01010 @ reg @ imm
 	st {reg: register}, {addr: u16}                           => 0b00011 @ reg @ le(addr)
 	sto {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0100 @ reg @ idxreg @ le(addr)
 	stindr {reg: register}                                    => 0b11111 @ reg
-	stsprel {reg: register}, {imm: i8}                        => 0b01011 @ reg @ imm
+	stsprelu {reg: register}, {imm: i8}                       => 0b01011 @ reg @ imm
 	li {reg: register}, {imm: i8}                             => 0b01101 @ reg @ imm
 	push {reg: register}                                      => 0b10010 @ reg
 	pushi {imm: i8}                                           => 0b10110111 @ imm
