@@ -36,9 +36,11 @@
 	addi {imm: i8}                                            => asm{ li TMP, {imm} } @ asm{ add }
 	addc                                                      => 0b00100100
 	addci {imm: i8}                                           => asm{ li TMP, {imm} } @ asm{ addc }
+	addispu {imm: i8}                                         => 0b00111111 @ imm
 	sub                                                       => 0b11000101
 	subc                                                      => 0b00100101
 	subci {imm: i8}                                           => asm{ li TMP, {imm} } @ asm{ subc }
+	subispu {imm: i8}                                         => 0b01001111 @ imm
 	and                                                       => 0b11100010
 	andi {imm: i8}                                            => asm{ li TMP, {imm} } @ asm{ and }
 	or                                                        => 0b11100011

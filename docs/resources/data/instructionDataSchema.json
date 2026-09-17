@@ -11,6 +11,8 @@
         "IE_<regd>",
         "IE_MAR_L",
         "IE_MAR_H",
+        "IE_SP_L",
+        "IE_SP_H",
         "IE_PC_L",
         "OE_PC_L",
         "IE_PC_H",
