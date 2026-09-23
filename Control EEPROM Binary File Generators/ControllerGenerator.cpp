@@ -159,7 +159,7 @@ int main() {
 }
 
 void loadInstructions(const char* fileName) {
-  std::fill(&instructions[0][0][0], (&instructions[0][0][0]) + 2 * 256 * 16, defaultPattern); //initialize every entry of instructions to defaultPattern
+  std::fill(&instructions[0][0][0], (&instructions[0][0][0]) + 2 * 256 * 16, defaultPattern ^ controlSignalBitMasks.at("HALT")); // activate HLT by default unless overwritten => invalid opcodes cause a halt
 
   std::ifstream jsonFile(fileName);
   json instructionsJsonArray = json::parse(jsonFile, nullptr, true, true)["instructions"];

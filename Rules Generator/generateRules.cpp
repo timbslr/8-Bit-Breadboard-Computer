@@ -215,7 +215,7 @@ vector<string> generateRightSideOperands(string opcode, vector<string> operands)
   //append rest of operands
   for(int i = currentOperandIndex; i < operands.size(); i++) {
     string operand = operands[i];
-    rightSideOperands.push_back(operand == "addr" ? "le(addr)" : operand);
+    rightSideOperands.push_back(operand == "addr" ? "$le(addr)" : operand);
   }
 
   return rightSideOperands;

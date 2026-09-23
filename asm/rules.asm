@@ -3,7 +3,7 @@
   #addr_end 0x8000 ;end is exclusive
   #outp 0
   #bits 8 ;8-Bit CPU
-  #fill
+  ; #fill
 }
 
 #bankdef RAM {
@@ -116,12 +116,12 @@
 			) :
 			assert(false, "Invalid mov combination found!")
 		}
-	ld {reg: register}, {addr: u16}                           => 0b00010 @ reg @ le(addr)
-	ldo {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0011 @ reg @ idxreg @ le(addr)
+	ld {reg: register}, {addr: u16}                           => 0b00010 @ reg @ $le(addr)
+	ldo {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0011 @ reg @ idxreg @ $le(addr)
 	ldindr {reg: register}                                    => 0b11010 @ reg
 	ldsprelu {reg: register}, {imm: i8}                       => 0b01010 @ reg @ imm
-	st {reg: register}, {addr: u16}                           => 0b00011 @ reg @ le(addr)
-	sto {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0100 @ reg @ idxreg @ le(addr)
+	st {reg: register}, {addr: u16}                           => 0b00011 @ reg @ $le(addr)
+	sto {reg: register}, {idxreg: idxregister}, {addr: u16}   => 0b0100 @ reg @ idxreg @ $le(addr)
 	stindr {reg: register}                                    => 0b11111 @ reg
 	stsprelu {reg: register}, {imm: i8}                       => 0b01011 @ reg @ imm
 	li {reg: register}, {imm: i8}                             => 0b01101 @ reg @ imm
@@ -155,41 +155,41 @@
 			nextInstructionAddress:
 		}
 	ret                                                       => 0b00000111
-	jmp {addr: u16}                                           => 0b00000101 @ le(addr)
+	jmp {addr: u16}                                           => 0b00000101 @ $le(addr)
 	jmpr                                                      => 0b00000110
-	jmpind {addr: u16}                                        => 0b00100110 @ le(addr)
-	beq {addr: u16}                                           => 0b00001010 @ le(addr)
+	jmpind {addr: u16}                                        => 0b00100110 @ $le(addr)
+	beq {addr: u16}                                           => 0b00001010 @ $le(addr)
 	beqi {imm: i8}, {addr: u16}                               => asm{ li TMP, {imm} } @ asm{ beq {addr} }
-	bne {addr: u16}                                           => 0b00001011 @ le(addr)
+	bne {addr: u16}                                           => 0b00001011 @ $le(addr)
 	bnei {imm: i8}, {addr: u16}                               => asm{ li TMP, {imm} } @ asm{ bne {addr} }
-	blt {addr: u16}                                           => 0b10010110 @ le(addr)
+	blt {addr: u16}                                           => 0b10010110 @ $le(addr)
 	blti {imm: i8}, {addr: u16}                               => asm{ li TMP, {imm} } @ asm{ blt {addr} }
-	bltu {addr: u16}                                          => 0b00100010 @ le(addr)
+	bltu {addr: u16}                                          => 0b00100010 @ $le(addr)
 	bltiu {imm: i8}, {addr: u16}                              => asm{ li TMP, {imm} } @ asm{ bltu {addr} }
-	ble {addr: u16}                                           => 0b10100110 @ le(addr)
+	ble {addr: u16}                                           => 0b10100110 @ $le(addr)
 	blei {imm: i8}, {addr: u16}                               => asm{ li TMP, {imm} } @ asm{ ble {addr} }
-	bleu {addr: u16}                                          => 0b11000000 @ le(addr)
+	bleu {addr: u16}                                          => 0b11000000 @ $le(addr)
 	bleiu {imm: i8}, {addr: u16}                              => asm{ li TMP, {imm} } @ asm{ bleu {addr} }
-	bge {addr: u16}                                           => 0b10010111 @ le(addr)
+	bge {addr: u16}                                           => 0b10010111 @ $le(addr)
 	bgei {imm: i8}, {addr: u16}                               => asm{ li TMP, {imm} } @ asm{ bge {addr} }
-	bgeu {addr: u16}                                          => 0b00100011 @ le(addr)
+	bgeu {addr: u16}                                          => 0b00100011 @ $le(addr)
 	bgeiu {imm: i8}, {addr: u16}                              => asm{ li TMP, {imm} } @ asm{ bgeu {addr} }
-	bgt {addr: u16}                                           => 0b10100111 @ le(addr)
+	bgt {addr: u16}                                           => 0b10100111 @ $le(addr)
 	bgti {imm: i8}, {addr: u16}                               => asm{ li TMP, {imm} } @ asm{ bgt {addr} }
-	bgtu {addr: u16}                                          => 0b11000001 @ le(addr)
+	bgtu {addr: u16}                                          => 0b11000001 @ $le(addr)
 	bgtiu {imm: i8}, {addr: u16}                              => asm{ li TMP, {imm} } @ asm{ bgtu {addr} }
-	bzs {addr: u16}                                           => 0b00001000 @ le(addr)
-	bzc {addr: u16}                                           => 0b00001001 @ le(addr)
-	bcs {addr: u16}                                           => 0b00100000 @ le(addr)
-	bcc {addr: u16}                                           => 0b00100001 @ le(addr)
-	bns {addr: u16}                                           => 0b11110101 @ le(addr)
-	bnc {addr: u16}                                           => 0b11110110 @ le(addr)
-	bvs {addr: u16}                                           => 0b01100000 @ le(addr)
-	bvc {addr: u16}                                           => 0b01100001 @ le(addr)
-	brxrdys {addr: u16}                                       => 0b11100000 @ le(addr)
-	brxrdyc {addr: u16}                                       => 0b11100001 @ le(addr)
-	btxrdys {addr: u16}                                       => 0b11101000 @ le(addr)
-	btxrdyc {addr: u16}                                       => 0b11101001 @ le(addr)
+	bzs {addr: u16}                                           => 0b00001000 @ $le(addr)
+	bzc {addr: u16}                                           => 0b00001001 @ $le(addr)
+	bcs {addr: u16}                                           => 0b00100000 @ $le(addr)
+	bcc {addr: u16}                                           => 0b00100001 @ $le(addr)
+	bns {addr: u16}                                           => 0b11110101 @ $le(addr)
+	bnc {addr: u16}                                           => 0b11110110 @ $le(addr)
+	bvs {addr: u16}                                           => 0b01100000 @ $le(addr)
+	bvc {addr: u16}                                           => 0b01100001 @ $le(addr)
+	brxrdys {addr: u16}                                       => 0b11100000 @ $le(addr)
+	brxrdyc {addr: u16}                                       => 0b11100001 @ $le(addr)
+	btxrdys {addr: u16}                                       => 0b11101000 @ $le(addr)
+	btxrdyc {addr: u16}                                       => 0b11101001 @ $le(addr)
 	
 	; Syntactic Sugar Rules:
 	ld {reg: register}, {idxreg: idxregister}[{addr: u16}]    => asm{ ldo {reg}, {idxreg}, {addr} }
