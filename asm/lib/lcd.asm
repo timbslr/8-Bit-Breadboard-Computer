@@ -20,7 +20,6 @@ lcd_wait:
 	; outputs a character stored in the B - Register to the lcd
 lcd_print_char:
 	lcdrda CTRL
-	mov C, A
 	andi %10000000
 	bns lcd_print_char ; waits until the busy flag is zero (inlined lcd_wait for more efficiency)
 	outlcd DATA, B               ; then output the character to the lcd
